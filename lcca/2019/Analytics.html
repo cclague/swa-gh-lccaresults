@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Analytics from 2019-09-01 to 2020-01-26</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="RaceDB: Race Check-in Software">
+<meta name="keywords" content="time trial, road race, cyclocross, mtb, cycling, racing, bicycle, management, software, racedb, crossmgr">
+<meta name="author" content="Edward Sitarski">
+
+
+<script type="text/javascript" src="/lcca/2019/static/js/jquery-2.2.4.min.js"></script>
+
+
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+<link rel="icon" href="/lcca/2019/static/images/RaceDB_32x32.png">
+<link rel="stylesheet" href="/lcca/2019/static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/lcca/2019/static/bootstrap/css/datepicker.css">
+<link rel="stylesheet" href="/lcca/2019/static/bootstrap/css/bootstrap-datetimepicker.min.css">
+
+
+
+
+<style>
+.row { margin: 8px 0px; }
+h2, h3, h4, h5 { margin: 1px; }
+@media print {
+    .page-break-before {page-break-before: always;}
+
+  .nav { display: none !important; }
+  .tab-content > .tab-pane {
+		display: block !important;
+		opacity: 1 !important;
+		visibility: visible !important;
+	}
+  .tab-content > .fade { opacity: 1; }
+
+}
+.table-no-border>thead>tr>th, 
+.table-no-border>tbody>tr>th, 
+.table-no-border>tfoot>tr>th, 
+.table-no-border>thead>tr>td, 
+.table-no-border>tbody>tr>td, 
+.table-no-border>tfoot>tr>td {
+  border-top: none; 
+}
+
+.flag {
+    margin: 3px;
+    padding: 0px;
+    border: 1px solid #CCC;
+}
+
+.is-good::before {
+	content: url(/lcca/2019/static/images/glyphicons_206_ok_2_blue.png);
+}
+.is-bad::before {
+	content: url(/lcca/2019/static/images/glyphicons_207_remove_2_blue.png);
+}
+.is-err::before {
+	content: url(/lcca/2019/static/images/error.png);
+	width:20px; height:20px; 
+}
+.is-warn::before {
+	content: url(/lcca/2019/static/images/warning.png);
+	width:20px; height:20px; 
+}
+.is-finished::before {
+	content: url(/lcca/2019/static/images/finished-flag.png);
+}
+.is-finished-blue::before {
+	content: url(/lcca/2019/static/images/finished-flag-blue.png);
+}
+@media print {
+	a[href]:after {
+	content: none !important;
+	}
+}
+
+	chart-big { min-height: 500px; width: 100%; height: 500px; }
+	chart-small { min-width: 400px; min-height: 300px; width: 400px; height: 300px; }
+
+</style>
+<script type="text/javascript">
+function setRowSorter( className, sId ) {
+	$('#'+sId).rowSorter({
+		
+		// if new_index === old_index, this function won't be called.
+		onDrop: function(tbody, row, new_index, old_index) {
+			window.location = "./Resequence_" + className + "_Class/" + row.id + "/" + new_index + "/";
+		},
+		
+		// if new_index === old_index, this function will be called.
+		onDragEnd: function(tbody, row, current_index) {
+			window.location = "./" + className + "Edit/" + row.id + "/";
+		}
+	});
+}
+
+function skip_back() {
+	var components = window.location.href.split( '/' );
+	while( components.length > 0 && !components[components.length-1] )
+		components.pop();		// Remove training slashes.
+	while( components.length > 0 ) {
+		if( !/^[0-9]+$/.test(components[components.length-1]) ) {
+			components.pop();	// Skip url function name.
+			break;
+		}
+		components.pop();		// Skip parameter.
+	}
+	components.push( '' );		// Ensure there is a trailing slash.
+	window.location.href = components.join('/');
+}
+
+
+var payload = {"discipline_total":1054,"prereg_participants_total":4256,"attendees_men_total":3925,"category_average_max":[["V40M (Men)",73.28571428571429,96],["SenM (Men)",55.357142857142854,87],["V50M (Men)",50.0,64],["YAM (Men)",26.357142857142858,34],["U10M (Men)",18.214285714285715,29],["U12M (Men)",17.428571428571427,26],["YBM (Men)",17.357142857142858,24],["JunM (Men)",11.214285714285714,20],["V40F (Women)",12.071428571428571,20],["SenF (Women)",9.571428571428571,19],["U12F (Women)",8.0,13],["V60M (Men)",7.571428571428571,12],["V50F (Women)",8.357142857142858,11],["U10F (Women)",7.0,11],["YBF (Women)",7.428571428571429,11],["YAF (Women)",4.571428571428571,9],["U23M (Men)",3.5714285714285716,6],["U23F (Women)",1.8571428571428572,3],["JunF (Women)",1.9285714285714286,3]],"discipline_age":[["Discipline","0-4","5-9","10-14","15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64","65-69","70-74","75-79","80-84","85-89","90-94","95-99","100-104","105-109","110-114","115-119"],["Cyclocross",{"f":"100.00%","v":100.0},{"f":"100.00%","v":100.0},{"f":"100.00%","v":100.0},{"f":"100.00%","v":100.0},{"f":"100.00%","v":100.0},{"f":"100.00%","v":100.0},{"f":"100.00%","v":100.0},{"f":"100.00%","v":100.0},{"f":"100.00%","v":100.0},{"f":"100.00%","v":100.0},{"f":"100.00%","v":100.0},{"f":"100.00%","v":100.0},{"f":"100.00%","v":100.0},{"f":"100.00%","v":100.0},{"f":"0.00%","v":0.0},{"f":"0.00%","v":0.0},{"f":"0.00%","v":0.0},{"f":"0.00%","v":0.0},{"f":"0.00%","v":0.0},{"f":"0.00%","v":0.0},{"f":"0.00%","v":0.0},{"f":"0.00%","v":0.0},{"f":"0.00%","v":0.0},{"f":"100.00%","v":100.0}]],"attendees_total":4776,"event_competition_count":[["Competition","1","2","3","4"],["Round01 - U10, U12, Youth",{"f":"Under 10s: 23 / 98 (23.47%)","v":23},{"f":"Under 12s: 23 / 98 (23.47%)","v":23},{"f":"Youth A B: 52 / 98 (53.06%)","v":52},0],["Round01 - Jun, Sen, V40, V50",{"f":"Juniors and Vet40-49: 112 / 283 (39.58%)","v":112},{"f":"Vet50 Men, and all Women cats: 105 / 283 (37.10%)","v":105},{"f":"Senior Men: 66 / 283 (23.32%)","v":66},0],["Round02 - U10, U12, Youth",{"f":"Under 10s: 24 / 126 (19.05%)","v":24},{"f":"Under 12s: 32 / 126 (25.40%)","v":32},{"f":"Youth A B: 70 / 126 (55.56%)","v":70},0],["Round02 - Jun, Sen, V40, V50",{"f":"Juniors and Vet40-49: 112 / 296 (37.84%)","v":112},{"f":"Vet50 Men, and all Women cats: 92 / 296 (31.08%)","v":92},{"f":"Senior Men: 92 / 296 (31.08%)","v":92},0],["Round03 - U10, U12, Youth",{"f":"Under 10s: 25 / 106 (23.58%)","v":25},{"f":"Under 12s: 20 / 106 (18.87%)","v":20},{"f":"Youth A B: 61 / 106 (57.55%)","v":61},0],["Round03 - Jun, Sen, V40, V50",{"f":"Juniors and Vet40-49: 71 / 197 (36.04%)","v":71},{"f":"Vet50 Men, and all Women cats: 78 / 197 (39.59%)","v":78},{"f":"Senior Men: 48 / 197 (24.37%)","v":48},0],["Round04 - U10, U12, Youth",{"f":"Under 10s: 28 / 131 (21.37%)","v":28},{"f":"Under 12s: 31 / 131 (23.66%)","v":31},{"f":"Youth A B: 72 / 131 (54.96%)","v":72},0],["Round04 - Jun, Sen, V40, V50",{"f":"Juniors and Vet40-49: 85 / 241 (35.27%)","v":85},{"f":"Vet50 Men, and all Women cats: 96 / 241 (39.83%)","v":96},{"f":"Senior Men: 60 / 241 (24.90%)","v":60},0],["Round05 - U10, U12, Youth",{"f":"Under 10s: 22 / 87 (25.29%)","v":22},{"f":"Under 12s: 23 / 87 (26.44%)","v":23},{"f":"Youth A B: 42 / 87 (48.28%)","v":42},0],["Round05 - Jun, Sen, V40, V50",{"f":"Juniors and Vet40-49: 86 / 216 (39.81%)","v":86},{"f":"Vet50 Men, and all Women cats: 78 / 216 (36.11%)","v":78},{"f":"Senior Men: 52 / 216 (24.07%)","v":52},0],["Round06 - U10, U12, Youth",{"f":"Under 10s: 40 / 148 (27.03%)","v":40},{"f":"Under 12s: 36 / 148 (24.32%)","v":36},{"f":"Youth A B: 72 / 148 (48.65%)","v":72},0],["Round06 - Jun, Sen, V40, V50",{"f":"Juniors and Vet40-49: 99 / 301 (32.89%)","v":99},{"f":"Women: 55 / 301 (18.27%)","v":55},{"f":"V50M, V60M: 62 / 301 (20.60%)","v":62},{"f":"Senior Men: 85 / 301 (28.24%)","v":85}],["Round07 - U10, U12, Youth",{"f":"Under 10s: 25 / 100 (25.00%)","v":25},{"f":"Under 12s: 24 / 100 (24.00%)","v":24},{"f":"Youth A B: 51 / 100 (51.00%)","v":51},0],["Round07 - Jun, Sen, V40, V50",{"f":"Juniors and Vet40-49: 85 / 250 (34.00%)","v":85},{"f":"Women: 44 / 250 (17.60%)","v":44},{"f":"V50M - V60M: 59 / 250 (23.60%)","v":59},{"f":"Senior Men: 62 / 250 (24.80%)","v":62}],["Round08 - U10, U12, Youth",{"f":"Under 10s: 26 / 110 (23.64%)","v":26},{"f":"Under 12s: 24 / 110 (21.82%)","v":24},{"f":"Youth A B: 60 / 110 (54.55%)","v":60},0],["Round08 - Jun, Sen, V40, V50",{"f":"Juniors and Vet40-49: 96 / 261 (36.78%)","v":96},{"f":"Vet50 Men, and all Women cats: 96 / 261 (36.78%)","v":96},{"f":"Senior Men: 69 / 261 (26.44%)","v":69},0],["Round09 - U10, U12, Youth",{"f":"Under 10s: 25 / 99 (25.25%)","v":25},{"f":"Under 12s: 24 / 99 (24.24%)","v":24},{"f":"Youth A B: 50 / 99 (50.51%)","v":50},0],["Round09 - Jun, Sen, V40, V50",{"f":"Juniors and Vet40-49: 76 / 222 (34.23%)","v":76},{"f":"Vet50 Men, and all Women cats: 98 / 222 (44.14%)","v":98},{"f":"Senior Men: 48 / 222 (21.62%)","v":48},0],["Round10 - U10, U12, Youth",{"f":"Under 10s: 30 / 112 (26.79%)","v":30},{"f":"Under 12s: 25 / 112 (22.32%)","v":25},{"f":"Youth A B: 57 / 112 (50.89%)","v":57},0],["Round10 - Jun, Sen, V40, V50",{"f":"Juniors and Vet40-49: 85 / 211 (40.28%)","v":85},{"f":"Vet50 Men, and all Women cats: 79 / 211 (37.44%)","v":79},{"f":"Senior Men: 47 / 211 (22.27%)","v":47},0],["Champ19 - U10, U12, Youth",{"f":"Under 10s: 20 / 102 (19.61%)","v":20},{"f":"Under 12s: 27 / 102 (26.47%)","v":27},{"f":"Youth A B: 55 / 102 (53.92%)","v":55},0],["Champ19 - Jun, Sen, V40, V50",{"f":"Juniors and Vet40-49: 65 / 195 (33.33%)","v":65},{"f":"All Women cats: 32 / 195 (16.41%)","v":32},{"f":"Vet 50 Men and Vet 60 Men: 45 / 195 (23.08%)","v":45},{"f":"Senior Men: 53 / 195 (27.18%)","v":53}],["Round11 - U10, U12, Youth",{"f":"Under 10s: 21 / 95 (22.11%)","v":21},{"f":"Under 12s: 26 / 95 (27.37%)","v":26},{"f":"Youth A B: 48 / 95 (50.53%)","v":48},0],["Round11 - Jun, Sen, V40, V50",{"f":"Juniors and Vet40-49: 67 / 196 (34.18%)","v":67},{"f":"Vet50 Men, and all Women cats: 83 / 196 (42.35%)","v":83},{"f":"Senior Men: 46 / 196 (23.47%)","v":46},0],["Round12 - U10, U12, Youth",{"f":"Under 10s: 21 / 89 (23.60%)","v":21},{"f":"Under 12s: 22 / 89 (24.72%)","v":22},{"f":"Youth A B: 46 / 89 (51.69%)","v":46},0],["Round12 - Jun, Sen, V40, V50",{"f":"Juniors and Vet40-49: 76 / 212 (35.85%)","v":76},{"f":"Vet50 Men, and all Women cats: 94 / 212 (44.34%)","v":94},{"f":"Senior Men: 42 / 212 (19.81%)","v":42},0],["Round13 - U10, U12, Youth",{"f":"Under 10s: 23 / 86 (26.74%)","v":23},{"f":"Under 12s: 19 / 86 (22.09%)","v":19},{"f":"Youth A B: 44 / 86 (51.16%)","v":44},0],["Round13 - Jun, Sen, V40, V50",{"f":"Juniors and Vet40-49: 68 / 206 (33.01%)","v":68},{"f":"Vet50 Men, and all Women cats: 83 / 206 (40.29%)","v":83},{"f":"Senior Men: 55 / 206 (26.70%)","v":55},0]],"age_range_average":[5.0,4.160493827160494,5.392857142857143,4.609523809523809,3.051282051282051,2.4098360655737703,3.247311827956989,3.4375,3.952755905511811,4.833333333333333,4.440366972477064,4.333333333333333,5.315789473684211,2.0,0,0,0,0,0,0,0,0,0,1.0],"profile_year":2020,"category_total_women":[["Category","Total","Cumulative %"],["V40F",169,19.858989424206815],["SenF",134,35.60517038777908],["V50F",117,49.35370152761457],["U12F",112,62.51468860164512],["YBF",104,74.73560517038777],["U10F",98,86.25146886016451],["YAF",64,93.77203290246769],["JunF",27,96.94477085781433],["U23F",26,100.0]],"category_total_open":[["Category","Total","Cumulative %"]],"postal_code_data":[["/All/C/CM/CM1/CM13",1],["/All/D/DA/DA4/DA49",1],["/All/S/SM/SM4/SM44",1],["/All/Unknown",558],["/All/M/ME/ME2/ME24",2],["/All/R/RH/RH6/RH69",1],["/All/H/HA/HA7/HA72",1],["/All/T/TN/TN3/TN39",1],["/All/S/SM/SM6/SM69",1],["/All/E/E1/E14/E146",1],["/All/T/TN/TN3/TN32",2],["/All/E/E1/E14/E144",2],["/All/T/TN/TN3/TN37",2],["/All/E/E1/E14/E143",1],["/All/T/TN/TN3/TN35",1],["/All/N/N8/N88/N88L",1],["/All/C/CT/CT2/CT20",4],["/All/R/RH/RH2/RH28",1],["/All/S/SM/SM1/SM12",1],["/All/E/E5/E58/E58Q",1],["/All/B/BR/BR3/BR35",2],["/All/R/RH/RH2/RH27",1],["/All/R/RH/RH2/RH20",2],["/All/S/SE/SE5/SE57",1],["/All/E/E7/E79/E79E",1],["/All/K/KT/KT3/KT35",1],["/All/B/BN/BN6/BN68",2],["/All/S/SO/SO1/SO14",1],["/All/E/E8/E84/E84J",1],["/All/N/N8/N88/N88P",1],["/All/S/SE/SE5/SE58",6],["/All/D/DA/DA3/DA38",1],["/All/S/SE/SE8/SE84",1],["/All/D/DA/DA1/DA13",4],["/All/N/N1/N16/N167",1],["/All/E/EN/EN2/EN26",1],["/All/E/E4/E46/E46X",1],["/All/S/SM/SM5/SM54",1],["/All/S/SM/SM5/SM53",1],["/All/S/SM/SM5/SM52",2],["/All/S/SM/SM5/SM51",1],["/All/B/BN/BN8/BN84",3],["/All/B/BN/BN8/BN85",1],["/All/C/CT/CT6/CT65",1],["/All/G/GU/GU2/GU21",1],["/All/E/E4/E49/E49R",1],["/All/B/BR/BR1/BR14",3],["/All/E/E1/E15/E154",1],["/All/S/SW/SW8/SW82",1],["/All/S/SW/SW8/SW83",1],["/All/G/GU/GU2/GU24",2],["/All/C/CR/CR3/CR30",1],["/All/S/SE/SE6/SE62",1],["/All/T/TN/TN1/TN15",1],["/All/K/KT/KT2/KT20",1],["/All/S/SE/SE6/SE64",1],["/All/K/KT/KT2/KT24",1],["/All/B/BN/BN7/BN71",1],["/All/B/BN/BN7/BN73",1],["/All/B/BN/BN7/BN72",1],["/All/S/SW/SW1/SW15",1],["/All/S/SW/SW1/SW14",3],["/All/S/SW/SW1/SW17",3],["/All/S/SW/SW1/SW16",8],["/All/S/SW/SW1/SW11",2],["/All/T/TN/TN1/TN17",2],["/All/B/BN/BN1/BN18",2],["/All/B/BN/BN1/BN17",4],["/All/B/BN/BN1/BN16",7],["/All/S/SM/SM6/SM60",1],["/All/B/BN/BN1/BN14",4],["/All/S/SW/SW1/SW19",5],["/All/B/BN/BN1/BN12",1],["/All/B/BN/BN1/BN11",4],["/All/B/BN/BN1/BN10",3],["/All/C/CT/CT5/CT51",2],["/All/B/BN/BN9/BN90",1],["/All/S/SW/SW2/SW22",1],["/All/B/BR/BR2/BR27",1],["/All/N/N9/N97/N97A",1],["/All/S/SW/SW1/SW12",1],["/All/C/CT/CT3/CT32",1],["/All/B/BR/BR2/BR20",1],["/All/S/SW/SW9/SW97",2],["/All/W/W4/W43/W43H",1],["/All/W/W4/W43/W43T",1],["/All/S/SE/SE6/SE61",1],["/All/E/E1/E17/E17T",1],["/All/K/KT/KT1/KT18",6],["/All/K/KT/KT1/KT19",4],["/All/D/DE/DE4/DE43",1],["/All/K/KT/KT1/KT12",5],["/All/B/BN/BN2/BN28",3],["/All/B/BN/BN2/BN29",1],["/All/I/IP/IP2/IP28",1],["/All/M/ME/ME9/ME98",1],["/All/B/BN/BN2/BN23",1],["/All/B/BN/BN2/BN20",5],["/All/B/BN/BN2/BN21",2],["/All/B/BN/BN2/BN26",1],["/All/B/BN/BN2/BN27",1],["/All/B/BN/BN2/BN24",1],["/All/S/SL/SL7/SL73",1],["/All/R/RH/RH1/RH15",1],["/All/C/CR/CR0/CR06",3],["/All/R/RH/RH1/RH17",2],["/All/R/RH/RH1/RH16",18],["/All/R/RH/RH1/RH11",6],["/All/R/RH/RH1/RH10",4],["/All/R/RH/RH1/RH13",3],["/All/R/RH/RH1/RH12",2],["/All/G/GL/GL1/GL12",1],["/All/S/SW/SW2/SW23",1],["/All/C/CT/CT4/CT46",1],["/All/R/RH/RH1/RH19",3],["/All/B/BR/BR3/BR34",3],["/All/N/N2/N21/N211",1],["/All/M/ME/ME8/ME88",1],["/All/C/CR/CR5/CR53",1],["/All/C/CR/CR0/CR05",1],["/All/W/W1/W12/W129",1],["/All/T/TN/TN9/TN91",1],["/All/N/N1/N10/N103",1],["/All/T/TN/TN9/TN92",2],["/All/S/SE/SE8/SE85",1],["/All/T/TN/TN1/TN11",2],["/All/R/RG/RG4/RG48",1],["/All/B/BR/BR4/BR40",1],["/All/K/KT/KT6/KT65",3],["/All/K/KT/KT6/KT64",1],["/All/S/SM/SM6/SM68",1],["/All/C/CT/CT2/CT21",1],["/All/E/E5/E50/E50Q",1],["/All/S/SE/SE9/SE93",2],["/All/P/PO/PO3/PO36",1],["/All/S/SE/SE9/SE91",1],["/All/T/TN/TN1/TN12",2],["/All/C/CR/CR3/CR35",2],["/All/P/PO/PO2/PO20",4],["/All/I/IG/IG1/IG11",1],["/All/K/KT/KT4/KT48",1],["/All/C/CT/CT3/CT31",3],["/All/S/SM/SM3/SM39",2],["/All/G/GU/GU1/GU14",2],["/All/G/GU/GU1/GU11",1],["/All/M/ME/ME1/ME10",4],["/All/T/TN/TN2/TN24",5],["/All/T/TN/TN1/TN16",2],["/All/N/N6/N64/N64H",1],["/All/M/ME/ME9/ME97",1],["/All/D/DA/DA1/DA16",2],["/All/D/DA/DA1/DA17",1],["/All/S/SE/SE1/SE19",6],["/All/S/SE/SE1/SE18",1],["/All/D/DA/DA1/DA12",3],["/All/M/ME/ME1/ME14",3],["/All/M/ME/ME1/ME17",4],["/All/M/ME/ME1/ME16",1],["/All/M/ME/ME1/ME19",4],["/All/S/SE/SE1/SE12",1],["/All/N/NR/NR1/NR15",1],["/All/T/TN/TN2/TN27",3],["/All/S/SE/SE1/SE17",2],["/All/B/BN/BN1/BN15",3],["/All/S/SE/SE1/SE15",6],["/All/S/SE/SE1/SE14",4],["/All/D/DA/DA7/DA74",2],["/All/D/DA/DA7/DA75",1],["/All/D/DA/DA7/DA76",2],["/All/K/KT/KT3/KT36",1],["/All/S/SW/SW4/SW46",1],["/All/B/BN/BN1/BN13",1],["/All/B/BN/BN6/BN69",2],["/All/C/CM/CM3/CM34",1],["/All/S/SW/SW1/SW18",3],["/All/E/E1/E11/E114",1],["/All/E/E1/E11/E111",3],["/All/E/E1/E11/E11P",1],["/All/E/E1/E11/E113",3],["/All/T/TN/TN4/TN48",3],["/All/T/TN/TN4/TN49",4],["/All/S/SS/SS1/SS17",1],["/All/S/SE/SE2/SE26",3],["/All/S/SE/SE2/SE27",3],["/All/S/SE/SE2/SE24",3],["/All/S/SE/SE2/SE25",1],["/All/S/SE/SE2/SE22",10],["/All/S/SE/SE2/SE23",3],["/All/S/SE/SE2/SE20",4],["/All/S/SE/SE2/SE21",1],["/All/G/GU/GU2/GU29",2],["/All/T/TN/TN2/TN21",1],["/All/B/BR/BR5/BR51",1],["/All/S/SE/SE1/SE16",1],["/All/E/EC/EC3/EC3A",1],["/All/B/BN/BN3/BN36",3],["/All/B/BN/BN3/BN31",2],["/All/B/BN/BN3/BN33",1],["/All/B/BN/BN3/BN32",1],["/All/C/CV/CV3/CV37",1],["/All/B/BR/BR8/BR87",2],["/All/B/BN/BN3/BN38",3],["/All/S/SE/SE1/SE13",2],["/All/C/CT/CT1/CT16",1],["/All/C/CT/CT1/CT17",1],["/All/C/CT/CT1/CT14",1],["/All/S/SO/SO3/SO32",2],["/All/S/SO/SO3/SO30",1],["/All/R/RM/RM1/RM11",1],["/All/C/CT/CT1/CT18",1],["/All/C/CT/CT1/CT19",1],["/All/N/N4/N41/N41S",1],["/All/B/BR/BR8/BR88",1],["/All/T/TW/TW1/TW12",1],["/All/T/TN/TN5/TN57",3],["/All/T/TN/TN5/TN56",1],["/All/D/DA/DA1/DA11",1],["/All/B/BR/BR6/BR69",3],["/All/S/SE/SE3/SE38",1],["/All/G/GU/GU6/GU67",1],["/All/B/BR/BR6/BR67",2],["/All/B/BN/BN4/BN41",2],["/All/B/BN/BN4/BN42",2],["/All/B/BN/BN4/BN43",4],["/All/B/BN/BN4/BN44",1],["/All/B/BN/BN4/BN45",1],["/All/S/SW/SW6/SW63",1],["/All/S/SM/SM1/SM14",3],["/All/C/CV/CV2/CV23",1],["/All/E/E9/E96/E96E",1],["/All/A/AL/AL4/AL40",1],["/All/D/DA/DA5/DA52",4],["/All/D/DA/DA5/DA51",3],["/All/E/E5/E59/E59L",1],["/All/E/E5/E59/E59N",1],["/All/B/BR/BR7/BR75",1],["/All/S/SW/SW2/SW24",2],["/All/S/SW/SW2/SW25",2],["/All/E/E1/E17/E179",1],["/All/S/SW/SW2/SW20",1],["/All/T/TN/TN2/TN26",1],["/All/R/RH/RH5/RH56",1],["/All/T/TW/TW1/TW15",1],["/All/T/TW/TW1/TW10",3],["/All/T/TN/TN1/TN13",1],["/All/M/ME/ME1/ME15",3],["/All/S/SE/SE7/SE77",1],["/All/T/TW/TW1/TW18",1],["/All/N/NW/NW1/NW18",1],["/All/S/SM/SM6/SM67",2],["/All/I/IG/IG6/IG61",1],["/All/S/SE/SE4/SE41",3],["/All/S/SE/SE4/SE42",5],["/All/S/SM/SM2/SM26",3],["/All/S/SM/SM2/SM25",1],["/All/T/TW/TW2/TW27",1]],"license_holder_men_profile":[1,6,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,18,18,18,18,18,18,18,18,18,18,18,19,19,19,19,19,19,19,20,20,20,20,20,20,20,21,21,22,23,23,23,23,23,23,24,24,24,24,25,25,25,25,25,25,25,25,25,25,25,25,25,25,26,26,26,26,26,26,26,27,27,27,27,27,27,27,27,27,27,27,28,28,28,28,28,28,28,28,28,28,28,28,28,28,29,29,29,29,29,29,29,29,29,29,30,30,30,30,30,30,30,30,30,30,30,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,33,33,33,33,33,33,33,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,37,37,37,37,37,37,37,37,37,37,37,37,37,37,38,38,38,38,38,38,38,38,38,38,38,38,38,38,39,39,39,39,39,39,39,39,39,39,39,39,39,40,40,40,40,40,40,40,40,40,40,40,40,40,40,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,42,42,42,42,42,42,42,42,42,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,48,48,48,48,48,48,48,48,48,48,48,48,48,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,51,51,51,51,51,51,51,51,51,51,51,51,51,51,51,51,51,52,52,52,52,52,52,52,52,52,52,52,52,52,52,52,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,55,55,55,55,55,55,55,55,55,55,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,57,57,57,57,57,57,57,57,57,57,57,57,57,58,58,58,58,58,58,58,58,58,58,58,58,59,59,59,59,59,59,59,59,59,59,60,60,60,60,60,60,61,61,61,61,61,61,61,62,62,62,62,62,63,64,64,64,65,66,66,67,69,119,119,119,119],"category_competition_count":[["Competition","V40M (Men)","SenM (Men)","V50M (Men)","YAM (Men)","U10M (Men)","U12M (Men)","YBM (Men)","V40F (Women)","JunM (Men)","SenF (Women)","V50F (Women)","U12F (Women)","V60M (Men)","YBF (Women)","U10F (Women)","YAF (Women)","U23M (Men)","JunF (Women)","U23F (Women)"],["Round01 - U10, U12, Youth",0,0,0,{"f":"25 / 98 (25.51%) - Youth A B","v":25},{"f":"14 / 98 (14.29%) - Under 10s","v":14},{"f":"16 / 98 (16.33%) - Under 12s","v":16},{"f":"17 / 98 (17.35%) - Youth A B","v":17},0,0,0,0,{"f":"7 / 98 (7.14%) - Under 12s","v":7},0,{"f":"5 / 98 (5.10%) - Youth A B","v":5},{"f":"9 / 98 (9.18%) - Under 10s","v":9},{"f":"5 / 98 (5.10%) - Youth A B","v":5},0,0,0],["Round01 - Jun, Sen, V40, V50",{"f":"96 / 283 (33.92%) - Juniors and Vet40-49","v":96},{"f":"61 / 283 (21.55%) - Senior Men","v":61},{"f":"64 / 283 (22.61%) - Vet50 Men, and all Women cats","v":64},0,0,0,0,{"f":"12 / 283 (4.24%) - Vet50 Men, and all Women cats","v":12},{"f":"16 / 283 (5.65%) - Juniors and Vet40-49","v":16},{"f":"6 / 283 (2.12%) - Vet50 Men, and all Women cats","v":6},{"f":"10 / 283 (3.53%) - Vet50 Men, and all Women cats","v":10},0,{"f":"11 / 283 (3.89%) - Vet50 Men, and all Women cats","v":11},0,0,0,{"f":"5 / 283 (1.77%) - Senior Men","v":5},{"f":"1 / 283 (0.35%) - Vet50 Men, and all Women cats","v":1},{"f":"1 / 283 (0.35%) - Vet50 Men, and all Women cats","v":1}],["Round02 - U10, U12, Youth",0,0,0,{"f":"30 / 126 (23.81%) - Youth A B","v":30},{"f":"17 / 126 (13.49%) - Under 10s","v":17},{"f":"19 / 126 (15.08%) - Under 12s","v":19},{"f":"20 / 126 (15.87%) - Youth A B","v":20},0,0,0,0,{"f":"13 / 126 (10.32%) - Under 12s","v":13},0,{"f":"11 / 126 (8.73%) - Youth A B","v":11},{"f":"7 / 126 (5.56%) - Under 10s","v":7},{"f":"9 / 126 (7.14%) - Youth A B","v":9},0,0,0],["Round02 - Jun, Sen, V40, V50",{"f":"92 / 296 (31.08%) - Juniors and Vet40-49","v":92},{"f":"87 / 296 (29.39%) - Senior Men","v":87},{"f":"59 / 296 (19.93%) - Vet50 Men, and all Women cats","v":59},0,0,0,0,{"f":"7 / 296 (2.36%) - Vet50 Men, and all Women cats","v":7},{"f":"20 / 296 (6.76%) - Juniors and Vet40-49","v":20},{"f":"12 / 296 (4.05%) - Vet50 Men, and all Women cats","v":12},{"f":"6 / 296 (2.03%) - Vet50 Men, and all Women cats","v":6},0,{"f":"6 / 296 (2.03%) - Vet50 Men, and all Women cats","v":6},0,0,0,{"f":"5 / 296 (1.69%) - Senior Men","v":5},{"f":"1 / 296 (0.34%) - Vet50 Men, and all Women cats","v":1},{"f":"1 / 296 (0.34%) - Vet50 Men, and all Women cats","v":1}],["Round03 - U10, U12, Youth",0,0,0,{"f":"29 / 106 (27.36%) - Youth A B","v":29},{"f":"18 / 106 (16.98%) - Under 10s","v":18},{"f":"15 / 106 (14.15%) - Under 12s","v":15},{"f":"20 / 106 (18.87%) - Youth A B","v":20},0,0,0,0,{"f":"5 / 106 (4.72%) - Under 12s","v":5},0,{"f":"7 / 106 (6.60%) - Youth A B","v":7},{"f":"7 / 106 (6.60%) - Under 10s","v":7},{"f":"5 / 106 (4.72%) - Youth A B","v":5},0,0,0],["Round03 - Jun, Sen, V40, V50",{"f":"63 / 197 (31.98%) - Juniors and Vet40-49","v":63},{"f":"46 / 197 (23.35%) - Senior Men","v":46},{"f":"42 / 197 (21.32%) - Vet50 Men, and all Women cats","v":42},0,0,0,0,{"f":"11 / 197 (5.58%) - Vet50 Men, and all Women cats","v":11},{"f":"8 / 197 (4.06%) - Juniors and Vet40-49","v":8},{"f":"6 / 197 (3.05%) - Vet50 Men, and all Women cats","v":6},{"f":"9 / 197 (4.57%) - Vet50 Men, and all Women cats","v":9},0,{"f":"6 / 197 (3.05%) - Vet50 Men, and all Women cats","v":6},0,0,0,{"f":"2 / 197 (1.02%) - Senior Men","v":2},{"f":"2 / 197 (1.02%) - Vet50 Men, and all Women cats","v":2},{"f":"2 / 197 (1.02%) - Vet50 Men, and all Women cats","v":2}],["Round04 - U10, U12, Youth",0,0,0,{"f":"32 / 131 (24.43%) - Youth A B","v":32},{"f":"20 / 131 (15.27%) - Under 10s","v":20},{"f":"19 / 131 (14.50%) - Under 12s","v":19},{"f":"24 / 131 (18.32%) - Youth A B","v":24},0,0,0,0,{"f":"12 / 131 (9.16%) - Under 12s","v":12},0,{"f":"9 / 131 (6.87%) - Youth A B","v":9},{"f":"8 / 131 (6.11%) - Under 10s","v":8},{"f":"7 / 131 (5.34%) - Youth A B","v":7},0,0,0],["Round04 - Jun, Sen, V40, V50",{"f":"73 / 241 (30.29%) - Juniors and Vet40-49","v":73},{"f":"56 / 241 (23.24%) - Senior Men","v":56},{"f":"56 / 241 (23.24%) - Vet50 Men, and all Women cats","v":56},0,0,0,0,{"f":"14 / 241 (5.81%) - Vet50 Men, and all Women cats","v":14},{"f":"12 / 241 (4.98%) - Juniors and Vet40-49","v":12},{"f":"6 / 241 (2.49%) - Vet50 Men, and all Women cats","v":6},{"f":"6 / 241 (2.49%) - Vet50 Men, and all Women cats","v":6},0,{"f":"8 / 241 (3.32%) - Vet50 Men, and all Women cats","v":8},0,0,0,{"f":"4 / 241 (1.66%) - Senior Men","v":4},{"f":"3 / 241 (1.24%) - Vet50 Men, and all Women cats","v":3},{"f":"3 / 241 (1.24%) - Vet50 Men, and all Women cats","v":3}],["Round05 - U10, U12, Youth",0,0,0,{"f":"21 / 87 (24.14%) - Youth A B","v":21},{"f":"15 / 87 (17.24%) - Under 10s","v":15},{"f":"17 / 87 (19.54%) - Under 12s","v":17},{"f":"14 / 87 (16.09%) - Youth A B","v":14},0,0,0,0,{"f":"6 / 87 (6.90%) - Under 12s","v":6},0,{"f":"5 / 87 (5.75%) - Youth A B","v":5},{"f":"7 / 87 (8.05%) - Under 10s","v":7},{"f":"2 / 87 (2.30%) - Youth A B","v":2},0,0,0],["Round05 - Jun, Sen, V40, V50",{"f":"76 / 216 (35.19%) - Juniors and Vet40-49","v":76},{"f":"51 / 216 (23.61%) - Senior Men","v":51},{"f":"50 / 216 (23.15%) - Vet50 Men, and all Women cats","v":50},0,0,0,0,{"f":"7 / 216 (3.24%) - Vet50 Men, and all Women cats","v":7},{"f":"10 / 216 (4.63%) - Juniors and Vet40-49","v":10},{"f":"6 / 216 (2.78%) - Vet50 Men, and all Women cats","v":6},{"f":"7 / 216 (3.24%) - Vet50 Men, and all Women cats","v":7},0,{"f":"5 / 216 (2.31%) - Vet50 Men, and all Women cats","v":5},0,0,0,{"f":"1 / 216 (0.46%) - Senior Men","v":1},{"f":"2 / 216 (0.93%) - Vet50 Men, and all Women cats","v":2},{"f":"1 / 216 (0.46%) - Vet50 Men, and all Women cats","v":1}],["Round06 - U10, U12, Youth",0,0,0,{"f":"34 / 148 (22.97%) - Youth A B","v":34},{"f":"29 / 148 (19.59%) - Under 10s","v":29},{"f":"26 / 148 (17.57%) - Under 12s","v":26},{"f":"22 / 148 (14.86%) - Youth A B","v":22},0,0,0,0,{"f":"10 / 148 (6.76%) - Under 12s","v":10},0,{"f":"11 / 148 (7.43%) - Youth A B","v":11},{"f":"11 / 148 (7.43%) - Under 10s","v":11},{"f":"5 / 148 (3.38%) - Youth A B","v":5},0,0,0],["Round06 - Jun, Sen, V40, V50",{"f":"86 / 301 (28.57%) - Juniors and Vet40-49","v":86},{"f":"80 / 301 (26.58%) - Senior Men","v":80},{"f":"56 / 301 (18.60%) - V50M, V60M","v":56},0,0,0,0,{"f":"20 / 301 (6.64%) - Women","v":20},{"f":"13 / 301 (4.32%) - Juniors and Vet40-49","v":13},{"f":"19 / 301 (6.31%) - Women","v":19},{"f":"11 / 301 (3.65%) - Women","v":11},0,{"f":"6 / 301 (1.99%) - V50M, V60M","v":6},0,0,0,{"f":"5 / 301 (1.66%) - Senior Men","v":5},{"f":"3 / 301 (1.00%) - Women","v":3},{"f":"2 / 301 (0.66%) - Women","v":2}],["Round07 - U10, U12, Youth",0,0,0,{"f":"26 / 100 (26.00%) - Youth A B","v":26},{"f":"18 / 100 (18.00%) - Under 10s","v":18},{"f":"20 / 100 (20.00%) - Under 12s","v":20},{"f":"16 / 100 (16.00%) - Youth A B","v":16},0,0,0,0,{"f":"4 / 100 (4.00%) - Under 12s","v":4},0,{"f":"6 / 100 (6.00%) - Youth A B","v":6},{"f":"7 / 100 (7.00%) - Under 10s","v":7},{"f":"3 / 100 (3.00%) - Youth A B","v":3},0,0,0],["Round07 - Jun, Sen, V40, V50",{"f":"77 / 250 (30.80%) - Juniors and Vet40-49","v":77},{"f":"59 / 250 (23.60%) - Senior Men","v":59},{"f":"48 / 250 (19.20%) - V50M - V60M","v":48},0,0,0,0,{"f":"16 / 250 (6.40%) - Women","v":16},{"f":"8 / 250 (3.20%) - Juniors and Vet40-49","v":8},{"f":"16 / 250 (6.40%) - Women","v":16},{"f":"9 / 250 (3.60%) - Women","v":9},0,{"f":"11 / 250 (4.40%) - V50M - V60M","v":11},0,0,0,{"f":"3 / 250 (1.20%) - Senior Men","v":3},{"f":"1 / 250 (0.40%) - Women","v":1},{"f":"2 / 250 (0.80%) - Women","v":2}],["Round08 - U10, U12, Youth",0,0,0,{"f":"33 / 110 (30.00%) - Youth A B","v":33},{"f":"21 / 110 (19.09%) - Under 10s","v":21},{"f":"16 / 110 (14.55%) - Under 12s","v":16},{"f":"15 / 110 (13.64%) - Youth A B","v":15},0,0,0,0,{"f":"8 / 110 (7.27%) - Under 12s","v":8},0,{"f":"7 / 110 (6.36%) - Youth A B","v":7},{"f":"5 / 110 (4.55%) - Under 10s","v":5},{"f":"5 / 110 (4.55%) - Youth A B","v":5},0,0,0],["Round08 - Jun, Sen, V40, V50",{"f":"84 / 261 (32.18%) - Juniors and Vet40-49","v":84},{"f":"63 / 261 (24.14%) - Senior Men","v":63},{"f":"51 / 261 (19.54%) - Vet50 Men, and all Women cats","v":51},0,0,0,0,{"f":"16 / 261 (6.13%) - Vet50 Men, and all Women cats","v":16},{"f":"12 / 261 (4.60%) - Juniors and Vet40-49","v":12},{"f":"6 / 261 (2.30%) - Vet50 Men, and all Women cats","v":6},{"f":"11 / 261 (4.21%) - Vet50 Men, and all Women cats","v":11},0,{"f":"8 / 261 (3.07%) - Vet50 Men, and all Women cats","v":8},0,0,0,{"f":"6 / 261 (2.30%) - Senior Men","v":6},{"f":"2 / 261 (0.77%) - Vet50 Men, and all Women cats","v":2},{"f":"2 / 261 (0.77%) - Vet50 Men, and all Women cats","v":2}],["Round09 - U10, U12, Youth",0,0,0,{"f":"24 / 99 (24.24%) - Youth A B","v":24},{"f":"17 / 99 (17.17%) - Under 10s","v":17},{"f":"18 / 99 (18.18%) - Under 12s","v":18},{"f":"17 / 99 (17.17%) - Youth A B","v":17},0,0,0,0,{"f":"6 / 99 (6.06%) - Under 12s","v":6},0,{"f":"7 / 99 (7.07%) - Youth A B","v":7},{"f":"8 / 99 (8.08%) - Under 10s","v":8},{"f":"2 / 99 (2.02%) - Youth A B","v":2},0,0,0],["Round09 - Jun, Sen, V40, V50",{"f":"67 / 222 (30.18%) - Juniors and Vet40-49","v":67},{"f":"46 / 222 (20.72%) - Senior Men","v":46},{"f":"50 / 222 (22.52%) - Vet50 Men, and all Women cats","v":50},0,0,0,0,{"f":"12 / 222 (5.41%) - Vet50 Men, and all Women cats","v":12},{"f":"9 / 222 (4.05%) - Juniors and Vet40-49","v":9},{"f":"11 / 222 (4.95%) - Vet50 Men, and all Women cats","v":11},{"f":"10 / 222 (4.50%) - Vet50 Men, and all Women cats","v":10},0,{"f":"12 / 222 (5.41%) - Vet50 Men, and all Women cats","v":12},0,0,0,{"f":"2 / 222 (0.90%) - Senior Men","v":2},{"f":"2 / 222 (0.90%) - Vet50 Men, and all Women cats","v":2},{"f":"1 / 222 (0.45%) - Vet50 Men, and all Women cats","v":1}],["Round10 - U10, U12, Youth",0,0,0,{"f":"25 / 112 (22.32%) - Youth A B","v":25},{"f":"20 / 112 (17.86%) - Under 10s","v":20},{"f":"18 / 112 (16.07%) - Under 12s","v":18},{"f":"19 / 112 (16.96%) - Youth A B","v":19},0,0,0,0,{"f":"7 / 112 (6.25%) - Under 12s","v":7},0,{"f":"7 / 112 (6.25%) - Youth A B","v":7},{"f":"10 / 112 (8.93%) - Under 10s","v":10},{"f":"6 / 112 (5.36%) - Youth A B","v":6},0,0,0],["Round10 - Jun, Sen, V40, V50",{"f":"74 / 211 (35.07%) - Juniors and Vet40-49","v":74},{"f":"44 / 211 (20.85%) - Senior Men","v":44},{"f":"45 / 211 (21.33%) - Vet50 Men, and all Women cats","v":45},0,0,0,0,{"f":"10 / 211 (4.74%) - Vet50 Men, and all Women cats","v":10},{"f":"11 / 211 (5.21%) - Juniors and Vet40-49","v":11},{"f":"8 / 211 (3.79%) - Vet50 Men, and all Women cats","v":8},{"f":"7 / 211 (3.32%) - Vet50 Men, and all Women cats","v":7},0,{"f":"5 / 211 (2.37%) - Vet50 Men, and all Women cats","v":5},0,0,0,{"f":"3 / 211 (1.42%) - Senior Men","v":3},{"f":"2 / 211 (0.95%) - Vet50 Men, and all Women cats","v":2},{"f":"2 / 211 (0.95%) - Vet50 Men, and all Women cats","v":2}],["Champ19 - U10, U12, Youth",0,0,0,{"f":"25 / 102 (24.51%) - Youth A B","v":25},{"f":"17 / 102 (16.67%) - Under 10s","v":17},{"f":"15 / 102 (14.71%) - Under 12s","v":15},{"f":"18 / 102 (17.65%) - Youth A B","v":18},0,0,0,0,{"f":"12 / 102 (11.76%) - Under 12s","v":12},0,{"f":"9 / 102 (8.82%) - Youth A B","v":9},{"f":"3 / 102 (2.94%) - Under 10s","v":3},{"f":"3 / 102 (2.94%) - Youth A B","v":3},0,0,0],["Champ19 - Jun, Sen, V40, V50",{"f":"55 / 195 (28.21%) - Juniors and Vet40-49","v":55},{"f":"47 / 195 (24.10%) - Senior Men","v":47},{"f":"38 / 195 (19.49%) - Vet 50 Men and Vet 60 Men","v":38},0,0,0,0,{"f":"10 / 195 (5.13%) - All Women cats","v":10},{"f":"10 / 195 (5.13%) - Juniors and Vet40-49","v":10},{"f":"11 / 195 (5.64%) - All Women cats","v":11},{"f":"7 / 195 (3.59%) - All Women cats","v":7},0,{"f":"7 / 195 (3.59%) - Vet 50 Men and Vet 60 Men","v":7},0,0,0,{"f":"6 / 195 (3.08%) - Senior Men","v":6},{"f":"2 / 195 (1.03%) - All Women cats","v":2},{"f":"2 / 195 (1.03%) - All Women cats","v":2}],["Round11 - U10, U12, Youth",0,0,0,{"f":"24 / 95 (25.26%) - Youth A B","v":24},{"f":"14 / 95 (14.74%) - Under 10s","v":14},{"f":"17 / 95 (17.89%) - Under 12s","v":17},{"f":"14 / 95 (14.74%) - Youth A B","v":14},0,0,0,0,{"f":"9 / 95 (9.47%) - Under 12s","v":9},0,{"f":"6 / 95 (6.32%) - Youth A B","v":6},{"f":"7 / 95 (7.37%) - Under 10s","v":7},{"f":"4 / 95 (4.21%) - Youth A B","v":4},0,0,0],["Round11 - Jun, Sen, V40, V50",{"f":"58 / 196 (29.59%) - Juniors and Vet40-49","v":58},{"f":"42 / 196 (21.43%) - Senior Men","v":42},{"f":"44 / 196 (22.45%) - Vet50 Men, and all Women cats","v":44},0,0,0,0,{"f":"11 / 196 (5.61%) - Vet50 Men, and all Women cats","v":11},{"f":"9 / 196 (4.59%) - Juniors and Vet40-49","v":9},{"f":"8 / 196 (4.08%) - Vet50 Men, and all Women cats","v":8},{"f":"5 / 196 (2.55%) - Vet50 Men, and all Women cats","v":5},0,{"f":"9 / 196 (4.59%) - Vet50 Men, and all Women cats","v":9},0,0,0,{"f":"4 / 196 (2.04%) - Senior Men","v":4},{"f":"3 / 196 (1.53%) - Vet50 Men, and all Women cats","v":3},{"f":"3 / 196 (1.53%) - Vet50 Men, and all Women cats","v":3}],["Round12 - U10, U12, Youth",0,0,0,{"f":"21 / 89 (23.60%) - Youth A B","v":21},{"f":"17 / 89 (19.10%) - Under 10s","v":17},{"f":"15 / 89 (16.85%) - Under 12s","v":15},{"f":"13 / 89 (14.61%) - Youth A B","v":13},0,0,0,0,{"f":"7 / 89 (7.87%) - Under 12s","v":7},0,{"f":"8 / 89 (8.99%) - Youth A B","v":8},{"f":"4 / 89 (4.49%) - Under 10s","v":4},{"f":"4 / 89 (4.49%) - Youth A B","v":4},0,0,0],["Round12 - Jun, Sen, V40, V50",{"f":"65 / 212 (30.66%) - Juniors and Vet40-49","v":65},{"f":"40 / 212 (18.87%) - Senior Men","v":40},{"f":"50 / 212 (23.58%) - Vet50 Men, and all Women cats","v":50},0,0,0,0,{"f":"14 / 212 (6.60%) - Vet50 Men, and all Women cats","v":14},{"f":"11 / 212 (5.19%) - Juniors and Vet40-49","v":11},{"f":"9 / 212 (4.25%) - Vet50 Men, and all Women cats","v":9},{"f":"10 / 212 (4.72%) - Vet50 Men, and all Women cats","v":10},0,{"f":"7 / 212 (3.30%) - Vet50 Men, and all Women cats","v":7},0,0,0,{"f":"2 / 212 (0.94%) - Senior Men","v":2},{"f":"2 / 212 (0.94%) - Vet50 Men, and all Women cats","v":2},{"f":"2 / 212 (0.94%) - Vet50 Men, and all Women cats","v":2}],["Round13 - U10, U12, Youth",0,0,0,{"f":"20 / 86 (23.26%) - Youth A B","v":20},{"f":"18 / 86 (20.93%) - Under 10s","v":18},{"f":"13 / 86 (15.12%) - Under 12s","v":13},{"f":"14 / 86 (16.28%) - Youth A B","v":14},0,0,0,0,{"f":"6 / 86 (6.98%) - Under 12s","v":6},0,{"f":"6 / 86 (6.98%) - Youth A B","v":6},{"f":"5 / 86 (5.81%) - Under 10s","v":5},{"f":"4 / 86 (4.65%) - Youth A B","v":4},0,0,0],["Round13 - Jun, Sen, V40, V50",{"f":"60 / 206 (29.13%) - Juniors and Vet40-49","v":60},{"f":"53 / 206 (25.73%) - Senior Men","v":53},{"f":"47 / 206 (22.82%) - Vet50 Men, and all Women cats","v":47},0,0,0,0,{"f":"9 / 206 (4.37%) - Vet50 Men, and all Women cats","v":9},{"f":"8 / 206 (3.88%) - Juniors and Vet40-49","v":8},{"f":"10 / 206 (4.85%) - Vet50 Men, and all Women cats","v":10},{"f":"9 / 206 (4.37%) - Vet50 Men, and all Women cats","v":9},0,{"f":"5 / 206 (2.43%) - Vet50 Men, and all Women cats","v":5},0,0,0,{"f":"2 / 206 (0.97%) - Senior Men","v":2},{"f":"1 / 206 (0.49%) - Vet50 Men, and all Women cats","v":1},{"f":"2 / 206 (0.97%) - Vet50 Men, and all Women cats","v":2}]],"age_range_women_average":[0,5.222222222222222,5.377777777777778,4.333333333333333,2.5,2.142857142857143,2.111111111111111,3.238095238095238,3.888888888888889,4.041666666666667,4.923076923076923,4.230769230769231],"competitions_total":28,"discipline_overall":[["Discipline","All License Holders"],["Cyclocross",{"f":"100.00%","v":100.0}]],"participants_total":4776,"events_total":87,"competitions":[{"attendees_men":72,"prereg_participants_total":74,"participants_women":26,"name":"Round01 - U10, U12, Youth","participants_men_dns":0,"attendees_total":98,"prereg_participants_men":53,"participants_women_dns":0,"participants_paid_on_venue":94,"participants_women_dnf":0,"participants_total_dnf":1,"events":[{"prereg_participants_total":15,"men_dns":0,"men_dnf":0,"attendees_total":23,"prereg_participants_men":10,"prereg_participants_women":5,"participants_men":14,"participants_total":23,"total_dnf":0,"women_dns":0,"attendees":[[0,8],[1,8],[1,8],[0,8],[1,6],[0,9],[0,8],[1,8],[1,6],[0,9],[0,8],[0,9],[1,8],[0,8],[0,7],[0,8],[0,7],[0,7],[1,9],[0,7],[1,8],[1,7],[0,7]],"name":"Under 10s","women_dnf":0,"attendees_women":9,"total_dns":0,"participants_women":9,"attendees_men":14},{"prereg_participants_total":18,"men_dns":0,"men_dnf":0,"attendees_total":23,"prereg_participants_men":12,"prereg_participants_women":6,"participants_men":16,"participants_total":23,"total_dnf":0,"women_dns":0,"attendees":[[1,11],[0,10],[0,10],[1,11],[0,10],[0,11],[0,11],[0,11],[0,11],[1,11],[1,10],[0,10],[1,11],[0,10],[0,11],[1,10],[0,11],[0,11],[0,11],[0,10],[0,10],[1,10],[0,11]],"name":"Under 12s","women_dnf":0,"attendees_women":7,"total_dns":0,"participants_women":7,"attendees_men":16},{"prereg_participants_total":41,"men_dns":0,"men_dnf":1,"attendees_total":52,"prereg_participants_men":31,"prereg_participants_women":10,"participants_men":42,"participants_total":52,"total_dnf":1,"women_dns":0,"attendees":[[0,13],[0,12],[0,14],[0,15],[0,15],[0,14],[0,14],[0,14],[0,14],[0,12],[1,15],[0,13],[1,14],[0,12],[1,12],[0,15],[0,13],[0,13],[1,12],[1,15],[0,15],[0,12],[1,15],[0,13],[0,15],[0,13],[0,14],[0,13],[0,12],[1,14],[0,12],[0,14],[1,13],[0,14],[0,12],[0,12],[0,14],[0,13],[0,15],[0,15],[0,15],[0,14],[0,14],[0,14],[0,14],[0,15],[0,13],[0,119],[0,15],[1,13],[0,15],[1,13]],"name":"Youth A B","women_dnf":0,"attendees_women":10,"total_dns":0,"participants_women":10,"attendees_men":42}],"participants_total_dns":0,"participants_men_dnf":1,"prereg_participants_women":21,"participants_men":72,"participants_unpaid":4,"participants_paid_seasons_pass":0,"attendees_women":26,"start_date":"2019-09-01","participants_total":98},{"attendees_men":253,"prereg_participants_total":211,"participants_women":30,"name":"Round01 - Jun, Sen, V40, V50","participants_men_dns":15,"attendees_total":283,"prereg_participants_men":191,"participants_women_dns":2,"participants_paid_on_venue":271,"participants_women_dnf":1,"participants_total_dnf":7,"events":[{"prereg_participants_total":83,"men_dns":5,"men_dnf":3,"attendees_total":112,"prereg_participants_men":83,"prereg_participants_women":0,"participants_men":112,"participants_total":112,"total_dnf":3,"women_dns":0,"attendees":[[0,48],[0,43],[0,16],[0,45],[0,43],[0,45],[0,48],[0,44],[0,49],[0,17],[0,16],[0,48],[0,41],[0,43],[0,45],[0,44],[0,48],[0,42],[0,45],[0,45],[0,44],[0,47],[0,17],[0,48],[0,46],[0,44],[0,16],[0,17],[0,46],[0,16],[0,44],[0,44],[0,47],[0,49],[0,43],[0,47],[0,49],[0,42],[0,48],[0,44],[0,48],[0,45],[0,49],[0,43],[0,43],[0,49],[0,47],[0,16],[0,42],[0,48],[0,46],[0,41],[0,45],[0,49],[0,48],[0,40],[0,41],[0,42],[0,47],[0,48],[0,16],[0,49],[0,42],[0,47],[0,17],[0,49],[0,42],[0,16],[0,43],[0,42],[0,48],[0,44],[0,40],[0,16],[0,46],[0,41],[0,43],[0,47],[0,46],[0,43],[0,16],[0,16],[0,48],[0,48],[0,44],[0,42],[0,49],[0,42],[0,43],[0,49],[0,44],[0,16],[0,46],[0,42],[0,47],[0,44],[0,46],[0,45],[0,44],[0,119],[0,119],[0,43],[0,45],[0,17],[0,44],[0,48],[0,46],[0,40],[0,46],[0,42],[0,48],[0,16]],"name":"Juniors and Vet40-49","women_dnf":0,"attendees_women":0,"total_dns":5,"participants_women":0,"attendees_men":112},{"prereg_participants_total":76,"men_dns":4,"men_dnf":0,"attendees_total":105,"prereg_participants_men":56,"prereg_participants_women":20,"participants_men":75,"participants_total":105,"total_dnf":1,"women_dns":2,"attendees":[[1,33],[0,56],[0,55],[0,59],[1,43],[1,50],[1,43],[0,54],[0,57],[0,55],[0,58],[0,54],[0,57],[0,65],[0,52],[0,51],[1,38],[0,52],[0,55],[0,59],[0,52],[0,55],[0,55],[0,50],[0,60],[1,17],[1,21],[0,56],[1,53],[0,56],[0,52],[0,60],[1,44],[0,57],[1,37],[0,51],[0,59],[1,54],[1,40],[0,57],[0,58],[1,46],[0,50],[0,50],[0,52],[0,55],[0,56],[0,54],[0,62],[0,63],[0,52],[1,30],[1,43],[0,52],[0,56],[1,49],[1,42],[1,40],[0,51],[0,50],[1,56],[0,52],[0,52],[0,56],[0,52],[0,60],[1,55],[0,51],[0,52],[0,50],[0,52],[0,56],[0,58],[1,55],[0,52],[1,53],[0,53],[1,39],[0,55],[0,59],[0,54],[0,52],[0,50],[1,49],[0,61],[1,50],[0,50],[0,55],[0,54],[0,51],[0,55],[0,60],[0,60],[1,56],[0,61],[0,119],[1,46],[0,60],[1,34],[1,53],[0,53],[0,57],[0,50],[1,49],[0,57]],"name":"Vet50 Men, and all Women cats","women_dnf":1,"attendees_women":30,"total_dns":6,"participants_women":30,"attendees_men":75},{"prereg_participants_total":52,"men_dns":6,"men_dnf":3,"attendees_total":66,"prereg_participants_men":52,"prereg_participants_women":0,"participants_men":66,"participants_total":66,"total_dnf":3,"women_dns":0,"attendees":[[0,38],[0,31],[0,18],[0,38],[0,34],[0,27],[0,25],[0,23],[0,24],[0,19],[0,37],[0,35],[0,30],[0,34],[0,33],[0,29],[0,24],[0,35],[0,34],[0,35],[0,23],[0,39],[0,36],[0,38],[0,24],[0,26],[0,37],[0,39],[0,31],[0,33],[0,27],[0,30],[0,26],[0,35],[0,35],[0,47],[0,38],[0,36],[0,18],[0,24],[0,34],[0,19],[0,37],[0,36],[0,27],[0,38],[0,30],[0,40],[0,19],[0,34],[0,36],[0,22],[0,22],[0,39],[0,26],[0,30],[0,35],[0,31],[0,33],[0,35],[0,33],[0,30],[0,34],[0,25],[0,28],[0,31]],"name":"Senior Men","women_dnf":0,"attendees_women":0,"total_dns":6,"participants_women":0,"attendees_men":66}],"participants_total_dns":17,"participants_men_dnf":6,"prereg_participants_women":20,"participants_men":253,"participants_unpaid":15,"participants_paid_seasons_pass":0,"attendees_women":30,"start_date":"2019-09-01","participants_total":283},{"attendees_men":86,"prereg_participants_total":104,"participants_women":40,"name":"Round02 - U10, U12, Youth","participants_men_dns":5,"attendees_total":126,"prereg_participants_men":69,"participants_women_dns":4,"participants_paid_on_venue":126,"participants_women_dnf":0,"participants_total_dnf":4,"events":[{"prereg_participants_total":19,"men_dns":4,"men_dnf":0,"attendees_total":24,"prereg_participants_men":14,"prereg_participants_women":5,"participants_men":17,"participants_total":24,"total_dnf":0,"women_dns":0,"attendees":[[0,9],[1,8],[0,8],[0,9],[0,9],[0,8],[1,8],[1,6],[0,9],[0,9],[0,9],[0,9],[1,7],[0,7],[0,9],[0,7],[0,8],[0,8],[0,8],[0,9],[0,7],[1,8],[1,9],[1,10]],"name":"Under 10s","women_dnf":0,"attendees_women":7,"total_dns":4,"participants_women":7,"attendees_men":17},{"prereg_participants_total":25,"men_dns":0,"men_dnf":1,"attendees_total":32,"prereg_participants_men":14,"prereg_participants_women":11,"participants_men":19,"participants_total":32,"total_dnf":1,"women_dns":4,"attendees":[[1,11],[1,11],[0,10],[0,10],[0,11],[0,10],[1,11],[1,10],[0,11],[0,11],[0,10],[1,11],[0,11],[1,10],[1,11],[1,11],[0,10],[1,11],[0,11],[1,10],[0,11],[0,11],[0,10],[1,7],[1,11],[0,11],[0,11],[0,10],[0,10],[0,10],[1,10],[0,11]],"name":"Under 12s","women_dnf":0,"attendees_women":13,"total_dns":4,"participants_women":13,"attendees_men":19},{"prereg_participants_total":60,"men_dns":1,"men_dnf":3,"attendees_total":70,"prereg_participants_men":41,"prereg_participants_women":19,"participants_men":50,"participants_total":70,"total_dnf":3,"women_dns":0,"attendees":[[0,13],[0,12],[1,13],[0,14],[1,12],[0,14],[0,15],[0,14],[0,14],[0,12],[1,15],[0,15],[1,14],[0,12],[1,12],[0,15],[1,12],[0,12],[1,15],[1,15],[0,15],[1,15],[0,13],[0,14],[0,15],[0,15],[0,14],[0,13],[0,14],[0,15],[1,14],[0,12],[0,14],[0,15],[0,14],[1,15],[1,13],[0,14],[1,12],[0,13],[1,13],[1,13],[0,12],[0,15],[0,12],[0,14],[0,13],[0,15],[0,15],[0,13],[0,13],[0,15],[1,14],[1,15],[0,14],[0,13],[0,12],[0,15],[0,15],[0,14],[0,12],[0,15],[0,13],[0,15],[0,15],[1,13],[0,15],[1,13],[0,15],[1,13]],"name":"Youth A B","women_dnf":0,"attendees_women":20,"total_dns":1,"participants_women":20,"attendees_men":50}],"participants_total_dns":9,"participants_men_dnf":4,"prereg_participants_women":35,"participants_men":86,"participants_unpaid":0,"participants_paid_seasons_pass":0,"attendees_women":40,"start_date":"2019-09-15","participants_total":126},{"attendees_men":269,"prereg_participants_total":252,"participants_women":27,"name":"Round02 - Jun, Sen, V40, V50","participants_men_dns":20,"attendees_total":296,"prereg_participants_men":231,"participants_women_dns":1,"participants_paid_on_venue":295,"participants_women_dnf":0,"participants_total_dnf":9,"events":[{"prereg_participants_total":95,"men_dns":10,"men_dnf":6,"attendees_total":112,"prereg_participants_men":95,"prereg_participants_women":0,"participants_men":112,"participants_total":112,"total_dnf":6,"women_dns":0,"attendees":[[0,45],[0,43],[0,44],[0,16],[0,45],[0,43],[0,44],[0,45],[0,44],[0,45],[0,49],[0,17],[0,16],[0,41],[0,43],[0,40],[0,42],[0,45],[0,40],[0,47],[0,17],[0,48],[0,46],[0,48],[0,17],[0,40],[0,46],[0,16],[0,43],[0,44],[0,44],[0,47],[0,47],[0,42],[0,40],[0,48],[0,44],[0,48],[0,17],[0,42],[0,43],[0,49],[0,16],[0,48],[0,48],[0,42],[0,46],[0,43],[0,42],[0,49],[0,48],[0,16],[0,45],[0,46],[0,41],[0,40],[0,16],[0,49],[0,47],[0,17],[0,49],[0,42],[0,42],[0,48],[0,44],[0,16],[0,48],[0,45],[0,48],[0,49],[0,40],[0,17],[0,44],[0,16],[0,46],[0,47],[0,46],[0,44],[0,52],[0,16],[0,43],[0,47],[0,42],[0,16],[0,16],[0,40],[0,44],[0,48],[0,42],[0,43],[0,49],[0,46],[0,16],[0,44],[0,49],[0,43],[0,17],[0,47],[0,44],[0,46],[0,48],[0,45],[0,44],[0,43],[0,45],[0,17],[0,45],[0,44],[0,44],[0,48],[0,48],[0,16]],"name":"Juniors and Vet40-49","women_dnf":0,"attendees_women":0,"total_dns":10,"participants_women":0,"attendees_men":112},{"prereg_participants_total":77,"men_dns":6,"men_dnf":0,"attendees_total":92,"prereg_participants_men":56,"prereg_participants_women":21,"participants_men":65,"participants_total":92,"total_dnf":0,"women_dns":1,"attendees":[[1,19],[0,56],[0,55],[1,43],[1,50],[0,53],[0,59],[0,57],[0,58],[0,54],[0,56],[0,57],[0,52],[0,51],[1,38],[0,59],[0,52],[0,55],[0,55],[0,50],[1,39],[0,60],[0,53],[1,50],[1,17],[0,54],[1,36],[0,57],[0,51],[0,51],[0,55],[1,40],[1,54],[0,50],[1,37],[0,59],[0,52],[0,55],[0,61],[0,53],[0,52],[0,51],[0,55],[0,53],[0,52],[1,42],[0,50],[0,55],[0,50],[0,54],[0,53],[0,52],[0,56],[0,60],[0,58],[1,30],[0,0],[0,52],[0,56],[1,38],[1,55],[0,52],[1,53],[1,35],[0,53],[0,52],[0,59],[1,38],[0,54],[1,47],[0,52],[0,50],[0,52],[1,35],[1,49],[1,44],[0,50],[0,53],[0,54],[1,45],[1,30],[1,38],[0,60],[0,61],[0,55],[0,60],[1,34],[1,53],[0,53],[0,54],[0,50],[0,57]],"name":"Vet50 Men, and all Women cats","women_dnf":0,"attendees_women":27,"total_dns":7,"participants_women":27,"attendees_men":65},{"prereg_participants_total":80,"men_dns":4,"men_dnf":3,"attendees_total":92,"prereg_participants_men":80,"prereg_participants_women":0,"participants_men":92,"participants_total":92,"total_dnf":3,"women_dns":0,"attendees":[[0,39],[0,29],[0,35],[0,18],[0,38],[0,34],[0,27],[0,26],[0,35],[0,32],[0,25],[0,22],[0,37],[0,26],[0,37],[0,24],[0,34],[0,31],[0,24],[0,29],[0,33],[0,37],[0,19],[0,35],[0,39],[0,29],[0,37],[0,33],[0,29],[0,24],[0,35],[0,31],[0,37],[0,34],[0,23],[0,32],[0,36],[0,36],[0,35],[0,34],[0,33],[0,31],[0,19],[0,39],[0,33],[0,27],[0,30],[0,25],[0,38],[0,36],[0,35],[0,38],[0,33],[0,30],[0,34],[0,30],[0,25],[0,22],[0,33],[0,19],[0,35],[0,37],[0,33],[0,36],[0,27],[0,38],[0,31],[0,22],[0,37],[0,30],[0,33],[0,19],[0,40],[0,31],[0,39],[0,34],[0,22],[0,26],[0,30],[0,30],[0,33],[0,33],[0,22],[0,26],[0,33],[0,31],[0,37],[0,38],[0,26],[0,25],[0,28],[0,33]],"name":"Senior Men","women_dnf":0,"attendees_women":0,"total_dns":4,"participants_women":0,"attendees_men":92}],"participants_total_dns":21,"participants_men_dnf":9,"prereg_participants_women":21,"participants_men":269,"participants_unpaid":1,"participants_paid_seasons_pass":0,"attendees_women":27,"start_date":"2019-09-15","participants_total":296},{"attendees_men":82,"prereg_participants_total":90,"participants_women":24,"name":"Round03 - U10, U12, Youth","participants_men_dns":3,"attendees_total":106,"prereg_participants_men":67,"participants_women_dns":1,"participants_paid_on_venue":106,"participants_women_dnf":0,"participants_total_dnf":3,"events":[{"prereg_participants_total":20,"men_dns":0,"men_dnf":0,"attendees_total":25,"prereg_participants_men":14,"prereg_participants_women":6,"participants_men":18,"participants_total":25,"total_dnf":0,"women_dns":0,"attendees":[[0,8],[1,8],[0,8],[0,9],[0,8],[0,8],[1,8],[1,6],[0,9],[0,9],[0,9],[1,8],[0,7],[0,9],[0,9],[0,8],[0,9],[0,7],[0,7],[0,9],[0,9],[0,7],[1,8],[1,9],[1,9]],"name":"Under 10s","women_dnf":0,"attendees_women":7,"total_dns":0,"participants_women":7,"attendees_men":18},{"prereg_participants_total":18,"men_dns":1,"men_dnf":0,"attendees_total":20,"prereg_participants_men":13,"prereg_participants_women":5,"participants_men":15,"participants_total":20,"total_dnf":0,"women_dns":0,"attendees":[[1,11],[1,11],[0,10],[0,10],[0,10],[0,11],[0,11],[0,11],[0,10],[1,11],[0,10],[0,10],[1,11],[0,11],[1,11],[0,11],[0,10],[0,10],[0,13],[0,11]],"name":"Under 12s","women_dnf":0,"attendees_women":5,"total_dns":1,"participants_women":5,"attendees_men":15},{"prereg_participants_total":52,"men_dns":2,"men_dnf":3,"attendees_total":61,"prereg_participants_men":40,"prereg_participants_women":12,"participants_men":49,"participants_total":61,"total_dnf":3,"women_dns":1,"attendees":[[0,13],[0,12],[1,13],[0,14],[1,12],[0,15],[0,14],[0,14],[0,14],[0,15],[0,13],[1,14],[0,12],[1,12],[1,12],[0,12],[1,15],[0,15],[0,12],[1,15],[0,13],[0,14],[0,12],[0,15],[0,14],[0,13],[0,14],[0,15],[1,14],[0,12],[0,14],[0,15],[0,14],[0,14],[0,13],[1,13],[0,12],[0,15],[0,12],[0,14],[0,13],[0,15],[0,15],[0,14],[0,13],[0,15],[0,12],[1,15],[0,14],[0,13],[0,12],[0,15],[0,14],[0,12],[0,15],[0,13],[0,15],[0,15],[1,13],[0,15],[1,13]],"name":"Youth A B","women_dnf":0,"attendees_women":12,"total_dns":3,"participants_women":12,"attendees_men":49}],"participants_total_dns":4,"participants_men_dnf":3,"prereg_participants_women":23,"participants_men":82,"participants_unpaid":0,"participants_paid_seasons_pass":0,"attendees_women":24,"start_date":"2019-09-22","participants_total":106},{"attendees_men":167,"prereg_participants_total":181,"participants_women":30,"name":"Round03 - Jun, Sen, V40, V50","participants_men_dns":21,"attendees_total":197,"prereg_participants_men":153,"participants_women_dns":8,"participants_paid_on_venue":194,"participants_women_dnf":2,"participants_total_dnf":20,"events":[{"prereg_participants_total":67,"men_dns":11,"men_dnf":6,"attendees_total":71,"prereg_participants_men":67,"prereg_participants_women":0,"participants_men":71,"participants_total":71,"total_dnf":6,"women_dns":0,"attendees":[[0,43],[0,44],[0,44],[0,45],[0,49],[0,43],[0,45],[0,42],[0,45],[0,47],[0,49],[0,48],[0,46],[0,16],[0,44],[0,41],[0,47],[0,48],[0,44],[0,48],[0,43],[0,49],[0,48],[0,43],[0,45],[0,46],[0,40],[0,16],[0,42],[0,49],[0,42],[0,42],[0,48],[0,44],[0,16],[0,48],[0,16],[0,46],[0,42],[0,46],[0,44],[0,16],[0,42],[0,46],[0,16],[0,46],[0,44],[0,48],[0,44],[0,42],[0,49],[0,49],[0,43],[0,44],[0,16],[0,44],[0,49],[0,17],[0,47],[0,48],[0,45],[0,44],[0,47],[0,43],[0,45],[0,44],[0,48],[0,49],[0,46],[0,46],[0,48]],"name":"Juniors and Vet40-49","women_dnf":0,"attendees_women":0,"total_dns":11,"participants_women":0,"attendees_men":71},{"prereg_participants_total":71,"men_dns":10,"men_dnf":7,"attendees_total":78,"prereg_participants_men":43,"prereg_participants_women":28,"participants_men":48,"participants_total":78,"total_dnf":9,"women_dns":8,"attendees":[[0,56],[0,55],[1,29],[1,57],[0,54],[0,57],[0,51],[1,38],[0,55],[0,55],[0,50],[0,60],[1,17],[1,21],[0,56],[1,16],[1,53],[1,43],[0,53],[1,44],[0,54],[1,36],[0,57],[0,51],[1,54],[1,46],[0,50],[0,50],[0,59],[0,52],[0,61],[1,32],[0,53],[0,54],[0,52],[0,56],[1,57],[1,42],[1,40],[0,50],[0,55],[0,54],[0,53],[0,52],[1,22],[0,56],[0,60],[0,0],[0,52],[0,56],[0,58],[1,55],[0,52],[1,53],[0,53],[0,59],[1,47],[0,50],[1,35],[1,50],[1,48],[1,44],[0,50],[0,55],[0,54],[0,55],[1,48],[1,30],[0,52],[0,60],[1,46],[1,56],[0,61],[1,46],[0,60],[1,53],[0,53],[0,54]],"name":"Vet50 Men, and all Women cats","women_dnf":2,"attendees_women":30,"total_dns":18,"participants_women":30,"attendees_men":48},{"prereg_participants_total":43,"men_dns":0,"men_dnf":5,"attendees_total":48,"prereg_participants_men":43,"prereg_participants_women":0,"participants_men":48,"participants_total":48,"total_dnf":5,"women_dns":0,"attendees":[[0,38],[0,27],[0,35],[0,32],[0,25],[0,37],[0,24],[0,44],[0,38],[0,33],[0,35],[0,30],[0,29],[0,24],[0,31],[0,32],[0,23],[0,35],[0,35],[0,31],[0,19],[0,39],[0,33],[0,27],[0,27],[0,30],[0,36],[0,35],[0,34],[0,22],[0,33],[0,19],[0,38],[0,30],[0,40],[0,31],[0,34],[0,22],[0,30],[0,31],[0,30],[0,33],[0,33],[0,31],[0,37],[0,38],[0,26],[0,38]],"name":"Senior Men","women_dnf":0,"attendees_women":0,"total_dns":0,"participants_women":0,"attendees_men":48}],"participants_total_dns":29,"participants_men_dnf":18,"prereg_participants_women":28,"participants_men":167,"participants_unpaid":3,"participants_paid_seasons_pass":0,"attendees_women":30,"start_date":"2019-09-22","participants_total":197},{"attendees_men":95,"prereg_participants_total":117,"participants_women":36,"name":"Round04 - U10, U12, Youth","participants_men_dns":6,"attendees_total":131,"prereg_participants_men":83,"participants_women_dns":5,"participants_paid_on_venue":131,"participants_women_dnf":1,"participants_total_dnf":3,"events":[{"prereg_participants_total":25,"men_dns":1,"men_dnf":0,"attendees_total":28,"prereg_participants_men":18,"prereg_participants_women":7,"participants_men":20,"participants_total":28,"total_dnf":0,"women_dns":2,"attendees":[[0,8],[0,9],[0,8],[1,8],[0,8],[0,9],[0,8],[0,9],[1,8],[1,6],[0,9],[0,9],[1,8],[0,7],[0,9],[0,8],[0,9],[0,8],[0,7],[1,8],[0,9],[0,8],[0,7],[1,8],[1,9],[1,9],[0,7],[0,9]],"name":"Under 10s","women_dnf":0,"attendees_women":8,"total_dns":3,"participants_women":8,"attendees_men":20},{"prereg_participants_total":29,"men_dns":2,"men_dnf":0,"attendees_total":31,"prereg_participants_men":17,"prereg_participants_women":12,"participants_men":19,"participants_total":31,"total_dnf":0,"women_dns":1,"attendees":[[1,11],[1,11],[0,10],[0,10],[1,11],[0,11],[0,10],[1,11],[0,11],[0,10],[0,11],[0,11],[0,10],[1,11],[0,11],[1,11],[0,11],[0,10],[1,11],[0,10],[1,11],[0,11],[1,10],[1,11],[1,11],[0,11],[0,11],[0,10],[1,11],[0,10],[0,11]],"name":"Under 12s","women_dnf":0,"attendees_women":12,"total_dns":3,"participants_women":12,"attendees_men":19},{"prereg_participants_total":63,"men_dns":3,"men_dnf":2,"attendees_total":72,"prereg_participants_men":48,"prereg_participants_women":15,"participants_men":56,"participants_total":72,"total_dnf":3,"women_dns":2,"attendees":[[0,13],[0,12],[1,13],[0,14],[1,12],[0,14],[0,14],[0,14],[0,12],[0,13],[1,14],[0,12],[0,13],[1,12],[0,15],[1,12],[0,14],[0,15],[0,12],[1,15],[1,15],[0,15],[0,12],[0,13],[0,15],[0,15],[0,15],[0,13],[0,14],[0,13],[0,14],[0,15],[1,14],[0,14],[0,12],[0,14],[0,14],[1,15],[1,13],[0,14],[0,13],[1,15],[0,12],[0,15],[0,12],[0,14],[0,14],[0,13],[0,15],[0,15],[1,12],[1,13],[0,13],[0,15],[0,14],[0,13],[0,15],[0,12],[0,14],[1,15],[0,13],[0,12],[0,15],[0,14],[0,12],[0,15],[0,12],[0,15],[1,13],[0,15],[1,13],[0,12]],"name":"Youth A B","women_dnf":1,"attendees_women":16,"total_dns":5,"participants_women":16,"attendees_men":56}],"participants_total_dns":11,"participants_men_dnf":2,"prereg_participants_women":34,"participants_men":95,"participants_unpaid":0,"participants_paid_seasons_pass":0,"attendees_women":36,"start_date":"2019-09-29","participants_total":131},{"attendees_men":209,"prereg_participants_total":225,"participants_women":32,"name":"Round04 - Jun, Sen, V40, V50","participants_men_dns":22,"attendees_total":241,"prereg_participants_men":196,"participants_women_dns":0,"participants_paid_on_venue":241,"participants_women_dnf":1,"participants_total_dnf":7,"events":[{"prereg_participants_total":79,"men_dns":7,"men_dnf":1,"attendees_total":85,"prereg_participants_men":79,"prereg_participants_women":0,"participants_men":85,"participants_total":85,"total_dnf":1,"women_dns":0,"attendees":[[0,43],[0,44],[0,45],[0,43],[0,44],[0,44],[0,45],[0,49],[0,17],[0,16],[0,46],[0,49],[0,42],[0,45],[0,45],[0,47],[0,16],[0,48],[0,46],[0,16],[0,45],[0,44],[0,47],[0,41],[0,40],[0,48],[0,48],[0,46],[0,49],[0,42],[0,43],[0,42],[0,42],[0,45],[0,16],[0,45],[0,46],[0,41],[0,48],[0,48],[0,16],[0,49],[0,42],[0,47],[0,17],[0,49],[0,42],[0,42],[0,48],[0,44],[0,16],[0,49],[0,49],[0,40],[0,17],[0,44],[0,42],[0,47],[0,43],[0,47],[0,46],[0,17],[0,16],[0,46],[0,48],[0,43],[0,44],[0,42],[0,49],[0,49],[0,43],[0,46],[0,44],[0,49],[0,47],[0,48],[0,45],[0,44],[0,17],[0,45],[0,44],[0,41],[0,48],[0,46],[0,46]],"name":"Juniors and Vet40-49","women_dnf":0,"attendees_women":0,"total_dns":7,"participants_women":0,"attendees_men":85},{"prereg_participants_total":89,"men_dns":10,"men_dnf":2,"attendees_total":96,"prereg_participants_men":60,"prereg_participants_women":29,"participants_men":64,"participants_total":96,"total_dnf":3,"women_dns":0,"attendees":[[0,55],[0,58],[1,19],[0,55],[0,53],[1,57],[0,57],[0,58],[0,56],[0,57],[1,38],[0,55],[0,59],[0,50],[0,60],[0,53],[1,17],[1,21],[0,56],[1,16],[1,53],[0,50],[0,56],[0,53],[0,60],[1,44],[0,54],[0,57],[0,58],[0,51],[1,40],[1,19],[0,58],[0,54],[1,37],[0,59],[0,52],[0,55],[0,61],[0,56],[0,53],[0,52],[0,51],[0,52],[0,51],[1,45],[1,57],[1,46],[1,42],[1,40],[0,55],[0,56],[0,50],[1,48],[0,61],[0,54],[0,53],[1,41],[0,56],[1,16],[0,52],[0,50],[0,52],[0,52],[0,56],[1,38],[1,53],[0,50],[0,53],[1,45],[0,51],[1,35],[1,49],[0,61],[1,48],[1,44],[0,50],[0,55],[0,54],[0,55],[0,52],[1,38],[0,53],[0,60],[0,50],[1,56],[0,61],[1,46],[0,60],[1,34],[1,53],[0,53],[0,54],[1,49],[0,57],[0,56]],"name":"Vet50 Men, and all Women cats","women_dnf":1,"attendees_women":32,"total_dns":10,"participants_women":32,"attendees_men":64},{"prereg_participants_total":57,"men_dns":5,"men_dnf":3,"attendees_total":60,"prereg_participants_men":57,"prereg_participants_women":0,"participants_men":60,"participants_total":60,"total_dnf":3,"women_dns":0,"attendees":[[0,31],[0,18],[0,38],[0,27],[0,26],[0,35],[0,25],[0,22],[0,28],[0,18],[0,30],[0,31],[0,35],[0,27],[0,37],[0,33],[0,29],[0,35],[0,31],[0,32],[0,23],[0,39],[0,32],[0,35],[0,35],[0,31],[0,37],[0,27],[0,32],[0,30],[0,34],[0,36],[0,35],[0,38],[0,23],[0,36],[0,18],[0,24],[0,22],[0,35],[0,52],[0,38],[0,22],[0,37],[0,35],[0,40],[0,22],[0,33],[0,28],[0,30],[0,33],[0,26],[0,37],[0,27],[0,18],[0,34],[0,38],[0,34],[0,38],[0,33]],"name":"Senior Men","women_dnf":0,"attendees_women":0,"total_dns":5,"participants_women":0,"attendees_men":60}],"participants_total_dns":22,"participants_men_dnf":6,"prereg_participants_women":29,"participants_men":209,"participants_unpaid":0,"participants_paid_seasons_pass":0,"attendees_women":32,"start_date":"2019-09-29","participants_total":241},{"attendees_men":67,"prereg_participants_total":80,"participants_women":20,"name":"Round05 - U10, U12, Youth","participants_men_dns":3,"attendees_total":87,"prereg_participants_men":64,"participants_women_dns":1,"participants_paid_on_venue":87,"participants_women_dnf":0,"participants_total_dnf":1,"events":[{"prereg_participants_total":21,"men_dns":1,"men_dnf":0,"attendees_total":22,"prereg_participants_men":15,"prereg_participants_women":6,"participants_men":15,"participants_total":22,"total_dnf":0,"women_dns":0,"attendees":[[0,9],[0,8],[1,8],[0,8],[0,9],[0,8],[1,8],[1,6],[0,9],[0,9],[0,9],[1,8],[0,7],[0,7],[0,9],[0,8],[0,8],[0,8],[0,9],[1,8],[1,9],[1,9]],"name":"Under 10s","women_dnf":0,"attendees_women":7,"total_dns":1,"participants_women":7,"attendees_men":15},{"prereg_participants_total":21,"men_dns":1,"men_dnf":0,"attendees_total":23,"prereg_participants_men":16,"prereg_participants_women":5,"participants_men":17,"participants_total":23,"total_dnf":0,"women_dns":1,"attendees":[[1,11],[1,11],[0,10],[0,12],[0,10],[0,11],[0,10],[1,11],[0,11],[0,11],[0,11],[0,11],[1,11],[0,10],[0,10],[1,11],[0,11],[0,11],[0,11],[0,11],[0,10],[1,10],[0,11]],"name":"Under 12s","women_dnf":0,"attendees_women":6,"total_dns":2,"participants_women":6,"attendees_men":17},{"prereg_participants_total":38,"men_dns":1,"men_dnf":1,"attendees_total":42,"prereg_participants_men":33,"prereg_participants_women":5,"participants_men":35,"participants_total":42,"total_dnf":1,"women_dns":0,"attendees":[[1,13],[0,15],[0,14],[0,14],[0,14],[0,12],[1,14],[0,12],[1,12],[0,15],[1,12],[0,12],[1,15],[0,15],[0,14],[0,13],[0,12],[0,12],[0,14],[0,15],[0,14],[0,13],[0,12],[0,12],[0,14],[0,14],[0,15],[0,14],[0,13],[0,15],[0,14],[0,13],[0,12],[0,15],[1,12],[0,14],[0,12],[0,15],[0,15],[0,15],[0,13],[1,13]],"name":"Youth A B","women_dnf":0,"attendees_women":7,"total_dns":1,"participants_women":7,"attendees_men":35}],"participants_total_dns":4,"participants_men_dnf":1,"prereg_participants_women":16,"participants_men":67,"participants_unpaid":0,"participants_paid_seasons_pass":0,"attendees_women":20,"start_date":"2019-10-06","participants_total":87},{"attendees_men":193,"prereg_participants_total":184,"participants_women":23,"name":"Round05 - Jun, Sen, V40, V50","participants_men_dns":18,"attendees_total":216,"prereg_participants_men":165,"participants_women_dns":1,"participants_paid_on_venue":214,"participants_women_dnf":1,"participants_total_dnf":9,"events":[{"prereg_participants_total":74,"men_dns":9,"men_dnf":2,"attendees_total":86,"prereg_participants_men":74,"prereg_participants_women":0,"participants_men":86,"participants_total":86,"total_dnf":2,"women_dns":0,"attendees":[[0,41],[0,43],[0,44],[0,45],[0,43],[0,44],[0,44],[0,49],[0,49],[0,48],[0,41],[0,43],[0,45],[0,42],[0,49],[0,47],[0,48],[0,48],[0,17],[0,46],[0,16],[0,44],[0,49],[0,47],[0,41],[0,47],[0,48],[0,44],[0,48],[0,43],[0,49],[0,42],[0,42],[0,16],[0,48],[0,42],[0,46],[0,43],[0,42],[0,45],[0,45],[0,47],[0,48],[0,49],[0,16],[0,49],[0,42],[0,47],[0,17],[0,49],[0,42],[0,42],[0,48],[0,16],[0,17],[0,44],[0,16],[0,46],[0,46],[0,16],[0,46],[0,44],[0,48],[0,44],[0,42],[0,49],[0,49],[0,42],[0,43],[0,46],[0,44],[0,44],[0,49],[0,44],[0,47],[0,46],[0,44],[0,45],[0,43],[0,45],[0,17],[0,44],[0,48],[0,46],[0,46],[0,48]],"name":"Juniors and Vet40-49","women_dnf":0,"attendees_women":0,"total_dns":9,"participants_women":0,"attendees_men":86},{"prereg_participants_total":66,"men_dns":5,"men_dnf":3,"attendees_total":78,"prereg_participants_men":47,"prereg_participants_women":19,"participants_men":55,"participants_total":78,"total_dnf":4,"women_dns":1,"attendees":[[0,65],[0,58],[1,50],[1,29],[0,58],[0,54],[0,53],[0,57],[1,38],[0,52],[0,55],[0,55],[0,55],[0,55],[0,50],[0,57],[0,60],[1,17],[1,21],[0,56],[1,16],[1,53],[0,50],[0,53],[0,57],[0,51],[0,51],[0,58],[0,50],[0,52],[0,55],[0,61],[0,56],[1,32],[0,54],[0,52],[0,52],[0,56],[1,57],[1,42],[1,40],[0,53],[0,54],[0,53],[0,56],[1,57],[0,51],[0,50],[0,52],[0,52],[0,56],[0,58],[0,58],[1,38],[0,53],[1,38],[0,52],[0,50],[0,51],[1,50],[1,44],[0,50],[0,53],[0,55],[0,54],[1,45],[1,48],[0,53],[1,24],[1,46],[1,56],[0,61],[1,46],[0,60],[1,53],[0,53],[0,54],[0,56]],"name":"Vet50 Men, and all Women cats","women_dnf":1,"attendees_women":23,"total_dns":6,"participants_women":23,"attendees_men":55},{"prereg_participants_total":44,"men_dns":4,"men_dnf":3,"attendees_total":52,"prereg_participants_men":44,"prereg_participants_women":0,"participants_men":52,"participants_total":52,"total_dnf":3,"women_dns":0,"attendees":[[0,39],[0,38],[0,31],[0,35],[0,27],[0,26],[0,35],[0,25],[0,45],[0,36],[0,35],[0,24],[0,35],[0,34],[0,32],[0,23],[0,39],[0,32],[0,29],[0,35],[0,31],[0,37],[0,31],[0,32],[0,30],[0,30],[0,26],[0,35],[0,38],[0,36],[0,39],[0,30],[0,43],[0,35],[0,37],[0,36],[0,22],[0,30],[0,33],[0,31],[0,34],[0,22],[0,33],[0,43],[0,28],[0,39],[0,31],[0,18],[0,38],[0,34],[0,25],[0,38]],"name":"Senior Men","women_dnf":0,"attendees_women":0,"total_dns":4,"participants_women":0,"attendees_men":52}],"participants_total_dns":19,"participants_men_dnf":8,"prereg_participants_women":19,"participants_men":193,"participants_unpaid":2,"participants_paid_seasons_pass":0,"attendees_women":23,"start_date":"2019-10-06","participants_total":216},{"attendees_men":111,"prereg_participants_total":115,"participants_women":37,"name":"Round06 - U10, U12, Youth","participants_men_dns":5,"attendees_total":148,"prereg_participants_men":85,"participants_women_dns":3,"participants_paid_on_venue":147,"participants_women_dnf":1,"participants_total_dnf":2,"events":[{"prereg_participants_total":26,"men_dns":2,"men_dnf":0,"attendees_total":40,"prereg_participants_men":19,"prereg_participants_women":7,"participants_men":29,"participants_total":40,"total_dnf":0,"women_dns":0,"attendees":[[0,9],[1,7],[0,9],[1,8],[0,8],[0,7],[0,9],[0,9],[0,9],[1,8],[1,6],[0,9],[0,9],[0,9],[1,8],[0,8],[0,9],[1,7],[0,7],[0,7],[0,9],[0,9],[0,8],[0,9],[0,9],[0,6],[0,8],[0,9],[0,8],[0,9],[0,7],[1,8],[1,9],[1,9],[0,8],[1,6],[0,8],[0,9],[0,7],[1,10]],"name":"Under 10s","women_dnf":0,"attendees_women":11,"total_dns":2,"participants_women":11,"attendees_men":29},{"prereg_participants_total":26,"men_dns":1,"men_dnf":0,"attendees_total":36,"prereg_participants_men":17,"prereg_participants_women":9,"participants_men":26,"participants_total":36,"total_dnf":1,"women_dns":2,"attendees":[[1,11],[1,11],[0,10],[0,12],[0,11],[0,10],[0,11],[0,10],[0,10],[0,10],[0,10],[1,11],[0,11],[0,11],[0,10],[0,10],[1,11],[0,11],[1,10],[1,11],[1,10],[0,10],[0,10],[0,11],[1,10],[0,11],[1,11],[1,11],[0,11],[0,10],[0,11],[0,10],[0,10],[0,10],[0,10],[0,11]],"name":"Under 12s","women_dnf":1,"attendees_women":10,"total_dns":3,"participants_women":10,"attendees_men":26},{"prereg_participants_total":63,"men_dns":2,"men_dnf":1,"attendees_total":72,"prereg_participants_men":49,"prereg_participants_women":14,"participants_men":56,"participants_total":72,"total_dnf":1,"women_dns":1,"attendees":[[0,13],[0,12],[1,13],[0,14],[1,12],[0,15],[0,14],[0,14],[0,14],[0,12],[0,13],[0,14],[0,12],[1,12],[0,15],[0,12],[1,12],[0,15],[0,15],[0,12],[0,15],[0,12],[1,15],[0,13],[0,14],[0,15],[0,15],[0,14],[1,12],[0,13],[0,15],[0,15],[1,14],[0,12],[0,14],[0,15],[0,14],[1,15],[1,13],[0,14],[1,12],[0,15],[1,13],[1,13],[0,12],[0,15],[0,12],[0,14],[0,15],[0,15],[1,12],[0,13],[0,14],[0,13],[0,15],[1,14],[0,14],[1,15],[1,12],[0,14],[0,13],[0,12],[0,15],[0,15],[0,14],[0,14],[0,12],[0,15],[0,12],[0,15],[0,13],[0,12]],"name":"Youth A B","women_dnf":0,"attendees_women":16,"total_dns":3,"participants_women":16,"attendees_men":56}],"participants_total_dns":8,"participants_men_dnf":1,"prereg_participants_women":30,"participants_men":111,"participants_unpaid":1,"participants_paid_seasons_pass":0,"attendees_women":37,"start_date":"2019-10-13","participants_total":148},{"attendees_men":246,"prereg_participants_total":276,"participants_women":55,"name":"Round06 - Jun, Sen, V40, V50","participants_men_dns":19,"attendees_total":301,"prereg_participants_men":224,"participants_women_dns":3,"participants_paid_on_venue":300,"participants_women_dnf":1,"participants_total_dnf":12,"events":[{"prereg_participants_total":93,"men_dns":8,"men_dnf":2,"attendees_total":99,"prereg_participants_men":93,"prereg_participants_women":0,"participants_men":99,"participants_total":99,"total_dnf":2,"women_dns":0,"attendees":[[0,41],[0,43],[0,44],[0,43],[0,45],[0,45],[0,49],[0,16],[0,46],[0,41],[0,45],[0,40],[0,42],[0,45],[0,45],[0,47],[0,43],[0,47],[0,17],[0,48],[0,46],[0,16],[0,44],[0,47],[0,47],[0,48],[0,44],[0,43],[0,42],[0,43],[0,49],[0,16],[0,48],[0,48],[0,42],[0,46],[0,43],[0,42],[0,45],[0,49],[0,43],[0,48],[0,16],[0,42],[0,40],[0,16],[0,49],[0,43],[0,42],[0,17],[0,49],[0,42],[0,44],[0,42],[0,44],[0,42],[0,16],[0,49],[0,41],[0,48],[0,48],[0,49],[0,16],[0,16],[0,40],[0,47],[0,46],[0,43],[0,44],[0,43],[0,47],[0,46],[0,42],[0,16],[0,16],[0,46],[0,44],[0,44],[0,42],[0,49],[0,49],[0,42],[0,43],[0,44],[0,49],[0,44],[0,46],[0,48],[0,45],[0,45],[0,43],[0,17],[0,45],[0,44],[0,44],[0,46],[0,46],[0,47],[0,48]],"name":"Juniors and Vet40-49","women_dnf":0,"attendees_women":0,"total_dns":8,"participants_women":0,"attendees_men":99},{"prereg_participants_total":52,"men_dns":0,"men_dnf":0,"attendees_total":55,"prereg_participants_men":0,"prereg_participants_women":52,"participants_men":0,"participants_total":55,"total_dnf":1,"women_dns":3,"attendees":[[1,19],[1,22],[1,43],[1,50],[1,33],[1,29],[1,57],[1,44],[1,38],[1,28],[1,17],[1,21],[1,16],[1,24],[1,53],[1,36],[1,32],[1,44],[1,43],[1,40],[1,54],[1,32],[1,31],[1,45],[1,26],[1,49],[1,42],[1,36],[1,31],[1,41],[1,57],[1,16],[1,30],[1,43],[1,55],[1,53],[1,38],[1,47],[1,49],[1,42],[1,50],[1,48],[1,44],[1,31],[1,34],[1,45],[1,41],[1,54],[1,46],[1,56],[1,46],[1,46],[1,34],[1,53],[1,29]],"name":"Women","women_dnf":1,"attendees_women":55,"total_dns":3,"participants_women":55,"attendees_men":0},{"prereg_participants_total":56,"men_dns":3,"men_dnf":2,"attendees_total":62,"prereg_participants_men":56,"prereg_participants_women":0,"participants_men":62,"participants_total":62,"total_dnf":2,"women_dns":0,"attendees":[[0,55],[0,53],[0,57],[0,58],[0,54],[0,54],[0,56],[0,57],[0,50],[0,52],[0,52],[0,59],[0,52],[0,55],[0,55],[0,60],[0,53],[0,56],[0,53],[0,54],[0,52],[0,57],[0,55],[0,50],[0,59],[0,61],[0,52],[0,55],[0,52],[0,56],[0,55],[0,50],[0,54],[0,53],[0,52],[0,52],[0,56],[0,60],[0,0],[0,52],[0,52],[0,58],[0,52],[0,53],[0,52],[0,52],[0,50],[0,61],[0,58],[0,50],[0,57],[0,55],[0,54],[0,55],[0,52],[0,60],[0,50],[0,55],[0,60],[0,55],[0,53],[0,54]],"name":"V50M, V60M","women_dnf":0,"attendees_women":0,"total_dns":3,"participants_women":0,"attendees_men":62},{"prereg_participants_total":75,"men_dns":8,"men_dnf":7,"attendees_total":85,"prereg_participants_men":75,"prereg_participants_women":0,"participants_men":85,"participants_total":85,"total_dnf":7,"women_dns":0,"attendees":[[0,38],[0,29],[0,35],[0,18],[0,38],[0,34],[0,27],[0,36],[0,35],[0,32],[0,25],[0,22],[0,37],[0,36],[0,24],[0,24],[0,31],[0,33],[0,39],[0,29],[0,37],[0,29],[0,24],[0,35],[0,31],[0,23],[0,32],[0,32],[0,32],[0,35],[0,24],[0,35],[0,34],[0,31],[0,31],[0,19],[0,37],[0,37],[0,31],[0,39],[0,37],[0,30],[0,23],[0,34],[0,30],[0,39],[0,31],[0,36],[0,30],[0,35],[0,38],[0,30],[0,34],[0,25],[0,22],[0,39],[0,19],[0,35],[0,37],[0,33],[0,36],[0,31],[0,22],[0,37],[0,33],[0,36],[0,40],[0,31],[0,39],[0,27],[0,39],[0,22],[0,43],[0,30],[0,30],[0,35],[0,30],[0,22],[0,33],[0,37],[0,36],[0,18],[0,34],[0,34],[0,32]],"name":"Senior Men","women_dnf":0,"attendees_women":0,"total_dns":8,"participants_women":0,"attendees_men":85}],"participants_total_dns":22,"participants_men_dnf":11,"prereg_participants_women":52,"participants_men":246,"participants_unpaid":1,"participants_paid_seasons_pass":0,"attendees_women":55,"start_date":"2019-10-13","participants_total":301},{"attendees_men":80,"prereg_participants_total":88,"participants_women":20,"name":"Round07 - U10, U12, Youth","participants_men_dns":5,"attendees_total":100,"prereg_participants_men":70,"participants_women_dns":1,"participants_paid_on_venue":100,"participants_women_dnf":1,"participants_total_dnf":3,"events":[{"prereg_participants_total":20,"men_dns":1,"men_dnf":0,"attendees_total":25,"prereg_participants_men":14,"prereg_participants_women":6,"participants_men":18,"participants_total":25,"total_dnf":0,"women_dns":1,"attendees":[[0,9],[0,9],[0,8],[1,8],[1,6],[0,9],[0,8],[0,9],[1,8],[0,9],[0,9],[1,8],[0,8],[0,8],[0,7],[0,9],[0,7],[0,9],[0,9],[0,9],[0,7],[1,8],[1,9],[0,7],[1,9]],"name":"Under 10s","women_dnf":0,"attendees_women":7,"total_dns":2,"participants_women":7,"attendees_men":18},{"prereg_participants_total":22,"men_dns":0,"men_dnf":0,"attendees_total":24,"prereg_participants_men":18,"prereg_participants_women":4,"participants_men":20,"participants_total":24,"total_dnf":0,"women_dns":0,"attendees":[[1,11],[0,11],[0,10],[0,10],[0,10],[0,11],[0,11],[0,10],[0,11],[0,11],[1,11],[0,11],[1,11],[0,10],[0,10],[0,11],[0,11],[1,11],[0,11],[0,11],[0,10],[0,10],[0,10],[0,11]],"name":"Under 12s","women_dnf":0,"attendees_women":4,"total_dns":0,"participants_women":4,"attendees_men":20},{"prereg_participants_total":46,"men_dns":4,"men_dnf":2,"attendees_total":51,"prereg_participants_men":38,"prereg_participants_women":8,"participants_men":42,"participants_total":51,"total_dnf":3,"women_dns":0,"attendees":[[0,14],[1,12],[0,15],[0,15],[0,14],[0,14],[0,14],[0,12],[0,13],[0,12],[1,12],[1,12],[1,15],[0,15],[0,12],[0,14],[0,15],[0,13],[0,13],[0,15],[0,14],[0,15],[0,12],[0,12],[0,12],[0,14],[0,14],[1,15],[1,13],[0,12],[0,12],[0,14],[0,14],[0,13],[0,15],[1,12],[0,14],[0,13],[0,15],[0,14],[0,12],[1,15],[1,12],[0,14],[0,12],[0,15],[0,14],[0,12],[0,15],[0,15],[0,15]],"name":"Youth A B","women_dnf":1,"attendees_women":9,"total_dns":4,"participants_women":9,"attendees_men":42}],"participants_total_dns":6,"participants_men_dnf":2,"prereg_participants_women":18,"participants_men":80,"participants_unpaid":0,"participants_paid_seasons_pass":0,"attendees_women":20,"start_date":"2019-10-27","participants_total":100},{"attendees_men":206,"prereg_participants_total":233,"participants_women":44,"name":"Round07 - Jun, Sen, V40, V50","participants_men_dns":14,"attendees_total":250,"prereg_participants_men":193,"participants_women_dns":0,"participants_paid_on_venue":250,"participants_women_dnf":1,"participants_total_dnf":12,"events":[{"prereg_participants_total":82,"men_dns":5,"men_dnf":3,"attendees_total":85,"prereg_participants_men":82,"prereg_participants_women":0,"participants_men":85,"participants_total":85,"total_dnf":3,"women_dns":0,"attendees":[[0,42],[0,43],[0,43],[0,45],[0,44],[0,49],[0,49],[0,48],[0,42],[0,43],[0,44],[0,48],[0,42],[0,45],[0,45],[0,47],[0,17],[0,46],[0,48],[0,42],[0,46],[0,16],[0,42],[0,44],[0,44],[0,47],[0,49],[0,47],[0,48],[0,44],[0,40],[0,45],[0,49],[0,43],[0,47],[0,42],[0,49],[0,48],[0,16],[0,45],[0,40],[0,43],[0,42],[0,47],[0,17],[0,49],[0,42],[0,42],[0,48],[0,16],[0,45],[0,43],[0,48],[0,16],[0,46],[0,43],[0,47],[0,16],[0,46],[0,44],[0,48],[0,44],[0,45],[0,42],[0,49],[0,49],[0,42],[0,46],[0,44],[0,49],[0,42],[0,47],[0,46],[0,46],[0,45],[0,44],[0,43],[0,45],[0,17],[0,44],[0,46],[0,46],[0,46],[0,47],[0,48]],"name":"Juniors and Vet40-49","women_dnf":0,"attendees_women":0,"total_dns":5,"participants_women":0,"attendees_men":85},{"prereg_participants_total":40,"men_dns":0,"men_dnf":0,"attendees_total":44,"prereg_participants_men":0,"prereg_participants_women":40,"participants_men":0,"participants_total":44,"total_dnf":1,"women_dns":0,"attendees":[[1,55],[1,43],[1,50],[1,47],[1,43],[1,29],[1,57],[1,38],[1,49],[1,17],[1,21],[1,24],[1,24],[1,44],[1,37],[1,40],[1,32],[1,42],[1,57],[1,36],[1,42],[1,40],[1,31],[1,24],[1,57],[1,55],[1,21],[1,56],[1,38],[1,38],[1,47],[1,35],[1,49],[1,48],[1,44],[1,31],[1,24],[1,54],[1,45],[1,38],[1,46],[1,34],[1,53],[1,43]],"name":"Women","women_dnf":1,"attendees_women":44,"total_dns":0,"participants_women":44,"attendees_men":0},{"prereg_participants_total":57,"men_dns":5,"men_dnf":1,"attendees_total":59,"prereg_participants_men":57,"prereg_participants_women":0,"participants_men":59,"participants_total":59,"total_dnf":1,"women_dns":0,"attendees":[[0,56],[0,55],[0,59],[0,58],[0,54],[0,57],[0,65],[0,55],[0,59],[0,55],[0,53],[0,56],[0,52],[0,53],[0,60],[0,52],[0,63],[0,58],[0,57],[0,51],[0,58],[0,50],[0,59],[0,52],[0,55],[0,61],[0,56],[0,54],[0,52],[0,52],[0,56],[0,51],[0,57],[0,61],[0,52],[0,52],[0,56],[0,60],[0,51],[0,52],[0,52],[0,56],[0,58],[0,58],[0,53],[0,59],[0,52],[0,50],[0,61],[0,53],[0,56],[0,51],[0,60],[0,61],[0,60],[0,60],[0,53],[0,54],[0,53]],"name":"V50M - V60M","women_dnf":0,"attendees_women":0,"total_dns":5,"participants_women":0,"attendees_men":59},{"prereg_participants_total":54,"men_dns":4,"men_dnf":7,"attendees_total":62,"prereg_participants_men":54,"prereg_participants_women":0,"participants_men":62,"participants_total":62,"total_dnf":7,"women_dns":0,"attendees":[[0,38],[0,31],[0,35],[0,18],[0,27],[0,35],[0,25],[0,31],[0,24],[0,44],[0,37],[0,35],[0,30],[0,37],[0,29],[0,24],[0,35],[0,31],[0,24],[0,32],[0,23],[0,32],[0,36],[0,32],[0,32],[0,39],[0,26],[0,37],[0,31],[0,33],[0,30],[0,23],[0,31],[0,38],[0,36],[0,30],[0,22],[0,19],[0,37],[0,36],[0,22],[0,25],[0,37],[0,30],[0,40],[0,40],[0,31],[0,29],[0,33],[0,39],[0,30],[0,43],[0,30],[0,35],[0,31],[0,33],[0,22],[0,33],[0,34],[0,20],[0,25],[0,26]],"name":"Senior Men","women_dnf":0,"attendees_women":0,"total_dns":4,"participants_women":0,"attendees_men":62}],"participants_total_dns":14,"participants_men_dnf":11,"prereg_participants_women":40,"participants_men":206,"participants_unpaid":0,"participants_paid_seasons_pass":0,"attendees_women":44,"start_date":"2019-10-27","participants_total":250},{"attendees_men":85,"prereg_participants_total":95,"participants_women":25,"name":"Round08 - U10, U12, Youth","participants_men_dns":5,"attendees_total":110,"prereg_participants_men":74,"participants_women_dns":0,"participants_paid_on_venue":109,"participants_women_dnf":0,"participants_total_dnf":4,"events":[{"prereg_participants_total":21,"men_dns":2,"men_dnf":0,"attendees_total":26,"prereg_participants_men":18,"prereg_participants_women":3,"participants_men":21,"participants_total":26,"total_dnf":0,"women_dns":0,"attendees":[[0,8],[0,9],[0,9],[0,8],[1,8],[0,8],[0,9],[0,9],[0,8],[0,9],[1,8],[0,9],[0,9],[1,8],[0,5],[0,9],[0,8],[0,9],[0,8],[0,8],[0,9],[0,7],[1,9],[0,8],[0,7],[1,10]],"name":"Under 10s","women_dnf":0,"attendees_women":5,"total_dns":2,"participants_women":5,"attendees_men":21},{"prereg_participants_total":19,"men_dns":0,"men_dnf":1,"attendees_total":24,"prereg_participants_men":11,"prereg_participants_women":8,"participants_men":16,"participants_total":24,"total_dnf":1,"women_dns":0,"attendees":[[1,11],[0,10],[0,11],[1,11],[0,10],[0,11],[0,11],[0,11],[1,11],[0,12],[0,11],[1,11],[1,11],[0,11],[1,11],[0,11],[1,11],[1,11],[0,11],[0,11],[0,10],[0,10],[0,10],[0,11]],"name":"Under 12s","women_dnf":0,"attendees_women":8,"total_dns":0,"participants_women":8,"attendees_men":16},{"prereg_participants_total":55,"men_dns":3,"men_dnf":3,"attendees_total":60,"prereg_participants_men":45,"prereg_participants_women":10,"participants_men":48,"participants_total":60,"total_dnf":3,"women_dns":0,"attendees":[[0,13],[0,12],[1,13],[0,14],[1,12],[0,15],[0,14],[0,14],[0,14],[0,12],[0,15],[0,13],[1,14],[0,12],[1,12],[0,14],[0,15],[1,12],[0,15],[0,12],[1,15],[0,15],[0,13],[0,14],[0,15],[0,15],[0,13],[0,14],[0,14],[0,15],[0,14],[0,12],[0,14],[0,15],[0,14],[1,15],[0,14],[0,13],[0,12],[0,12],[0,14],[0,14],[0,15],[0,15],[1,12],[0,14],[0,13],[1,14],[1,15],[0,14],[0,15],[1,12],[0,14],[0,12],[0,15],[0,12],[0,15],[0,15],[1,13],[0,15]],"name":"Youth A B","women_dnf":0,"attendees_women":12,"total_dns":3,"participants_women":12,"attendees_men":48}],"participants_total_dns":5,"participants_men_dnf":4,"prereg_participants_women":21,"participants_men":85,"participants_unpaid":1,"participants_paid_seasons_pass":0,"attendees_women":25,"start_date":"2019-11-03","participants_total":110},{"attendees_men":224,"prereg_participants_total":236,"participants_women":37,"name":"Round08 - Jun, Sen, V40, V50","participants_men_dns":16,"attendees_total":261,"prereg_participants_men":204,"participants_women_dns":3,"participants_paid_on_venue":259,"participants_women_dnf":1,"participants_total_dnf":15,"events":[{"prereg_participants_total":91,"men_dns":6,"men_dnf":4,"attendees_total":96,"prereg_participants_men":91,"prereg_participants_women":0,"participants_men":96,"participants_total":96,"total_dnf":4,"women_dns":0,"attendees":[[0,43],[0,43],[0,45],[0,44],[0,49],[0,49],[0,16],[0,46],[0,43],[0,45],[0,49],[0,45],[0,47],[0,47],[0,49],[0,48],[0,46],[0,45],[0,44],[0,44],[0,47],[0,41],[0,40],[0,44],[0,48],[0,44],[0,48],[0,42],[0,43],[0,16],[0,48],[0,42],[0,46],[0,43],[0,42],[0,42],[0,16],[0,40],[0,48],[0,48],[0,46],[0,16],[0,16],[0,49],[0,47],[0,17],[0,49],[0,42],[0,42],[0,44],[0,17],[0,42],[0,48],[0,16],[0,49],[0,43],[0,48],[0,49],[0,17],[0,44],[0,46],[0,47],[0,44],[0,43],[0,47],[0,17],[0,16],[0,46],[0,44],[0,48],[0,44],[0,42],[0,42],[0,49],[0,42],[0,43],[0,46],[0,44],[0,44],[0,49],[0,44],[0,47],[0,46],[0,48],[0,45],[0,43],[0,45],[0,17],[0,45],[0,44],[0,44],[0,48],[0,46],[0,46],[0,49],[0,48]],"name":"Juniors and Vet40-49","women_dnf":0,"attendees_women":0,"total_dns":6,"participants_women":0,"attendees_men":96},{"prereg_participants_total":86,"men_dns":5,"men_dnf":2,"attendees_total":96,"prereg_participants_men":54,"prereg_participants_women":32,"participants_men":59,"participants_total":96,"total_dnf":3,"women_dns":3,"attendees":[[0,58],[1,19],[0,56],[0,55],[1,43],[1,47],[0,53],[0,57],[0,54],[0,54],[1,38],[0,55],[0,59],[0,52],[0,55],[0,50],[0,50],[1,21],[0,56],[1,16],[1,53],[0,53],[0,54],[0,52],[0,63],[0,57],[1,40],[1,54],[0,58],[0,59],[0,52],[0,61],[0,56],[0,52],[0,52],[0,55],[0,52],[0,56],[1,57],[0,50],[1,24],[1,42],[1,48],[0,54],[0,53],[1,46],[0,52],[0,56],[1,57],[1,16],[0,60],[0,52],[0,52],[0,52],[0,56],[0,58],[1,38],[1,55],[0,52],[1,53],[0,50],[0,53],[1,45],[0,59],[1,47],[0,52],[0,50],[1,35],[1,49],[0,51],[0,61],[1,50],[1,48],[1,45],[0,55],[1,48],[1,30],[1,55],[1,38],[1,54],[0,60],[1,46],[0,50],[1,56],[0,61],[0,60],[1,45],[0,55],[1,46],[0,60],[0,51],[1,53],[0,53],[1,43],[0,54],[0,53]],"name":"Vet50 Men, and all Women cats","women_dnf":1,"attendees_women":37,"total_dns":8,"participants_women":37,"attendees_men":59},{"prereg_participants_total":59,"men_dns":5,"men_dnf":8,"attendees_total":69,"prereg_participants_men":59,"prereg_participants_women":0,"participants_men":69,"participants_total":69,"total_dnf":8,"women_dns":0,"attendees":[[0,38],[0,29],[0,35],[0,18],[0,38],[0,27],[0,24],[0,35],[0,25],[0,26],[0,36],[0,31],[0,24],[0,30],[0,24],[0,30],[0,35],[0,39],[0,37],[0,34],[0,29],[0,24],[0,35],[0,31],[0,35],[0,23],[0,39],[0,32],[0,32],[0,38],[0,35],[0,31],[0,50],[0,19],[0,36],[0,33],[0,37],[0,32],[0,30],[0,18],[0,30],[0,38],[0,34],[0,22],[0,19],[0,36],[0,52],[0,38],[0,22],[0,37],[0,29],[0,33],[0,40],[0,27],[0,28],[0,22],[0,39],[0,30],[0,33],[0,37],[0,27],[0,18],[0,34],[0,38],[0,34],[0,21],[0,25],[0,38],[0,26]],"name":"Senior Men","women_dnf":0,"attendees_women":0,"total_dns":5,"participants_women":0,"attendees_men":69}],"participants_total_dns":19,"participants_men_dnf":14,"prereg_participants_women":32,"participants_men":224,"participants_unpaid":2,"participants_paid_seasons_pass":0,"attendees_women":37,"start_date":"2019-11-03","participants_total":261},{"attendees_men":76,"prereg_participants_total":89,"participants_women":23,"name":"Round09 - U10, U12, Youth","participants_men_dns":4,"attendees_total":99,"prereg_participants_men":71,"participants_women_dns":2,"participants_paid_on_venue":98,"participants_women_dnf":0,"participants_total_dnf":1,"events":[{"prereg_participants_total":22,"men_dns":1,"men_dnf":1,"attendees_total":25,"prereg_participants_men":16,"prereg_participants_women":6,"participants_men":17,"participants_total":25,"total_dnf":1,"women_dns":1,"attendees":[[1,7],[0,9],[0,8],[1,8],[1,8],[0,8],[1,6],[0,9],[0,8],[1,8],[1,6],[0,9],[0,9],[0,9],[0,7],[0,7],[0,9],[0,9],[0,8],[0,8],[0,9],[0,7],[1,8],[1,9],[0,9]],"name":"Under 10s","women_dnf":0,"attendees_women":8,"total_dns":2,"participants_women":8,"attendees_men":17},{"prereg_participants_total":23,"men_dns":3,"men_dnf":0,"attendees_total":24,"prereg_participants_men":17,"prereg_participants_women":6,"participants_men":18,"participants_total":24,"total_dnf":0,"women_dns":1,"attendees":[[1,11],[0,11],[0,10],[0,10],[0,10],[0,11],[0,10],[0,11],[1,11],[0,10],[0,10],[0,11],[0,11],[1,11],[1,11],[0,10],[0,10],[0,11],[1,11],[1,11],[0,11],[0,11],[0,10],[0,11]],"name":"Under 12s","women_dnf":0,"attendees_women":6,"total_dns":4,"participants_women":6,"attendees_men":18},{"prereg_participants_total":44,"men_dns":0,"men_dnf":0,"attendees_total":50,"prereg_participants_men":38,"prereg_participants_women":6,"participants_men":41,"participants_total":50,"total_dnf":0,"women_dns":0,"attendees":[[0,13],[0,12],[1,13],[0,14],[0,15],[0,14],[0,14],[0,14],[0,14],[0,12],[0,13],[1,14],[0,12],[1,12],[0,12],[0,15],[0,12],[0,13],[0,14],[0,15],[0,13],[0,14],[0,13],[0,15],[0,14],[0,12],[0,12],[0,14],[0,14],[1,15],[1,13],[0,14],[1,12],[1,12],[0,12],[0,14],[0,15],[0,15],[1,12],[0,13],[0,14],[0,14],[0,13],[0,12],[0,15],[0,14],[0,15],[0,15],[0,13],[1,13]],"name":"Youth A B","women_dnf":0,"attendees_women":9,"total_dns":0,"participants_women":9,"attendees_men":41}],"participants_total_dns":6,"participants_men_dnf":1,"prereg_participants_women":18,"participants_men":76,"participants_unpaid":1,"participants_paid_seasons_pass":0,"attendees_women":23,"start_date":"2019-11-24","participants_total":99},{"attendees_men":186,"prereg_participants_total":200,"participants_women":36,"name":"Round09 - Jun, Sen, V40, V50","participants_men_dns":20,"attendees_total":222,"prereg_participants_men":171,"participants_women_dns":3,"participants_paid_on_venue":220,"participants_women_dnf":1,"participants_total_dnf":7,"events":[{"prereg_participants_total":71,"men_dns":7,"men_dnf":1,"attendees_total":76,"prereg_participants_men":71,"prereg_participants_women":0,"participants_men":76,"participants_total":76,"total_dnf":1,"women_dns":0,"attendees":[[0,41],[0,43],[0,45],[0,43],[0,44],[0,48],[0,42],[0,43],[0,45],[0,48],[0,42],[0,45],[0,45],[0,47],[0,47],[0,48],[0,46],[0,48],[0,42],[0,16],[0,42],[0,44],[0,44],[0,47],[0,49],[0,44],[0,45],[0,43],[0,49],[0,47],[0,16],[0,43],[0,45],[0,49],[0,48],[0,16],[0,42],[0,47],[0,49],[0,42],[0,42],[0,16],[0,49],[0,49],[0,17],[0,16],[0,16],[0,46],[0,43],[0,43],[0,46],[0,16],[0,48],[0,48],[0,44],[0,45],[0,49],[0,49],[0,45],[0,42],[0,43],[0,44],[0,44],[0,44],[0,47],[0,46],[0,45],[0,44],[0,44],[0,45],[0,17],[0,44],[0,49],[0,46],[0,46],[0,48]],"name":"Juniors and Vet40-49","women_dnf":0,"attendees_women":0,"total_dns":7,"participants_women":0,"attendees_men":76},{"prereg_participants_total":86,"men_dns":10,"men_dnf":4,"attendees_total":98,"prereg_participants_men":57,"prereg_participants_women":29,"participants_men":62,"participants_total":98,"total_dnf":5,"women_dns":3,"attendees":[[1,45],[1,55],[0,56],[0,55],[0,59],[1,36],[0,58],[0,54],[0,57],[0,52],[0,53],[0,59],[0,55],[0,55],[0,57],[0,53],[1,17],[1,21],[0,56],[1,24],[1,53],[1,26],[0,53],[0,60],[1,44],[0,52],[0,63],[0,58],[0,57],[1,37],[0,51],[1,40],[1,54],[0,58],[0,52],[0,61],[1,40],[0,54],[0,52],[0,52],[0,52],[0,56],[1,57],[1,49],[1,42],[0,51],[0,57],[0,61],[0,54],[0,53],[0,52],[0,52],[1,57],[1,16],[0,60],[0,51],[0,52],[0,52],[0,58],[0,58],[1,55],[0,52],[1,53],[0,53],[0,55],[1,38],[1,30],[1,47],[0,52],[0,50],[1,35],[1,49],[0,61],[1,50],[1,48],[1,31],[0,50],[0,53],[0,55],[0,56],[0,66],[0,60],[1,24],[0,60],[1,56],[0,61],[0,60],[1,45],[1,38],[1,46],[0,60],[0,51],[1,34],[1,53],[0,53],[1,43],[0,54],[0,53]],"name":"Vet50 Men, and all Women cats","women_dnf":1,"attendees_women":36,"total_dns":13,"participants_women":36,"attendees_men":62},{"prereg_participants_total":43,"men_dns":3,"men_dnf":1,"attendees_total":48,"prereg_participants_men":43,"prereg_participants_women":0,"participants_men":48,"participants_total":48,"total_dnf":1,"women_dns":0,"attendees":[[0,38],[0,31],[0,27],[0,25],[0,24],[0,35],[0,24],[0,37],[0,37],[0,34],[0,35],[0,23],[0,32],[0,32],[0,36],[0,34],[0,25],[0,36],[0,31],[0,33],[0,37],[0,30],[0,24],[0,36],[0,40],[0,26],[0,35],[0,33],[0,19],[0,36],[0,24],[0,37],[0,30],[0,33],[0,33],[0,25],[0,40],[0,31],[0,42],[0,22],[0,33],[0,28],[0,27],[0,30],[0,33],[0,33],[0,20],[0,26]],"name":"Senior Men","women_dnf":0,"attendees_women":0,"total_dns":3,"participants_women":0,"attendees_men":48}],"participants_total_dns":23,"participants_men_dnf":6,"prereg_participants_women":29,"participants_men":186,"participants_unpaid":2,"participants_paid_seasons_pass":0,"attendees_women":36,"start_date":"2019-11-24","participants_total":222},{"attendees_men":82,"prereg_participants_total":105,"participants_women":30,"name":"Round10 - U10, U12, Youth","participants_men_dns":10,"attendees_total":112,"prereg_participants_men":77,"participants_women_dns":1,"participants_paid_on_venue":112,"participants_women_dnf":0,"participants_total_dnf":0,"events":[{"prereg_participants_total":28,"men_dns":5,"men_dnf":0,"attendees_total":30,"prereg_participants_men":20,"prereg_participants_women":8,"participants_men":20,"participants_total":30,"total_dnf":0,"women_dns":0,"attendees":[[0,8],[0,8],[1,8],[1,8],[0,8],[1,6],[0,9],[0,8],[1,8],[1,6],[0,9],[0,9],[1,8],[0,7],[0,7],[0,9],[0,8],[0,8],[0,9],[0,8],[1,9],[0,8],[0,9],[0,7],[1,8],[1,9],[0,7],[1,9],[0,7],[0,9]],"name":"Under 10s","women_dnf":0,"attendees_women":10,"total_dns":5,"participants_women":10,"attendees_men":20},{"prereg_participants_total":24,"men_dns":1,"men_dnf":0,"attendees_total":25,"prereg_participants_men":17,"prereg_participants_women":7,"participants_men":18,"participants_total":25,"total_dnf":0,"women_dns":1,"attendees":[[1,11],[0,10],[0,11],[0,10],[0,11],[1,11],[0,10],[0,11],[0,11],[0,11],[1,11],[0,11],[1,11],[0,10],[0,10],[1,11],[0,11],[1,10],[0,11],[1,11],[0,11],[0,11],[0,10],[0,10],[0,11]],"name":"Under 12s","women_dnf":0,"attendees_women":7,"total_dns":2,"participants_women":7,"attendees_men":18},{"prereg_participants_total":53,"men_dns":4,"men_dnf":0,"attendees_total":57,"prereg_participants_men":40,"prereg_participants_women":13,"participants_men":44,"participants_total":57,"total_dnf":0,"women_dns":0,"attendees":[[0,13],[0,12],[0,14],[1,12],[0,15],[0,14],[0,14],[0,14],[0,12],[1,14],[0,12],[1,12],[1,12],[1,14],[0,15],[0,12],[1,15],[0,13],[0,15],[0,15],[0,13],[0,14],[0,12],[1,14],[0,12],[0,14],[0,15],[1,15],[1,13],[0,12],[0,13],[0,12],[0,12],[0,14],[0,14],[0,15],[0,15],[1,12],[0,15],[0,14],[0,14],[0,13],[1,14],[0,14],[0,12],[0,14],[0,13],[0,12],[0,15],[1,12],[0,14],[0,12],[0,15],[0,15],[0,15],[0,13],[1,13]],"name":"Youth A B","women_dnf":0,"attendees_women":13,"total_dns":4,"participants_women":13,"attendees_men":44}],"participants_total_dns":11,"participants_men_dnf":0,"prereg_participants_women":28,"participants_men":82,"participants_unpaid":0,"participants_paid_seasons_pass":0,"attendees_women":30,"start_date":"2019-12-01","participants_total":112},{"attendees_men":182,"prereg_participants_total":195,"participants_women":29,"name":"Round10 - Jun, Sen, V40, V50","participants_men_dns":15,"attendees_total":211,"prereg_participants_men":170,"participants_women_dns":3,"participants_paid_on_venue":210,"participants_women_dnf":2,"participants_total_dnf":15,"events":[{"prereg_participants_total":80,"men_dns":6,"men_dnf":5,"attendees_total":85,"prereg_participants_men":80,"prereg_participants_women":0,"participants_men":85,"participants_total":85,"total_dnf":5,"women_dns":0,"attendees":[[0,44],[0,43],[0,43],[0,45],[0,44],[0,49],[0,49],[0,16],[0,41],[0,43],[0,48],[0,49],[0,42],[0,45],[0,45],[0,47],[0,48],[0,40],[0,49],[0,49],[0,46],[0,48],[0,46],[0,16],[0,42],[0,44],[0,44],[0,47],[0,16],[0,48],[0,40],[0,45],[0,49],[0,47],[0,16],[0,43],[0,45],[0,49],[0,16],[0,45],[0,45],[0,40],[0,17],[0,49],[0,42],[0,42],[0,48],[0,16],[0,49],[0,43],[0,17],[0,46],[0,41],[0,43],[0,47],[0,16],[0,46],[0,44],[0,48],[0,44],[0,45],[0,49],[0,49],[0,45],[0,43],[0,44],[0,44],[0,49],[0,44],[0,47],[0,46],[0,48],[0,45],[0,44],[0,44],[0,45],[0,43],[0,17],[0,45],[0,44],[0,46],[0,46],[0,47],[0,48],[0,16]],"name":"Juniors and Vet40-49","women_dnf":0,"attendees_women":0,"total_dns":6,"participants_women":0,"attendees_men":85},{"prereg_participants_total":72,"men_dns":1,"men_dnf":2,"attendees_total":79,"prereg_participants_men":47,"prereg_participants_women":25,"participants_men":50,"participants_total":79,"total_dnf":4,"women_dns":3,"attendees":[[1,24],[0,55],[1,19],[0,56],[1,43],[1,50],[1,36],[0,58],[0,57],[0,58],[0,52],[0,53],[1,38],[0,55],[0,51],[0,55],[0,57],[1,17],[1,21],[0,56],[1,53],[0,53],[0,60],[0,54],[0,57],[0,51],[1,40],[1,54],[0,58],[0,50],[1,37],[0,59],[0,52],[0,61],[1,32],[0,52],[0,52],[0,56],[1,57],[1,42],[1,40],[1,48],[0,61],[1,16],[0,51],[0,0],[0,52],[0,50],[0,52],[0,56],[0,58],[1,55],[0,52],[0,50],[0,53],[0,59],[1,47],[1,35],[1,49],[0,61],[1,44],[0,50],[0,53],[0,55],[0,54],[1,45],[0,55],[0,51],[0,66],[0,53],[1,24],[1,56],[1,46],[1,34],[1,53],[0,53],[0,54],[0,56],[0,53]],"name":"Vet50 Men, and all Women cats","women_dnf":2,"attendees_women":29,"total_dns":4,"participants_women":29,"attendees_men":50},{"prereg_participants_total":43,"men_dns":8,"men_dnf":6,"attendees_total":47,"prereg_participants_men":43,"prereg_participants_women":0,"participants_men":47,"participants_total":47,"total_dnf":6,"women_dns":0,"attendees":[[0,39],[0,38],[0,31],[0,18],[0,27],[0,35],[0,35],[0,24],[0,34],[0,35],[0,34],[0,35],[0,23],[0,32],[0,32],[0,27],[0,37],[0,36],[0,31],[0,31],[0,29],[0,27],[0,37],[0,30],[0,18],[0,34],[0,26],[0,35],[0,29],[0,26],[0,22],[0,30],[0,33],[0,40],[0,40],[0,22],[0,33],[0,28],[0,30],[0,33],[0,30],[0,18],[0,34],[0,34],[0,36],[0,33],[0,26]],"name":"Senior Men","women_dnf":0,"attendees_women":0,"total_dns":8,"participants_women":0,"attendees_men":47}],"participants_total_dns":18,"participants_men_dnf":13,"prereg_participants_women":25,"participants_men":182,"participants_unpaid":1,"participants_paid_seasons_pass":0,"attendees_women":29,"start_date":"2019-12-01","participants_total":211},{"attendees_men":75,"prereg_participants_total":98,"participants_women":27,"name":"Champ19 - U10, U12, Youth","participants_men_dns":10,"attendees_total":102,"prereg_participants_men":71,"participants_women_dns":3,"participants_paid_on_venue":102,"participants_women_dnf":0,"participants_total_dnf":2,"events":[{"prereg_participants_total":18,"men_dns":2,"men_dnf":0,"attendees_total":20,"prereg_participants_men":15,"prereg_participants_women":3,"participants_men":17,"participants_total":20,"total_dnf":0,"women_dns":0,"attendees":[[0,8],[0,8],[0,9],[0,9],[0,8],[0,9],[1,8],[1,6],[0,9],[0,9],[0,9],[1,8],[0,8],[0,9],[0,8],[0,9],[0,8],[0,8],[0,7],[0,7]],"name":"Under 10s","women_dnf":0,"attendees_women":3,"total_dns":2,"participants_women":3,"attendees_men":17},{"prereg_participants_total":25,"men_dns":3,"men_dnf":0,"attendees_total":27,"prereg_participants_men":13,"prereg_participants_women":12,"participants_men":15,"participants_total":27,"total_dnf":0,"women_dns":1,"attendees":[[1,11],[1,11],[0,10],[0,10],[1,11],[0,11],[0,10],[1,11],[0,11],[0,11],[0,11],[0,11],[1,11],[0,11],[1,11],[1,10],[1,11],[1,11],[0,11],[1,11],[1,11],[0,11],[0,10],[0,10],[0,10],[1,10],[0,11]],"name":"Under 12s","women_dnf":0,"attendees_women":12,"total_dns":4,"participants_women":12,"attendees_men":15},{"prereg_participants_total":55,"men_dns":5,"men_dnf":2,"attendees_total":55,"prereg_participants_men":43,"prereg_participants_women":12,"participants_men":43,"participants_total":55,"total_dnf":2,"women_dns":2,"attendees":[[0,13],[0,12],[1,13],[0,14],[1,12],[0,15],[0,14],[0,14],[0,14],[0,12],[0,13],[0,12],[0,13],[1,12],[0,13],[1,12],[1,12],[0,15],[1,15],[0,15],[0,12],[0,13],[0,14],[0,15],[0,14],[0,12],[0,14],[0,15],[0,14],[1,15],[1,13],[0,14],[0,13],[0,12],[0,15],[0,12],[0,14],[0,14],[0,15],[0,15],[0,14],[0,13],[1,14],[0,13],[0,13],[0,15],[0,14],[0,12],[0,15],[0,15],[0,15],[1,13],[0,13],[1,13],[1,13]],"name":"Youth A B","women_dnf":0,"attendees_women":12,"total_dns":7,"participants_women":12,"attendees_men":43}],"participants_total_dns":13,"participants_men_dnf":2,"prereg_participants_women":27,"participants_men":75,"participants_unpaid":0,"participants_paid_seasons_pass":0,"attendees_women":27,"start_date":"2019-12-08","participants_total":102},{"attendees_men":163,"prereg_participants_total":193,"participants_women":32,"name":"Champ19 - Jun, Sen, V40, V50","participants_men_dns":21,"attendees_total":195,"prereg_participants_men":161,"participants_women_dns":6,"participants_paid_on_venue":197,"participants_women_dnf":1,"participants_total_dnf":13,"events":[{"prereg_participants_total":63,"men_dns":7,"men_dnf":1,"attendees_total":65,"prereg_participants_men":63,"prereg_participants_women":0,"participants_men":65,"participants_total":65,"total_dnf":1,"women_dns":0,"attendees":[[0,43],[0,45],[0,43],[0,44],[0,49],[0,17],[0,16],[0,48],[0,43],[0,49],[0,45],[0,47],[0,47],[0,49],[0,48],[0,46],[0,44],[0,44],[0,47],[0,48],[0,45],[0,43],[0,42],[0,45],[0,43],[0,16],[0,45],[0,41],[0,16],[0,49],[0,17],[0,42],[0,48],[0,16],[0,49],[0,49],[0,40],[0,17],[0,46],[0,43],[0,47],[0,46],[0,17],[0,16],[0,46],[0,44],[0,49],[0,44],[0,49],[0,47],[0,48],[0,45],[0,44],[0,44],[0,45],[0,43],[0,45],[0,44],[0,48],[0,49],[0,46],[0,46],[0,47],[0,48],[0,16]],"name":"Juniors and Vet40-49","women_dnf":0,"attendees_women":0,"total_dns":7,"participants_women":0,"attendees_men":65},{"prereg_participants_total":32,"men_dns":0,"men_dnf":0,"attendees_total":32,"prereg_participants_men":0,"prereg_participants_women":32,"participants_men":0,"participants_total":32,"total_dnf":1,"women_dns":6,"attendees":[[1,19],[1,43],[1,36],[1,38],[1,50],[1,17],[1,21],[1,53],[1,36],[1,26],[1,53],[1,40],[1,37],[1,32],[1,52],[1,42],[1,46],[1,16],[1,38],[1,55],[1,49],[1,50],[1,48],[1,44],[1,31],[1,25],[1,45],[1,38],[1,45],[1,46],[1,34],[1,53]],"name":"All Women cats","women_dnf":1,"attendees_women":32,"total_dns":6,"participants_women":32,"attendees_men":0},{"prereg_participants_total":45,"men_dns":4,"men_dnf":0,"attendees_total":45,"prereg_participants_men":45,"prereg_participants_women":0,"participants_men":45,"participants_total":45,"total_dnf":0,"women_dns":0,"attendees":[[0,53],[0,57],[0,55],[0,58],[0,54],[0,53],[0,55],[0,55],[0,57],[0,57],[0,53],[0,56],[0,53],[0,63],[0,57],[0,57],[0,51],[0,64],[0,58],[0,56],[0,54],[0,52],[0,50],[0,57],[0,54],[0,53],[0,0],[0,52],[0,52],[0,52],[0,53],[0,59],[0,50],[0,61],[0,53],[0,55],[0,54],[0,61],[0,61],[0,60],[0,60],[0,53],[0,54],[0,56],[0,53]],"name":"Vet 50 Men and Vet 60 Men","women_dnf":0,"attendees_women":0,"total_dns":4,"participants_women":0,"attendees_men":45},{"prereg_participants_total":53,"men_dns":10,"men_dnf":11,"attendees_total":53,"prereg_participants_men":53,"prereg_participants_women":0,"participants_men":53,"participants_total":53,"total_dnf":11,"women_dns":0,"attendees":[[0,39],[0,18],[0,38],[0,27],[0,19],[0,35],[0,25],[0,31],[0,26],[0,28],[0,36],[0,24],[0,24],[0,38],[0,26],[0,35],[0,24],[0,34],[0,29],[0,34],[0,23],[0,32],[0,32],[0,18],[0,28],[0,37],[0,39],[0,32],[0,30],[0,18],[0,34],[0,35],[0,30],[0,52],[0,37],[0,30],[0,29],[0,40],[0,19],[0,40],[0,31],[0,22],[0,27],[0,36],[0,38],[0,33],[0,27],[0,38],[0,34],[0,21],[0,36],[0,38],[0,26]],"name":"Senior Men","women_dnf":0,"attendees_women":0,"total_dns":10,"participants_women":0,"attendees_men":53}],"participants_total_dns":27,"participants_men_dnf":12,"prereg_participants_women":32,"participants_men":163,"participants_unpaid":1,"participants_paid_seasons_pass":0,"attendees_women":32,"start_date":"2019-12-08","participants_total":195},{"attendees_men":69,"prereg_participants_total":92,"participants_women":26,"name":"Round11 - U10, U12, Youth","participants_men_dns":18,"attendees_total":95,"prereg_participants_men":66,"participants_women_dns":5,"participants_paid_on_venue":95,"participants_women_dnf":2,"participants_total_dnf":5,"events":[{"prereg_participants_total":20,"men_dns":4,"men_dnf":1,"attendees_total":21,"prereg_participants_men":13,"prereg_participants_women":7,"participants_men":14,"participants_total":21,"total_dnf":2,"women_dns":2,"attendees":[[0,8],[0,9],[0,8],[1,8],[1,6],[0,9],[0,9],[0,9],[1,8],[0,8],[0,9],[0,9],[0,6],[1,9],[1,8],[0,8],[0,8],[1,9],[0,9],[0,7],[1,9]],"name":"Under 10s","women_dnf":1,"attendees_women":7,"total_dns":6,"participants_women":7,"attendees_men":14},{"prereg_participants_total":25,"men_dns":5,"men_dnf":0,"attendees_total":26,"prereg_participants_men":16,"prereg_participants_women":9,"participants_men":17,"participants_total":26,"total_dnf":0,"women_dns":1,"attendees":[[1,11],[1,11],[0,10],[0,10],[0,11],[0,10],[1,11],[0,10],[0,11],[0,11],[0,11],[1,11],[1,11],[0,10],[1,11],[1,11],[0,11],[0,10],[1,11],[0,11],[1,11],[0,11],[0,11],[0,10],[0,10],[0,11]],"name":"Under 12s","women_dnf":0,"attendees_women":9,"total_dns":6,"participants_women":9,"attendees_men":17},{"prereg_participants_total":47,"men_dns":9,"men_dnf":2,"attendees_total":48,"prereg_participants_men":37,"prereg_participants_women":10,"participants_men":38,"participants_total":48,"total_dnf":3,"women_dns":2,"attendees":[[0,13],[0,12],[1,13],[1,12],[0,15],[0,14],[0,14],[0,15],[0,13],[0,12],[1,12],[0,14],[0,14],[1,14],[0,15],[1,15],[0,15],[0,12],[0,13],[0,15],[0,14],[0,15],[1,14],[0,13],[0,12],[0,14],[0,15],[1,15],[1,13],[0,14],[0,12],[0,15],[0,12],[0,14],[0,14],[0,15],[1,12],[1,12],[0,14],[0,13],[0,14],[0,13],[0,15],[0,14],[0,12],[0,15],[0,15],[0,13]],"name":"Youth A B","women_dnf":1,"attendees_women":10,"total_dns":11,"participants_women":10,"attendees_men":38}],"participants_total_dns":23,"participants_men_dnf":3,"prereg_participants_women":26,"participants_men":69,"participants_unpaid":0,"participants_paid_seasons_pass":0,"attendees_women":26,"start_date":"2019-12-21","participants_total":95},{"attendees_men":166,"prereg_participants_total":181,"participants_women":30,"name":"Round11 - Jun, Sen, V40, V50","participants_men_dns":21,"attendees_total":196,"prereg_participants_men":154,"participants_women_dns":1,"participants_paid_on_venue":196,"participants_women_dnf":0,"participants_total_dnf":10,"events":[{"prereg_participants_total":65,"men_dns":9,"men_dnf":3,"attendees_total":67,"prereg_participants_men":65,"prereg_participants_women":0,"participants_men":67,"participants_total":67,"total_dnf":3,"women_dns":0,"attendees":[[0,41],[0,43],[0,45],[0,43],[0,40],[0,44],[0,16],[0,45],[0,42],[0,45],[0,48],[0,49],[0,49],[0,48],[0,42],[0,46],[0,45],[0,44],[0,47],[0,16],[0,47],[0,48],[0,43],[0,49],[0,43],[0,16],[0,48],[0,48],[0,45],[0,48],[0,16],[0,45],[0,17],[0,42],[0,42],[0,16],[0,49],[0,43],[0,48],[0,49],[0,17],[0,46],[0,47],[0,43],[0,43],[0,47],[0,46],[0,44],[0,48],[0,44],[0,49],[0,42],[0,49],[0,44],[0,43],[0,47],[0,46],[0,44],[0,45],[0,17],[0,44],[0,48],[0,49],[0,46],[0,47],[0,48],[0,16]],"name":"Juniors and Vet40-49","women_dnf":0,"attendees_women":0,"total_dns":9,"participants_women":0,"attendees_men":67},{"prereg_participants_total":76,"men_dns":6,"men_dnf":3,"attendees_total":83,"prereg_participants_men":49,"prereg_participants_women":27,"participants_men":53,"participants_total":83,"total_dnf":3,"women_dns":1,"attendees":[[0,55],[1,19],[0,56],[0,58],[0,57],[0,54],[0,57],[1,17],[1,38],[0,51],[0,60],[0,53],[0,52],[1,21],[0,56],[1,53],[0,50],[1,26],[0,53],[0,60],[0,57],[0,63],[0,51],[1,19],[0,58],[0,54],[1,37],[0,59],[0,52],[0,61],[0,56],[0,54],[0,52],[1,17],[0,52],[1,57],[0,51],[0,50],[0,57],[1,42],[0,57],[0,54],[0,53],[1,46],[1,16],[0,68],[0,51],[0,52],[0,52],[0,58],[1,55],[0,52],[0,50],[0,53],[1,45],[0,59],[1,38],[1,47],[0,50],[0,50],[1,49],[0,61],[1,48],[1,44],[0,50],[0,55],[1,45],[0,53],[1,38],[1,24],[1,56],[0,61],[0,60],[1,45],[1,46],[0,60],[1,34],[1,53],[0,53],[0,56],[1,27],[1,49],[0,53]],"name":"Vet50 Men, and all Women cats","women_dnf":0,"attendees_women":30,"total_dns":7,"participants_women":30,"attendees_men":53},{"prereg_participants_total":40,"men_dns":6,"men_dnf":4,"attendees_total":46,"prereg_participants_men":40,"prereg_participants_women":0,"participants_men":46,"participants_total":46,"total_dnf":4,"women_dns":0,"attendees":[[0,39],[0,38],[0,18],[0,38],[0,25],[0,24],[0,30],[0,33],[0,35],[0,24],[0,34],[0,35],[0,31],[0,23],[0,39],[0,32],[0,28],[0,28],[0,36],[0,31],[0,29],[0,27],[0,30],[0,34],[0,36],[0,35],[0,34],[0,33],[0,20],[0,19],[0,30],[0,36],[0,19],[0,40],[0,31],[0,27],[0,22],[0,28],[0,30],[0,33],[0,30],[0,36],[0,28],[0,38],[0,33],[0,26]],"name":"Senior Men","women_dnf":0,"attendees_women":0,"total_dns":6,"participants_women":0,"attendees_men":46}],"participants_total_dns":22,"participants_men_dnf":10,"prereg_participants_women":27,"participants_men":166,"participants_unpaid":0,"participants_paid_seasons_pass":0,"attendees_women":30,"start_date":"2019-12-21","participants_total":196},{"attendees_men":66,"prereg_participants_total":83,"participants_women":23,"name":"Round12 - U10, U12, Youth","participants_men_dns":2,"attendees_total":89,"prereg_participants_men":61,"participants_women_dns":0,"participants_paid_on_venue":91,"participants_women_dnf":0,"participants_total_dnf":3,"events":[{"prereg_participants_total":19,"men_dns":0,"men_dnf":0,"attendees_total":21,"prereg_participants_men":15,"prereg_participants_women":4,"participants_men":17,"participants_total":21,"total_dnf":0,"women_dns":0,"attendees":[[0,9],[0,9],[0,10],[0,9],[1,7],[0,10],[0,10],[1,9],[0,8],[0,8],[0,9],[0,10],[0,9],[0,8],[0,10],[0,7],[0,8],[1,9],[0,8],[1,10],[0,10]],"name":"Under 10s","women_dnf":0,"attendees_women":4,"total_dns":0,"participants_women":4,"attendees_men":17},{"prereg_participants_total":21,"men_dns":1,"men_dnf":0,"attendees_total":22,"prereg_participants_men":14,"prereg_participants_women":7,"participants_men":15,"participants_total":22,"total_dnf":0,"women_dns":0,"attendees":[[1,12],[1,12],[0,11],[0,12],[0,11],[1,12],[0,12],[0,12],[0,11],[1,12],[1,12],[0,11],[0,11],[1,12],[0,12],[0,11],[1,12],[0,12],[0,11],[0,11],[0,11],[0,12]],"name":"Under 12s","women_dnf":0,"attendees_women":7,"total_dns":1,"participants_women":7,"attendees_men":15},{"prereg_participants_total":43,"men_dns":1,"men_dnf":3,"attendees_total":46,"prereg_participants_men":32,"prereg_participants_women":11,"participants_men":34,"participants_total":46,"total_dnf":3,"women_dns":0,"attendees":[[0,14],[0,13],[1,14],[0,15],[1,13],[0,16],[0,15],[0,15],[0,13],[0,14],[0,13],[1,13],[1,13],[0,16],[1,16],[0,16],[0,13],[0,14],[0,16],[1,15],[0,15],[0,16],[0,15],[1,16],[0,15],[0,16],[0,16],[1,13],[0,13],[1,13],[0,15],[0,14],[1,15],[0,15],[0,16],[1,14],[0,16],[0,15],[0,14],[0,13],[0,16],[0,14],[0,16],[0,16],[0,14],[1,14]],"name":"Youth A B","women_dnf":0,"attendees_women":12,"total_dns":1,"participants_women":12,"attendees_men":34}],"participants_total_dns":2,"participants_men_dnf":3,"prereg_participants_women":22,"participants_men":66,"participants_unpaid":1,"participants_paid_seasons_pass":0,"attendees_women":23,"start_date":"2020-01-04","participants_total":89},{"attendees_men":175,"prereg_participants_total":189,"participants_women":37,"name":"Round12 - Jun, Sen, V40, V50","participants_men_dns":15,"attendees_total":212,"prereg_participants_men":157,"participants_women_dns":3,"participants_paid_on_venue":211,"participants_women_dnf":2,"participants_total_dnf":10,"events":[{"prereg_participants_total":70,"men_dns":6,"men_dnf":1,"attendees_total":76,"prereg_participants_men":70,"prereg_participants_women":0,"participants_men":76,"participants_total":76,"total_dnf":1,"women_dns":0,"attendees":[[0,49],[0,42],[0,45],[0,46],[0,44],[0,17],[0,49],[0,46],[0,43],[0,46],[0,48],[0,49],[0,50],[0,47],[0,17],[0,46],[0,45],[0,45],[0,18],[0,48],[0,48],[0,49],[0,45],[0,44],[0,50],[0,17],[0,49],[0,46],[0,49],[0,17],[0,46],[0,48],[0,49],[0,17],[0,50],[0,48],[0,18],[0,50],[0,43],[0,43],[0,45],[0,43],[0,43],[0,17],[0,50],[0,44],[0,49],[0,50],[0,18],[0,47],[0,42],[0,48],[0,17],[0,47],[0,47],[0,45],[0,49],[0,45],[0,50],[0,50],[0,46],[0,45],[0,41],[0,45],[0,49],[0,48],[0,47],[0,46],[0,45],[0,45],[0,46],[0,17],[0,45],[0,49],[0,47],[0,47]],"name":"Juniors and Vet40-49","women_dnf":0,"attendees_women":0,"total_dns":6,"participants_women":0,"attendees_men":76},{"prereg_participants_total":84,"men_dns":7,"men_dnf":3,"attendees_total":94,"prereg_participants_men":52,"prereg_participants_women":32,"participants_men":57,"participants_total":94,"total_dnf":5,"women_dns":3,"attendees":[[0,56],[0,59],[1,56],[1,20],[0,59],[1,30],[0,58],[0,59],[0,55],[0,55],[0,58],[0,54],[1,39],[0,56],[1,58],[0,58],[0,61],[1,18],[1,22],[0,57],[1,27],[1,45],[0,55],[0,53],[0,58],[0,52],[0,11],[1,41],[0,58],[0,59],[0,55],[0,62],[0,57],[0,53],[0,53],[0,53],[1,58],[0,52],[0,51],[1,43],[1,41],[0,62],[0,55],[0,54],[1,47],[0,57],[1,58],[1,17],[0,69],[0,52],[1,31],[0,53],[0,53],[0,53],[0,59],[1,39],[1,56],[0,53],[1,54],[0,51],[0,54],[1,46],[0,52],[0,60],[1,48],[0,51],[1,50],[0,62],[1,51],[1,49],[1,45],[0,51],[0,54],[0,58],[0,56],[1,46],[0,54],[1,31],[1,56],[0,57],[1,57],[0,62],[1,39],[1,47],[0,56],[1,47],[0,61],[1,35],[1,54],[0,54],[0,57],[1,28],[1,50],[0,54]],"name":"Vet50 Men, and all Women cats","women_dnf":2,"attendees_women":37,"total_dns":10,"participants_women":37,"attendees_men":57},{"prereg_participants_total":35,"men_dns":2,"men_dnf":4,"attendees_total":42,"prereg_participants_men":35,"prereg_participants_women":0,"participants_men":42,"participants_total":42,"total_dnf":4,"women_dns":0,"attendees":[[0,39],[0,36],[0,19],[0,28],[0,36],[0,32],[0,25],[0,38],[0,36],[0,25],[0,38],[0,35],[0,32],[0,35],[0,36],[0,24],[0,33],[0,37],[0,34],[0,37],[0,38],[0,28],[0,38],[0,31],[0,36],[0,35],[0,30],[0,42],[0,37],[0,38],[0,31],[0,29],[0,30],[0,41],[0,23],[0,31],[0,34],[0,32],[0,19],[0,35],[0,29],[0,34]],"name":"Senior Men","women_dnf":0,"attendees_women":0,"total_dns":2,"participants_women":0,"attendees_men":42}],"participants_total_dns":18,"participants_men_dnf":8,"prereg_participants_women":32,"participants_men":175,"participants_unpaid":4,"participants_paid_seasons_pass":0,"attendees_women":37,"start_date":"2020-01-04","participants_total":212},{"attendees_men":65,"prereg_participants_total":79,"participants_women":21,"name":"Round13 - U10, U12, Youth","participants_men_dns":5,"attendees_total":86,"prereg_participants_men":60,"participants_women_dns":2,"participants_paid_on_venue":86,"participants_women_dnf":0,"participants_total_dnf":2,"events":[{"prereg_participants_total":20,"men_dns":0,"men_dnf":0,"attendees_total":23,"prereg_participants_men":15,"prereg_participants_women":5,"participants_men":18,"participants_total":23,"total_dnf":0,"women_dns":1,"attendees":[[0,9],[0,10],[0,9],[1,9],[0,9],[0,10],[0,9],[1,9],[1,7],[0,10],[0,10],[1,9],[0,8],[0,8],[0,8],[0,10],[0,9],[0,9],[0,8],[0,9],[0,10],[0,8],[1,10]],"name":"Under 10s","women_dnf":0,"attendees_women":5,"total_dns":1,"participants_women":5,"attendees_men":18},{"prereg_participants_total":18,"men_dns":0,"men_dnf":0,"attendees_total":19,"prereg_participants_men":12,"prereg_participants_women":6,"participants_men":13,"participants_total":19,"total_dnf":0,"women_dns":0,"attendees":[[1,12],[0,11],[0,11],[0,11],[1,12],[0,12],[0,12],[1,12],[1,12],[0,11],[1,12],[0,12],[0,11],[1,12],[0,12],[0,12],[0,11],[0,11],[0,12]],"name":"Under 12s","women_dnf":0,"attendees_women":6,"total_dns":0,"participants_women":6,"attendees_men":13},{"prereg_participants_total":41,"men_dns":5,"men_dnf":2,"attendees_total":44,"prereg_participants_men":33,"prereg_participants_women":8,"participants_men":34,"participants_total":44,"total_dnf":2,"women_dns":1,"attendees":[[0,14],[0,13],[0,16],[0,15],[0,15],[0,13],[0,16],[0,14],[1,15],[0,13],[0,16],[1,13],[1,15],[0,16],[1,16],[0,14],[0,16],[0,14],[0,15],[0,16],[0,14],[0,15],[0,16],[0,15],[0,16],[1,14],[0,13],[0,13],[0,15],[0,15],[0,16],[0,16],[1,13],[1,13],[0,14],[1,16],[0,13],[0,16],[0,14],[0,13],[0,16],[1,14],[0,16],[1,14]],"name":"Youth A B","women_dnf":0,"attendees_women":10,"total_dns":6,"participants_women":10,"attendees_men":34}],"participants_total_dns":7,"participants_men_dnf":2,"prereg_participants_women":19,"participants_men":65,"participants_unpaid":0,"participants_paid_seasons_pass":0,"attendees_women":21,"start_date":"2020-01-26","participants_total":86},{"attendees_men":175,"prereg_participants_total":191,"participants_women":31,"name":"Round13 - Jun, Sen, V40, V50","participants_men_dns":17,"attendees_total":206,"prereg_participants_men":163,"participants_women_dns":3,"participants_paid_on_venue":206,"participants_women_dnf":3,"participants_total_dnf":11,"events":[{"prereg_participants_total":65,"men_dns":6,"men_dnf":2,"attendees_total":68,"prereg_participants_men":65,"prereg_participants_women":0,"participants_men":68,"participants_total":68,"total_dnf":2,"women_dns":0,"attendees":[[0,42],[0,44],[0,50],[0,17],[0,47],[0,46],[0,50],[0,43],[0,46],[0,41],[0,49],[0,50],[0,47],[0,49],[0,45],[0,45],[0,48],[0,17],[0,47],[0,45],[0,49],[0,50],[0,44],[0,50],[0,44],[0,49],[0,46],[0,17],[0,46],[0,49],[0,49],[0,18],[0,50],[0,43],[0,43],[0,45],[0,46],[0,43],[0,49],[0,17],[0,50],[0,18],[0,47],[0,48],[0,48],[0,47],[0,17],[0,52],[0,45],[0,49],[0,45],[0,43],[0,50],[0,50],[0,43],[0,47],[0,45],[0,50],[0,48],[0,45],[0,18],[0,45],[0,49],[0,50],[0,47],[0,47],[0,48],[0,49]],"name":"Juniors and Vet40-49","women_dnf":0,"attendees_women":0,"total_dns":6,"participants_women":0,"attendees_men":68},{"prereg_participants_total":77,"men_dns":5,"men_dnf":1,"attendees_total":83,"prereg_participants_men":49,"prereg_participants_women":28,"participants_men":52,"participants_total":83,"total_dnf":4,"women_dns":3,"attendees":[[0,57],[0,53],[1,48],[0,59],[0,58],[0,59],[1,33],[0,55],[0,57],[0,58],[1,58],[0,54],[1,39],[0,56],[0,61],[0,54],[1,22],[0,57],[1,37],[1,54],[1,27],[0,54],[0,55],[0,58],[0,52],[1,41],[1,55],[1,20],[0,59],[0,51],[0,55],[0,60],[0,62],[0,57],[0,53],[0,53],[1,58],[0,52],[0,51],[0,58],[1,43],[0,55],[0,54],[1,47],[1,32],[0,57],[1,58],[1,17],[0,69],[1,35],[0,53],[0,53],[0,53],[1,48],[1,39],[1,56],[0,53],[1,54],[0,51],[0,54],[0,60],[1,39],[0,53],[1,36],[0,62],[1,49],[1,45],[0,51],[0,56],[1,37],[0,55],[1,46],[0,51],[0,54],[1,57],[0,56],[1,47],[0,61],[1,54],[0,54],[0,55],[0,56],[0,54]],"name":"Vet50 Men, and all Women cats","women_dnf":3,"attendees_women":31,"total_dns":8,"participants_women":31,"attendees_men":52},{"prereg_participants_total":49,"men_dns":6,"men_dnf":5,"attendees_total":55,"prereg_participants_men":49,"prereg_participants_women":0,"participants_men":55,"participants_total":55,"total_dnf":5,"women_dns":0,"attendees":[[0,39],[0,36],[0,26],[0,28],[0,29],[0,23],[0,37],[0,25],[0,32],[0,36],[0,40],[0,25],[0,36],[0,38],[0,35],[0,36],[0,32],[0,31],[0,24],[0,33],[0,33],[0,36],[0,36],[0,28],[0,37],[0,28],[0,38],[0,31],[0,35],[0,36],[0,46],[0,35],[0,20],[0,36],[0,53],[0,32],[0,38],[0,31],[0,29],[0,34],[0,41],[0,32],[0,28],[0,27],[0,31],[0,25],[0,30],[0,34],[0,19],[0,26],[0,38],[0,29],[0,39],[0,48],[0,34]],"name":"Senior Men","women_dnf":0,"attendees_women":0,"total_dns":6,"participants_women":0,"attendees_men":55}],"participants_total_dns":20,"participants_men_dnf":8,"prereg_participants_women":28,"participants_men":175,"participants_unpaid":0,"participants_paid_seasons_pass":0,"attendees_women":31,"start_date":"2020-01-26","participants_total":206}],"attendance_men_average":4.558652729384437,"age_range_men_average":[5.0,3.857142857142857,5.3983739837398375,4.666666666666667,3.2962962962962963,2.4444444444444446,3.52,3.493333333333333,3.963302752293578,4.991666666666666,4.375,4.352941176470588,5.315789473684211,2.0,0,0,0,0,0,0,0,0,0,1.0],"postal_codes":[["CM13",1],["DA49",1],["SM44",1],["ME24",2],["RH69",1],["HA72",1],["TN39",1],["SM69",1],["E146",1],["TN32",2],["E144",2],["TN37",2],["E143",1],["TN35",1],["N88L",1],["CT20",4],["RH28",1],["SM12",1],["E58Q",1],["BR35",2],["RH27",1],["RH20",2],["SE57",1],["E79E",1],["KT35",1],["BN68",2],["SO14",1],["E84J",1],["N88P",1],["SE58",6],["DA38",1],["SE84",1],["DA13",4],["N167",1],["EN26",1],["E46X",1],["SM54",1],["SM53",1],["SM52",2],["SM51",1],["BN84",3],["BN85",1],["CT65",1],["GU21",1],["E49R",1],["BR14",3],["E154",1],["SW82",1],["SW83",1],["GU24",2],["CR30",1],["SE62",1],["TN15",1],["KT20",1],["SE64",1],["KT24",1],["BN71",1],["BN73",1],["BN72",1],["SW15",1],["SW14",3],["SW17",3],["SW16",8],["SW11",2],["TN17",2],["BN18",2],["BN17",4],["BN16",7],["SM60",1],["BN14",4],["SW19",5],["BN12",1],["BN11",4],["BN10",3],["CT51",2],["BN90",1],["SW22",1],["BR27",1],["N97A",1],["SW12",1],["CT32",1],["BR20",1],["SW97",2],["W43H",1],["W43T",1],["SE61",1],["E17T",1],["KT18",6],["KT19",4],["DE43",1],["KT12",5],["BN28",3],["BN29",1],["IP28",1],["ME98",1],["BN23",1],["BN20",5],["BN21",2],["BN26",1],["BN27",1],["BN24",1],["SL73",1],["RH15",1],["CR06",3],["RH17",2],["RH16",18],["RH11",6],["RH10",4],["RH13",3],["RH12",2],["GL12",1],["SW23",1],["CT46",1],["RH19",3],["BR34",3],["N211",1],["ME88",1],["CR53",1],["CR05",1],["W129",1],["TN91",1],["N103",1],["TN92",2],["SE85",1],["TN11",2],["RG48",1],["BR40",1],["KT65",3],["KT64",1],["SM68",1],["CT21",1],["E50Q",1],["SE93",2],["PO36",1],["SE91",1],["TN12",2],["CR35",2],["PO20",4],["IG11",1],["KT48",1],["CT31",3],["SM39",2],["GU14",2],["GU11",1],["ME10",4],["TN24",5],["TN16",2],["N64H",1],["ME97",1],["DA16",2],["DA17",1],["SE19",6],["SE18",1],["DA12",3],["ME14",3],["ME17",4],["ME16",1],["ME19",4],["SE12",1],["NR15",1],["TN27",3],["SE17",2],["BN15",3],["SE15",6],["SE14",4],["DA74",2],["DA75",1],["DA76",2],["KT36",1],["SW46",1],["BN13",1],["BN69",2],["CM34",1],["SW18",3],["E114",1],["E111",3],["E11P",1],["E113",3],["TN48",3],["TN49",4],["SS17",1],["SE26",3],["SE27",3],["SE24",3],["SE25",1],["SE22",10],["SE23",3],["SE20",4],["SE21",1],["GU29",2],["TN21",1],["BR51",1],["SE16",1],["EC3A",1],["BN36",3],["BN31",2],["BN33",1],["BN32",1],["CV37",1],["BR87",2],["BN38",3],["SE13",2],["CT16",1],["CT17",1],["CT14",1],["SO32",2],["SO30",1],["RM11",1],["CT18",1],["CT19",1],["N41S",1],["BR88",1],["TW12",1],["TN57",3],["TN56",1],["DA11",1],["BR69",3],["SE38",1],["GU67",1],["BR67",2],["BN41",2],["BN42",2],["BN43",4],["BN44",1],["BN45",1],["SW63",1],["SM14",3],["CV23",1],["E96E",1],["AL40",1],["DA52",4],["DA51",3],["E59L",1],["E59N",1],["BR75",1],["SW24",2],["SW25",2],["E179",1],["SW20",1],["TN26",1],["RH56",1],["TW15",1],["TW10",3],["TN13",1],["ME15",3],["SE77",1],["TW18",1],["NW18",1],["SM67",2],["IG61",1],["SE41",3],["SE42",5],["SM26",3],["SM25",1],["TW27",1]],"license_holders_attendance_total":1054,"discipline_used_len":1,"attendance_average":4.531309297912713,"attendance_women_average":4.409326424870466,"category_total_men":[["Category","Total","Cumulative %"],["V40M",1026,26.14012738853503],["SenM",775,45.88535031847134],["V50M",700,63.71974522292994],["YAM",369,73.12101910828025],["U10M",255,79.61783439490445],["U12M",244,85.83439490445859],["YBM",243,92.02547770700636],["JunM",157,96.02547770700636],["V60M",106,98.72611464968152],["U23M",50,99.99999999999999]],"category_total":[["Category","Total","Cumulative %"],["V40M (Men)",1026,21.482412060301506],["SenM (Men)",775,37.70938023450586],["V50M (Men)",700,52.36599664991624],["YAM (Men)",369,60.09212730318257],["U10M (Men)",255,65.43132328308207],["U12M (Men)",244,70.54020100502511],["YBM (Men)",243,75.62814070351757],["V40F (Women)",169,79.16666666666666],["JunM (Men)",157,82.4539363484087],["SenF (Women)",134,85.25963149078726],["V50F (Women)",117,87.70938023450584],["U12F (Women)",112,90.0544388609715],["V60M (Men)",106,92.27386934673365],["YBF (Women)",104,94.45142378559461],["U10F (Women)",98,96.50335008375207],["YAF (Women)",64,97.84338358458959],["U23M (Men)",50,98.8902847571189],["JunF (Women)",27,99.45561139028473],["U23F (Women)",26,99.99999999999997]],"license_holder_profile":[1,6,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,18,18,18,18,18,18,18,18,18,18,18,18,18,18,19,19,19,19,19,19,19,20,20,20,20,20,20,20,20,20,21,21,22,22,22,23,23,23,23,23,23,23,23,24,24,24,24,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,25,26,26,26,26,26,26,26,26,27,27,27,27,27,27,27,27,27,27,27,27,27,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,29,29,29,29,29,29,29,29,29,29,29,30,30,30,30,30,30,30,30,30,30,30,30,30,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,33,33,33,33,33,33,33,33,33,33,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,38,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,39,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,41,42,42,42,42,42,42,42,42,42,42,42,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,43,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,46,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,47,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,48,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,49,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,51,51,51,51,51,51,51,51,51,51,51,51,51,51,51,51,51,51,51,51,52,52,52,52,52,52,52,52,52,52,52,52,52,52,52,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,55,55,55,55,55,55,55,55,55,55,55,55,55,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,56,57,57,57,57,57,57,57,57,57,57,57,57,57,57,57,57,58,58,58,58,58,58,58,58,58,58,58,58,58,58,58,58,58,59,59,59,59,59,59,59,59,59,59,60,60,60,60,60,60,61,61,61,61,61,61,61,62,62,62,62,62,63,64,64,64,65,66,66,67,69,119,119,119,119],"age_increment":5,"license_holder_women_profile":[7,7,7,8,8,8,8,9,9,9,9,9,9,9,10,10,10,10,11,11,11,11,11,11,11,11,12,12,12,12,12,12,12,12,12,12,12,12,13,13,13,13,13,13,13,13,13,13,13,14,14,14,14,14,14,14,14,14,15,15,15,15,16,16,16,16,16,16,16,17,17,18,18,18,20,20,22,22,23,23,25,25,25,25,25,25,26,27,27,28,29,30,30,31,31,31,31,32,32,32,32,32,32,33,33,33,34,34,35,35,35,36,36,37,37,37,37,37,37,37,38,38,39,39,39,39,39,39,40,40,41,41,41,42,42,43,43,43,44,44,44,44,44,44,44,45,45,45,46,46,46,46,46,46,47,47,47,47,47,47,48,48,48,49,49,49,50,50,50,50,51,51,51,53,54,54,54,54,55,55,55,56,56,56,56,57,57,57,58,58,58,58,58],"license_holders_men_total":861,"attendees_women_total":851,"license_holders_women_total":193,"discipline_gender":[["Discipline","Men","Women"],["Cyclocross",{"f":"100.00%","v":100.0},{"f":"100.00%","v":100.0}]]};
+google.charts.load("current", {packages:["corechart", "table"]});
+google.charts.setOnLoadCallback(drawCharts);
+
+var big_width=1200, big_height=500;
+var small_width=400, small_height=300;
+
+function fixSize( divId, options ) {
+	if( (' ' + document.getElementById(divId).className.trim() + ' ').indexOf(' chart-big ') > -1 ) {
+		options['width'] = big_width;
+		options['height'] = big_height;
+	}
+	else {
+		//options['width'] = small_width;
+		options['height'] = small_height;
+	}
+	return options;
+}
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+var seed = 12;
+function random() {
+    var x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+}
+function getColor(){
+    var r = (Math.round(random()* 127) + 127).toString(16);
+    var g = (Math.round(random()* 127) + 127).toString(16);
+    var b = (Math.round(random()* 55) + 200).toString(16);
+    return rgbToHex(r, g, b);
+}
+
+function sortedChildren( children ) {
+	var aChildren = [];
+	for( c in children )
+		aChildren.push( children[c] );
+	aChildren.sort( function(a, b) { if( a.weight !== b.weight ) return b.weight - a.weight; return a.name<b.name?-1:b.name<a.name?1:0; } );
+	return aChildren;
+}	
+
+function PostalStarburst() {
+	this.findSelectNode = function( x, y ) {
+		var self = this;
+		
+		var nodeSave = self.selectedNode;
+		self.xSelect = x;
+		self.ySelect = y;
+		
+		var a = Math.atan2( y-self.yCenter, x-self.xCenter );
+		if( a < 0 )
+			a += 2*Math.PI;
+		var ring = parseInt(Math.sqrt( Math.pow(x-self.xCenter,2) + Math.pow(y-self.yCenter,2) ) / self.ringLength);
+		
+		var node = self.tree;
+		for( var r = 0; r <= ring; ++r ) {
+			var child = null;
+			for( var c in node.children ) {
+				if( node.children[c].aBegin <= a && a < node.children[c].aEnd ) {
+					child = node.children[c];
+					break;
+				}
+			}
+			if( !child ) {
+				node = null;
+				break;
+			}
+			node = child;
+		}
+		self.selectedNode = node;
+		
+		if( self.selectedNode != nodeSave )
+			self.draw();
+	}
+	this.onMouseMove = function( evt ) {
+		var self = this;
+		if( self.selectTimer )
+			clearTimeout( self.selectTimer );
+		var rect = self.canvas.getBoundingClientRect();
+		var x = evt.clientX - rect.left, y = evt.clientY - rect.top;
+		self.selectTimer = setTimeout( function() {self.findSelectNode(x, y); self.selectTimer = null;}, 10 );
+	}
+
+	this.init = function( data, canvasId ) {
+		var self = this;
+		self.canvas = document.getElementById(canvasId);
+
+		self.canvas.addEventListener( 'mousemove', function(evt) { self.onMouseMove(evt); } );
+		self.selectedNode = null;
+		self.selectTimer = null;
+		
+		// Data is of the form:
+		// [[postal, count],[postal, count],[postal, count], ...]
+		self.tree = {'name':'root', 'children':{}, 'weight':0, 'aBegin':0, 'aEnd':Math.PI*2 };
+		for( var i = 0; i < data.length; ++i ) {
+			var name = data[i][0], weight = data[i][1];
+			self.tree.weight += weight;
+			
+			var node = self.tree;
+			for( var j = 0; j < name.length; ++j ) {
+				var c = name.charAt(j);
+				if( !(c in node.children) )
+					node.children[c] = {
+						'name': c,
+						'children': {},
+						'weight': 0
+					};
+				node = node.children[c];
+				node.weight += weight;
+			}
+		}
+		
+		function setSortedChildren( parent ) {
+			parent.sortedChildren = sortedChildren( parent.children );
+			for( c in parent.children )
+				setSortedChildren( parent.children[c] );
+		}
+		setSortedChildren( self.tree );
+		
+		function fixSingleChildren( parent ) {
+			// Combine only children into one node.
+			while( parent.sortedChildren.length == 1 ) {
+				var child = parent.sortedChildren[0];
+				parent.name += child.name;
+				parent.sortedChildren = child.sortedChildren;
+				parent.children = child.children;
+			}
+			for( var c in parent.children )
+				fixSingleChildren( parent.children[c] );
+		}
+		fixSingleChildren( self.tree );
+		
+		var maxHeight = 0;
+		function setHeight( parent ) {
+			maxHeight = Math.max( maxHeight, parent.height );
+			for( var c in parent.children ) {
+				parent.children[c].height = parent.height + 1;
+				setHeight( parent.children[c] );
+			}
+		}
+		self.tree.height = 0;
+		setHeight( self.tree );
+		self.maxHeight = maxHeight;
+		return self;
+	}
+	
+	this.draw = function() {
+		var self = this;
+		seed = 12;
+	
+		var width = self.canvas.width;
+		var height = self.canvas.height;
+		var border = Math.min(width, height) * 0.05;
+		var root = self.tree;
+		var ctx = self.canvas.getContext('2d');
+		
+		ctx.clearRect(0, 0, width, height);
+		
+		self.radiusMax = Math.min( (width - border*2)/2, (height - border*2)/2 );
+		self.xCenter = width/2, self.yCenter = height/2;
+		self.ringLength = self.radiusMax / self.maxHeight;
+		
+		var fontHeight = self.radiusMax * 0.04;
+		ctx.font = fontHeight + 'px Arial';
+
+		var maxWeight = self.tree.weight;
+		
+		var percentSep = '|';
+		
+		function drawSegment( parent, node, ring, prevWeight, parentName, labelsOnly ) {
+			var aRange = parent.aEnd - parent.aBegin;
+			var aBegin = parent.aBegin + (prevWeight / parent.weight) * aRange;
+			var aEnd = aBegin + (node.weight / parent.weight) * aRange;
+			var aMid = (aBegin+aEnd)/2;
+			
+			node.aBegin = aBegin;
+			node.aEnd = aEnd;
+			
+			var nodeName = parentName + node.name;
+			var showLabel = false;
+			if( node.weight / maxWeight > 0.04*2/3 )
+				showLabel = true;
+			if( node == self.selectedNode )
+				showLabel = true;
+			
+			if( !labelsOnly ) {
+				ctx.beginPath();
+				ctx.moveTo( self.xCenter + ring * self.ringLength * Math.cos(aBegin), self.yCenter + ring * self.ringLength * Math.sin(aBegin) );
+				ctx.arc( self.xCenter, self.yCenter, ring * self.ringLength, aBegin, aEnd );
+				ctx.lineTo( self.xCenter + (ring+1) * self.ringLength * Math.cos(aEnd), self.yCenter + (ring+1) * self.ringLength * Math.sin(aEnd) );
+				ctx.arc( self.xCenter, self.yCenter, (ring+1) * self.ringLength, aEnd, aBegin, true );
+				ctx.closePath();
+				
+				ctx.strokeStyle = '#AAAAAA';
+				ctx.lineWidth = 1;
+				ctx.fillStyle = getColor();
+				if( node == self.selectedNode )
+					ctx.fillStyle = '#FFFF00';
+				
+				ctx.fill();
+				ctx.stroke();
+			}
+			
+			if( (showLabel && labelsOnly) ) {
+				ctx.save();
+				ctx.translate( self.xCenter + (ring+.5) * self.ringLength * Math.cos(aMid), self.yCenter + (ring+.5) * self.ringLength * Math.sin(aMid) );
+				//ctx.rotate( aMid + (Math.PI*1.0/2.0 < aMid && aMid < 2*Math.PI*3.0/4.0 ? Math.PI : 0) );
+				ctx.fillStyle = '#000000';
+				ctx.textAlign = 'center';
+				if( node == self.selectedNode )
+					ctx.font = 'bold ' + (fontHeight*1.12) + 'px Arial';
+				ctx.textBaseline = "middle";
+				ctx.fillText( nodeName, 0, -fontHeight/2.5 );
+				if( node == self.selectedNode )
+					ctx.font = 'bold ' + (fontHeight*.75*1.12) + 'px Arial';
+				else
+					ctx.font = (fontHeight*.75) + 'px Arial';
+				ctx.fillText( node.weight + percentSep + (node.weight*100/root.weight).toFixed(0) + '%', 0, fontHeight/2.5 );
+				ctx.restore();
+			}
+			if( node == self.selectedNode && labelsOnly ) {
+				ctx.save();
+				ctx.font = 'bold ' + (fontHeight*3/2) + 'px Arial';
+				ctx.textAlign = 'center';
+				ctx.textBaseline = "bottom";
+				ctx.fillStyle = '#000000';
+				ctx.fillText( nodeName + ' ' + node.weight + percentSep + (node.weight*100/root.weight).toFixed(0) + '%', width/2, height );
+				ctx.restore();
+			}
+			
+			var childPrevWeight = 0;
+			for( var i = 0; i < node.sortedChildren.length; ++i ) {
+				drawSegment( node, node.sortedChildren[i], ring+1, childPrevWeight, nodeName, labelsOnly );
+				childPrevWeight += node.sortedChildren[i].weight;
+			}
+		}
+
+		for( var k = 0; k < 2; ++k ) {
+			var prevWeight = 0;
+			for( var i = 0; i < self.tree.sortedChildren.length; ++i ) {
+				drawSegment( self.tree, self.tree.sortedChildren[i], 0, prevWeight, '', k==1 );
+				prevWeight += self.tree.sortedChildren[i].weight;
+			}
+		}
+		return self;
+	}
+}
+
+function array_to_treemap( data, size_column_label, color_column_label, separator )
+{
+	/* Creates a Google DataTable suitable for passing to a Treemap chart from the given data.
+		Data is an array of entries where each element consists of an array containing the following data:
+	
+			 - name is a path in the tree (see below).
+			 - size is the area of the node.
+			 - color (optional) displayed as the color scale.
+			 
+			For example:
+			data = [
+				[ 'North America/Software/Licenses', 55 ],
+				[ 'North America/Software/Consulting', 106 ],
+				[ 'Europe/Software/Licenses', 31 ],
+				[ 'Europe/Software/Consulting', 72 ],
+			];
+			
+		returs a google.visualization.DataTable suitable to pass to the treemap.
+	*/
+	
+	var cols = [
+		{id: 'path',	type:'string',	label: 'Path' },
+		{id: 'parent',	type:'string',	label: 'Parent' },
+		{id: 'size',	type:'number',	label: size_column_label ? size_column_label : 'Size' }
+	];
+	if( data.length <= 1 )
+		return new google.visualization.DataTable( {'cols': cols, 'rows': []} );
+
+	var has_color = (data[0].length == 3)
+	if( has_color )
+		cols.push(  {id: 'color', type:'number', label: color_column_label ? color_column_label : 'Color'} );
+	
+	if( !separator )
+		separator = '/';
+	
+	// Check if all the entries share a common root.  If not, create one called 'top'.
+	var root_name = null;
+	var common_root = true;
+	for( var i = 0; i < data.length; ++i ) {
+		var rname = data[i][0].split( separator, 1 )[0];
+		if( root_name == rname )
+			continue;
+		if( !root_name ) {
+			root_name = rname;
+			continue;
+		}
+		root_name = 'top';
+		common_root = false;
+		break;
+	}
+	
+	var ids = {};
+	var lastId = 0;
+	function get_id( path ) {
+		id = ids[path];
+		if( id == undefined )
+			id = ids[path] = lastId++;
+		return id;
+	}
+	var rows = [];
+	
+	// Add the root of the tree.
+	var cells = [{v:get_id(root_name), f:root_name}, {v:null}, {v:0}];
+	if( has_color )
+		cells.push( {v:0} );
+	rows.push( {'c': cells} );
+	
+	for( var i = 0; i < data.length; ++i )
+	{
+		var path_name = data[i][0], size = data[i][1], color = has_color ? data[i][2] : 0;
+		//
+		// Consider the following name data:
+		//
+		// aaa/bbb/ccc
+		// aaa/bbb/ddd
+		// aaa/bbb/eee
+		// aaa/ccc/bbb
+		//
+		// From this data we construct a tree where each node is uniquely identified by its path to the root:
+		//
+		//                                          aaa
+		//                                         /   \
+		//                                   aaa/bbb   aaa/ccc
+		//                                  /  |  \           \
+		//                         aaa/bbb/ccc |  aaa/bbb/ddd  aaa/ccc/bbb
+		//                              aaa/bbb/eee
+		//
+		// To create this tree, we start with the full path name, then connect it to its parent by removing the right-most leaf.
+		// We repeat the process to follow the connections back to the root.
+		// We stop if we encounter a node we already have.  As this represents the complete path back the root, we can stop.
+		// For efficiency, we assign a unique number as the node id rather than using the full path string.
+		//
+		while( 1 ) {
+			var lastSep = path_name.lastIndexOf(separator);
+			if( lastSep < 0 ) {
+				if( !common_root ) {
+					var cells = [{v:get_id(path_name), f:path_name}, {v:get_id(root_name)}, {v:0}];
+					if( has_color )
+						cells.push( {v:0} );
+					rows.push( {'c': cells} );
+				}
+				break;
+			}
+			var parent_name = path_name.substring(0, lastSep);
+			var leaf_name = path_name.substring(lastSep+separator.length);
+			var parent_exists = (ids[parent_name] != undefined);
+			var cells = [{v:get_id(path_name), f:leaf_name}, {v:get_id(parent_name)}, {v:size}];
+			if( has_color )
+				cells.push( {v:color} );
+			rows.push( {'c': cells} );
+			if( parent_exists )
+				break;
+			size = 0; color = 0;
+			path_name = parent_name;
+		}
+	}
+	
+	return new google.visualization.DataTable( {'cols': cols, 'rows': rows} );
+}
+
+function formatFloat( num, precision ) {
+	return {v:num, f:num.toFixed(precision ? precision : 2)};
+}
+
+function formatIntPercent( num, total ) {
+	var percent = (100.0 * num) / (total ? total : 1);
+	return {v:num, f:num + ' / ' + total + ' (' + percent.toFixed(2) + '%)'};
+}
+
+function formatPercentInt( num, total ) {
+	var percent = (100.0 * num) / (total ? total : 1);
+	return {v:percent, f:percent.toFixed(2) + '% (' + num + ' / ' + total + ')'};
+}
+
+function formatSimplePercent( num, total ) {
+	var percent = (100.0 * num) / (total ? total : 1);
+	return {v:percent, f:percent.toFixed(2)};
+}
+
+function drawCharts() {
+	var animationOption = {};
+
+	// -----------------------------------------------------------------
+	// Overall Attendance, License Holders and Average Entries.
+	//
+
+	var options = { title: 'All', legend: { position: 'top' }, animation: animationOption };
+	
+	var entriesTable = google.visualization.arrayToDataTable( [
+		['Gender', 'Attendance'],
+		['Men', 3925],
+		['Women', 851],
+	]);
+	var entriesChart = new google.visualization.PieChart(document.getElementById('entriesDiv'));
+	options.title = 'Attendees: 4776';
+	entriesChart.draw( entriesTable, options );
+	
+	var licenseHoldersTable = google.visualization.arrayToDataTable( [
+		['Gender', 'License Holders'],
+		['Men', 861],
+		['Women', 193],
+	]);
+	var licenseHoldersChart = new google.visualization.PieChart(document.getElementById('licenseHoldersDiv'));
+	options.title = 'License Holders: 1054';
+	licenseHoldersChart.draw( licenseHoldersTable, options );
+	
+	var aveEntriesTable = google.visualization.arrayToDataTable( [
+		['Gender', 'Ave. Entries'],
+		['All', formatFloat(4.53130929791)],
+		['Men', formatFloat(4.55865272938)],
+		['Women', formatFloat(4.40932642487)],
+	]);
+	var aveEntriesChart = new google.visualization.ColumnChart(document.getElementById('aveEntriesDiv'));
+	aveEntriesChart.draw( aveEntriesTable, {
+			title: 'Average Attendance per License Holder',
+			legend: { position: 'none' },
+			vAxis:{baseline:0}, animation: animationOption
+		}
+	);
+	
+
+	
+	// -----------------------------------------------------------------
+	// Participation by Category
+	//
+	var divId = "overallCategoriesChartDiv";
+	var overallCategoriesChart = new google.visualization.ComboChart(document.getElementById(divId));
+	for( var i = 1; i < payload.category_total.length; ++i ) {
+		payload.category_total[i][1] = formatIntPercent(payload.category_total[i][1], payload.participants_total);
+		payload.category_total[i][2] = formatFloat(payload.category_total[i][2]);
+	}
+	overallCategoriesChart.draw(
+		google.visualization.arrayToDataTable(payload.category_total),
+		fixSize(divId, {
+			title:'All Category Participation (includes attendees competing in multiple categories)',
+			bar: { groupWidth: '75%' },
+			legend: {position: 'none'},
+			animation: animationOption,
+			seriesType: 'bars',
+			series: {
+				1: { targetAxisIndex:1, type:'line', color:'#FFA500' },
+				vAxes: {
+					1: { minValue:0, maxValue:100 }
+				},
+			}
+		})
+	);
+	
+	if( payload.category_total_men.length > 1 ) {
+		var divId = "menCategoriesChartDiv";
+		var menCategoriesChart = new google.visualization.ComboChart(document.getElementById(divId));
+		var total_cur = 0;
+		for( var i = 1; i < payload.category_total_men.length; ++i ) {
+			total_cur += payload.category_total_men[i][1];
+		}
+		for( var i = 1; i < payload.category_total_men.length; ++i ) {
+			payload.category_total_men[i][1] = formatIntPercent(payload.category_total_men[i][1], total_cur);
+			payload.category_total_men[i][2] = formatFloat(payload.category_total_men[i][2]);
+		}
+		menCategoriesChart.draw(
+			google.visualization.arrayToDataTable(payload.category_total_men),
+			fixSize(divId, {
+				title:"Men's Category Participation (includes attendees competing in multiple categories)",
+				bar: { groupWidth: '75%' },
+				legend: {position: 'none'},
+				animation: animationOption,
+				seriesType: 'bars',
+				series: {
+					1: { targetAxisIndex:1, type:'line', color:'#FFA500' },
+					vAxes: {
+						1: { minValue:0, maxValue:100 }
+					},
+				}
+			})
+		);
+	}
+	
+	if( payload.category_total_women.length > 1 ) {
+		var divId = "womenCategoriesChartDiv";
+		var womenCategoriesChart = new google.visualization.ComboChart(document.getElementById(divId));
+		var total_cur = 0;
+		for( var i = 1; i < payload.category_total_women.length; ++i ) {
+			total_cur += payload.category_total_women[i][1];
+		}
+		for( var i = 1; i < payload.category_total_women.length; ++i ) {
+			payload.category_total_women[i][1] = formatIntPercent(payload.category_total_women[i][1], total_cur);
+			payload.category_total_women[i][2] = formatFloat(payload.category_total_women[i][2]);
+		}
+		womenCategoriesChart.draw(
+			google.visualization.arrayToDataTable(payload.category_total_women),
+			fixSize(divId, {
+				title:"Women's Category Participation (includes attendees competing in multiple categories)",
+				bar: { groupWidth: '75%' },
+				legend: {position: 'none'},
+				animation: animationOption,
+				seriesType: 'bars',
+				series: {
+					1: { targetAxisIndex:1, type:'line', color:'#FFA500' },
+					vAxes: {
+						1: { minValue:0, maxValue:100 }
+					},
+				}
+			})
+		);
+	}
+	
+	if( payload.category_total_open.length > 1 ) {
+		var divId = "openCategoriesChartDiv";
+		var openCategoriesChart = new google.visualization.ComboChart(document.getElementById(divId));
+		var total_cur = 0;
+		for( var i = 1; i < payload.category_total_open.length; ++i ) {
+			total_cur += payload.category_total_open[i][1];
+		}
+		for( var i = 1; i < payload.category_total_open.length; ++i ) {
+			payload.category_total_open[i][1] = formatIntPercent(payload.category_total_open[i][1], total_cur);
+			payload.category_total_open[i][2] = formatFloat(payload.category_total_open[i][2]);
+		}
+		openCategoriesChart.draw(
+			google.visualization.arrayToDataTable(payload.category_total_open),
+			fixSize(divId, {
+				title:"Open Category Participation (includes attendees competing in multiple categories)",
+				bar: { groupWidth: '75%' },
+				legend: {position: 'none'},
+				animation: animationOption,
+				seriesType: 'bars',
+				series: {
+					1: { targetAxisIndex:1, type:'line', color:'#FFA500' },
+					vAxes: {
+						1: { minValue:0, maxValue:100 }
+					},
+				}
+			})
+		);
+	}
+	
+	// -----------------------------------------------------------------
+	// Average and Max by Category
+	//
+	var divId = "aveMaxCategoriesChartDiv";
+	var aveMaxCategoriesChart = new google.visualization.CandlestickChart(document.getElementById(divId));
+	for( var i = 0; i < payload.category_average_max.length; ++i ) {
+		var r = payload.category_average_max[i];
+		payload.category_average_max[i] = [r[0], {v:r[1], f:'Avg: ' + r[1].toFixed(2) + ' --> Max: ' + r[2]}, {v:r[1],f:''}, {v:r[2],f:''}, {v:r[2], f:''}];
+	}
+	aveMaxCategoriesChart.draw(
+		google.visualization.arrayToDataTable(payload.category_average_max, true),
+		fixSize(divId, {
+			title:'Ave --> Max Participation by Category by Competition (includes attendees competing in multiple categories)',
+			legend: { position: 'none' }
+		})
+	);
+	
+	
+	// -----------------------------------------------------------------
+	// Attendance by Age
+	//
+	var ageAll = [['Age']], ageMen = [['Age']], ageWomen = [['Age']];
+	var competitions = payload.competitions;
+	for( var iCompetition = 0; iCompetition < competitions.length; ++iCompetition ) {
+		var competition = competitions[iCompetition];
+		for( var iEvent = 0; iEvent < competition.events.length; ++iEvent ) {
+			var event = competition.events[iEvent];
+			for( var iAttendee = 0; iAttendee < event.attendees.length; ++iAttendee ) {
+				var attendee = event.attendees[iAttendee];
+				var gender = attendee[0], age = attendee[1];
+				ageAll.push( [age] );
+				if( gender === 0 )
+					ageMen.push( [age] );
+				else
+					ageWomen.push( [age] );
+			}
+		}
+	}
+
+	var chartAll = new google.visualization.Histogram(document.getElementById('histAllDiv'));
+	var options = { title: 'All', legend: { position: 'none' }, histogram: { bucketSize: 5 }, animation: animationOption };
+	chartAll.draw(google.visualization.arrayToDataTable( ageAll ), options);
+	
+	var chartMen = new google.visualization.Histogram(document.getElementById('histMenDiv'));
+	options.title = 'Men';
+	chartMen.draw(google.visualization.arrayToDataTable( ageMen ), options);
+
+	var chartWomen = new google.visualization.Histogram(document.getElementById('histWomenDiv'));
+	options.title = 'Women';
+	chartWomen.draw(google.visualization.arrayToDataTable( ageWomen ), options);
+
+	// -----------------------------------------------------------------
+	// Attendance Rate by Age
+	//
+	function getAgeRangeAveEntriesTable( ar ) {
+		var rangeAveData = new google.visualization.DataTable();
+		rangeAveData.addColumn('string', 'Age Range');
+		rangeAveData.addColumn('number', 'Ave Entries');
+		var rows = [];
+		for( var i = 0; i < ar.length; ++i )
+			rows.push( [(i*payload.age_increment) + '-' + ((i+1)*payload.age_increment-1), formatFloat(ar[i])] );
+		rangeAveData.addRows( rows );
+		return rangeAveData;
+	}
+	
+	var chartAveAll = new google.visualization.ColumnChart(document.getElementById('aveEventsAllDiv'));
+	var options = {
+		title: 'All',
+		legend: { position: 'none' },
+		hAxis:{baseline:0, textStyle: {fontSize:8} },
+		bar:{groupWidth:'90%'},
+		animation: animationOption
+	};
+	chartAveAll.draw(getAgeRangeAveEntriesTable( payload.age_range_average ), options);
+	
+	var chartAveMen = new google.visualization.ColumnChart(document.getElementById('aveEventsMenDiv'));
+	options.title = 'Men';
+	chartAveMen.draw(getAgeRangeAveEntriesTable( payload.age_range_men_average ), options);
+	
+	var chartAveWomen = new google.visualization.ColumnChart(document.getElementById('aveEventsWomenDiv'));
+	options.title = 'Women';
+	chartAveWomen.draw(getAgeRangeAveEntriesTable( payload.age_range_women_average ), options);
+	
+	// -----------------------------------------------------------------
+	// Age Histograms
+	//
+	function getAgeTable( at ) {
+		var dt = new google.visualization.DataTable();
+		dt.addColumn('number', 'Age');
+		var rows = [];
+		for( var i = 0; i < at.length; ++i )
+			rows.push( [at[i]] );
+		dt.addRows( rows );
+		return dt;
+	}
+	
+	var chartAll = new google.visualization.Histogram(document.getElementById('histAgeAllDiv'));
+	var options = { title: 'All', legend: { position: 'none' }, histogram: { bucketSize: 5 }, animation: animationOption };
+	chartAll.draw(getAgeTable(payload.license_holder_profile), options);
+	
+	var chartMen = new google.visualization.Histogram(document.getElementById('histAgeMenDiv'));
+	options.title = 'Men';
+	chartMen.draw(getAgeTable(payload.license_holder_men_profile), options);
+
+	var chartWomen = new google.visualization.Histogram(document.getElementById('histAgeWomenDiv'));
+	options.title = 'Women';
+	chartWomen.draw(getAgeTable(payload.license_holder_women_profile), options);
+
+	// -----------------------------------------------------------------
+	// Attendees by Gender
+	//
+	var compChartData = new google.visualization.DataTable();
+	compChartData.addColumn('string', 'Competition');
+	compChartData.addColumn('number', 'Men');
+	compChartData.addColumn('number', 'Women');
+	var rows = [];
+	var competitions = payload.competitions;
+	for( var iCompetition = 0; iCompetition < competitions.length; ++iCompetition ) {
+		var competition = competitions[iCompetition];
+		rows.push( [
+			competition.name,
+			formatIntPercent(competition.attendees_men, competition.attendees_total),
+			formatIntPercent(competition.attendees_women, competition.attendees_total)
+		] );
+	}
+	compChartData.addRows( rows );
+	
+	var divId = "compChartDiv";
+	var compChart = new google.visualization.ColumnChart(document.getElementById(divId));
+	compChart.draw(compChartData, 
+		fixSize( divId, {
+			title:'Attendees by Gender',
+			bar: { groupWidth: '75%' },
+			isStacked: true,
+			legend: {position: 'none'},
+			hAxis: { textPosition: 'none' },
+			animation: animationOption
+		})
+	);
+	
+	// -----------------------------------------------------------------
+	// Category Participation
+	//
+	var divId = "compCategoryChartDiv";
+	var compCategoryChart = new google.visualization.ColumnChart(document.getElementById(divId));
+	compCategoryChart.draw(google.visualization.arrayToDataTable(payload.category_competition_count),
+		fixSize(divId, {
+			title:'Participation by Category (includes attendees competing in multiple categories)',
+			bar: { groupWidth: '75%' },
+			isStacked: true,
+			legend: {position: 'none'},
+			hAxis: { textPosition: 'none' },
+			animation: animationOption
+		})
+	);
+	
+	// -----------------------------------------------------------------
+	// Event Participation
+	//
+	var divId = "compEventChartDiv";
+	var compEventChart = new google.visualization.ColumnChart(document.getElementById(divId));
+	compEventChart.draw(google.visualization.arrayToDataTable(payload.event_competition_count),
+		fixSize(divId, {
+			title:'Participation by Event (includes attendees competing in multiple categories)',
+			bar: { groupWidth: '75%' },
+			isStacked: true,
+			legend: {position: 'none'},
+			hAxis: { textPosition: 'none' },
+			animation: animationOption
+		})
+	);
+	
+	// -----------------------------------------------------------------
+	// Prereg Percent
+	//
+	var preregChartData = new google.visualization.DataTable();
+	preregChartData.addColumn('string', 'Competition');
+	preregChartData.addColumn('number', 'Men');
+	preregChartData.addColumn('number', 'Women');
+	preregChartData.addColumn('number', 'All');
+	var rows = [];
+	var competitions = payload.competitions;
+	for( var iCompetition = 0; iCompetition < competitions.length; ++iCompetition ) {
+		var competition = competitions[iCompetition];
+		rows.push( [
+			competition.name,
+			formatPercentInt(competition.prereg_participants_men, competition.participants_men),
+			formatPercentInt(competition.prereg_participants_women, competition.participants_women),
+			formatPercentInt(competition.prereg_participants_total, competition.participants_total)
+		] );
+	}
+	preregChartData.addRows( rows );
+	
+	var divId = "compEventPreRegChartDiv";
+	var compEventChart = new google.visualization.ColumnChart(document.getElementById(divId));
+	compEventChart.draw(preregChartData,
+		fixSize(divId, {
+			title:'PreReg: Overall: ' +
+				formatPercentInt(payload.prereg_participants_total, payload.participants_total).f +
+				' (includes attendees competing in multiple categories)',
+			bar: { groupWidth: '75%' },
+			isStacked: false,
+			legend: {position: 'none'},
+			animation: animationOption,
+			hAxis: { textPosition: 'none' },
+			vAxis: {viewWindow: {min: 0, max:100}}
+		})
+	);
+	
+	// -----------------------------------------------------------------
+	// Payment
+	//
+	var paymentChartData = new google.visualization.DataTable();
+	paymentChartData.addColumn('string', 'Competition');
+	paymentChartData.addColumn('number', 'Single');
+	paymentChartData.addColumn('number', "Season's Pass");
+	paymentChartData.addColumn('number', 'Unpaid');
+	var rows = [];
+	var competitions = payload.competitions;
+	for( var iCompetition = 0; iCompetition < competitions.length; ++iCompetition ) {
+		var competition = competitions[iCompetition];
+		rows.push( [
+			competition.name,
+			formatPercentInt(competition.participants_paid_on_venue, competition.participants_total),
+			formatPercentInt(competition.participants_paid_seasons_pass, competition.participants_total),
+			formatPercentInt(competition.participants_unpaid, competition.participants_total)
+		] );
+	}
+	paymentChartData.addRows( rows );
+	var divId = "compEventPaymentChartDiv";
+	var paymentEventChart = new google.visualization.ColumnChart(document.getElementById(divId));
+	paymentEventChart.draw(paymentChartData,
+		fixSize(divId, {
+			title:'Payment Type (includes attendees competing in multiple categories)',
+			bar: { groupWidth: '75%' },
+			isStacked: true,
+			legend: {position: 'none'},
+			animation: animationOption,
+			hAxis: { textPosition: 'none' },
+			vAxis: {viewWindow: {min: 0, max:100}}
+		})
+	);
+	
+	// -----------------------------------------------------------------
+	// DNF
+	//
+	var dnfChartData = new google.visualization.DataTable();
+	dnfChartData.addColumn('string', 'Competition');
+	dnfChartData.addColumn('number', 'Men');
+	dnfChartData.addColumn('number', 'Women');
+	dnfChartData.addColumn('number', 'All');
+	var rows = [];
+	var competitions = payload.competitions;
+	for( var iCompetition = 0; iCompetition < competitions.length; ++iCompetition ) {
+		var competition = competitions[iCompetition];
+		rows.push( [
+			competition.name,
+			formatPercentInt(competition.participants_men_dnf, competition.participants_men),
+			formatPercentInt(competition.participants_women_dnf, competition.participants_women),
+			formatPercentInt(competition.participants_total_dnf, competition.participants_total)
+		] );
+	}
+	dnfChartData.addRows( rows );
+	
+	var divId = "compEventDnfChartDiv";
+	var compEventChart = new google.visualization.ColumnChart(document.getElementById(divId));
+	compEventChart.draw(dnfChartData,
+		fixSize(divId, {
+			title:'DNF (includes attendees competing in multiple categories)',
+			bar: { groupWidth: '75%' },
+			isStacked: false,
+			legend: {position: 'none'},
+			animation: animationOption,
+			hAxis: { textPosition: 'none' },
+		})
+	);
+	
+	// -----------------------------------------------------------------
+	// DNS
+	//
+	var dnsChartData = new google.visualization.DataTable();
+	dnsChartData.addColumn('string', 'Competition');
+	dnsChartData.addColumn('number', 'Men');
+	dnsChartData.addColumn('number', 'Women');
+	dnsChartData.addColumn('number', 'All');
+	var rows = [];
+	var competitions = payload.competitions;
+	for( var iCompetition = 0; iCompetition < competitions.length; ++iCompetition ) {
+		var competition = competitions[iCompetition];
+		rows.push( [
+			competition.name,
+			formatPercentInt(competition.participants_men_dns, competition.participants_men),
+			formatPercentInt(competition.participants_women_dns, competition.participants_women),
+			formatPercentInt(competition.participants_total_dns, competition.participants_total)
+		] );
+	}
+	dnsChartData.addRows( rows );
+	
+	var divId = "compEventDnsChartDiv";
+	var compEventChart = new google.visualization.ColumnChart(document.getElementById(divId));
+	compEventChart.draw(dnsChartData,
+		fixSize(divId, {
+			title:'DNS (includes attendees competing in multiple categories)',
+			bar: { groupWidth: '75%' },
+			isStacked: false,
+			legend: {position: 'none'},
+			animation: animationOption,
+			hAxis: { textPosition: 'none' },
+		})
+	);
+	
+	// -----------------------------------------------------------------
+	// DNF/DNS Raw data table.
+	//
+	var compData = new google.visualization.DataTable();
+	compData.addColumn('string', 'Start Date');
+	compData.addColumn('string', 'Competition');
+	compData.addColumn('number', 'DNF %');
+	compData.addColumn('number', 'Men DNF %');
+	compData.addColumn('number', 'Women DNF %');
+	compData.addColumn('number', 'DNS %');
+	compData.addColumn('number', 'Men DNS %');
+	compData.addColumn('number', 'Women DNS %');
+	var rows = [];
+	var competitions = payload.competitions;
+	var blankNum = {v:0,f:''};
+	var men_dnf_total = 0, women_dnf_total = 0, men_dns_total = 0, women_dns_total = 0;
+	var participants_men = 0, participants_women = 0, participants_total = 0;
+	for( var iCompetition = 0; iCompetition < competitions.length; ++iCompetition ) {
+		var competition = competitions[iCompetition];
+		rows.push( [
+			competition.start_date,
+			competition.name,
+			
+			formatPercentInt(competition.participants_total_dnf, competition.participants_total),
+			formatPercentInt(competition.participants_men_dnf, competition.participants_men),
+			formatPercentInt(competition.participants_women_dnf, competition.participants_women),
+			
+			formatPercentInt(competition.participants_total_dns, competition.participants_total),
+			formatPercentInt(competition.participants_men_dns, competition.participants_men),
+			formatPercentInt(competition.participants_women_dns, competition.participants_women)
+		] );
+		
+		men_dnf_total += competition.participants_men_dnf;
+		men_dns_total += competition.participants_men_dns;
+		participants_men += competition.participants_men;
+		
+		women_dnf_total += competition.participants_women_dnf;
+		women_dns_total += competition.participants_women_dns;
+		participants_women += competition.participants_women;
+		
+		participants_total += competition.participants_total;
+	}
+	rows.unshift( [
+		'',
+		'Average',
+		
+		formatPercentInt( men_dnf_total + women_dnf_total, participants_total ),
+		formatPercentInt( men_dnf_total, participants_men ),
+		formatPercentInt( women_dnf_total, participants_women ),
+		
+		formatPercentInt( men_dns_total + women_dns_total, participants_total ),
+		formatPercentInt( men_dns_total, participants_men ),
+		formatPercentInt( women_dns_total, participants_women )
+	] );
+	compData.addRows( rows );
+	var compTable = new google.visualization.Table(document.getElementById('dnfDnsTableDiv'));
+	compTable.draw(compData, {showRowNumber: true, alternatingRowStyle:false});
+	compTable.setSelection( [{row:0, column:null}] );
+	
+	// -----------------------------------------------------------------
+	// Postal Codes
+	//
+
+	var postalStarburst = (new PostalStarburst()).init(payload.postal_codes, "postalCodeCanvas", 3).draw();
+
+	
+	// -----------------------------------------------------------------
+	// Disciplines
+	//
+
+	
+	
+	// -----------------------------------------------------------------
+	// Overall Raw Data Table
+	//
+	var statsData = new google.visualization.DataTable();
+	statsData.addColumn('string', 'Gender');
+	statsData.addColumn('number', 'Attendees');
+	statsData.addColumn('number', 'LicenseHolders');
+	statsData.addColumn('number', 'Ave. Attendance per LicenseHolder');
+
+	statsData.addRows([
+		[
+			'All',
+			4776,
+			1054,
+			formatFloat(4.53130929791)
+		],
+		[
+			'Men',
+			3925,
+			861,
+			formatFloat(4.55865272938)
+		],
+		[
+			'Women',
+			851,
+			193,
+			formatFloat(4.40932642487)
+		],
+	]);
+	var statsTable = new google.visualization.Table(document.getElementById('statsTableDiv'));
+	statsTable.draw(statsData, {showRowNumber: false, sort:'disable'});
+
+	
+	// -----------------------------------------------------------------
+	// Competition Raw data table.
+	//
+	var compData = new google.visualization.DataTable();
+	compData.addColumn('string', 'Competition');
+	compData.addColumn('string', 'Start Date');
+	compData.addColumn('string', 'Events');
+	compData.addColumn('number', 'Men');
+	compData.addColumn('number', 'Women');
+	compData.addColumn('number', 'Total');
+	compData.addColumn('number', 'Grand Total');
+	var rows = [];
+	var competitions = payload.competitions;
+	var blankNum = {v:0,f:''};
+	for( var iCompetition = 0; iCompetition < competitions.length; ++iCompetition ) {
+		var competition = competitions[iCompetition];
+		rows.push( [competition.name, competition.start_date, '', blankNum, blankNum, blankNum, blankNum] );
+		for( var iEvent = 0; iEvent < competition.events.length; ++iEvent ) {
+			var event = competition.events[iEvent];
+			rows.push( ['', '', event.name, event.attendees_men, event.attendees_women, event.attendees_total, blankNum] );
+		}
+		rows.push( ['', '', '', competition.attendees_men, competition.attendees_women, blankNum, competition.attendees_total] );
+	}
+	rows.push( ['', '', '', , , blankNum, 4776] );
+	compData.addRows( rows );
+	var compTable = new google.visualization.Table(document.getElementById('compTableDiv'));
+	compTable.draw(compData, {showRowNumber: false, alternatingRowStyle:false, sort:'disable'});
+}
+var initiator = '';
+$(document).ready(function() {
+	$(":submit").click(function() { initiator = this.name });
+});
+
+
+
+function onLoad()
+{
+	// Set consistent date format.
+	$('.dateinput').datepicker({
+		format: "yyyy-mm-dd",
+		autoclose: true,
+		todayHighlight: true
+	});
+	
+	// Set consistent datetime format.
+	$('.datetimeinput').datetimepicker({
+		format: 'yyyy-mm-dd hh:ii:ss',
+	});
+	
+	// Set button background to black when pressed to give feedback.
+	$('.btn').click(function() {
+		var button = $(this);
+		var backgroundColorCur = button.css( "background-color" );
+		button.css( {"background-color": '#666666'} );
+		setTimeout( function(){ button.css( {"background-color": backgroundColorCur} ); }, 15000 );
+	});
+	
+	// Make click targets larger for touch devices.
+	var is_touch_device = 'ontouchstart' in document.documentElement;
+	if( is_touch_device ) {
+		$('.btn').each(function() {
+			$(this).css( {"font-size": '120%'} );
+		});
+	}
+	
+	// Check for keyboard focus exception.
+	if( document.getElementById("focus") )
+		document.getElementById("focus").focus();
+	else {
+		// Give the first visible form field the keyboard focus.
+		$(document).ready(function() {
+			$('form:first *:input[type!=hidden]:first').focus();
+		});
+	}
+	
+	// Highlight fields that are filled in.
+	var in_use_color = '#dff0d8';
+	var fs = $("form.search");
+	fs.find(".select.form-control").each(function() {
+		if( $(this).val() != $(this).find('option:first').val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".numberinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".dateinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".textinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+
+
+	$( "form" ).submit(function( event ) {
+		if( initiator != "excel-export-submit" )
+			setTimeout( function() { $('#loader-circle').removeClass('hidden'); }, 3000 );
+	});
+
+}
+function jump( link ) { window.location = link; }
+</script>
+</head>
+<body onload="onLoad()">
+
+
+<style>
+.breadcrumb > li + li:before {
+    color: #CCCCCC;
+	font-size: 150%;
+    content: " ";
+    padding: 0 5px;
+}
+</style>
+<ul class="breadcrumb hidden-print">
+    <li>
+        <a href="/lcca2019/RaceDB/"><img src="/lcca/2019/static/images/RaceDB.png" alt="RaceDB"/></a>
+    </li>
+    <!-- <li>
+        <a class="btn btn-info" href="/lcca2019/RaceDB/AttendanceAnalytics/">Attendance Analytics</a>
+    </li> -->
+    <!-- <li>
+        <a href="/lcca2019/RaceDB/AttendanceAnalytics/QRCode/"><img src="/lcca/2019/static/images/glyphicons_258_qrcode.png" alt="QRCode"/></a>
+    </li> -->
+    <!-- <li>
+        <a href="/lcca2019/RaceDB/AttendanceAnalytics/logout/"><img src="/lcca/2019/static/images/super.png" alt="RaceDB"/></a>
+    </li>
+    <li>
+        <a href="/lcca2019/RaceDB/AttendanceAnalytics/logout/"><img src="/lcca/2019/static/images/exit.png" alt="logout"/></a>
+    </li> -->
+</ul>
+
+
+<div class="container">
+
+
+
+
+<div class='hidden-print'>
+
+<!-- 
+<form  action="." class="form-inline" method="post" > <input type='hidden' name='csrfmiddlewaretoken' value='0nEeRcW7jCXlSZtnNZVtvWjSooJrxmIe' /> <div  
+    class="row" > <div  
+    class="col-md-1" > <div  
+    class="row" > <div id="div_id_start_date" class="form-group"> <label for="id_start_date" class="control-label ">
+                Start Date
+            </label> <div class="controls "> <input class="dateinput form-control" id="id_start_date" name="start_date" size="10" type="text" value="2019-09-01" /> </div> </div> </div>
+<div  
+    class="row" > <div id="div_id_end_date" class="form-group"> <label for="id_end_date" class="control-label ">
+                End Date
+            </label> <div class="controls "> <input class="dateinput form-control" id="id_end_date" name="end_date" size="10" type="text" value="2020-12-31" /> </div> </div> </div>
+
+</div>
+<div  
+    class="col-md-11" > <div  
+    class="row" > <div id="div_id_race_classes" class="form-group"> <label for="focus" class="control-label ">
+                Race Classes
+            </label> <div class="controls "> <select multiple="multiple" class="selectmultiple form-control" id="focus" name="race_classes" size="10" style="width: 13em;">
+<option value="3">Regional</option>
+</select> </div> </div> <div id="div_id_disciplines" class="form-group"> <label for="id_disciplines" class="control-label ">
+                Disciplines
+            </label> <div class="controls "> <select multiple="multiple" class="selectmultiple form-control" id="id_disciplines" name="disciplines" size="10" style="width: 13em;">
+<option value="3">Cyclocross</option>
+</select> </div> </div> <div id="div_id_organizers" class="form-group"> <label for="id_organizers" class="control-label ">
+                Organizers
+            </label> <div class="controls "> <select multiple="multiple" class="selectmultiple form-control" id="id_organizers" name="organizers" size="10" style="width: 13em;">
+<option value="Addiscombe CC">Addiscombe CC</option>
+<option value="Anthony Rogers">Anthony Rogers</option>
+<option value="Brighton Mitre">Brighton Mitre</option>
+<option value="Charlie Codrington">Charlie Codrington</option>
+<option value="Crawley Wheelers">Crawley Wheelers</option>
+<option value="Cyclopark">Cyclopark</option>
+<option value="Dave Gerrey">Dave Gerrey</option>
+<option value="Dulwich Paragon">Dulwich Paragon</option>
+<option value="Herne Hill Youth CC">Herne Hill Youth CC</option>
+<option value="Michael Hudson">Michael Hudson</option>
+<option value="Rotor Race Team">Rotor Race Team</option>
+<option value="Southborough and District Wheelers">Southborough and District Wheelers</option>
+<option value="Srdjan Bakovic">Srdjan Bakovic</option>
+<option value="Team Darenth">Team Darenth</option>
+</select> </div> </div> <div id="div_id_include_labels" class="form-group"> <label for="id_include_labels" class="control-label ">
+                Include Labels
+            </label> <div class="controls "> <select multiple="multiple" class="selectmultiple form-control" id="id_include_labels" name="include_labels" size="10" style="width: 13em;">
+</select> </div> </div> <div id="div_id_exclude_labels" class="form-group"> <label for="id_exclude_labels" class="control-label ">
+                Exclude Labels
+            </label> <div class="controls "> <select multiple="multiple" class="selectmultiple form-control" id="id_exclude_labels" name="exclude_labels" size="10" style="width: 13em;">
+</select> </div> </div> </div>
+<div  
+    class="row" >
+        Use Ctrl-Click to Multi-Select and Ctrl-Click to Deselect
+</div>
+
+</div>
+
+</div>
+<hr/> <div  
+    class="row" > <input type="submit"
+    name="ok-submit"
+    value="OK"
+    
+        class="btn btn-primary btn btn-primary hidden-print"
+        id="submit-id-ok-submit"
+    
+    
+    />
+<input type="button"
+    name="cancel-button"
+    value="Cancel"
+    
+        class="btn btn btn-warning hidden-print"
+        id="button-id-cancel-button"
+    
+     style="" onclick="skip_back()"
+    />
+&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit"
+    name="emails-submit"
+    value="Emails"
+    
+        class="btn btn-primary btn btn-primary hidden-print"
+        id="submit-id-emails-submit"
+    
+    
+    />
+<input type="submit"
+    name="excel-export-submit"
+    value="Export LicenseHolders to Excel"
+    
+        class="btn btn-primary btn btn-primary hidden-print"
+        id="submit-id-excel-export-submit"
+    
+    
+    />
+
+</div> </form> -->
+
+<hr/>
+<img src="/lcca/2019/static/images/RaceDB.png" alt="RaceDB"></img>
+<h2>Analytics from 2019-09-01 to 2020-01-26</h2>
+<p class="text-center hidden-print">
+&nbsp;<img id='loader-circle' class='hidden' src="/lcca/2019/static/images/loader_circle.gif"</img>&nbsp;
+</p>
+</div>
+<p>
+<h2>
+	28 Competitions,
+	87 Events,
+	4776 Attendees,
+	1054 License Holders
+</h2>
+<div class="container"/>
+	<div class="row">
+		<div class="col-xs-4">
+			<div id="entriesDiv" class="chart-small"></div>
+		</div>
+		<div class="col-xs-4">
+			<div id="licenseHoldersDiv" class="chart-small"></div>
+		</div>
+		<div class="col-xs-4">
+			<div id="aveEntriesDiv" class="chart-small"></div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<ul class="nav nav-tabs">
+		<li class="nav active"><a href="#ByCategory" data-toggle="tab">Category</a></li>
+		<li class="nav"><a href="#ByAge" data-toggle="tab">Age</a></li>
+		<li class="nav"><a href="#ByCompAndEvent" data-toggle="tab">Comp &amp; Event</a></li>
+		<li class="nav"><a href="#ByDiscipline" data-toggle="tab">Discipline</a></li>
+		<li class="nav"><a href="#ByDnfDns" data-toggle="tab">DNF &amp; DNS</a></li>
+		<li class="nav"><a href="#ByPreregSeasonsPass" data-toggle="tab">Prereg/Seasons Pass</a></li>
+		<li class="nav"><a href="#ByPostalChart" data-toggle="tab">Postal</a></li>
+		<li class="nav"><a href="#ByData" data-toggle="tab">Data</a></li>
+		<li class="nav"><a href="#ByHelp" data-toggle="tab">Help</a></li>
+	</ul>
+
+	<div class="tab-content">
+		
+		<div class="tab-pane fade in active" id="ByCategory">
+			<p>
+			<h3 class="page-break-before">Participation by Category</h3>
+			<div id='overallCategoriesChartDiv' class='chart-big'></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-4">
+						<div id="menCategoriesChartDiv" class="chart-small"></div>
+					</div>
+					<div class="col-xs-4">
+						<div id="womenCategoriesChartDiv" class="chart-small"></div>
+					</div>
+					<div class="col-xs-4">
+						<div id="openCategoriesChartDiv" class="chart-small"></div>
+					</div>
+				</div>
+			</div>
+			<div id='aveMaxCategoriesChartDiv' class="chart-big"></div>
+			</p>
+		</div>
+		
+		
+		<div class="tab-pane fade" id="ByAge">
+			<p>
+			<h3 class="page-break-before">Participation by Age</h3>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-4">
+						<div id="histAllDiv" class="chart-small"></div>
+					</div>
+					<div class="col-xs-4">
+						<div id="histMenDiv" class="chart-small"></div>
+					</div>
+					<div class="col-xs-4">
+						<div id="histWomenDiv" class="chart-small"></div>
+					</div>
+				</div>
+			</div>
+			</p>
+
+			<p>
+			<h3>Average Number of Events Attended by Age</h3>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-4">
+						<div id="aveEventsAllDiv" class="chart-small"></div>
+					</div>
+					<div class="col-xs-4">
+						<div id="aveEventsMenDiv" class="chart-small"></div>
+					</div>
+					<div class="col-xs-4">
+						<div id="aveEventsWomenDiv" class="chart-small"></div>
+					</div>
+				</div>
+			</div>
+			</p>
+
+			<p>
+			<h3>License Holder Participation by Age (as of 2020)</h3>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-4">
+						<div id="histAgeAllDiv" class="chart-small"></div>
+					</div>
+					<div class="col-xs-4">
+						<div id="histAgeMenDiv" class="chart-small"></div>
+					</div>
+					<div class="col-xs-4">
+						<div id="histAgeWomenDiv" class="chart-small"></div>
+					</div>
+				</div>
+			</div>
+			</p>
+		</div>
+		
+		
+		<div class="tab-pane fade" id="ByCompAndEvent">
+			<p>
+			<h2 class="page-break-before">Competitions and Events</h2>
+			<div id="compChartDiv" class="chart-big"></div>
+			<div id="compCategoryChartDiv" class="chart-big"></div>
+			<div id="compEventChartDiv" class="chart-big"></div>
+			<div id="compEventPreRegChartDiv" class="chart-big"></div>
+			<div id="compEventPaymentChartDiv" class="chart-big"></div>
+			</p>
+		</div>
+		
+		
+		<div class="tab-pane fade" id="ByDiscipline">
+			<p>
+			<h3 class="page-break-before">Participation by Discipline</h3>
+			
+			</p>
+		</div>
+		
+		
+		<div class="tab-pane fade" id="ByDnfDns">
+			<p>
+			<h2 class="page-break-before">DNF and DNS</h2>
+			<p>Click on a Column Header to sort.</p>
+			<div id="dnfDnsTableDiv"></div>
+			<div id="compEventDnfChartDiv" class="chart-big"></div>
+			<div id="compEventDnsChartDiv" class="chart-big"></div>
+			</p>
+		</div>
+		
+		
+		<div class="tab-pane fade" id="ByPreregSeasonsPass">
+			<p>
+			<h3 class="page-break-before">Prereg and Seasons Pass <span style="font-size: 75%">(includes attendees competing in multiple categories)</span></h3>
+<table class="table table-striped table-hover table-condensed" style="width: auto;">
+<thead>
+	<tr>
+		<th></th>
+		<th>Dates</th>
+		<th>Discipline</th>
+		<th>Name</th>
+		<th>Class</th>
+		<th>Organizer</th>
+		<th class="text-center">Total</th>
+		<th colspan=2 style="padding-left: 28px;">OnSite</th>
+		<th colspan=2 style="padding-left: 28px;">PreReg</th>
+		<th colspan=2 style="padding-left: 28px;">SeasPass</th>
+	</tr>
+</thead>
+<tbody>
+	
+		<tr>
+			<td class="text-right">1.</td>
+			<td>2020 Jan 26</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round13 - U10, U12, Youth</td>
+			<td>Regional</td>
+			<td>Dulwich Paragon</td>
+			
+				<td class="text-right">86</td>
+				<td class="text-right" style="padding-left: 28px;">7</td><td class="text-right">8.1%</td>
+				<td class="text-right" style="padding-left: 28px;">79</td><td class="text-right">91.9%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">2.</td>
+			<td>2020 Jan 26</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round13 - Jun, Sen, V40, V50</td>
+			<td>Regional</td>
+			<td>Dulwich Paragon</td>
+			
+				<td class="text-right">206</td>
+				<td class="text-right" style="padding-left: 28px;">20</td><td class="text-right">9.7%</td>
+				<td class="text-right" style="padding-left: 28px;">191</td><td class="text-right">92.7%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">3.</td>
+			<td>2020 Jan 4</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round12 - U10, U12, Youth</td>
+			<td>Regional</td>
+			<td>Crawley Wheelers</td>
+			
+				<td class="text-right">92</td>
+				<td class="text-right" style="padding-left: 28px;">10</td><td class="text-right">10.9%</td>
+				<td class="text-right" style="padding-left: 28px;">83</td><td class="text-right">90.2%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">4.</td>
+			<td>2020 Jan 4</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round12 - Jun, Sen, V40, V50</td>
+			<td>Regional</td>
+			<td>Crawley Wheelers</td>
+			
+				<td class="text-right">215</td>
+				<td class="text-right" style="padding-left: 28px;">29</td><td class="text-right">13.5%</td>
+				<td class="text-right" style="padding-left: 28px;">189</td><td class="text-right">87.9%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">5.</td>
+			<td>2019 Dec 21</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round11 - U10, U12, Youth</td>
+			<td>Regional</td>
+			<td>Southborough and District Wheelers</td>
+			
+				<td class="text-right">95</td>
+				<td class="text-right" style="padding-left: 28px;">44</td><td class="text-right">46.3%</td>
+				<td class="text-right" style="padding-left: 28px;">92</td><td class="text-right">96.8%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">6.</td>
+			<td>2019 Dec 21</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round11 - Jun, Sen, V40, V50</td>
+			<td>Regional</td>
+			<td>Southborough and District Wheelers</td>
+			
+				<td class="text-right">196</td>
+				<td class="text-right" style="padding-left: 28px;">82</td><td class="text-right">41.8%</td>
+				<td class="text-right" style="padding-left: 28px;">182</td><td class="text-right">92.9%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">7.</td>
+			<td>2019 Dec 8</td>
+			<td>Cyclocross (MS)</td>
+			<td>Champ19 - U10, U12, Youth</td>
+			<td>Regional</td>
+			<td>Cyclopark</td>
+			
+				<td class="text-right">102</td>
+				<td class="text-right" style="padding-left: 28px;">4</td><td class="text-right">3.9%</td>
+				<td class="text-right" style="padding-left: 28px;">98</td><td class="text-right">96.1%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">8.</td>
+			<td>2019 Dec 8</td>
+			<td>Cyclocross (MS)</td>
+			<td>Champ19 - Jun, Sen, V40, V50</td>
+			<td>Regional</td>
+			<td>Cyclopark</td>
+			
+				<td class="text-right">198</td>
+				<td class="text-right" style="padding-left: 28px;">5</td><td class="text-right">2.5%</td>
+				<td class="text-right" style="padding-left: 28px;">193</td><td class="text-right">97.5%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">9.</td>
+			<td>2019 Dec 1</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round10 - U10, U12, Youth</td>
+			<td>Regional</td>
+			<td>Rotor Race Team</td>
+			
+				<td class="text-right">112</td>
+				<td class="text-right" style="padding-left: 28px;">22</td><td class="text-right">19.6%</td>
+				<td class="text-right" style="padding-left: 28px;">105</td><td class="text-right">93.8%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">10.</td>
+			<td>2019 Dec 1</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round10 - Jun, Sen, V40, V50</td>
+			<td>Regional</td>
+			<td>Rotor Race Team</td>
+			
+				<td class="text-right">211</td>
+				<td class="text-right" style="padding-left: 28px;">29</td><td class="text-right">13.7%</td>
+				<td class="text-right" style="padding-left: 28px;">195</td><td class="text-right">92.4%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">11.</td>
+			<td>2019 Nov 24</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round09 - U10, U12, Youth</td>
+			<td>Regional</td>
+			<td>Brighton Mitre</td>
+			
+				<td class="text-right">99</td>
+				<td class="text-right" style="padding-left: 28px;">13</td><td class="text-right">13.1%</td>
+				<td class="text-right" style="padding-left: 28px;">89</td><td class="text-right">89.9%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">12.</td>
+			<td>2019 Nov 24</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round09 - Jun, Sen, V40, V50</td>
+			<td>Regional</td>
+			<td>Brighton Mitre</td>
+			
+				<td class="text-right">222</td>
+				<td class="text-right" style="padding-left: 28px;">22</td><td class="text-right">9.9%</td>
+				<td class="text-right" style="padding-left: 28px;">200</td><td class="text-right">90.1%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">13.</td>
+			<td>2019 Nov 3</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round08 - U10, U12, Youth</td>
+			<td>Regional</td>
+			<td>Team Darenth</td>
+			
+				<td class="text-right">110</td>
+				<td class="text-right" style="padding-left: 28px;">15</td><td class="text-right">13.6%</td>
+				<td class="text-right" style="padding-left: 28px;">95</td><td class="text-right">86.4%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">14.</td>
+			<td>2019 Nov 3</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round08 - Jun, Sen, V40, V50</td>
+			<td>Regional</td>
+			<td>Team Darenth</td>
+			
+				<td class="text-right">261</td>
+				<td class="text-right" style="padding-left: 28px;">25</td><td class="text-right">9.6%</td>
+				<td class="text-right" style="padding-left: 28px;">236</td><td class="text-right">90.4%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">15.</td>
+			<td>2019 Oct 27</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round07 - U10, U12, Youth</td>
+			<td>Regional</td>
+			<td>Anthony Rogers</td>
+			
+				<td class="text-right">100</td>
+				<td class="text-right" style="padding-left: 28px;">22</td><td class="text-right">22.0%</td>
+				<td class="text-right" style="padding-left: 28px;">88</td><td class="text-right">88.0%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">16.</td>
+			<td>2019 Oct 27</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round07 - Jun, Sen, V40, V50</td>
+			<td>Regional</td>
+			<td>Anthony Rogers</td>
+			
+				<td class="text-right">250</td>
+				<td class="text-right" style="padding-left: 28px;">54</td><td class="text-right">21.6%</td>
+				<td class="text-right" style="padding-left: 28px;">233</td><td class="text-right">93.2%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">17.</td>
+			<td>2019 Oct 13</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round06 - U10, U12, Youth</td>
+			<td>Regional</td>
+			<td>Herne Hill Youth CC</td>
+			
+				<td class="text-right">148</td>
+				<td class="text-right" style="padding-left: 28px;">68</td><td class="text-right">45.9%</td>
+				<td class="text-right" style="padding-left: 28px;">115</td><td class="text-right">77.7%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">18.</td>
+			<td>2019 Oct 13</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round06 - Jun, Sen, V40, V50</td>
+			<td>Regional</td>
+			<td>Herne Hill Youth CC</td>
+			
+				<td class="text-right">301</td>
+				<td class="text-right" style="padding-left: 28px;">133</td><td class="text-right">44.2%</td>
+				<td class="text-right" style="padding-left: 28px;">276</td><td class="text-right">91.7%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">19.</td>
+			<td>2019 Oct 6</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round05 - U10, U12, Youth</td>
+			<td>Regional</td>
+			<td>Addiscombe CC</td>
+			
+				<td class="text-right">87</td>
+				<td class="text-right" style="padding-left: 28px;">7</td><td class="text-right">8.0%</td>
+				<td class="text-right" style="padding-left: 28px;">80</td><td class="text-right">92.0%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">20.</td>
+			<td>2019 Oct 6</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round05 - Jun, Sen, V40, V50</td>
+			<td>Regional</td>
+			<td>Addiscombe CC</td>
+			
+				<td class="text-right">216</td>
+				<td class="text-right" style="padding-left: 28px;">32</td><td class="text-right">14.8%</td>
+				<td class="text-right" style="padding-left: 28px;">184</td><td class="text-right">85.2%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">21.</td>
+			<td>2019 Sep 29</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round04 - U10, U12, Youth</td>
+			<td>Regional</td>
+			<td>Charlie Codrington</td>
+			
+				<td class="text-right">131</td>
+				<td class="text-right" style="padding-left: 28px;">22</td><td class="text-right">16.8%</td>
+				<td class="text-right" style="padding-left: 28px;">117</td><td class="text-right">89.3%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">22.</td>
+			<td>2019 Sep 29</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round04 - Jun, Sen, V40, V50</td>
+			<td>Regional</td>
+			<td>Charlie Codrington</td>
+			
+				<td class="text-right">241</td>
+				<td class="text-right" style="padding-left: 28px;">29</td><td class="text-right">12.0%</td>
+				<td class="text-right" style="padding-left: 28px;">225</td><td class="text-right">93.4%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">23.</td>
+			<td>2019 Sep 22</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round03 - U10, U12, Youth</td>
+			<td>Regional</td>
+			<td>Srdjan Bakovic</td>
+			
+				<td class="text-right">106</td>
+				<td class="text-right" style="padding-left: 28px;">43</td><td class="text-right">40.6%</td>
+				<td class="text-right" style="padding-left: 28px;">90</td><td class="text-right">84.9%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">24.</td>
+			<td>2019 Sep 22</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round03 - Jun, Sen, V40, V50</td>
+			<td>Regional</td>
+			<td>Srdjan Bakovic</td>
+			
+				<td class="text-right">197</td>
+				<td class="text-right" style="padding-left: 28px;">66</td><td class="text-right">33.5%</td>
+				<td class="text-right" style="padding-left: 28px;">181</td><td class="text-right">91.9%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">25.</td>
+			<td>2019 Sep 15</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round02 - U10, U12, Youth</td>
+			<td>Regional</td>
+			<td>Michael Hudson</td>
+			
+				<td class="text-right">126</td>
+				<td class="text-right" style="padding-left: 28px;">46</td><td class="text-right">36.5%</td>
+				<td class="text-right" style="padding-left: 28px;">104</td><td class="text-right">82.5%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">26.</td>
+			<td>2019 Sep 15</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round02 - Jun, Sen, V40, V50</td>
+			<td>Regional</td>
+			<td>Michael Hudson</td>
+			
+				<td class="text-right">296</td>
+				<td class="text-right" style="padding-left: 28px;">134</td><td class="text-right">45.3%</td>
+				<td class="text-right" style="padding-left: 28px;">252</td><td class="text-right">85.1%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">27.</td>
+			<td>2019 Sep 1</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round01 - U10, U12, Youth</td>
+			<td>Regional</td>
+			<td>Dave Gerrey</td>
+			
+				<td class="text-right">98</td>
+				<td class="text-right" style="padding-left: 28px;">54</td><td class="text-right">55.1%</td>
+				<td class="text-right" style="padding-left: 28px;">74</td><td class="text-right">75.5%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+		<tr>
+			<td class="text-right">28.</td>
+			<td>2019 Sep 1</td>
+			<td>Cyclocross (MS)</td>
+			<td>Round01 - Jun, Sen, V40, V50</td>
+			<td>Regional</td>
+			<td>Dave Gerrey</td>
+			
+				<td class="text-right">286</td>
+				<td class="text-right" style="padding-left: 28px;">160</td><td class="text-right">55.9%</td>
+				<td class="text-right" style="padding-left: 28px;">211</td><td class="text-right">73.8%</td>
+				<td class="text-right" style="padding-left: 28px;">0</td><td class="text-right">0.0%</td>
+			
+		</tr>
+	
+</tbody>
+</table>
+
+			</table>
+			</p>
+		</div>
+		
+		
+		<div class="tab-pane fade" id="ByPostalChart">
+			<p>
+			<h3 class="page-break-before">Postal Chart</h3>
+			
+				<canvas width=600 height=600 id="postalCodeCanvas"></canvas>
+			
+			</p>
+		</div>
+		
+		
+		<div class="tab-pane fade" id="ByData">
+			<p>
+			<h2 class="page-break-before" >Data</h2>
+			<div id='statsTableDiv'></div>
+			<br/>
+			<div id='compTableDiv' class="page-break-before"></div>
+			</p>
+		</div>
+		
+		
+		<div class="tab-pane fade in" id="ByHelp">
+			<p><h3 class="page-break-before">Help</h3></p>
+			<p>
+			<dl>
+				<dt>Event</dt>
+				<dd>A race event (Mass Start or Time Trial).  An Event could have single or multiple categories.</dd>
+				
+				<dt>Competition</dt>
+				<dd>A single or multi-day collection of Events with the same organizer.</dd>
+				
+				<dt>License Holder</dt>
+				<dd>A License Holder cooresponds to a unique person (holds a license).  A License Holder can attend a Competition as an Attendee, and race in any number of Events at the Competition as a Participant.</dd>
+				
+				<dt>Category</dt>
+				<dd>The Category of the License Holder in the Event.  License Holder may compete in different Events in different Categories at the same Competition.</dd>
+				
+				<dt>Attendee</dt>
+				<dd>A License Holder attending a Competition.  If the License Holder participates in more than one Events, in the same or in different categories, he/she is only counted once at the Competition.  Unless otherwise specified, counts in the Analytics pages are shown by Attendees.</dd>
+				
+				<dt>Participant</dt>
+				<dd>An Attendee who starts in a race with a Bib number.  The same Attendee can be a Participant more then once at the same Competition if he/she races in multiple Events (either in the same category or in different categories).  The number of Participants at a Competition is always greater or equal to the number of Attendees.  This metric helps understand the work on the race administration.</dd>
+				
+			</dl>
+			</p>
+		</div>
+	</div>
+</div>
+
+</p>
+
+<p>
+
+
+
+</div>
+<br/>&nbsp;<br/>&nbsp;<br/>
+<script type="text/javascript" src="/lcca/2019/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/lcca/2019/static/bootstrap/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/lcca/2019/static/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+</body>
+</html>

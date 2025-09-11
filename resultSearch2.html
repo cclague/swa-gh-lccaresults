@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="shortcut icon" href="./favicon.png">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!-- <title>Typesense InstantSearch.js Demo</title> -->
+</head>
+
+<style>
+    div { 
+      display: list;
+      color: white;
+    }
+</style>  
+
+<body>
+
+
+<!-- Sidebar -->
+<div id="sidebar">
+
+            <!-- Logo -->
+    <h1 id="logo"><a href="#">STRIPEY</a></h1>
+
+
+    <div class="search-panel__filters">
+        <h2>Season</h2>
+        <div id="season-refinement-list"></div>
+
+        <h2>Race Category</h2>
+        <div id="category-refinement-list" color="blue"></div>
+
+        <h2>Rider Category</h2>
+        <div id="ridercategory-refinement-list"></div>
+
+        <h2>Club</h2>
+        <div id="club-refinement-list"></div>
+
+        <h2>Event</h2>
+        <div id="event-refinement-list"></div>
+    </div>
+</div>
+
+<div id="seeker">
+    <h1>Search Results</h1>
+    <div class="search-panel__results">
+        <p></p>
+        <div id="searchbox"></div>
+        <div id="hits"></div>
+
+        <div id="pagination"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.5.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/typesense-instantsearch-adapter@2.4.1-3/dist/typesense-instantsearch-adapter.min.js"></script>
+
+<script>
+    const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
+        server: {
+            apiKey: 'bpIXuILHib7hoUX8HgcpwKuL7ichHJi1', // Be sure to use an API key that only allows searches, in production
+            nodes: [
+                {
+                    host: '9bm8an10xr7vwltzp-1.a1.typesense.net',
+                    port: '443',
+                    protocol: 'https',
+                },
+            ],
+        },
+        // The following parameters are directly passed to Typesense's search API endpoint.
+        //  So you can pass any parameters supported by the search endpoint below.
+        //  queryBy is required.
+        //  filterBy is managed and overridden by InstantSearch.js. To set it, you want to use one of the filter widgets like refinementList or use the `configure` widget.
+        additionalSearchParameters: {
+            queryBy: 'riderName,eventDate,eventName',
+            sortBy: 'eventDateSort:asc,position:asc'
+        },
+    });
+    const searchClient = typesenseInstantsearchAdapter.searchClient;
+
+    const search = instantsearch({
+        searchClient,
+        indexName: 'results',
+    });
+
+    search.addWidgets([
+        instantsearch.widgets.searchBox({
+            container: '#searchbox',
+        }),
+        instantsearch.widgets.configure({
+            hitsPerPage: 12,
+        }),
+        instantsearch.widgets.hits({
+            container: '#hits',
+            templates: {
+                item(item) {
+                    totalRiders=((item.position / item.percentile) * 100).toFixed(0)
+                    return `
+                        <h4>${item.riderName}</h4>
+
+                        ${item.clubName}<p>
+                        ${item.eventDate}<p>
+                        ${item.eventName}<p>
+                        ${item.raceCategory}<p>
+                        ${item.eventCategory}<p>
+                        Pos: ${item.position}/${totalRiders}
+                      `;
+                },
+            },
+        }),
+
+        instantsearch.widgets.pagination({
+            container: '#pagination',
+        }),
+
+        instantsearch.widgets.refinementList({
+            container: "#category-refinement-list",
+            attribute: 'eventCategory',
+            searchable: false,
+            searchablePlaceholder: 'Search categories',
+            showMore: true,
+            cssClasses: {
+              searchableInput: 'form-control form-control-sm mb-2 border-light-2',
+              searchableSubmit: 'd-none',
+              searchableReset: 'd-none',
+              showMore: 'btn btn-secondary btn-sm align-content-center',
+              list: 'list-unstyled',
+              count: 'badge badge-light bg-light-2 ml-2',
+              label: 'd-flex align-items-center',
+              checkbox: 'mr-2',
+            },
+          }),
+
+          instantsearch.widgets.refinementList({
+            container: "#ridercategory-refinement-list",
+            attribute: 'raceCategory',
+            searchable: false,
+            searchablePlaceholder: 'Search categories',
+            showMore: true,
+            cssClasses: {
+              searchableInput: 'form-control form-control-sm mb-2 border-light-2',
+              searchableSubmit: 'd-none',
+              searchableReset: 'd-none',
+              showMore: 'btn btn-secondary btn-sm align-content-center',
+              list: 'list-unstyled',
+              count: 'badge badge-light bg-light-2 ml-2',
+              label: 'd-flex align-items-center',
+              checkbox: 'mr-2',
+            },
+          }),
+
+          
+          instantsearch.widgets.refinementList({
+            container: "#club-refinement-list",
+            attribute: 'clubName',
+            searchable: true,
+            searchablePlaceholder: 'Search club',
+            showMore: true,
+            cssClasses: {
+              searchableInput: 'form-control form-control-sm mb-2 border-light-2',
+              searchableSubmit: 'd-none',
+              searchableReset: 'd-none',
+              showMore: 'btn btn-secondary btn-sm align-content-center',
+              list: 'list-unstyled',
+              count: 'badge badge-light bg-light-2 ml-2',
+              label: 'd-flex align-items-center',
+              checkbox: 'mr-2',
+            },
+          }),
+
+        
+          instantsearch.widgets.refinementList({
+            container: "#season-refinement-list",
+            attribute: 'season',
+            searchable: false,
+            searchablePlaceholder: 'Season',
+            showMore: false,
+            cssClasses: {
+              searchableInput: 'form-control form-control-sm mb-2 border-light-2',
+              searchableSubmit: 'd-none',
+              searchableReset: 'd-none',
+              showMore: 'btn btn-secondary btn-sm align-content-center',
+              list: 'list-unstyled',
+              count: 'badge badge-light bg-light-2 ml-2',
+              label: 'd-flex align-items-center',
+              checkbox: 'mr-2',
+            },
+          }),
+
+        
+          instantsearch.widgets.refinementList({
+            container: "#event-refinement-list",
+            attribute: 'eventName',
+            searchable: true,
+            searchablePlaceholder: 'Event Name',
+            showMore: false,
+            cssClasses: {
+              searchableInput: 'form-control form-control-sm mb-2 border-light-2',
+              searchableSubmit: 'd-none',
+              searchableReset: 'd-none',
+              showMore: 'btn btn-secondary btn-sm align-content-center',
+              list: 'list-unstyled',
+              count: 'badge badge-light bg-light-2 ml-2',
+              label: 'd-flex align-items-center',
+              checkbox: 'mr-2',
+            },
+          }),
+
+
+    ]);
+
+    search.start();
+</script>
+
+    <!-- Scripts -->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/browser.min.js"></script>
+    <script src="/assets/js/breakpoints.min.js"></script>
+    <script src="/assets/js/util.js"></script>
+    <script src="/assets/js/main.js"></script>
+
+</body>
+</html>

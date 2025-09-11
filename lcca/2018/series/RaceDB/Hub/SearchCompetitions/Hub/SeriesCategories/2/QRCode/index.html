@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>RaceDB by Edward Sitarski</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="RaceDB: Race Check-in Software">
+<meta name="keywords" content="time trial, road race, cyclocross, mtb, cycling, racing, bicycle, management, software, racedb, crossmgr">
+<meta name="author" content="Edward Sitarski">
+
+
+<script type="text/javascript" src="../../../../../../../../static/js/jquery-2.2.4.min.js"></script>
+
+
+
+
+<link rel="icon" href="../../../../../../../../static/images/RaceDB_32x32.png">
+<link rel="stylesheet" href="../../../../../../../../static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../../../../../../../static/bootstrap/css/datepicker.css">
+<link rel="stylesheet" href="../../../../../../../../static/bootstrap/css/bootstrap-datetimepicker.min.css">
+
+
+
+
+<style>
+.row { margin: 8px 0px; }
+h2, h3, h4, h5 { margin: 1px; }
+@media print {
+    .page-break-before {page-break-before: always;}
+
+
+}
+.table-no-border>thead>tr>th, 
+.table-no-border>tbody>tr>th, 
+.table-no-border>tfoot>tr>th, 
+.table-no-border>thead>tr>td, 
+.table-no-border>tbody>tr>td, 
+.table-no-border>tfoot>tr>td {
+  border-top: none; 
+}
+
+.flag {
+    margin: 3px;
+    padding: 0px;
+    border: 1px solid #CCC;
+}
+
+.is-good::before {
+	content: url(../../../../../../../../static/images/glyphicons_206_ok_2_blue.png);
+}
+.is-bad::before {
+	content: url(../../../../../../../../static/images/glyphicons_207_remove_2_blue.png);
+}
+.is-err::before {
+	content: url(../../../../../../../../static/images/error.png);
+	width:20px; height:20px; 
+}
+.is-warn::before {
+	content: url(../../../../../../../../static/images/warning.png);
+	width:20px; height:20px; 
+}
+.is-finished::before {
+	content: url(../../../../../../../../static/images/finished-flag.png);
+}
+.is-finished-blue::before {
+	content: url(../../../../../../../../static/images/finished-flag-blue.png);
+}
+@media print {
+	a[href]:after {
+	content: none !important;
+	}
+}
+
+
+</style>
+<script type="text/javascript">
+function setRowSorter( className, sId ) {
+	$('#'+sId).rowSorter({
+		
+		// if new_index === old_index, this function won't be called.
+		onDrop: function(tbody, row, new_index, old_index) {
+			window.location = "./Resequence_" + className + "_Class/" + row.id + "/" + new_index + "/";
+		},
+		
+		// if new_index === old_index, this function will be called.
+		onDragEnd: function(tbody, row, current_index) {
+			window.location = "./" + className + "Edit/" + row.id + "/";
+		}
+	});
+}
+
+function skip_back() {
+	var components = window.location.href.split( '/' );
+	while( components.length > 0 && !components[components.length-1] )
+		components.pop();		// Remove training slashes.
+	while( components.length > 0 ) {
+		if( !/^[0-9]+$/.test(components[components.length-1]) ) {
+			components.pop();	// Skip url function name.
+			break;
+		}
+		components.pop();		// Skip parameter.
+	}
+	components.push( '' );		// Ensure there is a trailing slash.
+	window.location.href = components.join('/');
+}
+
+
+
+
+function onLoad()
+{
+	// Set consistent date format.
+	$('.dateinput').datepicker({
+		format: "yyyy-mm-dd",
+		autoclose: true,
+		todayHighlight: true
+	});
+	
+	// Set consistent datetime format.
+	$('.datetimeinput').datetimepicker({
+		format: 'yyyy-mm-dd hh:ii:ss',
+	});
+	
+	// Set button background to black when pressed to give feedback.
+	$('.btn').click(function() {
+		var button = $(this);
+		var backgroundColorCur = button.css( "background-color" );
+		button.css( {"background-color": '#666666'} );
+		setTimeout( function(){ button.css( {"background-color": backgroundColorCur} ); }, 15000 );
+	});
+	
+	// Make click targets larger for touch devices.
+	var is_touch_device = 'ontouchstart' in document.documentElement;
+	if( is_touch_device ) {
+		$('.btn').each(function() {
+			$(this).css( {"font-size": '120%'} );
+		});
+	}
+	
+	// Check for keyboard focus exception.
+	if( document.getElementById("focus") )
+		document.getElementById("focus").focus();
+	else {
+		// Give the first visible form field the keyboard focus.
+		$(document).ready(function() {
+			$('form:first *:input[type!=hidden]:first').focus();
+		});
+	}
+	
+	// Highlight fields that are filled in.
+	var in_use_color = '#dff0d8';
+	var fs = $("form.search");
+	fs.find(".select.form-control").each(function() {
+		if( $(this).val() != $(this).find('option:first').val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".numberinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".dateinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".textinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+
+
+
+}
+function jump( link ) { window.location = link; }
+</script>
+</head>
+<body onload="onLoad()">
+
+<div class="container">
+
+
+<script type="text/javascript" src="../../../../../../../../static/js/qrcode.min.js"></script>
+
+<br/><br/><br/>
+<h2>http://127.0.0.1:8002/results_lcca2018/RaceDB/Hub/SearchCompetitions/Hub/SearchCompetitions/Hub/SeriesCategories/2/</h2>
+<br/><br/><br/>
+<div id="qrcode"></div>
+<script type="text/javascript">
+new QRCode("qrcode", {
+    text: "http://127.0.0.1:8002/results_lcca2018/RaceDB/Hub/SearchCompetitions/Hub/SearchCompetitions/Hub/SeriesCategories/2/",
+    width: 440,
+    height: 440,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.H
+});
+</script>
+<br/><br/>
+
+<br/>
+<a href="https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/SearchCompetitions/Hub/SearchCompetitions/Hub/SeriesCategories/2/"><img src="../../../../../../../../static/images/RaceDB.png" alt="RaceDB"/></a>
+<a class="btn btn-primary hidden-print" id="focus" href="https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/SearchCompetitions/Hub/SearchCompetitions/Hub/SeriesCategories/2/">OK</a>
+
+</div>
+<br/>&nbsp;<br/>&nbsp;<br/>
+<script type="text/javascript" src="../../../../../../../../static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../../../../../static/bootstrap/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="../../../../../../../../static/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+</body>
+</html>

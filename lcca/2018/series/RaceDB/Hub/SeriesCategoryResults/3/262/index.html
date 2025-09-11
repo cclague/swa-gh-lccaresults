@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>RaceDB by Edward Sitarski</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="RaceDB: Race Check-in Software">
+<meta name="keywords" content="time trial, road race, cyclocross, mtb, cycling, racing, bicycle, management, software, racedb, crossmgr">
+<meta name="author" content="Edward Sitarski">
+
+
+<script type="text/javascript" src="../../../../../../static/js/jquery-2.2.4.min.js"></script>
+
+
+
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+
+<link rel="icon" href="../../../../../../static/images/RaceDB_32x32.png">
+<link rel="stylesheet" href="../../../../../../static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../../../../../static/bootstrap/css/datepicker.css">
+<link rel="stylesheet" href="../../../../../../static/bootstrap/css/bootstrap-datetimepicker.min.css">
+
+
+
+
+<style>
+.row { margin: 8px 0px; }
+h2, h3, h4, h5 { margin: 1px; }
+@media print {
+    .page-break-before {page-break-before: always;}
+
+
+}
+.table-no-border>thead>tr>th, 
+.table-no-border>tbody>tr>th, 
+.table-no-border>tfoot>tr>th, 
+.table-no-border>thead>tr>td, 
+.table-no-border>tbody>tr>td, 
+.table-no-border>tfoot>tr>td {
+  border-top: none; 
+}
+
+.flag {
+    margin: 3px;
+    padding: 0px;
+    border: 1px solid #CCC;
+}
+
+.is-good::before {
+	content: url(../../../../../../static/images/glyphicons_206_ok_2_blue.png);
+}
+.is-bad::before {
+	content: url(../../../../../../static/images/glyphicons_207_remove_2_blue.png);
+}
+.is-err::before {
+	content: url(../../../../../../static/images/error.png);
+	width:20px; height:20px; 
+}
+.is-warn::before {
+	content: url(../../../../../../static/images/warning.png);
+	width:20px; height:20px; 
+}
+.is-finished::before {
+	content: url(../../../../../../static/images/finished-flag.png);
+}
+.is-finished-blue::before {
+	content: url(../../../../../../static/images/finished-flag-blue.png);
+}
+@media print {
+	a[href]:after {
+	content: none !important;
+	}
+}
+
+
+</style>
+<script type="text/javascript">
+function setRowSorter( className, sId ) {
+	$('#'+sId).rowSorter({
+		
+		// if new_index === old_index, this function won't be called.
+		onDrop: function(tbody, row, new_index, old_index) {
+			window.location = "./Resequence_" + className + "_Class/" + row.id + "/" + new_index + "/";
+		},
+		
+		// if new_index === old_index, this function will be called.
+		onDragEnd: function(tbody, row, current_index) {
+			window.location = "./" + className + "Edit/" + row.id + "/";
+		}
+	});
+}
+
+function skip_back() {
+	var components = window.location.href.split( '/' );
+	while( components.length > 0 && !components[components.length-1] )
+		components.pop();		// Remove training slashes.
+	while( components.length > 0 ) {
+		if( !/^[0-9]+$/.test(components[components.length-1]) ) {
+			components.pop();	// Skip url function name.
+			break;
+		}
+		components.pop();		// Skip parameter.
+	}
+	components.push( '' );		// Ensure there is a trailing slash.
+	window.location.href = components.join('/');
+}
+
+
+
+	google.charts.load('current', {'packages':['sankey']});
+	google.charts.setOnLoadCallback(drawSankey);
+
+	function drawSankey() {
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'From');
+		data.addColumn('string', 'To');
+		data.addColumn('number', 'Points');
+		data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
+		data.addRows(JSON.parse("[[\u0022Round 12 \u002D Bexley\u002DYouths A + B: 2019\u002D01\u002D26\u0022,\u0022 1. BLACKMORE, Joseph (350)\u0022,{\u0022f\u0022:\u002250.00\u0022,\u0022v\u0022:50},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u0022 1. BLACKMORE, Joseph (350)\u0022,{\u0022f\u0022:\u002250.00\u0022,\u0022v\u0022:50},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u0022 1. BLACKMORE, Joseph (350)\u0022,{\u0022f\u0022:\u002250.00\u0022,\u0022v\u0022:50},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u0022 1. BLACKMORE, Joseph (350)\u0022,{\u0022f\u0022:\u002250.00\u0022,\u0022v\u0022:50},null],[\u0022Round 4 \u002D East Brighton\u002DYouths A + B: 2018\u002D09\u002D30\u0022,\u0022 1. BLACKMORE, Joseph (350)\u0022,{\u0022f\u0022:\u002250.00\u0022,\u0022v\u0022:50},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u0022 1. BLACKMORE, Joseph (350)\u0022,{\u0022f\u0022:\u002250.00\u0022,\u0022v\u0022:50},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u0022 1. BLACKMORE, Joseph (350)\u0022,{\u0022f\u0022:\u002250.00\u0022,\u0022v\u0022:50},null],[\u0022Round 11 \u002D Hog Hill\u002DYouths A + B: 2019\u002D01\u002D06\u0022,\u0022 2. HAZELL, Luke (314)\u0022,{\u0022f\u0022:\u002250.00\u0022,\u0022v\u0022:50},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u0022 2. HAZELL, Luke (314)\u0022,{\u0022f\u0022:\u002244.00\u0022,\u0022v\u0022:44},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u0022 2. HAZELL, Luke (314)\u0022,{\u0022f\u0022:\u002240.00\u0022,\u0022v\u0022:40},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u0022 2. HAZELL, Luke (314)\u0022,{\u0022f\u0022:\u002250.00\u0022,\u0022v\u0022:50},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u0022 2. HAZELL, Luke (314)\u0022,{\u0022f\u0022:\u002240.00\u0022,\u0022v\u0022:40},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u0022 2. HAZELL, Luke (314)\u0022,{\u0022f\u0022:\u002250.00\u0022,\u0022v\u0022:50},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u0022 2. HAZELL, Luke (314)\u0022,{\u0022f\u0022:\u002240.00\u0022,\u0022v\u0022:40},null],[\u0022Round 12 \u002D Bexley\u002DYouths A + B: 2019\u002D01\u002D26\u0022,\u0022 3. PLATTS, Stanley (274)\u0022,{\u0022f\u0022:\u002240.00\u0022,\u0022v\u0022:40},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u0022 3. PLATTS, Stanley (274)\u0022,{\u0022f\u0022:\u002244.00\u0022,\u0022v\u0022:44},null],[\u0022Round 9 \u002D Frylands Wood\u002DYouths A + B: 2018\u002D12\u002D09\u0022,\u0022 3. PLATTS, Stanley (274)\u0022,{\u0022f\u0022:\u002230.00\u0022,\u0022v\u0022:30},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u0022 3. PLATTS, Stanley (274)\u0022,{\u0022f\u0022:\u002250.00\u0022,\u0022v\u0022:50},null],[\u0022Round 4 \u002D East Brighton\u002DYouths A + B: 2018\u002D09\u002D30\u0022,\u0022 3. PLATTS, Stanley (274)\u0022,{\u0022f\u0022:\u002240.00\u0022,\u0022v\u0022:40},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u0022 3. PLATTS, Stanley (274)\u0022,{\u0022f\u0022:\u002240.00\u0022,\u0022v\u0022:40},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u0022 3. PLATTS, Stanley (274)\u0022,{\u0022f\u0022:\u002230.00\u0022,\u0022v\u0022:30},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u0022 4. MCGHEE, Samuel (265)\u0022,{\u0022f\u0022:\u002233.00\u0022,\u0022v\u0022:33},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u0022 4. MCGHEE, Samuel (265)\u0022,{\u0022f\u0022:\u002240.00\u0022,\u0022v\u0022:40},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u0022 4. MCGHEE, Samuel (265)\u0022,{\u0022f\u0022:\u002240.00\u0022,\u0022v\u0022:40},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u0022 4. MCGHEE, Samuel (265)\u0022,{\u0022f\u0022:\u002236.00\u0022,\u0022v\u0022:36},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u0022 4. MCGHEE, Samuel (265)\u0022,{\u0022f\u0022:\u002244.00\u0022,\u0022v\u0022:44},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u0022 4. MCGHEE, Samuel (265)\u0022,{\u0022f\u0022:\u002236.00\u0022,\u0022v\u0022:36},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u0022 4. MCGHEE, Samuel (265)\u0022,{\u0022f\u0022:\u002236.00\u0022,\u0022v\u0022:36},null],[\u0022Round 12 \u002D Bexley\u002DYouths A + B: 2019\u002D01\u002D26\u0022,\u0022 5. REUTER, Jules (244)\u0022,{\u0022f\u0022:\u002230.00\u0022,\u0022v\u0022:30},null],[\u0022Round 11 \u002D Hog Hill\u002DYouths A + B: 2019\u002D01\u002D06\u0022,\u0022 5. REUTER, Jules (244)\u0022,{\u0022f\u0022:\u002236.00\u0022,\u0022v\u0022:36},null],[\u0022Round 9 \u002D Frylands Wood\u002DYouths A + B: 2018\u002D12\u002D09\u0022,\u0022 5. REUTER, Jules (244)\u0022,{\u0022f\u0022:\u002250.00\u0022,\u0022v\u0022:50},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u0022 5. REUTER, Jules (244)\u0022,{\u0022f\u0022:\u002236.00\u0022,\u0022v\u0022:36},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u0022 5. REUTER, Jules (244)\u0022,{\u0022f\u0022:\u002233.00\u0022,\u0022v\u0022:33},null],[\u0022Round 4 \u002D East Brighton\u002DYouths A + B: 2018\u002D09\u002D30\u0022,\u0022 5. REUTER, Jules (244)\u0022,{\u0022f\u0022:\u002226.00\u0022,\u0022v\u0022:26},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u0022 5. REUTER, Jules (244)\u0022,{\u0022f\u0022:\u002233.00\u0022,\u0022v\u0022:33},null],[\u0022Round 11 \u002D Hog Hill\u002DYouths A + B: 2019\u002D01\u002D06\u0022,\u0022 6. HARVEY, Alex (229)\u0022,{\u0022f\u0022:\u002230.00\u0022,\u0022v\u0022:30},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u0022 6. HARVEY, Alex (229)\u0022,{\u0022f\u0022:\u002230.00\u0022,\u0022v\u0022:30},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u0022 6. HARVEY, Alex (229)\u0022,{\u0022f\u0022:\u002236.00\u0022,\u0022v\u0022:36},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u0022 6. HARVEY, Alex (229)\u0022,{\u0022f\u0022:\u002230.00\u0022,\u0022v\u0022:30},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u0022 6. HARVEY, Alex (229)\u0022,{\u0022f\u0022:\u002240.00\u0022,\u0022v\u0022:40},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u0022 6. HARVEY, Alex (229)\u0022,{\u0022f\u0022:\u002230.00\u0022,\u0022v\u0022:30},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u0022 6. HARVEY, Alex (229)\u0022,{\u0022f\u0022:\u002233.00\u0022,\u0022v\u0022:33},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u0022 7. BALLINGER, Josh (199)\u0022,{\u0022f\u0022:\u002236.00\u0022,\u0022v\u0022:36},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u0022 7. BALLINGER, Josh (199)\u0022,{\u0022f\u0022:\u002230.00\u0022,\u0022v\u0022:30},null],[\u0022Round 4 \u002D East Brighton\u002DYouths A + B: 2018\u002D09\u002D30\u0022,\u0022 7. BALLINGER, Josh (199)\u0022,{\u0022f\u0022:\u002236.00\u0022,\u0022v\u0022:36},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u0022 7. BALLINGER, Josh (199)\u0022,{\u0022f\u0022:\u002233.00\u0022,\u0022v\u0022:33},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u0022 7. BALLINGER, Josh (199)\u0022,{\u0022f\u0022:\u002236.00\u0022,\u0022v\u0022:36},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u0022 7. BALLINGER, Josh (199)\u0022,{\u0022f\u0022:\u002228.00\u0022,\u0022v\u0022:28},null],[\u0022Round 12 \u002D Bexley\u002DYouths A + B: 2019\u002D01\u002D26\u0022,\u0022 8. KIRBY, Daniel (199)\u0022,{\u0022f\u0022:\u002228.00\u0022,\u0022v\u0022:28},null],[\u0022Round 9 \u002D Frylands Wood\u002DYouths A + B: 2018\u002D12\u002D09\u0022,\u0022 8. KIRBY, Daniel (199)\u0022,{\u0022f\u0022:\u002236.00\u0022,\u0022v\u0022:36},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u0022 8. KIRBY, Daniel (199)\u0022,{\u0022f\u0022:\u002226.00\u0022,\u0022v\u0022:26},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u0022 8. KIRBY, Daniel (199)\u0022,{\u0022f\u0022:\u002226.00\u0022,\u0022v\u0022:26},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u0022 8. KIRBY, Daniel (199)\u0022,{\u0022f\u0022:\u002226.00\u0022,\u0022v\u0022:26},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u0022 8. KIRBY, Daniel (199)\u0022,{\u0022f\u0022:\u002233.00\u0022,\u0022v\u0022:33},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u0022 8. KIRBY, Daniel (199)\u0022,{\u0022f\u0022:\u002224.00\u0022,\u0022v\u0022:24},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u0022 9. NEWMAN, Frederick (186)\u0022,{\u0022f\u0022:\u002210.00\u0022,\u0022v\u0022:10},null],[\u0022Round 4 \u002D East Brighton\u002DYouths A + B: 2018\u002D09\u002D30\u0022,\u0022 9. NEWMAN, Frederick (186)\u0022,{\u0022f\u0022:\u002244.00\u0022,\u0022v\u0022:44},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u0022 9. NEWMAN, Frederick (186)\u0022,{\u0022f\u0022:\u002244.00\u0022,\u0022v\u0022:44},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u0022 9. NEWMAN, Frederick (186)\u0022,{\u0022f\u0022:\u002244.00\u0022,\u0022v\u0022:44},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u0022 9. NEWMAN, Frederick (186)\u0022,{\u0022f\u0022:\u002244.00\u0022,\u0022v\u0022:44},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u002210. PARSONS, Ferdie (174)\u0022,{\u0022f\u0022:\u002224.00\u0022,\u0022v\u0022:24},null],[\u0022Round 9 \u002D Frylands Wood\u002DYouths A + B: 2018\u002D12\u002D09\u0022,\u002210. PARSONS, Ferdie (174)\u0022,{\u0022f\u0022:\u002233.00\u0022,\u0022v\u0022:33},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u002210. PARSONS, Ferdie (174)\u0022,{\u0022f\u0022:\u002228.00\u0022,\u0022v\u0022:28},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002210. PARSONS, Ferdie (174)\u0022,{\u0022f\u0022:\u002228.00\u0022,\u0022v\u0022:28},null],[\u0022Round 4 \u002D East Brighton\u002DYouths A + B: 2018\u002D09\u002D30\u0022,\u002210. PARSONS, Ferdie (174)\u0022,{\u0022f\u0022:\u002220.00\u0022,\u0022v\u0022:20},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u002210. PARSONS, Ferdie (174)\u0022,{\u0022f\u0022:\u002219.00\u0022,\u0022v\u0022:19},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u002210. PARSONS, Ferdie (174)\u0022,{\u0022f\u0022:\u002222.00\u0022,\u0022v\u0022:22},null],[\u0022Round 12 \u002D Bexley\u002DYouths A + B: 2019\u002D01\u002D26\u0022,\u002211. BELL, Dominic (166)\u0022,{\u0022f\u0022:\u002226.00\u0022,\u0022v\u0022:26},null],[\u0022Round 11 \u002D Hog Hill\u002DYouths A + B: 2019\u002D01\u002D06\u0022,\u002211. BELL, Dominic (166)\u0022,{\u0022f\u0022:\u002228.00\u0022,\u0022v\u0022:28},null],[\u0022Round 9 \u002D Frylands Wood\u002DYouths A + B: 2018\u002D12\u002D09\u0022,\u002211. BELL, Dominic (166)\u0022,{\u0022f\u0022:\u002224.00\u0022,\u0022v\u0022:24},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u002211. BELL, Dominic (166)\u0022,{\u0022f\u0022:\u002224.00\u0022,\u0022v\u0022:24},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002211. BELL, Dominic (166)\u0022,{\u0022f\u0022:\u002220.00\u0022,\u0022v\u0022:20},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u002211. BELL, Dominic (166)\u0022,{\u0022f\u0022:\u002226.00\u0022,\u0022v\u0022:26},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u002211. BELL, Dominic (166)\u0022,{\u0022f\u0022:\u002218.00\u0022,\u0022v\u0022:18},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u002212. FLATAU, Ben (158)\u0022,{\u0022f\u0022:\u002230.00\u0022,\u0022v\u0022:30},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u002212. FLATAU, Ben (158)\u0022,{\u0022f\u0022:\u002222.00\u0022,\u0022v\u0022:22},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u002212. FLATAU, Ben (158)\u0022,{\u0022f\u0022:\u002222.00\u0022,\u0022v\u0022:22},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u002212. FLATAU, Ben (158)\u0022,{\u0022f\u0022:\u002224.00\u0022,\u0022v\u0022:24},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u002212. FLATAU, Ben (158)\u0022,{\u0022f\u0022:\u002222.00\u0022,\u0022v\u0022:22},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u002212. FLATAU, Ben (158)\u0022,{\u0022f\u0022:\u002219.00\u0022,\u0022v\u0022:19},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u002212. FLATAU, Ben (158)\u0022,{\u0022f\u0022:\u002219.00\u0022,\u0022v\u0022:19},null],[\u0022Round 11 \u002D Hog Hill\u002DYouths A + B: 2019\u002D01\u002D06\u0022,\u002213. YULE, James (154)\u0022,{\u0022f\u0022:\u002222.00\u0022,\u0022v\u0022:22},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u002213. YULE, James (154)\u0022,{\u0022f\u0022:\u002228.00\u0022,\u0022v\u0022:28},null],[\u0022Round 9 \u002D Frylands Wood\u002DYouths A + B: 2018\u002D12\u002D09\u0022,\u002213. YULE, James (154)\u0022,{\u0022f\u0022:\u002228.00\u0022,\u0022v\u0022:28},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u002213. YULE, James (154)\u0022,{\u0022f\u0022:\u002218.00\u0022,\u0022v\u0022:18},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u002213. YULE, James (154)\u0022,{\u0022f\u0022:\u002220.00\u0022,\u0022v\u0022:20},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u002213. YULE, James (154)\u0022,{\u0022f\u0022:\u002218.00\u0022,\u0022v\u0022:18},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u002213. YULE, James (154)\u0022,{\u0022f\u0022:\u002220.00\u0022,\u0022v\u0022:20},null],[\u0022Round 12 \u002D Bexley\u002DYouths A + B: 2019\u002D01\u002D26\u0022,\u002214. BROWN, Caleb (151)\u0022,{\u0022f\u0022:\u002215.00\u0022,\u0022v\u0022:15},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u002214. BROWN, Caleb (151)\u0022,{\u0022f\u0022:\u002224.00\u0022,\u0022v\u0022:24},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u002214. BROWN, Caleb (151)\u0022,{\u0022f\u0022:\u002233.00\u0022,\u0022v\u0022:33},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u002214. BROWN, Caleb (151)\u0022,{\u0022f\u0022:\u002222.00\u0022,\u0022v\u0022:22},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002214. BROWN, Caleb (151)\u0022,{\u0022f\u0022:\u002226.00\u0022,\u0022v\u0022:26},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u002214. BROWN, Caleb (151)\u0022,{\u0022f\u0022:\u002216.00\u0022,\u0022v\u0022:16},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u002214. BROWN, Caleb (151)\u0022,{\u0022f\u0022:\u002215.00\u0022,\u0022v\u0022:15},null],[\u0022Round 12 \u002D Bexley\u002DYouths A + B: 2019\u002D01\u002D26\u0022,\u002215. OWEN, Harry (150)\u0022,{\u0022f\u0022:\u002217.00\u0022,\u0022v\u0022:17},null],[\u0022Round 9 \u002D Frylands Wood\u002DYouths A + B: 2018\u002D12\u002D09\u0022,\u002215. OWEN, Harry (150)\u0022,{\u0022f\u0022:\u002219.00\u0022,\u0022v\u0022:19},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u002215. OWEN, Harry (150)\u0022,{\u0022f\u0022:\u002220.00\u0022,\u0022v\u0022:20},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u002215. OWEN, Harry (150)\u0022,{\u0022f\u0022:\u002228.00\u0022,\u0022v\u0022:28},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002215. OWEN, Harry (150)\u0022,{\u0022f\u0022:\u002230.00\u0022,\u0022v\u0022:30},null],[\u0022Round 4 \u002D East Brighton\u002DYouths A + B: 2018\u002D09\u002D30\u0022,\u002215. OWEN, Harry (150)\u0022,{\u0022f\u0022:\u002218.00\u0022,\u0022v\u0022:18},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u002215. OWEN, Harry (150)\u0022,{\u0022f\u0022:\u002218.00\u0022,\u0022v\u0022:18},null],[\u0022Round 11 \u002D Hog Hill\u002DYouths A + B: 2019\u002D01\u002D06\u0022,\u002216. NERURKAR, Lukas (147)\u0022,{\u0022f\u0022:\u002233.00\u0022,\u0022v\u0022:33},null],[\u0022Round 9 \u002D Frylands Wood\u002DYouths A + B: 2018\u002D12\u002D09\u0022,\u002216. NERURKAR, Lukas (147)\u0022,{\u0022f\u0022:\u002244.00\u0022,\u0022v\u0022:44},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u002216. NERURKAR, Lukas (147)\u0022,{\u0022f\u0022:\u002244.00\u0022,\u0022v\u0022:44},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u002216. NERURKAR, Lukas (147)\u0022,{\u0022f\u0022:\u002226.00\u0022,\u0022v\u0022:26},null],[\u0022Round 12 \u002D Bexley\u002DYouths A + B: 2019\u002D01\u002D26\u0022,\u002217. PRENELLE, Luke (142)\u0022,{\u0022f\u0022:\u002244.00\u0022,\u0022v\u0022:44},null],[\u0022Round 11 \u002D Hog Hill\u002DYouths A + B: 2019\u002D01\u002D06\u0022,\u002217. PRENELLE, Luke (142)\u0022,{\u0022f\u0022:\u002244.00\u0022,\u0022v\u0022:44},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u002217. PRENELLE, Luke (142)\u0022,{\u0022f\u0022:\u002228.00\u0022,\u0022v\u0022:28},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u002217. PRENELLE, Luke (142)\u0022,{\u0022f\u0022:\u002226.00\u0022,\u0022v\u0022:26},null],[\u0022Round 12 \u002D Bexley\u002DYouths A + B: 2019\u002D01\u002D26\u0022,\u002218. SUMMERS, Milo (140)\u0022,{\u0022f\u0022:\u002220.00\u0022,\u0022v\u0022:20},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u002218. SUMMERS, Milo (140)\u0022,{\u0022f\u0022:\u002226.00\u0022,\u0022v\u0022:26},null],[\u0022Round 9 \u002D Frylands Wood\u002DYouths A + B: 2018\u002D12\u002D09\u0022,\u002218. SUMMERS, Milo (140)\u0022,{\u0022f\u0022:\u002220.00\u0022,\u0022v\u0022:20},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u002218. SUMMERS, Milo (140)\u0022,{\u0022f\u0022:\u002220.00\u0022,\u0022v\u0022:20},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002218. SUMMERS, Milo (140)\u0022,{\u0022f\u0022:\u002222.00\u0022,\u0022v\u0022:22},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u002218. SUMMERS, Milo (140)\u0022,{\u0022f\u0022:\u002217.00\u0022,\u0022v\u0022:17},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u002218. SUMMERS, Milo (140)\u0022,{\u0022f\u0022:\u002215.00\u0022,\u0022v\u0022:15},null],[\u0022Round 12 \u002D Bexley\u002DYouths A + B: 2019\u002D01\u002D26\u0022,\u002219. WHYTON, Leo (119)\u0022,{\u0022f\u0022:\u002219.00\u0022,\u0022v\u0022:19},null],[\u0022Round 11 \u002D Hog Hill\u002DYouths A + B: 2019\u002D01\u002D06\u0022,\u002219. WHYTON, Leo (119)\u0022,{\u0022f\u0022:\u002226.00\u0022,\u0022v\u0022:26},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u002219. WHYTON, Leo (119)\u0022,{\u0022f\u0022:\u002219.00\u0022,\u0022v\u0022:19},null],[\u0022Round 9 \u002D Frylands Wood\u002DYouths A + B: 2018\u002D12\u002D09\u0022,\u002219. WHYTON, Leo (119)\u0022,{\u0022f\u0022:\u002216.00\u0022,\u0022v\u0022:16},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u002219. WHYTON, Leo (119)\u0022,{\u0022f\u0022:\u002212.00\u0022,\u0022v\u0022:12},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u002219. WHYTON, Leo (119)\u0022,{\u0022f\u0022:\u002213.00\u0022,\u0022v\u0022:13},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002219. WHYTON, Leo (119)\u0022,{\u0022f\u0022:\u002214.00\u0022,\u0022v\u0022:14},null],[\u0022Round 12 \u002D Bexley\u002DYouths A + B: 2019\u002D01\u002D26\u0022,\u002220. LEDGER, Felix (116)\u0022,{\u0022f\u0022:\u002218.00\u0022,\u0022v\u0022:18},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u002220. LEDGER, Felix (116)\u0022,{\u0022f\u0022:\u002220.00\u0022,\u0022v\u0022:20},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u002220. LEDGER, Felix (116)\u0022,{\u0022f\u0022:\u002217.00\u0022,\u0022v\u0022:17},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u002220. LEDGER, Felix (116)\u0022,{\u0022f\u0022:\u002218.00\u0022,\u0022v\u0022:18},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002220. LEDGER, Felix (116)\u0022,{\u0022f\u0022:\u002217.00\u0022,\u0022v\u0022:17},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u002220. LEDGER, Felix (116)\u0022,{\u0022f\u0022:\u002215.00\u0022,\u0022v\u0022:15},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u002220. LEDGER, Felix (116)\u0022,{\u0022f\u0022:\u002211.00\u0022,\u0022v\u0022:11},null],[\u0022Round 11 \u002D Hog Hill\u002DYouths A + B: 2019\u002D01\u002D06\u0022,\u002221. DAVIES, Thomas (113)\u0022,{\u0022f\u0022:\u002220.00\u0022,\u0022v\u0022:20},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u002221. DAVIES, Thomas (113)\u0022,{\u0022f\u0022:\u002217.00\u0022,\u0022v\u0022:17},null],[\u0022Round 9 \u002D Frylands Wood\u002DYouths A + B: 2018\u002D12\u002D09\u0022,\u002221. DAVIES, Thomas (113)\u0022,{\u0022f\u0022:\u002218.00\u0022,\u0022v\u0022:18},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u002221. DAVIES, Thomas (113)\u0022,{\u0022f\u0022:\u002214.00\u0022,\u0022v\u0022:14},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u002221. DAVIES, Thomas (113)\u0022,{\u0022f\u0022:\u002216.00\u0022,\u0022v\u0022:16},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u002221. DAVIES, Thomas (113)\u0022,{\u0022f\u0022:\u002214.00\u0022,\u0022v\u0022:14},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u002221. DAVIES, Thomas (113)\u0022,{\u0022f\u0022:\u002214.00\u0022,\u0022v\u0022:14},null],[\u0022Round 12 \u002D Bexley\u002DYouths A + B: 2019\u002D01\u002D26\u0022,\u002222. PENGCHAISRI, Chayaton (112)\u0022,{\u0022f\u0022:\u002213.00\u0022,\u0022v\u0022:13},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u002222. PENGCHAISRI, Chayaton (112)\u0022,{\u0022f\u0022:\u002216.00\u0022,\u0022v\u0022:16},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u002222. PENGCHAISRI, Chayaton (112)\u0022,{\u0022f\u0022:\u002216.00\u0022,\u0022v\u0022:16},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u002222. PENGCHAISRI, Chayaton (112)\u0022,{\u0022f\u0022:\u002216.00\u0022,\u0022v\u0022:16},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u002222. PENGCHAISRI, Chayaton (112)\u0022,{\u0022f\u0022:\u002219.00\u0022,\u0022v\u0022:19},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002222. PENGCHAISRI, Chayaton (112)\u0022,{\u0022f\u0022:\u002218.00\u0022,\u0022v\u0022:18},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u002222. PENGCHAISRI, Chayaton (112)\u0022,{\u0022f\u0022:\u002214.00\u0022,\u0022v\u0022:14},null],[\u0022Round 12 \u002D Bexley\u002DYouths A + B: 2019\u002D01\u002D26\u0022,\u002223. GRUNFELD, Albert (108)\u0022,{\u0022f\u0022:\u002214.00\u0022,\u0022v\u0022:14},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u002223. GRUNFELD, Albert (108)\u0022,{\u0022f\u0022:\u002218.00\u0022,\u0022v\u0022:18},null],[\u0022Round 9 \u002D Frylands Wood\u002DYouths A + B: 2018\u002D12\u002D09\u0022,\u002223. GRUNFELD, Albert (108)\u0022,{\u0022f\u0022:\u002222.00\u0022,\u0022v\u0022:22},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u002223. GRUNFELD, Albert (108)\u0022,{\u0022f\u0022:\u002215.00\u0022,\u0022v\u0022:15},null],[\u0022Round 4 \u002D East Brighton\u002DYouths A + B: 2018\u002D09\u002D30\u0022,\u002223. GRUNFELD, Albert (108)\u0022,{\u0022f\u0022:\u002214.00\u0022,\u0022v\u0022:14},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u002223. GRUNFELD, Albert (108)\u0022,{\u0022f\u0022:\u002216.00\u0022,\u0022v\u0022:16},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u002223. GRUNFELD, Albert (108)\u0022,{\u0022f\u0022:\u00229.00\u0022,\u0022v\u0022:9},null],[\u0022Round 11 \u002D Hog Hill\u002DYouths A + B: 2019\u002D01\u002D06\u0022,\u002224. WILSHIRE, Robert (107)\u0022,{\u0022f\u0022:\u002219.00\u0022,\u0022v\u0022:19},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u002224. WILSHIRE, Robert (107)\u0022,{\u0022f\u0022:\u002215.00\u0022,\u0022v\u0022:15},null],[\u0022Round 9 \u002D Frylands Wood\u002DYouths A + B: 2018\u002D12\u002D09\u0022,\u002224. WILSHIRE, Robert (107)\u0022,{\u0022f\u0022:\u002215.00\u0022,\u0022v\u0022:15},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u002224. WILSHIRE, Robert (107)\u0022,{\u0022f\u0022:\u002214.00\u0022,\u0022v\u0022:14},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u002224. WILSHIRE, Robert (107)\u0022,{\u0022f\u0022:\u002212.00\u0022,\u0022v\u0022:12},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u002224. WILSHIRE, Robert (107)\u0022,{\u0022f\u0022:\u002217.00\u0022,\u0022v\u0022:17},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002224. WILSHIRE, Robert (107)\u0022,{\u0022f\u0022:\u002215.00\u0022,\u0022v\u0022:15},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u002225. FORTESCUE TALWAR, Rahul (86)\u0022,{\u0022f\u0022:\u002215.00\u0022,\u0022v\u0022:15},null],[\u0022Round 4 \u002D East Brighton\u002DYouths A + B: 2018\u002D09\u002D30\u0022,\u002225. FORTESCUE TALWAR, Rahul (86)\u0022,{\u0022f\u0022:\u002224.00\u0022,\u0022v\u0022:24},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u002225. FORTESCUE TALWAR, Rahul (86)\u0022,{\u0022f\u0022:\u002224.00\u0022,\u0022v\u0022:24},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u002225. FORTESCUE TALWAR, Rahul (86)\u0022,{\u0022f\u0022:\u002217.00\u0022,\u0022v\u0022:17},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u002225. FORTESCUE TALWAR, Rahul (86)\u0022,{\u0022f\u0022:\u00226.00\u0022,\u0022v\u0022:6},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u002226. HICKS, Dylan (80)\u0022,{\u0022f\u0022:\u002219.00\u0022,\u0022v\u0022:19},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002226. HICKS, Dylan (80)\u0022,{\u0022f\u0022:\u002224.00\u0022,\u0022v\u0022:24},null],[\u0022Round 4 \u002D East Brighton\u002DYouths A + B: 2018\u002D09\u002D30\u0022,\u002226. HICKS, Dylan (80)\u0022,{\u0022f\u0022:\u002217.00\u0022,\u0022v\u0022:17},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u002226. HICKS, Dylan (80)\u0022,{\u0022f\u0022:\u002220.00\u0022,\u0022v\u0022:20},null],[\u0022Round 9 \u002D Frylands Wood\u002DYouths A + B: 2018\u002D12\u002D09\u0022,\u002227. DODD, Mattie (62)\u0022,{\u0022f\u0022:\u002226.00\u0022,\u0022v\u0022:26},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002227. DODD, Mattie (62)\u0022,{\u0022f\u0022:\u002236.00\u0022,\u0022v\u0022:36},null],[\u0022Round 12 \u002D Bexley\u002DYouths A + B: 2019\u002D01\u002D26\u0022,\u002228. METCALFE, Thomas (60)\u0022,{\u0022f\u0022:\u002222.00\u0022,\u0022v\u0022:22},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002228. METCALFE, Thomas (60)\u0022,{\u0022f\u0022:\u002216.00\u0022,\u0022v\u0022:16},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouths A + B: 2018\u002D09\u002D02\u0022,\u002228. METCALFE, Thomas (60)\u0022,{\u0022f\u0022:\u002222.00\u0022,\u0022v\u0022:22},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u002229. BALDING, Bill (59)\u0022,{\u0022f\u0022:\u002219.00\u0022,\u0022v\u0022:19},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u002229. BALDING, Bill (59)\u0022,{\u0022f\u0022:\u002218.00\u0022,\u0022v\u0022:18},null],[\u0022Round 4 \u002D East Brighton\u002DYouths A + B: 2018\u002D09\u002D30\u0022,\u002229. BALDING, Bill (59)\u0022,{\u0022f\u0022:\u002222.00\u0022,\u0022v\u0022:22},null],[\u0022Round 10 \u002D Somerhill\u002DYouths A + B: 2018\u002D12\u002D22\u0022,\u002230. STILL, Cameron (52)\u0022,{\u0022f\u0022:\u002222.00\u0022,\u0022v\u0022:22},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u002230. STILL, Cameron (52)\u0022,{\u0022f\u0022:\u002211.00\u0022,\u0022v\u0022:11},null],[\u0022Round 4 \u002D East Brighton\u002DYouths A + B: 2018\u002D09\u002D30\u0022,\u002230. STILL, Cameron (52)\u0022,{\u0022f\u0022:\u002219.00\u0022,\u0022v\u0022:19},null],[\u0022Round 11 \u002D Hog Hill\u002DYouths A + B: 2019\u002D01\u002D06\u0022,\u002231. HIGGINS, Roshan (50)\u0022,{\u0022f\u0022:\u002218.00\u0022,\u0022v\u0022:18},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002231. HIGGINS, Roshan (50)\u0022,{\u0022f\u0022:\u002212.00\u0022,\u0022v\u0022:12},null],[\u0022Round 3 \u002D Leeds Castle\u002DYouths A + B: 2018\u002D09\u002D23\u0022,\u002231. HIGGINS, Roshan (50)\u0022,{\u0022f\u0022:\u002212.00\u0022,\u0022v\u0022:12},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u002231. HIGGINS, Roshan (50)\u0022,{\u0022f\u0022:\u00228.00\u0022,\u0022v\u0022:8},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002232. HAWKINS, Hector (41)\u0022,{\u0022f\u0022:\u002219.00\u0022,\u0022v\u0022:19},null],[\u0022Round 4 \u002D East Brighton\u002DYouths A + B: 2018\u002D09\u002D30\u0022,\u002232. HAWKINS, Hector (41)\u0022,{\u0022f\u0022:\u002212.00\u0022,\u0022v\u0022:12},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u002232. HAWKINS, Hector (41)\u0022,{\u0022f\u0022:\u002210.00\u0022,\u0022v\u0022:10},null],[\u0022Round 11 \u002D Hog Hill\u002DYouths A + B: 2019\u002D01\u002D06\u0022,\u002233. BROWN, Toby (40)\u0022,{\u0022f\u0022:\u002240.00\u0022,\u0022v\u0022:40},null],[\u0022Round 8 \u002D East Brighton\u002DYouths A + B: 2018\u002D11\u002D25\u0022,\u002234. CLACY, Felix (33)\u0022,{\u0022f\u0022:\u002233.00\u0022,\u0022v\u0022:33},null],[\u0022Round 4 \u002D East Brighton\u002DYouths A + B: 2018\u002D09\u002D30\u0022,\u002235. PLEWES, Henry (16)\u0022,{\u0022f\u0022:\u002216.00\u0022,\u0022v\u0022:16},null],[\u0022Round 6 \u002D East Bysshe\u002DYouths A + B: 2018\u002D10\u002D21\u0022,\u002236. FINCH, Frankie (15)\u0022,{\u0022f\u0022:\u002215.00\u0022,\u0022v\u0022:15},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouths A + B: 2018\u002D09\u002D16\u0022,\u002237. HUMBER\u002DKELLY, Dylan (12)\u0022,{\u0022f\u0022:\u002212.00\u0022,\u0022v\u0022:12},null],[\u0022Round 7 \u002D Preston Park\u002DYouths A + B: 2018\u002D10\u002D28\u0022,\u002238. DENNIS, Will (11)\u0022,{\u0022f\u0022:\u002211.00\u0022,\u0022v\u0022:11},null],[\u0022Round 5 \u002D Herne Hill\u002DYouths A + B: 2018\u002D10\u002D07\u0022,\u002239. FAGGE, Luc (11)\u0022,{\u0022f\u0022:\u002211.00\u0022,\u0022v\u0022:11},null],[\u0022 1. BLACKMORE, Joseph (350)\u0022,\u0022Team Darenth (875)\u0022,{\u0022f\u0022:\u0022350.00\u0022,\u0022v\u0022:350},null],[\u0022 2. HAZELL, Luke (314)\u0022,\u0022Team Darenth (875)\u0022,{\u0022f\u0022:\u0022314.00\u0022,\u0022v\u0022:314},null],[\u0022 3. PLATTS, Stanley (274)\u0022,\u0022VC Londres (336)\u0022,{\u0022f\u0022:\u0022274.00\u0022,\u0022v\u0022:274},null],[\u0022 4. MCGHEE, Samuel (265)\u0022,\u0022Sutton CC/C\u0026N C... (571)\u0022,{\u0022f\u0022:\u0022265.00\u0022,\u0022v\u0022:265},null],[\u0022 5. REUTER, Jules (244)\u0022,\u0022Herne Hill Yout... (444)\u0022,{\u0022f\u0022:\u0022244.00\u0022,\u0022v\u0022:244},null],[\u0022 6. HARVEY, Alex (229)\u0022,\u0022vc jubilee (403)\u0022,{\u0022f\u0022:\u0022229.00\u0022,\u0022v\u0022:229},null],[\u0022 8. KIRBY, Daniel (199)\u0022,\u0022Sutton CC/C\u0026N C... (571)\u0022,{\u0022f\u0022:\u0022199.00\u0022,\u0022v\u0022:199},null],[\u0022 7. BALLINGER, Josh (199)\u0022,\u0022Preston Park Yo... (591)\u0022,{\u0022f\u0022:\u0022199.00\u0022,\u0022v\u0022:199},null],[\u0022 9. NEWMAN, Frederick (186)\u0022,\u0022Preston Park Yo... (591)\u0022,{\u0022f\u0022:\u0022186.00\u0022,\u0022v\u0022:186},null],[\u002210. PARSONS, Ferdie (174)\u0022,\u0022vc jubilee (403)\u0022,{\u0022f\u0022:\u0022174.00\u0022,\u0022v\u0022:174},null],[\u002211. BELL, Dominic (166)\u0022,\u0022Sutton CC (279)\u0022,{\u0022f\u0022:\u0022166.00\u0022,\u0022v\u0022:166},null],[\u002212. FLATAU, Ben (158)\u0022,\u0022Charlotteville... (158)\u0022,{\u0022f\u0022:\u0022158.00\u0022,\u0022v\u0022:158},null],[\u002213. YULE, James (154)\u0022,\u0022Crawley Wheeler... (266)\u0022,{\u0022f\u0022:\u0022154.00\u0022,\u0022v\u0022:154},null],[\u002214. BROWN, Caleb (151)\u0022,\u0022Team Darenth (875)\u0022,{\u0022f\u0022:\u0022151.00\u0022,\u0022v\u0022:151},null],[\u002215. OWEN, Harry (150)\u0022,\u0022Herne Hill Yout... (444)\u0022,{\u0022f\u0022:\u0022150.00\u0022,\u0022v\u0022:150},null],[\u002216. NERURKAR, Lukas (147)\u0022,\u0022Preston Park Yo... (591)\u0022,{\u0022f\u0022:\u0022147.00\u0022,\u0022v\u0022:147},null],[\u002217. PRENELLE, Luke (142)\u0022,\u0022Lee Valley Yout... (142)\u0022,{\u0022f\u0022:\u0022142.00\u0022,\u0022v\u0022:142},null],[\u002218. SUMMERS, Milo (140)\u0022,\u0022HHYCC (181)\u0022,{\u0022f\u0022:\u0022140.00\u0022,\u0022v\u0022:140},null],[\u002219. WHYTON, Leo (119)\u0022,\u0022Club 4T Cyclopa... (119)\u0022,{\u0022f\u0022:\u0022119.00\u0022,\u0022v\u0022:119},null],[\u002220. LEDGER, Felix (116)\u0022,\u0022Southborough an... (116)\u0022,{\u0022f\u0022:\u0022116.00\u0022,\u0022v\u0022:116},null],[\u002221. DAVIES, Thomas (113)\u0022,\u0022Sutton CC (279)\u0022,{\u0022f\u0022:\u0022113.00\u0022,\u0022v\u0022:113},null],[\u002222. PENGCHAISRI, Chayaton (112)\u0022,\u0022Crawley Wheeler... (266)\u0022,{\u0022f\u0022:\u0022112.00\u0022,\u0022v\u0022:112},null],[\u002223. GRUNFELD, Albert (108)\u0022,\u0022Ind 1 (108)\u0022,{\u0022f\u0022:\u0022108.00\u0022,\u0022v\u0022:108},null],[\u002224. WILSHIRE, Robert (107)\u0022,\u0022Sutton CC/C\u0026N C... (571)\u0022,{\u0022f\u0022:\u0022107.00\u0022,\u0022v\u0022:107},null],[\u002225. FORTESCUE TALWAR, Rahul (86)\u0022,\u0022PPYCC (166)\u0022,{\u0022f\u0022:\u002286.00\u0022,\u0022v\u0022:86},null],[\u002226. HICKS, Dylan (80)\u0022,\u0022PPYCC (166)\u0022,{\u0022f\u0022:\u002280.00\u0022,\u0022v\u0022:80},null],[\u002227. DODD, Mattie (62)\u0022,\u0022VC Londres (336)\u0022,{\u0022f\u0022:\u002262.00\u0022,\u0022v\u0022:62},null],[\u002228. METCALFE, Thomas (60)\u0022,\u0022Team Darenth (875)\u0022,{\u0022f\u0022:\u002260.00\u0022,\u0022v\u0022:60},null],[\u002229. BALDING, Bill (59)\u0022,\u0022Preston Park Yo... (591)\u0022,{\u0022f\u0022:\u002259.00\u0022,\u0022v\u0022:59},null],[\u002230. STILL, Cameron (52)\u0022,\u0022V C Londres (52)\u0022,{\u0022f\u0022:\u002252.00\u0022,\u0022v\u0022:52},null],[\u002231. HIGGINS, Roshan (50)\u0022,\u0022Herne Hill Yout... (444)\u0022,{\u0022f\u0022:\u002250.00\u0022,\u0022v\u0022:50},null],[\u002232. HAWKINS, Hector (41)\u0022,\u0022HHYCC (181)\u0022,{\u0022f\u0022:\u002241.00\u0022,\u0022v\u0022:41},null],[\u002233. BROWN, Toby (40)\u0022,\u0022Ind 2 (40)\u0022,{\u0022f\u0022:\u002240.00\u0022,\u0022v\u0022:40},null],[\u002234. CLACY, Felix (33)\u0022,\u0022Solent Pirates (33)\u0022,{\u0022f\u0022:\u002233.00\u0022,\u0022v\u0022:33},null],[\u002235. PLEWES, Henry (16)\u0022,\u0022Ind 3 (16)\u0022,{\u0022f\u0022:\u002216.00\u0022,\u0022v\u0022:16},null],[\u002236. FINCH, Frankie (15)\u0022,\u0022Ind 4 (15)\u0022,{\u0022f\u0022:\u002215.00\u0022,\u0022v\u0022:15},null],[\u002237. HUMBER\u002DKELLY, Dylan (12)\u0022,\u0022Ind 5 (12)\u0022,{\u0022f\u0022:\u002212.00\u0022,\u0022v\u0022:12},null],[\u002239. FAGGE, Luc (11)\u0022,\u0022Ind 7 (11)\u0022,{\u0022f\u0022:\u002211.00\u0022,\u0022v\u0022:11},null],[\u002238. DENNIS, Will (11)\u0022,\u0022Ind 6 (11)\u0022,{\u0022f\u0022:\u002211.00\u0022,\u0022v\u0022:11},null]]"));
+
+		var options = {
+			width: 600,
+			sankey: {
+				iterations: 0,
+			},
+		  tooltip: {
+				textStyle: {fontSize: 11}
+			}
+		};
+
+		var chart = new google.visualization.Sankey(document.getElementById('idSankeyChart'));
+		chart.draw(data, options);
+	}
+
+
+
+function onLoad()
+{
+	// Set consistent date format.
+	$('.dateinput').datepicker({
+		format: "yyyy-mm-dd",
+		autoclose: true,
+		todayHighlight: true
+	});
+	
+	// Set consistent datetime format.
+	$('.datetimeinput').datetimepicker({
+		format: 'yyyy-mm-dd hh:ii:ss',
+	});
+	
+	// Set button background to black when pressed to give feedback.
+	$('.btn').click(function() {
+		var button = $(this);
+		var backgroundColorCur = button.css( "background-color" );
+		button.css( {"background-color": '#666666'} );
+		setTimeout( function(){ button.css( {"background-color": backgroundColorCur} ); }, 15000 );
+	});
+	
+	// Make click targets larger for touch devices.
+	var is_touch_device = 'ontouchstart' in document.documentElement;
+	if( is_touch_device ) {
+		$('.btn').each(function() {
+			$(this).css( {"font-size": '120%'} );
+		});
+	}
+	
+	// Check for keyboard focus exception.
+	if( document.getElementById("focus") )
+		document.getElementById("focus").focus();
+	else {
+		// Give the first visible form field the keyboard focus.
+		$(document).ready(function() {
+			$('form:first *:input[type!=hidden]:first').focus();
+		});
+	}
+	
+	// Highlight fields that are filled in.
+	var in_use_color = '#dff0d8';
+	var fs = $("form.search");
+	fs.find(".select.form-control").each(function() {
+		if( $(this).val() != $(this).find('option:first').val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".numberinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".dateinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".textinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+
+
+
+}
+function jump( link ) { window.location = link; }
+</script>
+</head>
+<body onload="onLoad()">
+
+<div class="container">
+
+
+<style>
+table.results-table tr td {
+	font-size: 85%;
+}
+table.results-table tr th {
+	font-size: 85%;
+}
+.col-border-right {
+    border-right: 1px solid #ccc;
+}
+.col-border-right-gap {
+    border-right: 1px solid #ccc;
+}
+.result-detail {
+	font-style: italic;
+	color: #080808; 
+}
+</style>
+
+
+
+
+
+<nav class="navbar navbar-default navbar-fixed-top hidden-print">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="../../../SearchCompetitions/index.html">
+				<img alt="RaceDB" src="../../../../../../static/images/RaceDB_xsmall.png">
+			</a>
+			<ul class="nav navbar-nav">
+				<li><a href="../../../SearchCompetitions/index.html">Competitions</a></li>
+				<li><a href="../../../SearchLicenseHolders/index.html">Athletes</a></li>
+				<li><a href="../../../Series/index.html">Series</a></li>
+				<li><a href="https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/SearchCompetitions/Hub/SeriesCategoryResults/3/262/QRCode/"><img src="../../../../../../static/images/glyphicons_258_qrcode.png" alt="QRCode"/></a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<p class="hidden-print"><br/><br/><br/></p>
+
+<h1>
+	<strong><a href='../../../SeriesCategories/3/index.html'>U10, U12, Youth A+B</strong></a> <span style="font-size: 75%">London &amp; SE Cyclocross League</span><br/>
+	<span style="font-size: 75%">
+		YA M (Men)
+	</span>
+</h1>
+Generated: 2020-02-28 21:59:04
+<table class="table table-striped table-hover table-condensed results-table" style="width: auto;"><thead><tr><th>Rank</th><th>Name</th><th>Team</th><th class='text-right col-border-right'>
+			
+				Points
+			
+		</th><th class='text-right col-border-right-gap'>Gap</th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 12 - Bexley<br/>
+				2019-01-26 10:50<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/CategoryResults/123/0/262/'><span style="white-space: nowrap;">Youths A + B</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 11 - Hog Hill<br/>
+				2019-01-06 10:50<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/CategoryResults/117/0/262/'><span style="white-space: nowrap;">Youths A + B</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 10 - Somerhill<br/>
+				2018-12-22 10:50<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/CategoryResults/111/0/262/'><span style="white-space: nowrap;">Youths A + B</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 9 - Frylands Wood<br/>
+				2018-12-09 10:50<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/CategoryResults/105/0/262/'><span style="white-space: nowrap;">Youths A + B</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 8 - East Brighton<br/>
+				2018-11-25 09:50<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/CategoryResults/93/0/262/'><span style="white-space: nowrap;">Youths A + B</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 7 - Preston Park<br/>
+				2018-10-28 09:50<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/CategoryResults/87/0/262/'><span style="white-space: nowrap;">Youths A + B</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 6 - East Bysshe<br/>
+				2018-10-21 10:50<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/CategoryResults/81/0/262/'><span style="white-space: nowrap;">Youths A + B</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 5 - Herne Hill<br/>
+				2018-10-07 10:50<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/CategoryResults/75/0/262/'><span style="white-space: nowrap;">Youths A + B</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 4 - East Brighton<br/>
+				2018-09-30 10:50<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/CategoryResults/69/0/262/'><span style="white-space: nowrap;">Youths A + B</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 3 - Leeds Castle<br/>
+				2018-09-23 10:50<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/CategoryResults/63/0/262/'><span style="white-space: nowrap;">Youths A + B</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 2 - Crystal Palace<br/>
+				2018-09-16 10:50<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/CategoryResults/57/0/262/'><span style="white-space: nowrap;">Youths A + B</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 1 - Stanmer Park<br/>
+				2018-09-02 10:50<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/CategoryResults/51/0/262/'><span style="white-space: nowrap;">Youths A + B</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/1055/'>BLACKMORE, Joseph</a></td><td>Team Darenth</td><td class='text-right col-border-right'>350</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right ignored'>
+						44&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td></tr><tr><td class="text-right">2.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/1239/'>HAZELL, Luke</a></td><td>Team Darenth</td><td class='text-right col-border-right'>314</td><td class='text-right col-border-right-gap'>36</td><td class='hidden-print text-right ignored'>
+						36&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right ignored'>
+						40&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right ignored'>
+						40&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right ignored'>
+						33&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td></tr><tr><td class="text-right">3.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/1963/'>PLATTS, Stanley</a></td><td>VC Londres</td><td class='text-right col-border-right'>274</td><td class='text-right col-border-right-gap'>76</td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right ignored'>
+						28&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td></tr><tr><td class="text-right">4.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/1857/'>MCGHEE, Samuel</a></td><td>Sutton CC/C&amp;N Cycles</td><td class='text-right col-border-right'>265</td><td class='text-right col-border-right-gap'>85</td><td class='hidden-print text-right ignored'>
+						33&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right ignored'>
+						30&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right ignored'>
+						30&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td></tr><tr><td class="text-right">5.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/1089/'>REUTER, Jules</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>244</td><td class='text-right col-border-right-gap'>106</td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right ignored'>
+						10&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						21st
+					</td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right ignored'>
+						24&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td></tr><tr><td class="text-right">6.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/61/'>HARVEY, Alex</a></td><td>vc jubilee</td><td class='text-right col-border-right'>229</td><td class='text-right col-border-right-gap'>121</td><td class='hidden-print text-right ignored'>
+						24&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right ignored'>
+						17&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right ignored'>
+						28&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print text-right ignored'>
+						28&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td></tr><tr><td class="text-right">7.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/2367/'>BALLINGER, Josh</a></td><td>Preston Park Youth CC (PPYCC)</td><td class='text-right col-border-right'>199</td><td class='text-right col-border-right-gap'>151</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td></tr><tr><td class="text-right">8.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/434/'>KIRBY, Daniel</a></td><td>Sutton CC/C&amp;N Cycles</td><td class='text-right col-border-right'>199</td><td class='text-right col-border-right-gap'>151</td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right ignored'>
+						24&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right ignored'>
+						10&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						21st
+					</td><td class='hidden-print text-right ignored'>
+						20&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print text-right'>
+						24
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print text-right ignored'>
+						11&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						20th
+					</td></tr><tr><td class="text-right">9.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/664/'>NEWMAN, Frederick</a></td><td>Preston Park Youth CC</td><td class='text-right col-border-right'>186</td><td class='text-right col-border-right-gap'>164</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						10
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						21st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td></tr><tr><td class="text-right">10.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/638/'>PARSONS, Ferdie</a></td><td>vc jubilee</td><td class='text-right col-border-right'>174</td><td class='text-right col-border-right-gap'>176</td><td class='hidden-print text-right ignored'>
+						16&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						24
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right ignored'>
+						17&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print text-right ignored'>
+						16&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td></tr><tr><td class="text-right">11.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/549/'>BELL, Dominic</a></td><td>Sutton CC</td><td class='text-right col-border-right'>166</td><td class='text-right col-border-right-gap'>184</td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						24
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						24
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td></tr><tr><td class="text-right">12.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/2360/'>FLATAU, Ben</a></td><td>Charlotteville CC</td><td class='text-right col-border-right'>158</td><td class='text-right col-border-right-gap'>192</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print text-right'>
+						24
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td></tr><tr><td class="text-right">13.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/935/'>YULE, James</a></td><td>Crawley Wheelers</td><td class='text-right col-border-right'>154</td><td class='text-right col-border-right-gap'>196</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print text-right ignored'>
+						17&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td></tr><tr><td class="text-right">14.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/297/'>BROWN, Caleb</a></td><td>Team Darenth</td><td class='text-right col-border-right'>151</td><td class='text-right col-border-right-gap'>199</td><td class='hidden-print text-right'>
+						15
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						24
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right ignored'>
+						11&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						20th
+					</td><td class='hidden-print text-right ignored'>
+						13&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						18th
+					</td><td class='hidden-print text-right'>
+						16
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print text-right'>
+						15
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td></tr><tr><td class="text-right">15.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/775/'>OWEN, Harry</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>150</td><td class='text-right col-border-right-gap'>200</td><td class='hidden-print text-right'>
+						17
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print text-right ignored'>
+						11&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						20th
+					</td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print text-right ignored'>
+						13&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						18th
+					</td></tr><tr><td class="text-right">16.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/1229/'>NERURKAR, Lukas</a></td><td>Preston Park Youth CC</td><td class='text-right col-border-right'>147</td><td class='text-right col-border-right-gap'>203</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">17.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/1246/'>PRENELLE, Luke</a></td><td>Lee Valley Youth CC</td><td class='text-right col-border-right'>142</td><td class='text-right col-border-right-gap'>208</td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td></tr><tr><td class="text-right">18.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/1446/'>SUMMERS, Milo</a></td><td>HHYCC</td><td class='text-right col-border-right'>140</td><td class='text-right col-border-right-gap'>210</td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print text-right ignored'>
+						15&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print text-right'>
+						17
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print text-right'>
+						15
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print text-right ignored'>
+						10&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						21st
+					</td></tr><tr><td class="text-right">19.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/1186/'>WHYTON, Leo</a></td><td>Club 4T Cyclopark</td><td class='text-right col-border-right'>119</td><td class='text-right col-border-right-gap'>231</td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print text-right'>
+						16
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print text-right'>
+						12
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						19th
+					</td><td class='hidden-print text-right'>
+						13
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						18th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						14
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">20.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/636/'>LEDGER, Felix</a></td><td>Southborough and District Wheelers</td><td class='text-right col-border-right'>116</td><td class='text-right col-border-right-gap'>234</td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						17
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print text-right'>
+						17
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						15
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print text-right'>
+						11
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						20th
+					</td><td class='hidden-print text-right ignored'>
+						8&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						23rd
+					</td></tr><tr><td class="text-right">21.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/2045/'>DAVIES, Thomas</a></td><td>Sutton CC</td><td class='text-right col-border-right'>113</td><td class='text-right col-border-right-gap'>237</td><td class='hidden-print text-right ignored'>
+						12&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						19th
+					</td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print text-right'>
+						17
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print text-right ignored'>
+						13&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						18th
+					</td><td class='hidden-print text-right'>
+						14
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td><td class='hidden-print text-right'>
+						16
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print text-right ignored'>
+						13&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						18th
+					</td><td class='hidden-print text-right ignored'>
+						13&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						18th
+					</td><td class='hidden-print text-right'>
+						14
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td><td class='hidden-print text-right ignored'>
+						13&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						18th
+					</td><td class='hidden-print text-right'>
+						14
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td></tr><tr><td class="text-right">22.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/325/'>PENGCHAISRI, Chayaton</a></td><td>Crawley Wheelers</td><td class='text-right col-border-right'>112</td><td class='text-right col-border-right-gap'>238</td><td class='hidden-print text-right'>
+						13
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						18th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						16
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						16
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print text-right'>
+						16
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						14
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td><td class='hidden-print text-right ignored'>
+						12&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						19th
+					</td></tr><tr><td class="text-right">23.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/2328/'>GRUNFELD, Albert</a></td><td></td><td class='text-right col-border-right'>108</td><td class='text-right col-border-right-gap'>242</td><td class='hidden-print text-right'>
+						14
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print text-right'>
+						15
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						14
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td><td class='hidden-print text-right'>
+						16
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						9
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						22nd
+					</td></tr><tr><td class="text-right">24.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/2349/'>WILSHIRE, Robert</a></td><td>Sutton CC/C&amp;N Cycles</td><td class='text-right col-border-right'>107</td><td class='text-right col-border-right-gap'>243</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print text-right'>
+						15
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print text-right'>
+						15
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print text-right'>
+						14
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td><td class='hidden-print text-right'>
+						12
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						19th
+					</td><td class='hidden-print text-right'>
+						17
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print text-right'>
+						15
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print text-right ignored'>
+						9&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						22nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right ignored'>
+						9&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						22nd
+					</td><td class='hidden-print text-right ignored'>
+						7&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						24th
+					</td></tr><tr><td class="text-right">25.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/1713/'>FORTESCUE TALWAR, Rahul</a></td><td>PPYCC</td><td class='text-right col-border-right'>86</td><td class='text-right col-border-right-gap'>264</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						15
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						24
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print text-right'>
+						24
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print text-right'>
+						17
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print text-right'>
+						6
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						25th
+					</td></tr><tr><td class="text-right">26.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/2843/'>HICKS, Dylan</a></td><td>PPYCC</td><td class='text-right col-border-right'>80</td><td class='text-right col-border-right-gap'>270</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						24
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print text-right'>
+						17
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td></tr><tr><td class="text-right">27.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/2465/'>DODD, Mattie</a></td><td>VC Londres</td><td class='text-right col-border-right'>62</td><td class='text-right col-border-right-gap'>288</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">28.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/2057/'>METCALFE, Thomas</a></td><td>Team Darenth</td><td class='text-right col-border-right'>60</td><td class='text-right col-border-right-gap'>290</td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						16
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td></tr><tr><td class="text-right">29.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/3060/'>BALDING, Bill</a></td><td>Preston Park Youth CC</td><td class='text-right col-border-right'>59</td><td class='text-right col-border-right-gap'>291</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">30.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/307/'>STILL, Cameron</a></td><td>V C Londres</td><td class='text-right col-border-right'>52</td><td class='text-right col-border-right-gap'>298</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						11
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						20th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">31.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/2978/'>HIGGINS, Roshan</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>50</td><td class='text-right col-border-right-gap'>300</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						12
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						19th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						12
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						19th
+					</td><td class='hidden-print text-right'>
+						8
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						23rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">32.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/791/'>HAWKINS, Hector</a></td><td>HHYCC</td><td class='text-right col-border-right'>41</td><td class='text-right col-border-right-gap'>309</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print text-right'>
+						12
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						19th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						10
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						21st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">33.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/3300/'>BROWN, Toby</a></td><td></td><td class='text-right col-border-right'>40</td><td class='text-right col-border-right-gap'>310</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">34.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/634/'>CLACY, Felix</a></td><td>Solent Pirates</td><td class='text-right col-border-right'>33</td><td class='text-right col-border-right-gap'>317</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">35.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/3070/'>PLEWES, Henry</a></td><td></td><td class='text-right col-border-right'>16</td><td class='text-right col-border-right-gap'>334</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						16
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">36.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/653/'>FINCH, Frankie</a></td><td></td><td class='text-right col-border-right'>15</td><td class='text-right col-border-right-gap'>335</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						15
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">37.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/2945/'>HUMBER-KELLY, Dylan</a></td><td></td><td class='text-right col-border-right'>12</td><td class='text-right col-border-right-gap'>338</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						12
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						19th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">38.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/3169/'>DENNIS, Will</a></td><td></td><td class='text-right col-border-right'>11</td><td class='text-right col-border-right-gap'>339</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						11
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						20th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">39.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2018/RaceDB/Hub/Hub/LicenseHolderResults/3097/'>FAGGE, Luc</a></td><td></td><td class='text-right col-border-right'>11</td><td class='text-right col-border-right-gap'>339</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						11
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						20th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr></tbody></table>
+
+	<p class="hidden-print">&#x2717; - Result ignored: better result used.</p>
+
+
+
+	<p>
+	Competitors must complete 1 Events to be eligible.
+	</p>
+
+
+	<p>
+	Best 7 results considered.
+	</p>
+
+
+<hr/>
+<h4>
+
+	Ranked by Points
+
+</h4>
+
+	
+		<p/>
+		<h4>Points Structures</h4>
+		
+			
+				SeriesPoints: Points for place: 50,44,40,36,33,30,28,26,24,22,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1
+			
+		
+	
+	
+	
+
+
+
+
+<p/>
+<h4>Tie-breaking Rules</h4>
+<ol>
+
+
+	<li>Number of 1st, 2nd, 3rd, 4th then 5th place finishes.  If still a tie:</li>
+
+	<li>Most recent result.</li>
+</ol>
+
+
+	<hr/>
+	<div class='hidden-print' id="idSankeyChart" style="width: 1200px; height: 900px;"></div>
+
+
+
+</div>
+<br/>&nbsp;<br/>&nbsp;<br/>
+<script type="text/javascript" src="../../../../../../static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../../../static/bootstrap/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="../../../../../../static/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+</body>
+</html>

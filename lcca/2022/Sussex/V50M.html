@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Sussex CX League</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="RaceDB: Race Check-in Software">
+<meta name="keywords" content="time trial, road race, cyclocross, mtb, cycling, racing, bicycle, management, software, racedb, crossmgr">
+<meta name="author" content="Edward Sitarski">
+
+
+<script type="text/javascript" src="/static/js/jquery-2.2.4.min.js"></script>
+
+
+
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+
+<link rel="icon" href="/static/images/RaceDB_32x32.png">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/bootstrap/css/datepicker.css">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap-datetimepicker.min.css">
+
+
+
+
+<style>
+.row { margin: 8px 0px; }
+h2, h3, h4, h5 { margin: 1px; }
+@media print {
+    .page-break-before {page-break-before: always;}
+
+
+}
+.table-no-border>thead>tr>th, 
+.table-no-border>tbody>tr>th, 
+.table-no-border>tfoot>tr>th, 
+.table-no-border>thead>tr>td, 
+.table-no-border>tbody>tr>td, 
+.table-no-border>tfoot>tr>td {
+  border-top: none; 
+}
+
+.flag {
+    margin: 3px;
+    padding: 0px;
+    border: 1px solid #CCC;
+}
+
+.is-good::before {
+	content: url(/static/images/glyphicons_206_ok_2_blue.png);
+}
+.is-bad::before {
+	content: url(/static/images/glyphicons_207_remove_2_blue.png);
+}
+.is-err::before {
+	content: url(/static/images/error.png);
+	width:20px; height:20px; 
+}
+.is-warn::before {
+	content: url(/static/images/warning.png);
+	width:20px; height:20px; 
+}
+.is-finished::before {
+	content: url(/static/images/finished-flag.png);
+}
+.is-finished-blue::before {
+	content: url(/static/images/finished-flag-blue.png);
+}
+@media print {
+	a[href]:after {
+	content: none !important;
+	}
+}
+
+
+</style>
+<script type="text/javascript">
+function setRowSorter( className, sId ) {
+	$('#'+sId).rowSorter({
+		
+		// if new_index === old_index, this function won't be called.
+		onDrop: function(tbody, row, new_index, old_index) {
+			window.location = "./Resequence_" + className + "_Class/" + row.id + "/" + new_index + "/";
+		},
+		
+		// if new_index === old_index, this function will be called.
+		onDragEnd: function(tbody, row, current_index) {
+			window.location = "./" + className + "Edit/" + row.id + "/";
+		}
+	});
+}
+
+function skip_back() {
+	var components = window.location.href.split( '/' );
+	while( components.length > 0 && !components[components.length-1] )
+		components.pop();		// Remove training slashes.
+	while( components.length > 0 ) {
+		if( !/^[0-9]+$/.test(components[components.length-1]) ) {
+			components.pop();	// Skip url function name.
+			break;
+		}
+		components.pop();		// Skip parameter.
+	}
+	components.push( '' );		// Ensure there is a trailing slash.
+	window.location.href = components.join('/');
+}
+
+
+
+function onLoad()
+{
+	// Set consistent date format.
+	$('.dateinput').datepicker({
+		format: "yyyy-mm-dd",
+		autoclose: true,
+		todayHighlight: true
+	});
+	
+	// Set consistent datetime format.
+	$('.datetimeinput').datetimepicker({
+		format: 'yyyy-mm-dd hh:ii:ss',
+	});
+	
+	// Set button background to black when pressed to give feedback.
+	$('.btn').click(function() {
+		var button = $(this);
+		var backgroundColorCur = button.css( "background-color" );
+		button.css( {"background-color": '#666666'} );
+		setTimeout( function(){ button.css( {"background-color": backgroundColorCur} ); }, 15000 );
+	});
+	
+	// Make click targets larger for touch devices.
+	var is_touch_device = 'ontouchstart' in document.documentElement;
+	if( is_touch_device ) {
+		$('.btn').each(function() {
+			$(this).css( {"font-size": '120%'} );
+		});
+	}
+	
+	// Check for keyboard focus exception.
+	if( document.getElementById("focus") )
+		document.getElementById("focus").focus();
+	else {
+		// Give the first visible form field the keyboard focus.
+		$(document).ready(function() {
+			$('form:first *:input[type!=hidden]:first').focus();
+		});
+	}
+	
+	// Highlight fields that are filled in.
+	var in_use_color = '#dff0d8';
+	var fs = $("form.search");
+	fs.find(".select.form-control").each(function() {
+		if( $(this).val() != $(this).find('option:first').val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".numberinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".dateinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".textinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+
+
+
+}
+function jump( link ) { window.location = link; }
+</script>
+</head>
+<body onload="onLoad()">
+
+<div class="container">
+
+
+<style>
+table.results-table tr td {
+	font-size: 85%;
+}
+table.results-table tr th {
+	font-size: 85%;
+}
+.col-border-right {
+    border-right: 1px solid #ccc;
+}
+.col-border-right-gap {
+    border-right: 1px solid #ccc;
+}
+.result-detail {
+	font-style: italic;
+	color: #080808; 
+}
+</style>
+
+
+
+
+
+<nav class="navbar navbar-default navbar-fixed-top hidden-print">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/RaceDB/Hub/SearchCompetitions/">
+				<!-- <img alt="RaceDB" src="/static/images/RaceDB_xsmall.png"> -->
+			</a>
+<!-- 			<ul class="nav navbar-nav">
+				<li><a href="/lcca2019/RaceDB/Hub/SearchCompetitions/">Competitions</a></li>
+				<li><a href="/lcca2019/RaceDB/Hub/SearchLicenseHolders/">Athletes</a></li>
+				<li><a href="/lcca2019/RaceDB/Hub/Series/">Series</a></li>
+				<li><a href="/lcca2019/RaceDB/Hub/SeriesCategoryResults/1/247/QRCode/"><img src="/static/images/glyphicons_258_qrcode.png" alt="QRCode"/></a></li>
+			</ul>
+ -->		</div>
+	</div>
+</nav>
+<p class="hidden-print"><br/><br/><br/></p>
+
+<h1>
+	<span style="font-size: 75%">Sussex Cyclocross League 2022</span><br/>
+	<span style="font-size: 75%">
+		V50M
+	</span>
+</h1>
+
+<table class="table table-striped table-hover table-condensed results-table" style="width: auto;"><thead><tr><th>Rank</th><th>Name</th><th>Team</th><th class='text-right col-border-right'>
+			
+				Points
+			
+		</th>
+		<th class='text-right col-border-right-gap'>Gap</th>
+		<th colspan="2" class="text-center col-border-right hidden-print">
+				Round 4 - East Brighton Park<br/>
+				2022-11-06<br/><br/>
+			</th>
+		<th colspan="2" class="text-center col-border-right hidden-print">
+				Round 3 - Gatwick Aviation Museum<br/>
+				2022-10-30<br/><br/>
+			</th>
+		<th colspan="2" class="text-center col-border-right hidden-print">
+				Round 2 - Pippingford Manor<br/>
+				2022-09-18<br/><br/>
+			</th>
+		<th colspan="2" class="text-center col-border-right hidden-print">
+				Round 1 - Coombes Farm<br/>
+				2022-09-04<br/><br/>
+			</th></tr>
+			</thead>
+				<tbody>
+					<tr><td class="text-right">1.</td>
+					<td>John McGrath</td><td>Team TMC - Strada Wheels</td>
+					<td class='text-right col-border-right'>294
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						100
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						1
+					</td>
+					<td class='hidden-print text-right'>
+						100
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						1
+					</td>
+					<td class='hidden-print text-right'>
+						94
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						2
+					</td>
+					<td class='hidden-print text-right'>
+						90&nbsp;&#x2717
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						3
+					</td>
+				</tr>
+					<tr><td class="text-right">2.</td>
+					<td>Andrew Larking</td><td>Sussex Revolution Velo Club</td>
+					<td class='text-right col-border-right'>278
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						94
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						2
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						90
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						3
+					</td>
+					<td class='hidden-print text-right'>
+						94
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						2
+					</td>
+				</tr>
+					<tr><td class="text-right">3.</td>
+					<td>Paul Byford</td><td>Crawley Wheelers</td>
+					<td class='text-right col-border-right'>263
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						90
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						3
+					</td>
+					<td class='hidden-print text-right'>
+						90
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						3
+					</td>
+					<td class='hidden-print text-right'>
+						83
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						5
+					</td>
+					<td class='hidden-print text-right'>
+						80&nbsp;&#x2717
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						6
+					</td>
+				</tr>
+					<tr><td class="text-right">4.</td>
+					<td>Stuart Evans</td><td>Crawley Wheelers Race Team</td>
+					<td class='text-right col-border-right'>242
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						86
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						4
+					</td>
+					<td class='hidden-print text-right'>
+						78
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						7
+					</td>
+					<td class='hidden-print text-right'>
+						78
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						7
+					</td>
+					<td class='hidden-print text-right'>
+						78&nbsp;&#x2717
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						7
+					</td>
+				</tr>
+					<tr><td class="text-right">5.</td>
+					<td>Jim Bringlow</td><td>Crawley Wheelers</td>
+					<td class='text-right col-border-right'>238
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						80
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						6
+					</td>
+					<td class='hidden-print text-right'>
+						86
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						4
+					</td>
+					<td class='hidden-print text-right'>
+						72
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						10
+					</td>
+					<td class='hidden-print text-right'>
+						67&nbsp;&#x2717
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						14
+					</td>
+				</tr>
+					<tr><td class="text-right">6.</td>
+					<td>George Higgs</td><td>Crawley Wheelers</td>
+					<td class='text-right col-border-right'>222
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						74
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						9
+					</td>
+					<td class='hidden-print text-right'>
+						80
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						6
+					</td>
+					<td class='hidden-print text-right'>
+						68
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						13
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+				</tr>
+					<tr><td class="text-right">7.</td>
+					<td>Timothy Peters</td><td>Horsham Cycling</td>
+					<td class='text-right col-border-right'>219
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						70
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						11
+					</td>
+					<td class='hidden-print text-right'>
+						83
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						5
+					</td>
+					<td class='hidden-print text-right'>
+						60&nbsp;&#x2717
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						21
+					</td>
+					<td class='hidden-print text-right'>
+						66
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						15
+					</td>
+				</tr>
+					<tr><td class="text-right">8.</td>
+					<td>Alan Yule</td><td>Crawley Wheelers</td>
+					<td class='text-right col-border-right'>214
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						76
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						8
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						69
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						12
+					</td>
+					<td class='hidden-print text-right'>
+						69
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						12
+					</td>
+				</tr>
+					<tr><td class="text-right">9.</td>
+					<td>James Stone</td><td>Brighton Excelsior CC</td>
+					<td class='text-right col-border-right'>214
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						74
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						9
+					</td>
+					<td class='hidden-print text-right'>
+						66
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						15
+					</td>
+					<td class='hidden-print text-right'>
+						74
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						9
+					</td>
+				</tr>
+					<tr><td class="text-right">10.</td>
+					<td>John Lemonius</td><td></td>
+					<td class='text-right col-border-right'>208
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						68
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						13
+					</td>
+					<td class='hidden-print text-right'>
+						76
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						8
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						64
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						17
+					</td>
+				</tr>
+					<tr><td class="text-right">11.</td>
+					<td>Nigel Langridge</td><td>Crawley Wheelers Race Team</td>
+					<td class='text-right col-border-right'>206
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						64
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						17
+					</td>
+					<td class='hidden-print text-right'>
+						70
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						11
+					</td>
+					<td class='hidden-print text-right'>
+						62&nbsp;&#x2717
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						19
+					</td>
+					<td class='hidden-print text-right'>
+						72
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						10
+					</td>
+				</tr>
+					<tr><td class="text-right">12.</td>
+					<td>Jo Burt</td><td></td>
+					<td class='text-right col-border-right'>201
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						72
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						10
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						67
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						14
+					</td>
+					<td class='hidden-print text-right'>
+						62
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						19
+					</td>
+				</tr>
+					<tr><td class="text-right">13.</td>
+					<td>Steve Calland</td><td>Team TMC - Strada Wheels</td>
+					<td class='text-right col-border-right'>200
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						100
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						1
+					</td>
+					<td class='hidden-print text-right'>
+						100
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						1
+					</td>
+				</tr>
+					<tr><td class="text-right">14.</td>
+					<td>Martin ONeill</td><td>Brighton Mitre CC</td>
+					<td class='text-right col-border-right'>197
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						67
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						14
+					</td>
+					<td class='hidden-print text-right'>
+						69
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						12
+					</td>
+					<td class='hidden-print text-right'>
+						57&nbsp;&#x2717
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						24
+					</td>
+					<td class='hidden-print text-right'>
+						61
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						20
+					</td>
+				</tr>
+					<tr><td class="text-right">15.</td>
+					<td>Robert Light</td><td>Eastbourne Rovers CC</td>
+					<td class='text-right col-border-right'>194
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						62
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						19
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						64
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						17
+					</td>
+					<td class='hidden-print text-right'>
+						68
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						13
+					</td>
+				</tr>
+					<tr><td class="text-right">16.</td>
+					<td>Darren Haynes</td><td>Lewes Wanderers CC</td>
+					<td class='text-right col-border-right'>191
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						65
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						16
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						61
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						20
+					</td>
+					<td class='hidden-print text-right'>
+						65
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						16
+					</td>
+				</tr>
+					<tr><td class="text-right">17.</td>
+					<td>Martin O'Brien</td><td>Brighton Mitre CC</td>
+					<td class='text-right col-border-right'>186
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						63
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						18
+					</td>
+					<td class='hidden-print text-right'>
+						66
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						15
+					</td>
+					<td class='hidden-print text-right'>
+						53&nbsp;&#x2717
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						28
+					</td>
+					<td class='hidden-print text-right'>
+						57
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						24
+					</td>
+				</tr>
+					<tr><td class="text-right">18.</td>
+					<td>Michael Fox</td><td>Brighton Mitre CC</td>
+					<td class='text-right col-border-right'>185
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						61
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						20
+					</td>
+					<td class='hidden-print text-right'>
+						68
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						13
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						56
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						25
+					</td>
+				</tr>
+					<tr><td class="text-right">19.</td>
+					<td>Paul Bond</td><td></td>
+					<td class='text-right col-border-right'>180
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						94
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						2
+					</td>
+					<td class='hidden-print text-right'>
+						86
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						4
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+				</tr>
+					<tr><td class="text-right">20.</td>
+					<td>Stephen Burgess</td><td>Lewes Wanderers CC</td>
+					<td class='text-right col-border-right'>179
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						66
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						15
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						55
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						26
+					</td>
+					<td class='hidden-print text-right'>
+						58
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						23
+					</td>
+				</tr>
+					<tr><td class="text-right">21.</td>
+					<td>Daniel Fagg</td><td>Brighton Mitre CC</td>
+					<td class='text-right col-border-right'>173
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						67
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						14
+					</td>
+					<td class='hidden-print text-right'>
+						51
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						30
+					</td>
+					<td class='hidden-print text-right'>
+						55
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						26
+					</td>
+				</tr>
+					<tr><td class="text-right">22.</td>
+					<td>Benjamin Toovey</td><td>Worthing Excelsior CC</td>
+					<td class='text-right col-border-right'>170
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						64
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						17
+					</td>
+					<td class='hidden-print text-right'>
+						52
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						29
+					</td>
+					<td class='hidden-print text-right'>
+						54
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						27
+					</td>
+				</tr>
+					<tr><td class="text-right">23.</td>
+					<td>Dave Brothers</td><td>Hunt Bike Wheels</td>
+					<td class='text-right col-border-right'>166
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						80
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						6
+					</td>
+					<td class='hidden-print text-right'>
+						86
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						4
+					</td>
+				</tr>
+					<tr><td class="text-right">24.</td>
+					<td>Nik Allen</td><td>Team TMC - Strada Wheels</td>
+					<td class='text-right col-border-right'>161
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						78
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						7
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						83
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						5
+					</td>
+				</tr>
+					<tr><td class="text-right">25.</td>
+					<td>Jezz Shotter</td><td>Brighton Excelsior CC</td>
+					<td class='text-right col-border-right'>157
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						83
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						5
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						74
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						9
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+				</tr>
+					<tr><td class="text-right">26.</td>
+					<td>Paul James</td><td>Crawley Wheelers Race Team</td>
+					<td class='text-right col-border-right'>152
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						76
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						8
+					</td>
+					<td class='hidden-print text-right'>
+						76
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						8
+					</td>
+				</tr>
+					<tr><td class="text-right">27.</td>
+					<td>Andrew Seltzer</td><td>East Grinstead CC</td>
+					<td class='text-right col-border-right'>142
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						72
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						10
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						70
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						11
+					</td>
+				</tr>
+					<tr><td class="text-right">28.</td>
+					<td>Norman Blissett</td><td>trainSharp Club</td>
+					<td class='text-right col-border-right'>132
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						69
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						12
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						63
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						18
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+				</tr>
+					<tr><td class="text-right">29.</td>
+					<td>Alex Beattie</td><td>Brighton Mitre CC</td>
+					<td class='text-right col-border-right'>125
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						65
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						16
+					</td>
+					<td class='hidden-print text-right'>
+						60
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						21
+					</td>
+				</tr>
+					<tr><td class="text-right">30.</td>
+					<td>Andy Peel</td><td></td>
+					<td class='text-right col-border-right'>122
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						59
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						22
+					</td>
+					<td class='hidden-print text-right'>
+						63
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						18
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+				</tr>
+					<tr><td class="text-right">31.</td>
+					<td>Jeremy Roth</td><td>San Fairy Ann CC</td>
+					<td class='text-right col-border-right'>113
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						54
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						27
+					</td>
+					<td class='hidden-print text-right'>
+						59
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						22
+					</td>
+				</tr>
+					<tr><td class="text-right">32.</td>
+					<td>David Steele</td><td>Beachy Head Cycling Club</td>
+					<td class='text-right col-border-right'>99
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						50
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						31
+					</td>
+					<td class='hidden-print text-right'>
+						49
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						32
+					</td>
+				</tr>
+					<tr><td class="text-right">33.</td>
+					<td>Robert Sones</td><td>Crawley Wheelers</td>
+					<td class='text-right col-border-right'>97
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						49
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						32
+					</td>
+					<td class='hidden-print text-right'>
+						48
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						33
+					</td>
+				</tr>
+					<tr><td class="text-right">34.</td>
+					<td>Jez Parsons</td><td>Team TMC - Strada Wheels</td>
+					<td class='text-right col-border-right'>70
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						70
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						11
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+				</tr>
+					<tr><td class="text-right">35.</td>
+					<td>David Newland</td><td></td>
+					<td class='text-right col-border-right'>65
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						65
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						16
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+				</tr>
+					<tr><td class="text-right">36.</td>
+					<td>Paul Hewitt</td><td>Generation Press CC</td>
+					<td class='text-right col-border-right'>63
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						63
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						18
+					</td>
+				</tr>
+					<tr><td class="text-right">37.</td>
+					<td>Barry Allen</td><td>London Phoenix CC</td>
+					<td class='text-right col-border-right'>62
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						62
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						19
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+				</tr>
+					<tr><td class="text-right">38.</td>
+					<td>David Bailey</td><td></td>
+					<td class='text-right col-border-right'>60
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						60
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						21
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+				</tr>
+					<tr><td class="text-right">39.</td>
+					<td>Anthony Grey</td><td>Crawley Wheelers</td>
+					<td class='text-right col-border-right'>59
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						59
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						22
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+				</tr>
+					<tr><td class="text-right">40.</td>
+					<td>Barry Harvey</td><td>Blazing Saddles RT</td>
+					<td class='text-right col-border-right'>58
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						58
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						23
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+				</tr>
+					<tr><td class="text-right">41.</td>
+					<td>Shaun Williams</td><td>Abellio - SFA Racing Team</td>
+					<td class='text-right col-border-right'>56
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						56
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						25
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+				</tr>
+					<tr><td class="text-right">42.</td>
+					<td>Oliver Phillips</td><td>Brighton Mitre CC</td>
+					<td class='text-right col-border-right'>53
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						53
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						28
+					</td>
+				</tr>
+					<tr><td class="text-right">43.</td>
+					<td>huw williams</td><td>Worthing Excelsior CC</td>
+					<td class='text-right col-border-right'>52
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						52
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						29
+					</td>
+				</tr>
+					<tr><td class="text-right">44.</td>
+					<td>John Osbourn</td><td>Crawley Wheelers</td>
+					<td class='text-right col-border-right'>51
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						51
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						30
+					</td>
+				</tr>
+					<tr><td class="text-right">45.</td>
+					<td>jason jennett</td><td></td>
+					<td class='text-right col-border-right'>50
+					</td>
+					<td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						
+					</td>
+					<td class='hidden-print text-right'>
+						50
+					</td>
+					<td class='hidden-print text-right col-border-right result-detail'>
+						31
+					</td>
+				</tr>
+
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr></tbody></table>
+
+
+
+	<p>
+	Competitors must complete 1 Events to be eligible.
+	</p>
+
+
+	<p>
+	Best 3 results considered.
+	</p>
+
+
+<hr/>
+<h4>
+
+	Ranked by Points
+
+</h4>
+
+	
+		<p/>
+
+
+<p/>
+<h4>Tie-breaking Rules</h4>
+<ol>
+
+
+	<li>Number of 1st, 2nd, 3rd, 4th then 5th place finishes.  If still a tie:</li>
+
+	<li>Most recent result.</li>
+</ol>
+
+
+	<hr/>
+	
+
+
+
+</div>
+<br/>&nbsp;<br/>&nbsp;<br/>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+</body>
+</html>
+

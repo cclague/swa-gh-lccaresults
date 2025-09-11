@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>RaceDB by Edward Sitarski</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="RaceDB: Race Check-in Software">
+<meta name="keywords" content="time trial, road race, cyclocross, mtb, cycling, racing, bicycle, management, software, racedb, crossmgr">
+<meta name="author" content="Edward Sitarski">
+
+
+<script type="text/javascript" src="../../../../../../static/js/jquery-2.2.4.min.js"></script>
+
+
+
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+
+<link rel="icon" href="../../../../../../static/images/RaceDB_32x32.png">
+<link rel="stylesheet" href="../../../../../../static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../../../../../static/bootstrap/css/datepicker.css">
+<link rel="stylesheet" href="../../../../../../static/bootstrap/css/bootstrap-datetimepicker.min.css">
+
+
+
+
+<style>
+.row { margin: 8px 0px; }
+h2, h3, h4, h5 { margin: 1px; }
+@media print {
+    .page-break-before {page-break-before: always;}
+
+
+}
+.table-no-border>thead>tr>th, 
+.table-no-border>tbody>tr>th, 
+.table-no-border>tfoot>tr>th, 
+.table-no-border>thead>tr>td, 
+.table-no-border>tbody>tr>td, 
+.table-no-border>tfoot>tr>td {
+  border-top: none; 
+}
+
+.flag {
+    margin: 3px;
+    padding: 0px;
+    border: 1px solid #CCC;
+}
+
+.is-good::before {
+	content: url(../../../../../../static/images/glyphicons_206_ok_2_blue.png);
+}
+.is-bad::before {
+	content: url(../../../../../../static/images/glyphicons_207_remove_2_blue.png);
+}
+.is-err::before {
+	content: url(../../../../../../static/images/error.png);
+	width:20px; height:20px; 
+}
+.is-warn::before {
+	content: url(../../../../../../static/images/warning.png);
+	width:20px; height:20px; 
+}
+.is-finished::before {
+	content: url(../../../../../../static/images/finished-flag.png);
+}
+.is-finished-blue::before {
+	content: url(../../../../../../static/images/finished-flag-blue.png);
+}
+@media print {
+	a[href]:after {
+	content: none !important;
+	}
+}
+
+
+</style>
+<script type="text/javascript">
+function setRowSorter( className, sId ) {
+	$('#'+sId).rowSorter({
+		
+		// if new_index === old_index, this function won't be called.
+		onDrop: function(tbody, row, new_index, old_index) {
+			window.location = "./Resequence_" + className + "_Class/" + row.id + "/" + new_index + "/";
+		},
+		
+		// if new_index === old_index, this function will be called.
+		onDragEnd: function(tbody, row, current_index) {
+			window.location = "./" + className + "Edit/" + row.id + "/";
+		}
+	});
+}
+
+function skip_back() {
+	var components = window.location.href.split( '/' );
+	while( components.length > 0 && !components[components.length-1] )
+		components.pop();		// Remove training slashes.
+	while( components.length > 0 ) {
+		if( !/^[0-9]+$/.test(components[components.length-1]) ) {
+			components.pop();	// Skip url function name.
+			break;
+		}
+		components.pop();		// Skip parameter.
+	}
+	components.push( '' );		// Ensure there is a trailing slash.
+	window.location.href = components.join('/');
+}
+
+
+
+	google.charts.load('current', {'packages':['sankey']});
+	google.charts.setOnLoadCallback(drawSankey);
+
+	function drawSankey() {
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'From');
+		data.addColumn('string', 'To');
+		data.addColumn('number', 'Points');
+		data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
+		data.addRows(JSON.parse("[[\u0022Round 12 \u002D Ardingly\u002DSenior Men: 2020\u002D01\u002D04\u0022,\u0022 1. BAKRANIA, Kishan (800)\u0022,{\u0022f\u0022:\u0022100.00\u0022,\u0022v\u0022:100},null],[\u0022Round 10 \u002D Bodiam\u002DSenior Men: 2019\u002D12\u002D01\u0022,\u0022 1. BAKRANIA, Kishan (800)\u0022,{\u0022f\u0022:\u0022100.00\u0022,\u0022v\u0022:100},null],[\u0022Round 8 \u002D Cyclopark\u002DSenior Men: 2019\u002D11\u002D03\u0022,\u0022 1. BAKRANIA, Kishan (800)\u0022,{\u0022f\u0022:\u0022100.00\u0022,\u0022v\u0022:100},null],[\u0022Round 7 \u002D Preston Park\u002DSenior Men: 2019\u002D10\u002D27\u0022,\u0022 1. BAKRANIA, Kishan (800)\u0022,{\u0022f\u0022:\u0022100.00\u0022,\u0022v\u0022:100},null],[\u0022Round 6 \u002D Herne Hill\u002DSenior Men: 2019\u002D10\u002D13\u0022,\u0022 1. BAKRANIA, Kishan (800)\u0022,{\u0022f\u0022:\u0022100.00\u0022,\u0022v\u0022:100},null],[\u0022Round 4 \u002D Leeds Castle\u002DSenior Men: 2019\u002D09\u002D29\u0022,\u0022 1. BAKRANIA, Kishan (800)\u0022,{\u0022f\u0022:\u0022100.00\u0022,\u0022v\u0022:100},null],[\u0022Round 2 \u002D Crystal Palace\u002DSenior Men: 2019\u002D09\u002D15\u0022,\u0022 1. BAKRANIA, Kishan (800)\u0022,{\u0022f\u0022:\u0022100.00\u0022,\u0022v\u0022:100},null],[\u0022Round 1 \u002D Stanmer Park\u002DSenior Men: 2019\u002D09\u002D01\u0022,\u0022 1. BAKRANIA, Kishan (800)\u0022,{\u0022f\u0022:\u0022100.00\u0022,\u0022v\u0022:100},null],[\u0022Round 13 \u002D Hog Hill\u002DSenior Men: 2020\u002D01\u002D26\u0022,\u0022 2. METCALFE, George (651)\u0022,{\u0022f\u0022:\u0022100.00\u0022,\u0022v\u0022:100},null],[\u0022Round 9 \u002D East Brighton Park\u002DSenior Men: 2019\u002D11\u002D24\u0022,\u0022 2. METCALFE, George (651)\u0022,{\u0022f\u0022:\u0022100.00\u0022,\u0022v\u0022:100},null],[\u0022Round 8 \u002D Cyclopark\u002DSenior Men: 2019\u002D11\u002D03\u0022,\u0022 2. METCALFE, George (651)\u0022,{\u0022f\u0022:\u002294.00\u0022,\u0022v\u0022:94},null],[\u0022Round 7 \u002D Preston Park\u002DSenior Men: 2019\u002D10\u002D27\u0022,\u0022 2. METCALFE, George (651)\u0022,{\u0022f\u0022:\u002294.00\u0022,\u0022v\u0022:94},null],[\u0022Round 6 \u002D Herne Hill\u002DSenior Men: 2019\u002D10\u002D13\u0022,\u0022 2. METCALFE, George (651)\u0022,{\u0022f\u0022:\u002294.00\u0022,\u0022v\u0022:94},null],[\u0022Round 2 \u002D Crystal Palace\u002DSenior Men: 2019\u002D09\u002D15\u0022,\u0022 2. METCALFE, George (651)\u0022,{\u0022f\u0022:\u002286.00\u0022,\u0022v\u0022:86},null],[\u0022Round 1 \u002D Stanmer Park\u002DSenior Men: 2019\u002D09\u002D01\u0022,\u0022 2. METCALFE, George (651)\u0022,{\u0022f\u0022:\u002283.00\u0022,\u0022v\u0022:83},null],[\u0022Round 13 \u002D Hog Hill\u002DSenior Men: 2020\u002D01\u002D26\u0022,\u0022 3. WARD, Michael (645)\u0022,{\u0022f\u0022:\u002294.00\u0022,\u0022v\u0022:94},null],[\u0022Round 12 \u002D Ardingly\u002DSenior Men: 2020\u002D01\u002D04\u0022,\u0022 3. WARD, Michael (645)\u0022,{\u0022f\u0022:\u002294.00\u0022,\u0022v\u0022:94},null],[\u0022Round 10 \u002D Bodiam\u002DSenior Men: 2019\u002D12\u002D01\u0022,\u0022 3. WARD, Michael (645)\u0022,{\u0022f\u0022:\u002294.00\u0022,\u0022v\u0022:94},null],[\u0022Round 8 \u002D Cyclopark\u002DSenior Men: 2019\u002D11\u002D03\u0022,\u0022 3. WARD, Michael (645)\u0022,{\u0022f\u0022:\u002283.00\u0022,\u0022v\u0022:83},null],[\u0022Round 6 \u002D Herne Hill\u002DSenior Men: 2019\u002D10\u002D13\u0022,\u0022 3. WARD, Michael (645)\u0022,{\u0022f\u0022:\u002286.00\u0022,\u0022v\u0022:86},null],[\u0022Round 5 \u002D Lingfield\u002DSenior Men: 2019\u002D10\u002D06\u0022,\u0022 3. WARD, Michael (645)\u0022,{\u0022f\u0022:\u0022100.00\u0022,\u0022v\u0022:100},null],[\u0022Round 4 \u002D Leeds Castle\u002DSenior Men: 2019\u002D09\u002D29\u0022,\u0022 3. WARD, Michael (645)\u0022,{\u0022f\u0022:\u002294.00\u0022,\u0022v\u0022:94},null],[\u0022Round 8 \u002D Cyclopark\u002DSenior Men: 2019\u002D11\u002D03\u0022,\u0022 4. HORSMAN, Harry (363)\u0022,{\u0022f\u0022:\u002290.00\u0022,\u0022v\u0022:90},null],[\u0022Round 6 \u002D Herne Hill\u002DSenior Men: 2019\u002D10\u002D13\u0022,\u0022 4. HORSMAN, Harry (363)\u0022,{\u0022f\u0022:\u002290.00\u0022,\u0022v\u0022:90},null],[\u0022Round 3 \u002D Frylands Wood\u002DSenior Men: 2019\u002D09\u002D22\u0022,\u0022 4. HORSMAN, Harry (363)\u0022,{\u0022f\u0022:\u0022100.00\u0022,\u0022v\u0022:100},null],[\u0022Round 2 \u002D Crystal Palace\u002DSenior Men: 2019\u002D09\u002D15\u0022,\u0022 4. HORSMAN, Harry (363)\u0022,{\u0022f\u0022:\u002283.00\u0022,\u0022v\u0022:83},null],[\u0022Round 11 \u002D Schools at Somerhill\u002DSenior Men: 2019\u002D12\u002D21\u0022,\u0022 5. PREECE, Cameron (284)\u0022,{\u0022f\u0022:\u0022100.00\u0022,\u0022v\u0022:100},null],[\u0022Round 2 \u002D Crystal Palace\u002DSenior Men: 2019\u002D09\u002D15\u0022,\u0022 5. PREECE, Cameron (284)\u0022,{\u0022f\u0022:\u002294.00\u0022,\u0022v\u0022:94},null],[\u0022Round 1 \u002D Stanmer Park\u002DSenior Men: 2019\u002D09\u002D01\u0022,\u0022 5. PREECE, Cameron (284)\u0022,{\u0022f\u0022:\u002290.00\u0022,\u0022v\u0022:90},null],[\u0022Round 11 \u002D Schools at Somerhill\u002DSenior Men: 2019\u002D12\u002D21\u0022,\u0022 6. OBHOLZER, Theodor (94)\u0022,{\u0022f\u0022:\u002294.00\u0022,\u0022v\u0022:94},null],[\u0022Round 9 \u002D East Brighton Park\u002DSenior Men: 2019\u002D11\u002D24\u0022,\u0022 7. WEIGHTMAN, Johnnie (94)\u0022,{\u0022f\u0022:\u002294.00\u0022,\u0022v\u0022:94},null],[\u0022Round 1 \u002D Stanmer Park\u002DSenior Men: 2019\u002D09\u002D01\u0022,\u0022 8. MARTIN, Tom (94)\u0022,{\u0022f\u0022:\u002294.00\u0022,\u0022v\u0022:94},null],[\u0022Round 11 \u002D Schools at Somerhill\u002DSenior Men: 2019\u002D12\u002D21\u0022,\u0022 9. BAKER, Joe (90)\u0022,{\u0022f\u0022:\u002290.00\u0022,\u0022v\u0022:90},null],[\u0022Round 4 \u002D Leeds Castle\u002DSenior Men: 2019\u002D09\u002D29\u0022,\u002210. CLARKSTONE, Charlie (90)\u0022,{\u0022f\u0022:\u002290.00\u0022,\u0022v\u0022:90},null],[\u0022Round 2 \u002D Crystal Palace\u002DSenior Men: 2019\u002D09\u002D15\u0022,\u002211. DAVIES, Edward (90)\u0022,{\u0022f\u0022:\u002290.00\u0022,\u0022v\u0022:90},null],[\u0022Round 8 \u002D Cyclopark\u002DSenior Men: 2019\u002D11\u002D03\u0022,\u002212. WEBBER, Matthew (86)\u0022,{\u0022f\u0022:\u002286.00\u0022,\u0022v\u0022:86},null],[\u0022Round 1 \u002D Stanmer Park\u002DSenior Men: 2019\u002D09\u002D01\u0022,\u002213. COYLE, Lawrence (86)\u0022,{\u0022f\u0022:\u002286.00\u0022,\u0022v\u0022:86},null],[\u0022 1. BAKRANIA, Kishan (800)\u0022,\u0022Panagua CC (800)\u0022,{\u0022f\u0022:\u0022800.00\u0022,\u0022v\u0022:800},null],[\u0022 2. METCALFE, George (651)\u0022,\u0022Team Darenth (651)\u0022,{\u0022f\u0022:\u0022651.00\u0022,\u0022v\u0022:651},null],[\u0022 3. WARD, Michael (645)\u0022,\u0022VC Londres (735)\u0022,{\u0022f\u0022:\u0022645.00\u0022,\u0022v\u0022:645},null],[\u0022 4. HORSMAN, Harry (363)\u0022,\u0022TBW23 Stuart Ha... (363)\u0022,{\u0022f\u0022:\u0022363.00\u0022,\u0022v\u0022:363},null],[\u0022 5. PREECE, Cameron (284)\u0022,\u0022Southdowns Bike... (284)\u0022,{\u0022f\u0022:\u0022284.00\u0022,\u0022v\u0022:284},null],[\u0022 8. MARTIN, Tom (94)\u0022,\u0022Verulam \u002D reall... (94)\u0022,{\u0022f\u0022:\u002294.00\u0022,\u0022v\u0022:94},null],[\u0022 7. WEIGHTMAN, Johnnie (94)\u0022,\u0022Ind 1 (94)\u0022,{\u0022f\u0022:\u002294.00\u0022,\u0022v\u0022:94},null],[\u0022 6. OBHOLZER, Theodor (94)\u0022,\u0022Durham Universi... (94)\u0022,{\u0022f\u0022:\u002294.00\u0022,\u0022v\u0022:94},null],[\u002211. DAVIES, Edward (90)\u0022,\u0022Dulwich Paragon... (90)\u0022,{\u0022f\u0022:\u002290.00\u0022,\u0022v\u0022:90},null],[\u002210. CLARKSTONE, Charlie (90)\u0022,\u0022VC Londres (735)\u0022,{\u0022f\u0022:\u002290.00\u0022,\u0022v\u0022:90},null],[\u0022 9. BAKER, Joe (90)\u0022,\u0022Spirit Tifosi R... (90)\u0022,{\u0022f\u0022:\u002290.00\u0022,\u0022v\u0022:90},null],[\u002213. COYLE, Lawrence (86)\u0022,\u0022Brighton Mitre... (86)\u0022,{\u0022f\u0022:\u002286.00\u0022,\u0022v\u0022:86},null],[\u002212. WEBBER, Matthew (86)\u0022,\u0022Ind 2 (86)\u0022,{\u0022f\u0022:\u002286.00\u0022,\u0022v\u0022:86},null]]"));
+
+		var options = {
+			width: 600,
+			sankey: {
+				iterations: 0,
+			},
+		  tooltip: {
+				textStyle: {fontSize: 11}
+			}
+		};
+
+		var chart = new google.visualization.Sankey(document.getElementById('idSankeyChart'));
+		chart.draw(data, options);
+	}
+
+
+
+function onLoad()
+{
+	// Set consistent date format.
+	$('.dateinput').datepicker({
+		format: "yyyy-mm-dd",
+		autoclose: true,
+		todayHighlight: true
+	});
+	
+	// Set consistent datetime format.
+	$('.datetimeinput').datetimepicker({
+		format: 'yyyy-mm-dd hh:ii:ss',
+	});
+	
+	// Set button background to black when pressed to give feedback.
+	$('.btn').click(function() {
+		var button = $(this);
+		var backgroundColorCur = button.css( "background-color" );
+		button.css( {"background-color": '#666666'} );
+		setTimeout( function(){ button.css( {"background-color": backgroundColorCur} ); }, 15000 );
+	});
+	
+	// Make click targets larger for touch devices.
+	var is_touch_device = 'ontouchstart' in document.documentElement;
+	if( is_touch_device ) {
+		$('.btn').each(function() {
+			$(this).css( {"font-size": '120%'} );
+		});
+	}
+	
+	// Check for keyboard focus exception.
+	if( document.getElementById("focus") )
+		document.getElementById("focus").focus();
+	else {
+		// Give the first visible form field the keyboard focus.
+		$(document).ready(function() {
+			$('form:first *:input[type!=hidden]:first').focus();
+		});
+	}
+	
+	// Highlight fields that are filled in.
+	var in_use_color = '#dff0d8';
+	var fs = $("form.search");
+	fs.find(".select.form-control").each(function() {
+		if( $(this).val() != $(this).find('option:first').val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".numberinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".dateinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".textinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+
+
+
+}
+function jump( link ) { window.location = link; }
+</script>
+</head>
+<body onload="onLoad()">
+
+<div class="container">
+
+
+<style>
+table.results-table tr td {
+	font-size: 85%;
+}
+table.results-table tr th {
+	font-size: 85%;
+}
+.col-border-right {
+    border-right: 1px solid #ccc;
+}
+.col-border-right-gap {
+    border-right: 1px solid #ccc;
+}
+.result-detail {
+	font-style: italic;
+	color: #080808; 
+}
+</style>
+
+
+
+
+
+<nav class="navbar navbar-default navbar-fixed-top hidden-print">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="../../../SearchCompetitions/index.html">
+				<img alt="RaceDB" src="../../../../../../static/images/RaceDB_xsmall.png">
+			</a>
+			<ul class="nav navbar-nav">
+				<li><a href="../../../SearchCompetitions/index.html">Competitions</a></li>
+				<li><a href="../../../SearchLicenseHolders/index.html">Athletes</a></li>
+				<li><a href="../../../Series/index.html">Series</a></li>
+				<li><a href="https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/SearchCompetitions/Hub/SeriesCategoryResults/2/270/QRCode/"><img src="../../../../../../static/images/glyphicons_258_qrcode.png" alt="QRCode"/></a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<p class="hidden-print"><br/><br/><br/></p>
+
+<h1>
+	<strong><a href='../../../SeriesCategories/2/index.html'>Senior &amp; Vet Men</strong></a> <span style="font-size: 75%">London &amp; SE Cyclocross League</span><br/>
+	<span style="font-size: 75%">
+		U23M (Men)
+	</span>
+</h1>
+Generated: 2020-02-25 19:10:10
+<table class="table table-striped table-hover table-condensed results-table" style="width: auto;"><thead><tr><th>Rank</th><th>Name</th><th>Team</th><th class='text-right col-border-right'>
+			
+				Points
+			
+		</th><th class='text-right col-border-right-gap'>Gap</th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 13 - Hog Hill<br/>
+				2020-01-26 14:15<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/CategoryResults/133/0/270/'><span style="white-space: nowrap;">Senior Men</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 12 - Ardingly<br/>
+				2020-01-04 14:15<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/CategoryResults/127/0/270/'><span style="white-space: nowrap;">Senior Men</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 11 - Schools at Somerhill<br/>
+				2019-12-21 14:15<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/CategoryResults/121/0/270/'><span style="white-space: nowrap;">Senior Men</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 10 - Bodiam<br/>
+				2019-12-01 13:15<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/CategoryResults/110/0/270/'><span style="white-space: nowrap;">Senior Men</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 9 - East Brighton Park<br/>
+				2019-11-24 13:15<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/CategoryResults/104/0/270/'><span style="white-space: nowrap;">Senior Men</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 8 - Cyclopark<br/>
+				2019-11-03 13:15<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/CategoryResults/96/0/270/'><span style="white-space: nowrap;">Senior Men</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 7 - Preston Park<br/>
+				2019-10-27 14:45<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/CategoryResults/91/0/270/'><span style="white-space: nowrap;">Senior Men</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 6 - Herne Hill<br/>
+				2019-10-13 15:30<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/CategoryResults/84/0/270/'><span style="white-space: nowrap;">Senior Men</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 5 - Lingfield<br/>
+				2019-10-06 14:15<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/CategoryResults/76/0/270/'><span style="white-space: nowrap;">Senior Men</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 4 - Leeds Castle<br/>
+				2019-09-29 14:15<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/CategoryResults/70/0/270/'><span style="white-space: nowrap;">Senior Men</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 3 - Frylands Wood<br/>
+				2019-09-22 14:15<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/CategoryResults/66/0/270/'><span style="white-space: nowrap;">Senior Men</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 2 - Crystal Palace<br/>
+				2019-09-15 14:15<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/CategoryResults/60/0/270/'><span style="white-space: nowrap;">Senior Men</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 1 - Stanmer Park<br/>
+				2019-09-01 14:15<br/><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/CategoryResults/54/0/270/'><span style="white-space: nowrap;">Senior Men</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/Hub/LicenseHolderResults/1155/'>BAKRANIA, Kishan</a></td><td>Panagua CC</td><td class='text-right col-border-right'>800</td><td class='text-right col-border-right-gap'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td></tr><tr><td class="text-right">2.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/Hub/LicenseHolderResults/713/'>METCALFE, George</a></td><td>Team Darenth</td><td class='text-right col-border-right'>651</td><td class='text-right col-border-right-gap'>149</td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td></tr><tr><td class="text-right">3.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/Hub/LicenseHolderResults/1421/'>WARD, Michael</a></td><td>VC Londres</td><td class='text-right col-border-right'>645</td><td class='text-right col-border-right-gap'>155</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">4.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/Hub/LicenseHolderResults/4927/'>HORSMAN, Harry</a></td><td>TBW23 Stuart Hall Gett Taxi</td><td class='text-right col-border-right'>363</td><td class='text-right col-border-right-gap'>437</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">5.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/Hub/LicenseHolderResults/306/'>PREECE, Cameron</a></td><td>Southdowns Bikes - Casco PET</td><td class='text-right col-border-right'>284</td><td class='text-right col-border-right-gap'>516</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td></tr><tr><td class="text-right">6.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/Hub/LicenseHolderResults/5239/'>OBHOLZER, Theodor</a></td><td>Durham University Cycling Club</td><td class='text-right col-border-right'>94</td><td class='text-right col-border-right-gap'>706</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">7.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/Hub/LicenseHolderResults/5126/'>WEIGHTMAN, Johnnie</a></td><td></td><td class='text-right col-border-right'>94</td><td class='text-right col-border-right-gap'>706</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">8.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/Hub/LicenseHolderResults/2112/'>MARTIN, Tom</a></td><td>Verulam - reallymoving.com</td><td class='text-right col-border-right'>94</td><td class='text-right col-border-right-gap'>706</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td></tr><tr><td class="text-right">9.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/Hub/LicenseHolderResults/5238/'>BAKER, Joe</a></td><td>Spirit Tifosi Racing Team</td><td class='text-right col-border-right'>90</td><td class='text-right col-border-right-gap'>710</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">10.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/Hub/LicenseHolderResults/2585/'>CLARKSTONE, Charlie</a></td><td>VC Londres</td><td class='text-right col-border-right'>90</td><td class='text-right col-border-right-gap'>710</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">11.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/Hub/LicenseHolderResults/574/'>DAVIES, Edward</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>90</td><td class='text-right col-border-right-gap'>710</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">12.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/Hub/LicenseHolderResults/5178/'>WEBBER, Matthew</a></td><td></td><td class='text-right col-border-right'>86</td><td class='text-right col-border-right-gap'>714</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">13.</td><td><a href='https://www.londonxleagueresults.co.uk/results_lcca2019/RaceDB/Hub/Hub/LicenseHolderResults/2255/'>COYLE, Lawrence</a></td><td>Brighton Mitre CC</td><td class='text-right col-border-right'>86</td><td class='text-right col-border-right-gap'>714</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td></tr></tbody></table>
+
+
+
+	<p>
+	Competitors must complete 1 Events to be eligible.
+	</p>
+
+
+	<p>
+	Best 8 results considered.
+	</p>
+
+
+<hr/>
+<h4>
+
+	Ranked by Points
+
+</h4>
+
+	
+		<p/>
+		<h4>Points Structures</h4>
+		
+			
+				Senior Points: Points for place: 100,94,90,86,83,80,78,76,74,72,70,69,68,67,66,65,64,63,62,61,60,59,58,57,56,55,54,53,52,51,50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1
+			
+		
+	
+	
+	
+
+
+
+
+<p/>
+<h4>Tie-breaking Rules</h4>
+<ol>
+
+
+	<li>Number of 1st, 2nd, 3rd, 4th then 5th place finishes.  If still a tie:</li>
+
+	<li>Most recent result.</li>
+</ol>
+
+
+	<hr/>
+	<div class='hidden-print' id="idSankeyChart" style="width: 1200px; height: 900px;"></div>
+
+
+
+</div>
+<br/>&nbsp;<br/>&nbsp;<br/>
+<script type="text/javascript" src="../../../../../../static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../../../static/bootstrap/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="../../../../../../static/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+</body>
+</html>

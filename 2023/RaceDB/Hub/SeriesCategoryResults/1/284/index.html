@@ -1,0 +1,956 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>RaceDB by Edward Sitarski</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="RaceDB: Race Check-in Software">
+<meta name="keywords" content="time trial, road race, cyclocross, mtb, cycling, racing, bicycle, management, software, racedb, crossmgr">
+<meta name="author" content="Edward Sitarski">
+
+
+<script type="text/javascript" src="/static/js/jquery-2.2.4.min.js"></script>
+
+
+
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+
+<link rel="icon" href="/static/images/RaceDB_32x32.png">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/bootstrap/css/datepicker.css">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap-datetimepicker.min.css">
+
+
+
+
+<style>
+.row { margin: 8px 0px; }
+h2, h3, h4, h5 { margin: 1px; }
+@media print {
+    .page-break-before {page-break-before: always;}
+
+
+}
+.table-no-border>thead>tr>th, 
+.table-no-border>tbody>tr>th, 
+.table-no-border>tfoot>tr>th, 
+.table-no-border>thead>tr>td, 
+.table-no-border>tbody>tr>td, 
+.table-no-border>tfoot>tr>td {
+  border-top: none; 
+}
+
+.flag {
+    margin: 3px;
+    padding: 0px;
+    border: 1px solid #CCC;
+}
+
+.is-good::before {
+	content: url(/static/images/glyphicons_206_ok_2_blue.png);
+}
+.is-bad::before {
+	content: url(/static/images/glyphicons_207_remove_2_blue.png);
+}
+.is-err::before {
+	content: url(/static/images/error.png);
+	width:20px; height:20px; 
+}
+.is-warn::before {
+	content: url(/static/images/warning.png);
+	width:20px; height:20px; 
+}
+.is-finished::before {
+	content: url(/static/images/finished-flag.png);
+}
+.is-finished-blue::before {
+	content: url(/static/images/finished-flag-blue.png);
+}
+@media print {
+	a[href]:after {
+	content: none !important;
+	}
+}
+
+
+</style>
+<script type="text/javascript">
+function setRowSorter( className, sId ) {
+	$('#'+sId).rowSorter({
+		
+		// if new_index === old_index, this function won't be called.
+		onDrop: function(tbody, row, new_index, old_index) {
+			window.location = "./Resequence_" + className + "_Class/" + row.id + "/" + new_index + "/";
+		},
+		
+		// if new_index === old_index, this function will be called.
+		onDragEnd: function(tbody, row, current_index) {
+			window.location = "./" + className + "Edit/" + row.id + "/";
+		}
+	});
+}
+
+function get_pop_url( href ) {
+	var components = href.split( '/' );
+	while( components.length > 0 && components[components.length-1] === "" )
+		components.pop();		// Remove training slashes.
+	while( components.length > 0 ) {
+		if( !/^[0-9,]+$/.test(components[components.length-1]) ) {
+			components.pop();	// Skip url function name.
+			break;
+		}
+		components.pop();		// Skip parameter.
+	}
+	components.push( '' );		// Ensure there is a trailing slash.
+	return components.join('/');
+}
+
+function skip_back_n( n ) {
+	var href = window.location.href;
+	for( var i = 0; i < n; ++i )
+		href = get_pop_url( href );
+	window.location.href = href;
+}
+
+function skip_back() { skip_back_n(1); }
+
+function reformat( value, from_fmt, to_fmt ) {
+	if( !value )			// Handle blank field case.
+		return value;
+	
+	// Ugly, ugly hack to get data/time pickers to work in native format.
+	// One day all browsers will understand how to edit a date/time (sigh...).
+	
+	// Collect the date/time values as specified in the from_fmt.
+	var field = ['mm', 'dd', 'ii', 'ss', 'P', 'p'];
+	field.push( from_fmt.indexOf('yyyy') >= 0 ? 'yyyy': 'yy' );
+	field.push( from_fmt.indexOf('hh') >= 0 ? 'hh' : 'HH' );
+		
+	var val = {};
+	for( var i = 0; i < field.length; ++i ) {
+		var f = field[i], f_len = f.length;
+		val[f] = '0000'.slice(0, f.length);
+		if( f.toLowerCase() == 'p' ) {
+			f_len = 2; val[f] = '';	// Correct for length of 2-char am/pm.
+		}		
+		var pos = from_fmt.indexOf(f);
+		if( pos >= 0 ) {
+			var v = value.slice(pos, pos+f_len);
+			if( v ) {
+				val[f] = v;
+				// console.log( ['input', f, v] );
+			}
+		}
+	}
+	
+	// Normalize 2 and 4 digit year.
+	if( from_fmt.indexOf('yyyy') >= 0 )
+		val['yy'] = val['yyyy'].slice(2);
+	else
+		val['yyyy'] = '20' + val['yy'];
+	
+	// Normalize am/pm.  Accept single character a/p.  Default to am.
+	if( val['P'] ) {
+		val['P'] = val['P'].toUpperCase().slice(0,1) == 'P' ? 'PM': 'AM'; 
+		val['p'] = val['P'].toLowerCase();
+	} else if( val['p'] ) {
+		val['p'] = val['p'].toUpperCase().slice(0,1) == 'p' ? 'pm': 'am'; 
+		val['P'] = val['p'].toUpperCase();
+	} else {
+		val['P'] = 'AM';
+		val['p'] = 'am'; 
+	}
+	val['P'] = val['P'].toUpperCase();
+	val['p'] = val['p'].toLowerCase();
+		
+	if( field.includes('HH') ) {		// We have 12 hour representation.  Get 24 hour representation.
+		var hours = parseInt( val['HH'], 10 );
+		if( Number.isNaN(hours) )
+			hours = 0;
+		// console.log( ['HH', hours, val['HH']] );
+		if( val['P'].slice(0,1) == 'P' && hours < 12 )
+			hours += 12;
+		val['hh'] = (hours < 10 ? '0' : '') + hours;
+	}
+	else {								// We have 24 hour representation.  Get 12 hour representation.
+		var hours = parseInt( val['hh'], 10 );
+		if( Number.isNaN(hours) )
+			hours = 0;
+		val['P'] = hours < 12 ? 'AM' : 'PM';
+		if( hours > 12 )
+			hours -= 12;
+		val['HH'] = (hours < 10 ? '0' : '') + hours;
+	}
+	val['p'] = val['P'].toLowerCase();
+	
+	// Skip two digit date if we know we have a 4 digit one.
+	if( to_fmt.indexOf('yyyy') >= 0 )
+		val['yy'] = '';
+		
+	// Replace the values in the to_fmt with what we collected/computed earlier.
+	var ret = to_fmt;
+	for( var f in val ) {
+		var v = val[f], pos = to_fmt.indexOf(f);
+		if( v && pos >= 0 ) {
+			ret = ret.slice(0, pos) + v + ret.slice(pos+v.length);
+			// console.log( ['output', f, v, ret] );
+		}
+	}
+	
+	return ret;
+}
+
+
+
+	google.charts.load('current', {'packages':['sankey']});
+	google.charts.setOnLoadCallback(drawSankey);
+
+	function drawSankey() {
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'From');
+		data.addColumn('string', 'To');
+		data.addColumn('number', 'Points');
+		data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
+		data.addRows(JSON.parse("[[\u0022Round 10 \u002D Herne Hill\u002DVet 50+ Open: 2024\u002D01\u002D28\u0022,\u0022 1. MCGRATH, John (600)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 9 \u002D Hog Hill\u002DVet 50+ Open: 2023\u002D11\u002D26\u0022,\u0022 1. MCGRATH, John (600)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 4 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D10\u002D01\u0022,\u0022 1. MCGRATH, John (600)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u0022 1. MCGRATH, John (600)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u0022 1. MCGRATH, John (600)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 1 \u002D Coombes Farm\u002DVet 50+ Open: 2023\u002D09\u002D03\u0022,\u0022 1. MCGRATH, John (600)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 9 \u002D Hog Hill\u002DVet 50+ Open: 2023\u002D11\u002D26\u0022,\u0022 2. BRINGLOW, Jim (572)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 7 \u002D Canada Heights\u002DVet 50+ Open: 2023\u002D10\u002D29\u0022,\u0022 2. BRINGLOW, Jim (572)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u0022 2. BRINGLOW, Jim (572)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 5 \u002D Herne Hill\u002DVet 50+ Open: 2023\u002D10\u002D08\u0022,\u0022 2. BRINGLOW, Jim (572)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u0022 2. BRINGLOW, Jim (572)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u0022 2. BRINGLOW, Jim (572)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 10 \u002D Herne Hill\u002DVet 50+ Open: 2024\u002D01\u002D28\u0022,\u0022 3. LOCKYEAR, Stuart (564)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u0022 3. LOCKYEAR, Stuart (564)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 5 \u002D Herne Hill\u002DVet 50+ Open: 2023\u002D10\u002D08\u0022,\u0022 3. LOCKYEAR, Stuart (564)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 4 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D10\u002D01\u0022,\u0022 3. LOCKYEAR, Stuart (564)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u0022 3. LOCKYEAR, Stuart (564)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 1 \u002D Coombes Farm\u002DVet 50+ Open: 2023\u002D09\u002D03\u0022,\u0022 3. LOCKYEAR, Stuart (564)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 7 \u002D Canada Heights\u002DVet 50+ Open: 2023\u002D10\u002D29\u0022,\u0022 4. DAVY, Nick (542)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u0022 4. DAVY, Nick (542)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 5 \u002D Herne Hill\u002DVet 50+ Open: 2023\u002D10\u002D08\u0022,\u0022 4. DAVY, Nick (542)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 4 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D10\u002D01\u0022,\u0022 4. DAVY, Nick (542)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u0022 4. DAVY, Nick (542)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 1 \u002D Coombes Farm\u002DVet 50+ Open: 2023\u002D09\u002D03\u0022,\u0022 4. DAVY, Nick (542)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u0022 5. BROWN, Martin (512)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 9 \u002D Hog Hill\u002DVet 50+ Open: 2023\u002D11\u002D26\u0022,\u0022 5. BROWN, Martin (512)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 4 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D10\u002D01\u0022,\u0022 5. BROWN, Martin (512)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u0022 5. BROWN, Martin (512)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u0022 5. BROWN, Martin (512)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 1 \u002D Coombes Farm\u002DVet 50+ Open: 2023\u002D09\u002D03\u0022,\u0022 5. BROWN, Martin (512)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u0022 6. BOOTH, Joseph (464)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 10 \u002D Herne Hill\u002DVet 50+ Open: 2024\u002D01\u002D28\u0022,\u0022 6. BOOTH, Joseph (464)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 9 \u002D Hog Hill\u002DVet 50+ Open: 2023\u002D11\u002D26\u0022,\u0022 6. BOOTH, Joseph (464)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 7 \u002D Canada Heights\u002DVet 50+ Open: 2023\u002D10\u002D29\u0022,\u0022 6. BOOTH, Joseph (464)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u0022 6. BOOTH, Joseph (464)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 5 \u002D Herne Hill\u002DVet 50+ Open: 2023\u002D10\u002D08\u0022,\u0022 6. BOOTH, Joseph (464)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u0022 7. DYMOND, Martyn (420)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 7 \u002D Canada Heights\u002DVet 50+ Open: 2023\u002D10\u002D29\u0022,\u0022 7. DYMOND, Martyn (420)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 4 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D10\u002D01\u0022,\u0022 7. DYMOND, Martyn (420)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u0022 7. DYMOND, Martyn (420)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u0022 7. DYMOND, Martyn (420)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 10 \u002D Herne Hill\u002DVet 50+ Open: 2024\u002D01\u002D28\u0022,\u0022 8. HINDLEY, Mark (413)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 9 \u002D Hog Hill\u002DVet 50+ Open: 2023\u002D11\u002D26\u0022,\u0022 8. HINDLEY, Mark (413)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u0022 8. HINDLEY, Mark (413)\u0022,{\u0022v\u0022:65,\u0022f\u0022:\u002265.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u0022 8. HINDLEY, Mark (413)\u0022,{\u0022v\u0022:65,\u0022f\u0022:\u002265.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u0022 8. HINDLEY, Mark (413)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u0022Round 1 \u002D Coombes Farm\u002DVet 50+ Open: 2023\u002D09\u002D03\u0022,\u0022 8. HINDLEY, Mark (413)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u0022 9. KENT, Jim (402)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 10 \u002D Herne Hill\u002DVet 50+ Open: 2024\u002D01\u002D28\u0022,\u0022 9. KENT, Jim (402)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 7 \u002D Canada Heights\u002DVet 50+ Open: 2023\u002D10\u002D29\u0022,\u0022 9. KENT, Jim (402)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u0022 9. KENT, Jim (402)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u0022 9. KENT, Jim (402)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 7 \u002D Canada Heights\u002DVet 50+ Open: 2023\u002D10\u002D29\u0022,\u002210. HOFFMAN, Phil (376)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u002210. HOFFMAN, Phil (376)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u002210. HOFFMAN, Phil (376)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u002210. HOFFMAN, Phil (376)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 1 \u002D Coombes Farm\u002DVet 50+ Open: 2023\u002D09\u002D03\u0022,\u002210. HOFFMAN, Phil (376)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u002211. BURGESS, Stephen (359)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 7 \u002D Canada Heights\u002DVet 50+ Open: 2023\u002D10\u002D29\u0022,\u002211. BURGESS, Stephen (359)\u0022,{\u0022v\u0022:65,\u0022f\u0022:\u002265.00\u0022},null],[\u0022Round 4 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D10\u002D01\u0022,\u002211. BURGESS, Stephen (359)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u002211. BURGESS, Stephen (359)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 1 \u002D Coombes Farm\u002DVet 50+ Open: 2023\u002D09\u002D03\u0022,\u002211. BURGESS, Stephen (359)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u0022Round 7 \u002D Canada Heights\u002DVet 50+ Open: 2023\u002D10\u002D29\u0022,\u002212. ONEILL, Martin (359)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u002212. ONEILL, Martin (359)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u002212. ONEILL, Martin (359)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u002212. ONEILL, Martin (359)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 1 \u002D Coombes Farm\u002DVet 50+ Open: 2023\u002D09\u002D03\u0022,\u002212. ONEILL, Martin (359)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u002213. O\u0027BRIEN, Martin (346)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 7 \u002D Canada Heights\u002DVet 50+ Open: 2023\u002D10\u002D29\u0022,\u002213. O\u0027BRIEN, Martin (346)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u002213. O\u0027BRIEN, Martin (346)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u002213. O\u0027BRIEN, Martin (346)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u002213. O\u0027BRIEN, Martin (346)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 9 \u002D Hog Hill\u002DVet 50+ Open: 2023\u002D11\u002D26\u0022,\u002214. GOADBY, Clive (338)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 7 \u002D Canada Heights\u002DVet 50+ Open: 2023\u002D10\u002D29\u0022,\u002214. GOADBY, Clive (338)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u002214. GOADBY, Clive (338)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 1 \u002D Coombes Farm\u002DVet 50+ Open: 2023\u002D09\u002D03\u0022,\u002214. GOADBY, Clive (338)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 10 \u002D Herne Hill\u002DVet 50+ Open: 2024\u002D01\u002D28\u0022,\u002215. ANSTEE, Leslie (314)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u002215. ANSTEE, Leslie (314)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u002215. ANSTEE, Leslie (314)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 1 \u002D Coombes Farm\u002DVet 50+ Open: 2023\u002D09\u002D03\u0022,\u002215. ANSTEE, Leslie (314)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u002216. SMITH, Robert (297)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 9 \u002D Hog Hill\u002DVet 50+ Open: 2023\u002D11\u002D26\u0022,\u002216. SMITH, Robert (297)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u002216. SMITH, Robert (297)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u0022Round 5 \u002D Herne Hill\u002DVet 50+ Open: 2023\u002D10\u002D08\u0022,\u002216. SMITH, Robert (297)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u002217. ROTH, Jeremy (216)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u002217. ROTH, Jeremy (216)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 1 \u002D Coombes Farm\u002DVet 50+ Open: 2023\u002D09\u002D03\u0022,\u002217. ROTH, Jeremy (216)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 9 \u002D Hog Hill\u002DVet 50+ Open: 2023\u002D11\u002D26\u0022,\u002218. MOORE, Harry (211)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 7 \u002D Canada Heights\u002DVet 50+ Open: 2023\u002D10\u002D29\u0022,\u002218. MOORE, Harry (211)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u002218. MOORE, Harry (211)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u002219. FOX, Michael (203)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u002219. FOX, Michael (203)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u0022Round 1 \u002D Coombes Farm\u002DVet 50+ Open: 2023\u002D09\u002D03\u0022,\u002219. FOX, Michael (203)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u002220. HIGGINS, Nick (199)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u002220. HIGGINS, Nick (199)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u002220. HIGGINS, Nick (199)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u0022Round 9 \u002D Hog Hill\u002DVet 50+ Open: 2023\u002D11\u002D26\u0022,\u002221. JAMES, Paul (180)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 7 \u002D Canada Heights\u002DVet 50+ Open: 2023\u002D10\u002D29\u0022,\u002221. JAMES, Paul (180)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 7 \u002D Canada Heights\u002DVet 50+ Open: 2023\u002D10\u002D29\u0022,\u002222. ROBSON, Ian (159)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u002222. ROBSON, Ian (159)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u002223. WILLIAMSON, Brian (150)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 1 \u002D Coombes Farm\u002DVet 50+ Open: 2023\u002D09\u002D03\u0022,\u002223. WILLIAMSON, Brian (150)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 2 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D09\u002D17\u0022,\u002224. JONES, Stephen (86)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u002225. KINGSHOTT, Alan (83)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 5 \u002D Herne Hill\u002DVet 50+ Open: 2023\u002D10\u002D08\u0022,\u002226. TERRELL, John (83)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u002227. MCLAUGHLIN, Neil (80)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u002228. BISHOP, Pete (78)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 4 \u002D Pippingford Park Manor\u002DVet 50+ Open: 2023\u002D10\u002D01\u0022,\u002229. CROWE, David (78)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u002230. BARTON, Peter (72)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 1 \u002D Coombes Farm\u002DVet 50+ Open: 2023\u002D09\u002D03\u0022,\u002231. GLOWINSKI, Marek (70)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u002232. GREEN, Andrew (69)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u002233. LECCACORVI, Peter (68)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u0022Round 6 \u002D Schools at Somerhill\u002DVet 50+ Open: 2023\u002D10\u002D22\u0022,\u002234. TRIBLEY, Russell (68)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u002235. EASTON, Mark (67)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u0022Round 7 \u002D Canada Heights\u002DVet 50+ Open: 2023\u002D10\u002D29\u0022,\u002236. COCHRANE, Raymond (67)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u0022Round 8 \u002D Preston Park\u002DVet 50+ Open: 2024\u002D02\u002D04\u0022,\u002237. MCNALLY, Ian (65)\u0022,{\u0022v\u0022:65,\u0022f\u0022:\u002265.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DVet 50+ Open: 2023\u002D09\u002D24\u0022,\u002238. BRASSINGTON, Joel (64)\u0022,{\u0022v\u0022:64,\u0022f\u0022:\u002264.00\u0022},null],[\u0022 1. MCGRATH, John (600)\u0022,\u0022Team TMC \u002D Stra... (600)\u0022,{\u0022v\u0022:600,\u0022f\u0022:\u0022600.00\u0022},null],[\u0022 2. BRINGLOW, Jim (572)\u0022,\u0022Crawley Wheeler... (752)\u0022,{\u0022v\u0022:572,\u0022f\u0022:\u0022572.00\u0022},null],[\u0022 3. LOCKYEAR, Stuart (564)\u0022,\u0022Dulwich Paragon... (2042)\u0022,{\u0022v\u0022:564,\u0022f\u0022:\u0022564.00\u0022},null],[\u0022 4. DAVY, Nick (542)\u0022,\u0022C and N Cycles... (542)\u0022,{\u0022v\u0022:542,\u0022f\u0022:\u0022542.00\u0022},null],[\u0022 5. BROWN, Martin (512)\u0022,\u00227 Oaks Triathlo... (512)\u0022,{\u0022v\u0022:512,\u0022f\u0022:\u0022512.00\u0022},null],[\u0022 6. BOOTH, Joseph (464)\u0022,\u0022Dulwich Paragon... (2042)\u0022,{\u0022v\u0022:464,\u0022f\u0022:\u0022464.00\u0022},null],[\u0022 7. DYMOND, Martyn (420)\u0022,\u0022Pedalon.co.uk (420)\u0022,{\u0022v\u0022:420,\u0022f\u0022:\u0022420.00\u0022},null],[\u0022 8. HINDLEY, Mark (413)\u0022,\u0022Dulwich Paragon... (2042)\u0022,{\u0022v\u0022:413,\u0022f\u0022:\u0022413.00\u0022},null],[\u0022 9. KENT, Jim (402)\u0022,\u0022London Dynamo (402)\u0022,{\u0022v\u0022:402,\u0022f\u0022:\u0022402.00\u0022},null],[\u002210. HOFFMAN, Phil (376)\u0022,\u0022Abellio \u002D SFA R... (592)\u0022,{\u0022v\u0022:376,\u0022f\u0022:\u0022376.00\u0022},null],[\u002211. BURGESS, Stephen (359)\u0022,\u0022Lewes Wanderers... (359)\u0022,{\u0022v\u0022:359,\u0022f\u0022:\u0022359.00\u0022},null],[\u002212. ONEILL, Martin (359)\u0022,\u0022Brighton Mitre... (908)\u0022,{\u0022v\u0022:359,\u0022f\u0022:\u0022359.00\u0022},null],[\u002213. O\u0027BRIEN, Martin (346)\u0022,\u0022Brighton Mitre... (908)\u0022,{\u0022v\u0022:346,\u0022f\u0022:\u0022346.00\u0022},null],[\u002214. GOADBY, Clive (338)\u0022,\u0022Dulwich Paragon... (2042)\u0022,{\u0022v\u0022:338,\u0022f\u0022:\u0022338.00\u0022},null],[\u002215. ANSTEE, Leslie (314)\u0022,\u0022FHHV (314)\u0022,{\u0022v\u0022:314,\u0022f\u0022:\u0022314.00\u0022},null],[\u002216. SMITH, Robert (297)\u0022,\u0022Stowmarket \u0026 Di... (297)\u0022,{\u0022v\u0022:297,\u0022f\u0022:\u0022297.00\u0022},null],[\u002217. ROTH, Jeremy (216)\u0022,\u0022Abellio \u002D SFA R... (592)\u0022,{\u0022v\u0022:216,\u0022f\u0022:\u0022216.00\u0022},null],[\u002218. MOORE, Harry (211)\u0022,\u0022Cycling Club ha... (211)\u0022,{\u0022v\u0022:211,\u0022f\u0022:\u0022211.00\u0022},null],[\u002219. FOX, Michael (203)\u0022,\u0022Brighton Mitre... (908)\u0022,{\u0022v\u0022:203,\u0022f\u0022:\u0022203.00\u0022},null],[\u002220. HIGGINS, Nick (199)\u0022,\u0022Dulwich Paragon... (2042)\u0022,{\u0022v\u0022:199,\u0022f\u0022:\u0022199.00\u0022},null],[\u002221. JAMES, Paul (180)\u0022,\u0022Crawley Wheeler... (752)\u0022,{\u0022v\u0022:180,\u0022f\u0022:\u0022180.00\u0022},null],[\u002222. ROBSON, Ian (159)\u0022,\u0022ProSport UK (159)\u0022,{\u0022v\u0022:159,\u0022f\u0022:\u0022159.00\u0022},null],[\u002223. WILLIAMSON, Brian (150)\u0022,\u0022Kingston Wheele... (150)\u0022,{\u0022v\u0022:150,\u0022f\u0022:\u0022150.00\u0022},null],[\u002224. JONES, Stephen (86)\u0022,\u0022Ind 1 (86)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u002225. KINGSHOTT, Alan (83)\u0022,\u0022Solent Pirates (83)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u002226. TERRELL, John (83)\u0022,\u0022Ipswich Bicycle... (83)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u002227. MCLAUGHLIN, Neil (80)\u0022,\u0022Harrogate Nova... (80)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u002228. BISHOP, Pete (78)\u0022,\u0022Exeter Wheelers (78)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u002229. CROWE, David (78)\u0022,\u0022Ind 2 (78)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u002230. BARTON, Peter (72)\u0022,\u0022Chelmer CC (140)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u002231. GLOWINSKI, Marek (70)\u0022,\u0022VC Londres (70)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u002232. GREEN, Andrew (69)\u0022,\u0022Ind 3 (69)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u002233. LECCACORVI, Peter (68)\u0022,\u0022VC Deal (68)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u002234. TRIBLEY, Russell (68)\u0022,\u0022Chelmer CC (140)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u002235. EASTON, Mark (67)\u0022,\u0022Ind 4 (67)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u002236. COCHRANE, Raymond (67)\u0022,\u0022Team Enable \u002D M... (67)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u002237. MCNALLY, Ian (65)\u0022,\u0022Ind 5 (65)\u0022,{\u0022v\u0022:65,\u0022f\u0022:\u002265.00\u0022},null],[\u002238. BRASSINGTON, Joel (64)\u0022,\u0022Dulwich Paragon... (2042)\u0022,{\u0022v\u0022:64,\u0022f\u0022:\u002264.00\u0022},null]]"));
+
+		var options = {
+			width: 600,
+			sankey: {
+				iterations: 0,
+			},
+		  tooltip: {
+				textStyle: {fontSize: 11}
+			}
+		};
+
+		var chart = new google.visualization.Sankey(document.getElementById('idSankeyChart'));
+		chart.draw(data, options);
+	}
+
+
+
+function onLoad()
+{
+	// Transform the ISO time formats into local formats.
+	$('.dateinput').each( function(index, element) {
+		element.value = reformat( element.value, 'yyyy-mm-dd', "dd-mm-yyyy" );
+		$(element).attr( 'autocomplete', 'off' );
+	});
+	$('.datetimeinput').each( function(index, element) {
+		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "dd-mm-yyyy hh:ii" );
+		$(element).attr( 'autocomplete', 'off' );
+	});	
+
+	// Initialize the date/time pickers using the local formats.
+	$('.dateinput').datepicker({
+		format: "dd-mm-yyyy",
+		autoclose: true,
+		todayHighlight: true
+	});
+	$('.datetimeinput').datetimepicker({
+		format: "dd-mm-yyyy hh:ii",
+		autoclose: true
+	});
+	
+	// When the form is submitted, transform the local formats back into ISO.
+	$('form').submit(function(){
+		$('.dateinput').each( function(index, element) {
+			element.value = reformat( element.value, "dd-mm-yyyy", 'yyyy-mm-dd' );
+		});
+		$('.datetimeinput').each( function(index, element) {
+			element.value = reformat( element.value, "dd-mm-yyyy hh:ii", 'yyyy-mm-dd hh:ii:ss' );
+		});
+	});
+	
+	// Set button background to black when pressed to give feedback.
+	$('.btn').not('.dropdown-toggle').click(function() {
+		var button = $(this);
+		var backgroundColorCur = button.css( "background-color" );
+		button.css( {"background-color": '#666666'} );
+		setTimeout( function(){ button.css( {"background-color": backgroundColorCur} ); }, 5000 );
+	});
+	
+	// Make click targets larger for touch devices.
+	var is_touch_device = 'ontouchstart' in document.documentElement;
+	if( is_touch_device ) {
+		$('.btn').each(function() {
+			$(this).css( {"font-size": '120%'} );
+		});
+	}
+	
+	// Check for keyboard focus exception.
+	if( document.getElementById("focus") )
+		document.getElementById("focus").focus();
+	else {
+		// Give the first visible form field the keyboard focus.
+		$(document).ready(function() {
+			$('form:first *:input[type!=hidden]:first').focus();
+		});
+	}
+	
+	// Highlight fields that are filled in.
+	var in_use_color = '#dff0d8';
+	var fs = $("form.search");
+	fs.find(".select.form-control").each(function() {
+		if( $(this).val() != $(this).find('option:first').val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".numberinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".dateinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".textinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+
+
+
+}
+function jump( link ) { window.location = link; }
+</script>
+</head>
+<body onload="onLoad()">
+
+<div class="container">
+
+
+<style>
+table.results-table tr td {
+	font-size: 85%;
+}
+table.results-table tr th {
+	font-size: 85%;
+}
+.col-border-right {
+    border-right: 1px solid #ccc;
+}
+.col-border-right-gap {
+    border-right: 1px solid #ccc;
+}
+.result-detail {
+	font-style: italic;
+	color: #080808; 
+}
+</style>
+
+
+
+
+<nav class="navbar navbar-default navbar-fixed-top hidden-print">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="/2023/RaceDB/Hub/SearchCompetitions/index.html">
+				<img alt="RaceDB" src="/static/images/RaceDB_xsmall.png">
+			</a>
+			<ul class="nav navbar-nav">
+				<li><a href="/2023/RaceDB/Hub/SearchCompetitions/index.html">Competitions</a></li>
+				<li><a href="/2023/RaceDB/Hub/SearchLicenseHolders/index.html">Athletes</a></li>
+				<li><a href="/2023/RaceDB/Hub/Series/index.html">Series</a></li>
+				<li><a href="/2023/RaceDB/Hub/SeriesCategoryResults/1/284/QRCode/index.html"><img src="/static/images/glyphicons_258_qrcode.png" alt="QRCode"/></a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<p class="hidden-print"><br/><br/><br/></p>
+
+<h1>
+	<strong><a href='/2023/RaceDB/Hub/SeriesCategories/1/index.html'>LCCA 2023/24</strong></a> <span style="font-size: 75%"></span><br/>
+	<span style="font-size: 75%">
+		
+		V60O (Open)
+	</span>
+</h1>
+Generated: 05-02-2024 21:21:11
+<table class="table table-striped table-hover table-condensed results-table" style="width: auto;"><thead><tr><th>Rank</th><th>Name</th><th>Team</th><th class='text-right col-border-right'>
+			
+				Points
+			
+		</th><th class='text-right col-border-right-gap'>Gap</th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 8 - Preston Park<br/>
+				04-02-2024 12:45<br/><a href='/2023/RaceDB/Hub/CategoryResults/403/0/284/index.html'><span style="white-space: nowrap;">Vet 50+ Open</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 10 - Herne Hill<br/>
+				28-01-2024 13:45<br/><a href='/2023/RaceDB/Hub/CategoryResults/396/0/284/index.html'><span style="white-space: nowrap;">Vet 50+ Open</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 9 - Hog Hill<br/>
+				26-11-2023 13:45<br/><a href='/2023/RaceDB/Hub/CategoryResults/382/0/284/index.html'><span style="white-space: nowrap;">Vet 50+ Open</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 7 - Canada Heights<br/>
+				29-10-2023 12:45<br/><a href='/2023/RaceDB/Hub/CategoryResults/375/0/284/index.html'><span style="white-space: nowrap;">Vet 50+ Open</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 6 - Schools at Somerhill<br/>
+				22-10-2023 13:45<br/><a href='/2023/RaceDB/Hub/CategoryResults/368/0/284/index.html'><span style="white-space: nowrap;">Vet 50+ Open</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 5 - Herne Hill<br/>
+				08-10-2023 13:45<br/><a href='/2023/RaceDB/Hub/CategoryResults/361/0/284/index.html'><span style="white-space: nowrap;">Vet 50+ Open</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 4 - Pippingford Park Manor<br/>
+				01-10-2023 13:45<br/><a href='/2023/RaceDB/Hub/CategoryResults/354/0/284/index.html'><span style="white-space: nowrap;">Vet 50+ Open</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 3 - Crystal Palace<br/>
+				24-09-2023 13:45<br/><a href='/2023/RaceDB/Hub/CategoryResults/347/0/284/index.html'><span style="white-space: nowrap;">Vet 50+ Open</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 2 - Pippingford Park Manor<br/>
+				17-09-2023 13:45<br/><a href='/2023/RaceDB/Hub/CategoryResults/340/0/284/index.html'><span style="white-space: nowrap;">Vet 50+ Open</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 1 - Coombes Farm<br/>
+				03-09-2023 13:45<br/><a href='/2023/RaceDB/Hub/CategoryResults/331/0/284/index.html'><span style="white-space: nowrap;">Vet 50+ Open</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/3197/index.html'>MCGRATH, John</a></td><td>Team TMC - Strada Wheels</td><td class='text-right col-border-right'>600</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right ignored'>
+						100&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td></tr><tr><td class="text-right">2.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/2695/index.html'>BRINGLOW, Jim</a></td><td>Crawley Wheelers</td><td class='text-right col-border-right'>572</td><td class='text-right col-border-right-gap'>28</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right ignored'>
+						90&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">3.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/2024/index.html'>LOCKYEAR, Stuart</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>564</td><td class='text-right col-border-right-gap'>36</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right ignored'>
+						86&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right ignored'>
+						90&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td></tr><tr><td class="text-right">4.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/1500/index.html'>DAVY, Nick</a></td><td>C and N Cycles RT</td><td class='text-right col-border-right'>542</td><td class='text-right col-border-right-gap'>58</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td></tr><tr><td class="text-right">5.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/5337/index.html'>BROWN, Martin</a></td><td>7 Oaks Triathlon Club</td><td class='text-right col-border-right'>512</td><td class='text-right col-border-right-gap'>88</td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right ignored'>
+						83&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right ignored'>
+						78&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td></tr><tr><td class="text-right">6.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/993/index.html'>BOOTH, Joseph</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>464</td><td class='text-right col-border-right-gap'>136</td><td class='hidden-print text-right'>
+						74
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print text-right'>
+						78
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right'>
+						80
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print text-right'>
+						72
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print text-right'>
+						74
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right ignored'>
+						67&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">7.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/2214/index.html'>DYMOND, Martyn</a></td><td>Pedalon.co.uk</td><td class='text-right col-border-right'>420</td><td class='text-right col-border-right-gap'>180</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						80
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						80
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print text-right'>
+						80
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">8.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/1282/index.html'>HINDLEY, Mark</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>413</td><td class='text-right col-border-right-gap'>187</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						76
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right'>
+						74
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print text-right ignored'>
+						64&nbsp;&#x2717;
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td><td class='hidden-print text-right'>
+						65
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						65
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print text-right'>
+						66
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print text-right'>
+						67
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td></tr><tr><td class="text-right">9.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/5237/index.html'>KENT, Jim</a></td><td>London Dynamo</td><td class='text-right col-border-right'>402</td><td class='text-right col-border-right-gap'>198</td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						74
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print text-right'>
+						80
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						76
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">10.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/5576/index.html'>HOFFMAN, Phil</a></td><td>Abellio - SFA Racing Team</td><td class='text-right col-border-right'>376</td><td class='text-right col-border-right-gap'>224</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						70
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print text-right'>
+						78
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						72
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print text-right'>
+						76
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right'>
+						80
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td></tr><tr><td class="text-right">11.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/1973/index.html'>BURGESS, Stephen</a></td><td>Lewes Wanderers CC</td><td class='text-right col-border-right'>359</td><td class='text-right col-border-right-gap'>241</td><td class='hidden-print text-right'>
+						76
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						65
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						80
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						70
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print text-right'>
+						68
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td></tr><tr><td class="text-right">12.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/2531/index.html'>ONEILL, Martin</a></td><td>Brighton Mitre CC</td><td class='text-right col-border-right'>359</td><td class='text-right col-border-right-gap'>241</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						68
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print text-right'>
+						76
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						69
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print text-right'>
+						74
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print text-right'>
+						72
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td></tr><tr><td class="text-right">13.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/2263/index.html'>O&#x27;BRIEN, Martin</a></td><td>Brighton Mitre CC</td><td class='text-right col-border-right'>346</td><td class='text-right col-border-right-gap'>254</td><td class='hidden-print text-right'>
+						70
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						69
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print text-right'>
+						70
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						68
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print text-right'>
+						69
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">14.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/5300/index.html'>GOADBY, Clive</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>338</td><td class='text-right col-border-right-gap'>262</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td></tr><tr><td class="text-right">15.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/5792/index.html'>ANSTEE, Leslie</a></td><td>FHHV</td><td class='text-right col-border-right'>314</td><td class='text-right col-border-right-gap'>286</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						80
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						78
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right'>
+						78
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right'>
+						78
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td></tr><tr><td class="text-right">16.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/3740/index.html'>SMITH, Robert</a></td><td>Stowmarket &amp; District CC</td><td class='text-right col-border-right'>297</td><td class='text-right col-border-right-gap'>303</td><td class='hidden-print text-right'>
+						72
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						78
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						67
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print text-right'>
+						80
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">17.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/5567/index.html'>ROTH, Jeremy</a></td><td>Abellio - SFA Racing Team</td><td class='text-right col-border-right'>216</td><td class='text-right col-border-right-gap'>384</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						70
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print text-right'>
+						72
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print text-right'>
+						74
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td></tr><tr><td class="text-right">18.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/774/index.html'>MOORE, Harry</a></td><td>Cycling Club hackney</td><td class='text-right col-border-right'>211</td><td class='text-right col-border-right-gap'>389</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						76
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right'>
+						66
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print text-right'>
+						69
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">19.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/5128/index.html'>FOX, Michael</a></td><td>Brighton Mitre CC</td><td class='text-right col-border-right'>203</td><td class='text-right col-border-right-gap'>397</td><td class='hidden-print text-right'>
+						66
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						68
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print text-right'>
+						69
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td></tr><tr><td class="text-right">20.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/2983/index.html'>HIGGINS, Nick</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>199</td><td class='text-right col-border-right-gap'>401</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						66
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						66
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print text-right'>
+						67
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">21.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/1612/index.html'>JAMES, Paul</a></td><td>Crawley Wheelers Race Team</td><td class='text-right col-border-right'>180</td><td class='text-right col-border-right-gap'>420</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">22.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/3557/index.html'>ROBSON, Ian</a></td><td>ProSport UK</td><td class='text-right col-border-right'>159</td><td class='text-right col-border-right-gap'>441</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						76
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">23.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/6080/index.html'>WILLIAMSON, Brian</a></td><td>Kingston Wheelers CC</td><td class='text-right col-border-right'>150</td><td class='text-right col-border-right-gap'>450</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						74
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						76
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td></tr><tr><td class="text-right">24.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/6360/index.html'>JONES, Stephen</a></td><td></td><td class='text-right col-border-right'>86</td><td class='text-right col-border-right-gap'>514</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">25.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/6608/index.html'>KINGSHOTT, Alan</a></td><td>Solent Pirates</td><td class='text-right col-border-right'>83</td><td class='text-right col-border-right-gap'>517</td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">26.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/3601/index.html'>TERRELL, John</a></td><td>Ipswich Bicycle Club</td><td class='text-right col-border-right'>83</td><td class='text-right col-border-right-gap'>517</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">27.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/6617/index.html'>MCLAUGHLIN, Neil</a></td><td>Harrogate Nova CC</td><td class='text-right col-border-right'>80</td><td class='text-right col-border-right-gap'>520</td><td class='hidden-print text-right'>
+						80
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">28.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/6318/index.html'>BISHOP, Pete</a></td><td>Exeter Wheelers</td><td class='text-right col-border-right'>78</td><td class='text-right col-border-right-gap'>522</td><td class='hidden-print text-right'>
+						78
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">29.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/498/index.html'>CROWE, David</a></td><td></td><td class='text-right col-border-right'>78</td><td class='text-right col-border-right-gap'>522</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						78
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">30.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/3716/index.html'>BARTON, Peter</a></td><td>Chelmer CC</td><td class='text-right col-border-right'>72</td><td class='text-right col-border-right-gap'>528</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						72
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">31.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/1267/index.html'>GLOWINSKI, Marek</a></td><td>VC Londres</td><td class='text-right col-border-right'>70</td><td class='text-right col-border-right-gap'>530</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						70
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td></tr><tr><td class="text-right">32.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/6611/index.html'>GREEN, Andrew</a></td><td></td><td class='text-right col-border-right'>69</td><td class='text-right col-border-right-gap'>531</td><td class='hidden-print text-right'>
+						69
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">33.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/6622/index.html'>LECCACORVI, Peter</a></td><td>VC Deal</td><td class='text-right col-border-right'>68</td><td class='text-right col-border-right-gap'>532</td><td class='hidden-print text-right'>
+						68
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">34.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/3748/index.html'>TRIBLEY, Russell</a></td><td>Chelmer CC</td><td class='text-right col-border-right'>68</td><td class='text-right col-border-right-gap'>532</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						68
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">35.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/6612/index.html'>EASTON, Mark</a></td><td></td><td class='text-right col-border-right'>67</td><td class='text-right col-border-right-gap'>533</td><td class='hidden-print text-right'>
+						67
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">36.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/6540/index.html'>COCHRANE, Raymond</a></td><td>Team Enable - M.I.Racing - McCann</td><td class='text-right col-border-right'>67</td><td class='text-right col-border-right-gap'>533</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						67
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">37.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/6600/index.html'>MCNALLY, Ian</a></td><td></td><td class='text-right col-border-right'>65</td><td class='text-right col-border-right-gap'>535</td><td class='hidden-print text-right'>
+						65
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">38.</td><td><a href='/2023/RaceDB/Hub/Hub/LicenseHolderResults/2984/index.html'>BRASSINGTON, Joel</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>64</td><td class='text-right col-border-right-gap'>536</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						64
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr></tbody></table>
+
+	<p class="hidden-print">&#x2717; - Result ignored: better result used.</p>
+
+
+
+
+	<p>
+	Best 6 results considered.
+	</p>
+
+
+<hr/>
+<h4>
+
+	Ranked by Points
+
+</h4>
+
+	
+		<p/>
+		<h4>Points Structures</h4>
+		
+			<ol>
+			
+				Senior/Vet Men: Points for place: 100,94,90,86,83,80,78,76,74,72,70,69,68,67,66,65,64,63,62,61,60,59,58,57,56,55,54,53,52,51,50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1: Vet 50+ Open, Vet 40 and Junior Open, Senior Open, Vet 40 and Junior Open, Vet 50+ Open, Senior Open, Vet 40 and Junior Open, Vet 50+ Open, Senior Open, Vet 40 and Junior Open, Vet 50+ Open, Senior Open, Vet 40 and Junior Open, Vet 50+ Open, Senior Open, Vet 40 and Junior Open, Vet 50+ Open, Senior Open, Vet 40 and Junior Open, Vet 50+ Open, Senior Open, Vet 40 and Junior Open, Vet 50+ Open, Senior Open, Vet 40 and Junior Open, Vet 50+ Open, Senior Open, Vet 40 and Junior Open, Vet 50+ Open, Senior Open
+			
+				Women/Youth/U12: Points for place: 50,44,40,36,33,30,28,26,24,22,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1: U8 / U10, Under 12, Youth A B, All Women, U8 / U10, Under 12, Youth A B, All Women, U8 / U10, Under 12, Youth A B, All Women, U8 / U10, Under 12, Youth A B, All Women, U8 / U10, Under 12, Youth A B, All Women, U8 / U10, Under 12, Youth A B, All Women, U8 / U10, Under 12, Youth A B, All Women, U8 / U10, Under 12, Youth A B, All Women, U8 / U10, Under 12, Youth A B, All Women, U8 / U10, Under 12, Youth A B, All Women
+			
+			</ol>
+		
+	
+	
+	
+
+
+
+
+<p/>
+<h4>Tie-breaking Rules</h4>
+<ol>
+
+
+	<li>Most recent result.</li>
+</ol>
+
+
+	<hr/>
+	<div class='hidden-print' id="idSankeyChart" style="width: 1200px; height: 900px;"></div>
+
+
+
+</div>
+<br/>&nbsp;<br/>&nbsp;<br/>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+</body>
+</html>

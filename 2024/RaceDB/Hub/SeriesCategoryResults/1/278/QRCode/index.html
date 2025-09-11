@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>RaceDB by Edward Sitarski</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="RaceDB: Race Check-in Software">
+<meta name="keywords" content="time trial, road race, cyclocross, mtb, cycling, racing, bicycle, management, software, racedb, crossmgr">
+<meta name="author" content="Edward Sitarski">
+
+
+<script type="text/javascript" src="/static/js/jquery-2.2.4.min.js"></script>
+
+
+
+
+<link rel="icon" href="/static/images/RaceDB_32x32.png">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/bootstrap/css/datepicker.css">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap-datetimepicker.min.css">
+
+
+
+
+<style>
+.row { margin: 8px 0px; }
+h2, h3, h4, h5 { margin: 1px; }
+@media print {
+    .page-break-before {page-break-before: always;}
+
+
+}
+.table-no-border>thead>tr>th, 
+.table-no-border>tbody>tr>th, 
+.table-no-border>tfoot>tr>th, 
+.table-no-border>thead>tr>td, 
+.table-no-border>tbody>tr>td, 
+.table-no-border>tfoot>tr>td {
+  border-top: none; 
+}
+
+.flag {
+    margin: 3px;
+    padding: 0px;
+    border: 1px solid #CCC;
+}
+
+.logo-image {
+	max-height: 70px;
+}
+
+.is-good::before {
+	content: url(/static/images/glyphicons_206_ok_2_blue.png);
+}
+.is-bad::before {
+	content: url(/static/images/glyphicons_207_remove_2_blue.png);
+}
+.is-err::before {
+	content: url(/static/images/error.png);
+	width:20px; height:20px; 
+}
+.is-warn::before {
+	content: url(/static/images/warning.png);
+	width:20px; height:20px; 
+}
+.is-finished::before {
+	content: url(/static/images/finished-flag.png);
+}
+.is-finished-blue::before {
+	content: url(/static/images/finished-flag-blue.png);
+}
+@media print {
+	a[href]:after {
+	content: none !important;
+	}
+}
+
+
+</style>
+<script type="text/javascript">
+function setRowSorter( className, sId ) {
+	$('#'+sId).rowSorter({
+		
+		// if new_index === old_index, this function won't be called.
+		onDrop: function(tbody, row, new_index, old_index) {
+			window.location = "./Resequence_" + className + "_Class/" + row.id + "/" + new_index + "/";
+		},
+		
+		// if new_index === old_index, this function will be called.
+		onDragEnd: function(tbody, row, current_index) {
+			window.location = "./" + className + "Edit/" + row.id + "/";
+		}
+	});
+}
+
+function get_pop_url( href ) {
+	var components = href.split( '/' );
+	while( components.length > 0 && components[components.length-1] === "" )
+		components.pop();		// Remove training slashes.
+	while( components.length > 0 ) {
+		if( !/^[0-9,]+$/.test(components[components.length-1]) ) {
+			components.pop();	// Skip url function name.
+			break;
+		}
+		components.pop();		// Skip parameter.
+	}
+	components.push( '' );		// Ensure there is a trailing slash.
+	return components.join('/');
+}
+
+function skip_back_n( n ) {
+	var href = window.location.href;
+	for( var i = 0; i < n; ++i )
+		href = get_pop_url( href );
+	window.location.href = href;
+}
+
+function skip_back() { skip_back_n(1); }
+
+function reformat( value, from_fmt, to_fmt ) {
+	if( !value )			// Handle blank field case.
+		return value;
+	
+	// Ugly, ugly hack to get data/time pickers to work in native format.
+	// One day all browsers will understand how to edit a date/time (sigh...).
+	
+	// Collect the date/time values as specified in the from_fmt.
+	var field = ['mm', 'dd', 'ii', 'ss', 'P', 'p'];
+	field.push( from_fmt.indexOf('yyyy') >= 0 ? 'yyyy': 'yy' );
+	field.push( from_fmt.indexOf('hh') >= 0 ? 'hh' : 'HH' );
+		
+	var val = {};
+	for( var i = 0; i < field.length; ++i ) {
+		var f = field[i], f_len = f.length;
+		val[f] = '0000'.slice(0, f.length);
+		if( f.toLowerCase() == 'p' ) {
+			f_len = 2; val[f] = '';	// Correct for length of 2-char am/pm.
+		}		
+		var pos = from_fmt.indexOf(f);
+		if( pos >= 0 ) {
+			var v = value.slice(pos, pos+f_len);
+			if( v ) {
+				val[f] = v;
+				// console.log( ['input', f, v] );
+			}
+		}
+	}
+	
+	// Normalize 2 and 4 digit year.
+	if( from_fmt.indexOf('yyyy') >= 0 )
+		val['yy'] = val['yyyy'].slice(2);
+	else
+		val['yyyy'] = '20' + val['yy'];
+	
+	// Normalize am/pm.  Accept single character a/p.  Default to am.
+	if( val['P'] ) {
+		val['P'] = val['P'].toUpperCase().slice(0,1) == 'P' ? 'PM': 'AM'; 
+		val['p'] = val['P'].toLowerCase();
+	} else if( val['p'] ) {
+		val['p'] = val['p'].toUpperCase().slice(0,1) == 'p' ? 'pm': 'am'; 
+		val['P'] = val['p'].toUpperCase();
+	} else {
+		val['P'] = 'AM';
+		val['p'] = 'am'; 
+	}
+	val['P'] = val['P'].toUpperCase();
+	val['p'] = val['p'].toLowerCase();
+		
+	if( field.includes('HH') ) {		// We have 12 hour representation.  Get 24 hour representation.
+		var hours = parseInt( val['HH'], 10 );
+		if( Number.isNaN(hours) )
+			hours = 0;
+		// console.log( ['HH', hours, val['HH']] );
+		if( val['P'].slice(0,1) == 'P' && hours < 12 )
+			hours += 12;
+		val['hh'] = (hours < 10 ? '0' : '') + hours;
+	}
+	else {								// We have 24 hour representation.  Get 12 hour representation.
+		var hours = parseInt( val['hh'], 10 );
+		if( Number.isNaN(hours) )
+			hours = 0;
+		val['P'] = hours < 12 ? 'AM' : 'PM';
+		if( hours > 12 )
+			hours -= 12;
+		val['HH'] = (hours < 10 ? '0' : '') + hours;
+	}
+	val['p'] = val['P'].toLowerCase();
+	
+	// Skip two digit date if we know we have a 4 digit one.
+	if( to_fmt.indexOf('yyyy') >= 0 )
+		val['yy'] = '';
+		
+	// Replace the values in the to_fmt with what we collected/computed earlier.
+	var ret = to_fmt;
+	for( var f in val ) {
+		var v = val[f], pos = to_fmt.indexOf(f);
+		if( v && pos >= 0 ) {
+			ret = ret.slice(0, pos) + v + ret.slice(pos+v.length);
+			// console.log( ['output', f, v, ret] );
+		}
+	}
+	
+	return ret;
+}
+
+
+
+
+function onLoad()
+{
+	// Transform the ISO time formats into local formats.
+	$('.dateinput').each( function(index, element) {
+		element.value = reformat( element.value, 'yyyy-mm-dd', "dd-mm-yyyy" );
+		$(element).attr( 'autocomplete', 'off' );
+	});
+	$('.datetimeinput').each( function(index, element) {
+		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "dd-mm-yyyy hh:ii" );
+		$(element).attr( 'autocomplete', 'off' );
+	});	
+
+	// Initialize the date/time pickers using the local formats.
+	$('.dateinput').datepicker({
+		format: "dd-mm-yyyy",
+		autoclose: true,
+		todayHighlight: true
+	});
+	$('.datetimeinput').datetimepicker({
+		format: "dd-mm-yyyy hh:ii",
+		autoclose: true
+	});
+	
+	// When the form is submitted, transform the local formats back into ISO.
+	$('form').submit(function(){
+		$('.dateinput').each( function(index, element) {
+			element.value = reformat( element.value, "dd-mm-yyyy", 'yyyy-mm-dd' );
+		});
+		$('.datetimeinput').each( function(index, element) {
+			element.value = reformat( element.value, "dd-mm-yyyy hh:ii", 'yyyy-mm-dd hh:ii:ss' );
+		});
+	});
+	
+	// Set button background to black when pressed to give feedback.
+	$('.btn').not('.dropdown-toggle').click(function() {
+		var button = $(this);
+		var backgroundColorCur = button.css( "background-color" );
+		button.css( {"background-color": '#666666'} );
+		setTimeout( function(){ button.css( {"background-color": backgroundColorCur} ); }, 5000 );
+	});
+	
+	// Make click targets larger for touch devices.
+	var is_touch_device = 'ontouchstart' in document.documentElement;
+	if( is_touch_device ) {
+		$('.btn').each(function() {
+			$(this).css( {"font-size": '120%'} );
+		});
+	}
+	
+	// Check for tag and keyboard focus exception.
+	if( document.getElementById("id_rfid_tag") )
+		document.getElementById("id_rfid_tag").focus();	// Make sure tag fields always get focus so auto-enter works.
+	else if( document.getElementById("focus") )
+		document.getElementById("focus").focus();
+	else {
+		// Give the first visible form field the keyboard focus.
+		$(document).ready(function() {
+			$('form:first *:input[type!=hidden]:first').focus();
+		});
+	}
+	
+	// Highlight fields that are filled in.
+	var in_use_color = '#dff0d8';
+	var fs = $("form.search");
+	fs.find(".select.form-control").each(function() {
+		if( $(this).val() != $(this).find('option:first').val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".numberinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".dateinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".textinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+
+
+
+}
+function jump( link ) { window.location = link; }
+</script>
+</head>
+<body onload="onLoad()">
+
+<div class="container">
+
+
+<script type="text/javascript" src="/static/js/qrcode.min.js"></script>
+
+<br/><br/><br/>
+<h2>http://172.17.0.1/2024/RaceDB/Hub/SeriesCategoryResults/1/278/</h2>
+<br/><br/><br/>
+<div id="qrcode"></div>
+<script type="text/javascript">
+new QRCode("qrcode", {
+    text: "http://172.17.0.1/2024/RaceDB/Hub/SeriesCategoryResults/1/278/",
+    width: 440,
+    height: 440,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.H
+});
+</script>
+<br/><br/>
+
+<br/>
+<a href="/2024/RaceDB/Hub/SeriesCategoryResults/1/278/index.html"><img src="/static/images/RaceDB.png" alt="RaceDB"/></a>
+<a class="btn btn-primary hidden-print" id="focus" href="/2024/RaceDB/Hub/SeriesCategoryResults/1/278/index.html">OK</a>
+
+</div>
+<br/>&nbsp;<br/>&nbsp;<br/>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+</body>
+</html>

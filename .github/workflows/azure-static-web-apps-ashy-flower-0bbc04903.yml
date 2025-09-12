@@ -19,12 +19,6 @@ jobs:
         with:
           submodules: true
           lfs: false
-      - name: Prune large folders before deploy
-        run: |
-          mkdir -p .swa_excluded
-          mv 2024 .swa_excluded/ 2>/dev/null || true
-          mkdir -p .swa_excluded/lcca
-          mv lcca/2024 .swa_excluded/lcca/ 2>/dev/null || true
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1

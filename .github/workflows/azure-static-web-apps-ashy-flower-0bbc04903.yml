@@ -9,6 +9,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: static-web-apps-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
@@ -30,6 +34,7 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "/" # App source code path
           api_location: "" # Api source code path - optional
+          skip_app_build: true
           output_location: "" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
 
@@ -44,3 +49,4 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ASHY_FLOWER_0BBC04903 }}
           action: "close"
+

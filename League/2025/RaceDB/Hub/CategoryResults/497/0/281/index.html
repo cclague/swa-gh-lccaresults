@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{}");
+var payload = JSON.parse("{\u0022bib\u0022:177,\u0022raceName\u0022:\u0022Round 2 \u002D Crystal Palace \u002D All Women (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222025\u002D09\u002D21 12:30\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022M50F (Women)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[177,791,684,268,369],\u0022gapValue\u0022:[0.0,308.3136239999999,\u002D1,\u002D1,\u002D6],\u0022laps\u0022:6,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u0022177\u0022:{\u0022LastName\u0022:\u0022Reuter\u0022,\u0022FirstName\u0022:\u0022Caroline\u0022,\u0022Team\u0022:\u0022Dulwich Paragon CC\u0022,\u0022License\u0022:\u00221086020\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,500.55072,977.588011,1466.862724,1932.129242,2409.195892],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2409.195892,\u0022lastTimeOrig\u0022:2409.195892,\u0022status\u0022:\u0022Finisher\u0022},\u0022791\u0022:{\u0022LastName\u0022:\u0022Jones\u0022,\u0022FirstName\u0022:\u0022Holly\u0022,\u0022Team\u0022:\u0022Dulwich Paragon CC\u0022,\u0022License\u0022:\u00221194985\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,588.503133,1124.66321,1660.975175,2194.190692,2717.509516],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2717.509516,\u0022lastTimeOrig\u0022:2717.509516,\u0022status\u0022:\u0022Finisher\u0022},\u0022684\u0022:{\u0022LastName\u0022:\u0022Petersmann\u0022,\u0022FirstName\u0022:\u0022Danielle\u0022,\u0022Team\u0022:\u0022VC Deal\u0022,\u0022License\u0022:\u00221018665\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,603.284474,1134.96045,1692.381324,2251.48142],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2251.48142,\u0022lastTimeOrig\u0022:2251.48142,\u0022status\u0022:\u0022Finisher\u0022},\u0022268\u0022:{\u0022LastName\u0022:\u0022Kinsella\u0022,\u0022FirstName\u0022:\u0022Suzannah\u0022,\u0022Team\u0022:\u0022Peckham Cycle Club\u0022,\u0022License\u0022:\u00221461853\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,675.628585,1502.000702,2120.686537,2723.363821],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2723.363821,\u0022lastTimeOrig\u0022:2723.363821,\u0022status\u0022:\u0022Finisher\u0022},\u0022369\u0022:{\u0022LastName\u0022:\u0022Baker\u0022,\u0022FirstName\u0022:\u0022Bumble\u0022,\u0022Team\u0022:\u0022London Dynamo\u0022,\u0022License\u0022:\u00221630502\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022NP\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1818,14 +1818,16 @@ function jump( link ) { window.location = link; }
 
 <h1>
 	
-	<strong><a href="/RaceDB/Hub/CompetitionResults/96/">Round 2 - Crystal Palace</a>: All Women</strong>: Registered Only (no results)<br/>
+	<strong><a href="/RaceDB/Hub/CompetitionResults/96/">Round 2 - Crystal Palace</a>: All Women</strong><br/>
 	<span style="font-size: 70%">
 		<strong>M50F (Women) - WOMEN</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 21-09-2025 12:32:50</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 21-09-2025 13:21:39</span>
 		<br/>
 		21-09-2025 12:30&nbsp;&nbsp;
 		Starters: 5&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
+		
+			Winning Time: 40:09&nbsp;&nbsp;
 		
 		
 	</span>
@@ -1841,13 +1843,25 @@ table.participant_table tr th {
 </style>
 
 <ul class="nav nav-tabs hidden-print">
-	<li class="active"><a data-toggle="tab" href="#sectionResults">Registered</a></li>
+	<li class="active"><a data-toggle="tab" href="#sectionResults">Results</a></li>
+
+	
+		<li><a href="./EventLapTimes/497/0/281/">Times</a></li>
+	
+	
+		<li><a href="./EventLapChart/497/0/281/">Lap Chart</a></li>
+		<li><a href="./EventGapChart/497/0/281/">Gap Chart</a></li>
+		<li><a href="./EventRaceChart/497/0/281/">Race Chart</a></li>
+		<li><a data-toggle="tab" href="#sectionSituation">Situation</a></li>
+	
+	
+		<li><a data-toggle="tab" href="#histogram">Histogram</a></li>
 
 </ul>
 
 <div class="tab-content">
 	<div id="sectionResults" class="tab-pane fade in active">
-<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6921')"><td class="text-right">369</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6921">BAKER, Bumble</a></td><td>London Dynamo</td><td>1630502</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/5062')"><td class="text-right">791</td><td><a href="/RaceDB/Hub/LicenseHolderResults/5062">JONES, Holly</a></td><td>Dulwich Paragon CC</td><td>1194985</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6727')"><td class="text-right">268</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6727">KINSELLA, Suzannah</a></td><td>Peckham Cycle Club</td><td>1461853</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6271')"><td class="text-right">684</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6271">PETERSMANN, Danielle</a></td><td>VC Deal</td><td>1018665</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/309')"><td class="text-right">177</td><td><a href="/RaceDB/Hub/LicenseHolderResults/309">REUTER, Caroline</a></td><td>Dulwich Paragon CC</td><td>1086020</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr></tbody></table>
+<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Rank</th><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th><th class="text-right">Time</th><th class="text-right">Gap</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/309')"><td class="text-right">1.</td><td class="text-right">177</td><td><a href="/RaceDB/Hub/LicenseHolderResults/309">REUTER, Caroline</a></td><td>Dulwich Paragon CC</td><td>1086020</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">40:09</td><td class="text-right"></td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/5062')"><td class="text-right">2.</td><td class="text-right">791</td><td><a href="/RaceDB/Hub/LicenseHolderResults/5062">JONES, Holly</a></td><td>Dulwich Paragon CC</td><td>1194985</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">45:17</td><td class="text-right">5&#x27;08&quot;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6271')"><td class="text-right">3.</td><td class="text-right">684</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6271">PETERSMANN, Danielle</a></td><td>VC Deal</td><td>1018665</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">37:31</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6727')"><td class="text-right">4.</td><td class="text-right">268</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6727">KINSELLA, Suzannah</a></td><td>Peckham Cycle Club</td><td>1461853</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">45:23</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6921')"><td class="text-right">NP</td><td class="text-right">369</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6921">BAKER, Bumble</a></td><td>London Dynamo</td><td>1630502</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr></tbody></table>
 
 	</div>
 

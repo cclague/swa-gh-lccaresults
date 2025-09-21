@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{}");
+var payload = JSON.parse("{\u0022bib\u0022:123,\u0022raceName\u0022:\u0022Round 2 \u002D Crystal Palace \u002D All Women (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222025\u002D09\u002D21 12:30\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022U23F (Women)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[123,248,803,271],\u0022gapValue\u0022:[0.0,16.12711100000024,\u002D1,\u002D1],\u0022laps\u0022:6,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u0022123\u0022:{\u0022LastName\u0022:\u0022Wiley\u0022,\u0022FirstName\u0022:\u0022Esme\u0022,\u0022Team\u0022:\u0022London Academy\u0022,\u0022License\u0022:\u0022927154\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,499.728504,970.754031,1442.683381,1916.517357,2381.65458],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2381.65458,\u0022lastTimeOrig\u0022:2381.65458,\u0022status\u0022:\u0022Finisher\u0022},\u0022248\u0022:{\u0022LastName\u0022:\u0022Chatfield\u0022,\u0022FirstName\u0022:\u0022Ella\u0022,\u0022Team\u0022:\u0022Destination Bike RT\u0022,\u0022License\u0022:\u00221425167\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,503.337665,972.413719,1445.051356,1916.951968,2397.781691],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2397.781691,\u0022lastTimeOrig\u0022:2397.781691,\u0022status\u0022:\u0022Finisher\u0022},\u0022803\u0022:{\u0022LastName\u0022:\u0022Meeran\u0022,\u0022FirstName\u0022:\u0022Myfanwy\u0022,\u0022Team\u0022:\u0022Dulwich Paragon CC\u0022,\u0022License\u0022:\u00221283312\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,617.700582,1209.919762,1799.902118,2380.390292],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2380.390292,\u0022lastTimeOrig\u0022:2380.390292,\u0022status\u0022:\u0022Finisher\u0022},\u0022271\u0022:{\u0022LastName\u0022:\u0022Looby\u0022,\u0022FirstName\u0022:\u0022Alizee\u0022,\u0022Team\u0022:\u0022Hillingdon Slipstreamers\u0022,\u0022License\u0022:\u00221837710\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Central\u0022,\u0022raceTimes\u0022:[0.0,713.828226,1385.372396,2060.66721,2745.967207],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2745.967207,\u0022lastTimeOrig\u0022:2745.967207,\u0022status\u0022:\u0022Finisher\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1818,14 +1818,16 @@ function jump( link ) { window.location = link; }
 
 <h1>
 	
-	<strong><a href="/RaceDB/Hub/CompetitionResults/96/">Round 2 - Crystal Palace</a>: All Women</strong>: Registered Only (no results)<br/>
+	<strong><a href="/RaceDB/Hub/CompetitionResults/96/">Round 2 - Crystal Palace</a>: All Women</strong><br/>
 	<span style="font-size: 70%">
 		<strong>U23F (Women) - WOMEN</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 21-09-2025 12:32:50</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 21-09-2025 13:21:38</span>
 		<br/>
 		21-09-2025 12:30&nbsp;&nbsp;
 		Starters: 4&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
+		
+			Winning Time: 39:41&nbsp;&nbsp;
 		
 		
 	</span>
@@ -1841,13 +1843,25 @@ table.participant_table tr th {
 </style>
 
 <ul class="nav nav-tabs hidden-print">
-	<li class="active"><a data-toggle="tab" href="#sectionResults">Registered</a></li>
+	<li class="active"><a data-toggle="tab" href="#sectionResults">Results</a></li>
+
+	
+		<li><a href="./EventLapTimes/497/0/277/">Times</a></li>
+	
+	
+		<li><a href="./EventLapChart/497/0/277/">Lap Chart</a></li>
+		<li><a href="./EventGapChart/497/0/277/">Gap Chart</a></li>
+		<li><a href="./EventRaceChart/497/0/277/">Race Chart</a></li>
+		<li><a data-toggle="tab" href="#sectionSituation">Situation</a></li>
+	
+	
+		<li><a data-toggle="tab" href="#histogram">Histogram</a></li>
 
 </ul>
 
 <div class="tab-content">
 	<div id="sectionResults" class="tab-pane fade in active">
-<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/2413')"><td class="text-right">248</td><td><a href="/RaceDB/Hub/LicenseHolderResults/2413">CHATFIELD, Ella</a></td><td>Destination Bike RT</td><td>1425167</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6661')"><td class="text-right">271</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6661">LOOBY, Alizee</a></td><td>Hillingdon Slipstreamers</td><td>1837710</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/2321')"><td class="text-right">803</td><td><a href="/RaceDB/Hub/LicenseHolderResults/2321">MEERAN, Myfanwy</a></td><td>Dulwich Paragon CC</td><td>1283312</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/624')"><td class="text-right">123</td><td><a href="/RaceDB/Hub/LicenseHolderResults/624">WILEY, Esme</a></td><td>London Academy</td><td>927154</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr></tbody></table>
+<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Rank</th><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th><th class="text-right">Time</th><th class="text-right">Gap</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/624')"><td class="text-right">1.</td><td class="text-right">123</td><td><a href="/RaceDB/Hub/LicenseHolderResults/624">WILEY, Esme</a></td><td>London Academy</td><td>927154</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">39:41</td><td class="text-right"></td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/2413')"><td class="text-right">2.</td><td class="text-right">248</td><td><a href="/RaceDB/Hub/LicenseHolderResults/2413">CHATFIELD, Ella</a></td><td>Destination Bike RT</td><td>1425167</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">39:57</td><td class="text-right">0&#x27;16&quot;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/2321')"><td class="text-right">3.</td><td class="text-right">803</td><td><a href="/RaceDB/Hub/LicenseHolderResults/2321">MEERAN, Myfanwy</a></td><td>Dulwich Paragon CC</td><td>1283312</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">39:40</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6661')"><td class="text-right">4.</td><td class="text-right">271</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6661">LOOBY, Alizee</a></td><td>Hillingdon Slipstreamers</td><td>1837710</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">45:45</td><td class="text-right">-1 lap</td></tr></tbody></table>
 
 	</div>
 

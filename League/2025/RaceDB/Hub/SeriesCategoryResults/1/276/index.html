@@ -220,7 +220,7 @@ function reformat( value, from_fmt, to_fmt ) {
 		data.addColumn('string', 'To');
 		data.addColumn('number', 'Points');
 		data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
-		data.addRows(JSON.parse("[[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u0022 1. MAHE, Louise (94)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DAll Women: 2025\u002D09\u002D07\u0022,\u0022 1. MAHE, Louise (94)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u0022 2. GRIVELL\u002DMELLOR, Ruth (52)\u0022,{\u0022v\u0022:16,\u0022f\u0022:\u002216.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DAll Women: 2025\u002D09\u002D07\u0022,\u0022 2. GRIVELL\u002DMELLOR, Ruth (52)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u0022 3. ELLIOTT, Honor (50)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u0022 4. JENKINS, Philippa (44)\u0022,{\u0022v\u0022:11,\u0022f\u0022:\u002211.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DAll Women: 2025\u002D09\u002D07\u0022,\u0022 4. JENKINS, Philippa (44)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DAll Women: 2025\u002D09\u002D07\u0022,\u0022 5. WISE, Georgina (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u0022 6. BEARDSALL, Ruby (40)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DAll Women: 2025\u002D09\u002D07\u0022,\u0022 7. CALEIA\u002DRAMOS, Natasha (40)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u0022 8. BARNETT, Bethany (36)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u0022 9. BEAUMONT, Claire (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002210. MCDONALD, Rosie (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DAll Women: 2025\u002D09\u002D07\u0022,\u002211. ROGERS, Agnes (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002212. SHEPHERD, Heidi (28)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002213. RAHIER, Sophie (26)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002214. SEATON, Florence (24)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002215. FODOR, Katherine (22)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002216. COOPER, Marta (20)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002217. FREE, Megan (19)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002218. RUSSELL\u002DBATES, Lucy (18)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002219. CHOULES, Lucy (17)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002220. WILCOX, Georgina (15)\u0022,{\u0022v\u0022:15,\u0022f\u0022:\u002215.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002221. LITTLE, Mollie (14)\u0022,{\u0022v\u0022:14,\u0022f\u0022:\u002214.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002222. NAYLOR, Sophie (13)\u0022,{\u0022v\u0022:13,\u0022f\u0022:\u002213.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002223. THOMAS, Amy (12)\u0022,{\u0022v\u0022:12,\u0022f\u0022:\u002212.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002224. COLE, Sophie (10)\u0022,{\u0022v\u0022:10,\u0022f\u0022:\u002210.00\u0022},null],[\u0022 1. MAHE, Louise (94)\u0022,\u0022Sutton Cycling... (94)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022 2. GRIVELL\u002DMELLOR, Ruth (52)\u0022,\u0022Ind 1 (52)\u0022,{\u0022v\u0022:52,\u0022f\u0022:\u002252.00\u0022},null],[\u0022 3. ELLIOTT, Honor (50)\u0022,\u0022Ind 2 (50)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022 4. JENKINS, Philippa (44)\u0022,\u0022Southborough \u0026... (74)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022 5. WISE, Georgina (44)\u0022,\u0022Destination Bik... (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022 6. BEARDSALL, Ruby (40)\u0022,\u0022Ind 3 (40)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022 7. CALEIA\u002DRAMOS, Natasha (40)\u0022,\u0022ASSOS UK Racing... (40)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022 8. BARNETT, Bethany (36)\u0022,\u0022O\u005Cu2019Shea \u002D Develo... (36)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022 9. BEAUMONT, Claire (33)\u0022,\u0022ViCiOUS VELO (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u002210. MCDONALD, Rosie (30)\u0022,\u0022Ind 4 (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u002211. ROGERS, Agnes (30)\u0022,\u0022Southborough \u0026... (74)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u002212. SHEPHERD, Heidi (28)\u0022,\u0022Brixton Cycles... (106)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u002213. RAHIER, Sophie (26)\u0022,\u0022Brixton Cycles... (106)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u002214. SEATON, Florence (24)\u0022,\u0022Ind 5 (24)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u002215. FODOR, Katherine (22)\u0022,\u0022Velociposse (22)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u002216. COOPER, Marta (20)\u0022,\u0022Brixton Cycles... (106)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u002217. FREE, Megan (19)\u0022,\u0022West Suffolk Wh... (19)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u002218. RUSSELL\u002DBATES, Lucy (18)\u0022,\u0022Brixton Cycles... (106)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u002219. CHOULES, Lucy (17)\u0022,\u0022SUGO (17)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u002220. WILCOX, Georgina (15)\u0022,\u0022London Velo Cyc... (15)\u0022,{\u0022v\u0022:15,\u0022f\u0022:\u002215.00\u0022},null],[\u002221. LITTLE, Mollie (14)\u0022,\u0022Brixton Cycles... (106)\u0022,{\u0022v\u0022:14,\u0022f\u0022:\u002214.00\u0022},null],[\u002222. NAYLOR, Sophie (13)\u0022,\u0022Islington Cycli... (13)\u0022,{\u0022v\u0022:13,\u0022f\u0022:\u002213.00\u0022},null],[\u002223. THOMAS, Amy (12)\u0022,\u0022C and N Cycles... (12)\u0022,{\u0022v\u0022:12,\u0022f\u0022:\u002212.00\u0022},null],[\u002224. COLE, Sophie (10)\u0022,\u0022Ind 6 (10)\u0022,{\u0022v\u0022:10,\u0022f\u0022:\u002210.00\u0022},null]]"));
+		data.addRows(JSON.parse("[[\u0022Round 3 \u002D Pippingford Park\u002DAll Women: 2025\u002D09\u002D28\u0022,\u0022 1. MAHE, Louise (138)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u0022 1. MAHE, Louise (138)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DAll Women: 2025\u002D09\u002D07\u0022,\u0022 1. MAHE, Louise (138)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DAll Women: 2025\u002D09\u002D28\u0022,\u0022 2. WISE, Georgina (80)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DAll Women: 2025\u002D09\u002D07\u0022,\u0022 2. WISE, Georgina (80)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DAll Women: 2025\u002D09\u002D28\u0022,\u0022 3. JENKINS, Philippa (70)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u0022 3. JENKINS, Philippa (70)\u0022,{\u0022v\u0022:11,\u0022f\u0022:\u002211.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DAll Women: 2025\u002D09\u002D07\u0022,\u0022 3. JENKINS, Philippa (70)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DAll Women: 2025\u002D09\u002D28\u0022,\u0022 4. COOPER, Marta (53)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u0022 4. COOPER, Marta (53)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u0022 5. GRIVELL\u002DMELLOR, Ruth (52)\u0022,{\u0022v\u0022:16,\u0022f\u0022:\u002216.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DAll Women: 2025\u002D09\u002D07\u0022,\u0022 5. GRIVELL\u002DMELLOR, Ruth (52)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DAll Women: 2025\u002D09\u002D28\u0022,\u0022 6. HORNSBY, Emma Jane (50)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u0022 7. ELLIOTT, Honor (50)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DAll Women: 2025\u002D09\u002D28\u0022,\u0022 8. LITTLE, Mollie (42)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u0022 8. LITTLE, Mollie (42)\u0022,{\u0022v\u0022:14,\u0022f\u0022:\u002214.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DAll Women: 2025\u002D09\u002D28\u0022,\u0022 9. MORRICE, Alex (40)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002210. BEARDSALL, Ruby (40)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DAll Women: 2025\u002D09\u002D07\u0022,\u002211. CALEIA\u002DRAMOS, Natasha (40)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002212. BARNETT, Bethany (36)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002213. BEAUMONT, Claire (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DAll Women: 2025\u002D09\u002D28\u0022,\u002214. WALDER, Monica (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002215. MCDONALD, Rosie (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DAll Women: 2025\u002D09\u002D07\u0022,\u002216. ROGERS, Agnes (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002217. SHEPHERD, Heidi (28)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002218. RAHIER, Sophie (26)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002219. SEATON, Florence (24)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002220. FODOR, Katherine (22)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002221. FREE, Megan (19)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002222. RUSSELL\u002DBATES, Lucy (18)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002223. CHOULES, Lucy (17)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002224. WILCOX, Georgina (15)\u0022,{\u0022v\u0022:15,\u0022f\u0022:\u002215.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002225. NAYLOR, Sophie (13)\u0022,{\u0022v\u0022:13,\u0022f\u0022:\u002213.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002226. THOMAS, Amy (12)\u0022,{\u0022v\u0022:12,\u0022f\u0022:\u002212.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DAll Women: 2025\u002D09\u002D21\u0022,\u002227. COLE, Sophie (10)\u0022,{\u0022v\u0022:10,\u0022f\u0022:\u002210.00\u0022},null],[\u0022 1. MAHE, Louise (138)\u0022,\u0022Sutton Cycling... (138)\u0022,{\u0022v\u0022:138,\u0022f\u0022:\u0022138.00\u0022},null],[\u0022 2. WISE, Georgina (80)\u0022,\u0022Destination Bik... (80)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022 3. JENKINS, Philippa (70)\u0022,\u0022Southborough \u0026... (100)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022 4. COOPER, Marta (53)\u0022,\u0022Brixton Cycles... (167)\u0022,{\u0022v\u0022:53,\u0022f\u0022:\u002253.00\u0022},null],[\u0022 5. GRIVELL\u002DMELLOR, Ruth (52)\u0022,\u0022Ind 1 (52)\u0022,{\u0022v\u0022:52,\u0022f\u0022:\u002252.00\u0022},null],[\u0022 6. HORNSBY, Emma Jane (50)\u0022,\u0022London Academy (50)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022 7. ELLIOTT, Honor (50)\u0022,\u0022Ind 2 (50)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022 8. LITTLE, Mollie (42)\u0022,\u0022Brixton Cycles... (167)\u0022,{\u0022v\u0022:42,\u0022f\u0022:\u002242.00\u0022},null],[\u0022 9. MORRICE, Alex (40)\u0022,\u0022Smurfit Westroc... (40)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u002210. BEARDSALL, Ruby (40)\u0022,\u0022Ind 3 (40)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u002211. CALEIA\u002DRAMOS, Natasha (40)\u0022,\u0022ASSOS UK Racing... (40)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u002212. BARNETT, Bethany (36)\u0022,\u0022O\u005Cu2019Shea \u002D Develo... (36)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u002213. BEAUMONT, Claire (33)\u0022,\u0022ViCiOUS VELO (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u002214. WALDER, Monica (30)\u0022,\u0022C and N Cycles... (42)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u002215. MCDONALD, Rosie (30)\u0022,\u0022Ind 4 (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u002216. ROGERS, Agnes (30)\u0022,\u0022Southborough \u0026... (100)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u002217. SHEPHERD, Heidi (28)\u0022,\u0022Brixton Cycles... (167)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u002218. RAHIER, Sophie (26)\u0022,\u0022Brixton Cycles... (167)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u002219. SEATON, Florence (24)\u0022,\u0022Ind 5 (24)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u002220. FODOR, Katherine (22)\u0022,\u0022Velociposse (22)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u002221. FREE, Megan (19)\u0022,\u0022West Suffolk Wh... (19)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u002222. RUSSELL\u002DBATES, Lucy (18)\u0022,\u0022Brixton Cycles... (167)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u002223. CHOULES, Lucy (17)\u0022,\u0022SUGO (17)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u002224. WILCOX, Georgina (15)\u0022,\u0022London Velo Cyc... (15)\u0022,{\u0022v\u0022:15,\u0022f\u0022:\u002215.00\u0022},null],[\u002225. NAYLOR, Sophie (13)\u0022,\u0022Islington Cycli... (13)\u0022,{\u0022v\u0022:13,\u0022f\u0022:\u002213.00\u0022},null],[\u002226. THOMAS, Amy (12)\u0022,\u0022C and N Cycles... (42)\u0022,{\u0022v\u0022:12,\u0022f\u0022:\u002212.00\u0022},null],[\u002227. COLE, Sophie (10)\u0022,\u0022Ind 6 (10)\u0022,{\u0022v\u0022:10,\u0022f\u0022:\u002210.00\u0022},null]]"));
 
 		var options = {
 			width: 600,
@@ -379,16 +379,22 @@ table.results-table tr th {
 		SenF (Women)
 	</span>
 </h1>
-Generated: 28-09-2025 12:17:30
+Generated: 28-09-2025 13:17:13
 <table class="table table-striped table-hover table-condensed results-table" style="width: auto;"><thead><tr><th>Rank</th><th>Name</th><th>Team</th><th class='text-right col-border-right'>
 			
 				Points
 			
 		</th><th class='text-right col-border-right-gap'>Gap</th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 3 - Pippingford Park<br/>
+				28-09-2025 12:30<br/><a href='/RaceDB/Hub/CategoryResults/511/0/276/'><span style="white-space: nowrap;">All Women</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 2 - Crystal Palace<br/>
 				21-09-2025 12:30<br/><a href='/RaceDB/Hub/CategoryResults/497/0/276/'><span style="white-space: nowrap;">All Women</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 1 - Stanmer Park<br/>
-				07-09-2025 12:30<br/><a href='/RaceDB/Hub/CategoryResults/490/0/276/'><span style="white-space: nowrap;">All Women</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/1217/'>MAHE, Louise</a></td><td>Sutton Cycling Club</td><td class='text-right col-border-right'>94</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+				07-09-2025 12:30<br/><a href='/RaceDB/Hub/CategoryResults/490/0/276/'><span style="white-space: nowrap;">All Women</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/1217/'>MAHE, Louise</a></td><td>Sutton Cycling Club</td><td class='text-right col-border-right'>138</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
 						44
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						2nd
@@ -396,19 +402,19 @@ Generated: 28-09-2025 12:17:30
 						50
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						1st
-					</td></tr><tr><td class="text-right">2.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6709/'>GRIVELL-MELLOR, Ruth</a></td><td></td><td class='text-right col-border-right'>52</td><td class='text-right col-border-right-gap'>42</td><td class='hidden-print text-right'>
-						16
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						15th
-					</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">2.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/5352/'>WISE, Georgina</a></td><td>Destination Bike RT</td><td class='text-right col-border-right'>80</td><td class='text-right col-border-right-gap'>58</td><td class='hidden-print text-right'>
 						36
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						4th
-					</td></tr><tr><td class="text-right">3.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/5195/'>ELLIOTT, Honor</a></td><td></td><td class='text-right col-border-right'>50</td><td class='text-right col-border-right-gap'>44</td><td class='hidden-print text-right'>
-						50
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						44
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						1st
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">4.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/1703/'>JENKINS, Philippa</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>44</td><td class='text-right col-border-right-gap'>50</td><td class='hidden-print text-right'>
+						2nd
+					</td></tr><tr><td class="text-right">3.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/1703/'>JENKINS, Philippa</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>70</td><td class='text-right col-border-right-gap'>68</td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right'>
 						11
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						20th
@@ -416,83 +422,111 @@ Generated: 28-09-2025 12:17:30
 						33
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						5th
-					</td></tr><tr><td class="text-right">5.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/5352/'>WISE, Georgina</a></td><td>Destination Bike RT</td><td class='text-right col-border-right'>44</td><td class='text-right col-border-right-gap'>50</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						44
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						2nd
-					</td></tr><tr><td class="text-right">6.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6079/'>BEARDSALL, Ruby</a></td><td></td><td class='text-right col-border-right'>40</td><td class='text-right col-border-right-gap'>54</td><td class='hidden-print text-right'>
-						40
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						3rd
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">7.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/5529/'>CALEIA-RAMOS, Natasha</a></td><td>ASSOS UK Racing Team</td><td class='text-right col-border-right'>40</td><td class='text-right col-border-right-gap'>54</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						40
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						3rd
-					</td></tr><tr><td class="text-right">8.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/3432/'>BARNETT, Bethany</a></td><td>O’Shea - Development Team</td><td class='text-right col-border-right'>36</td><td class='text-right col-border-right-gap'>58</td><td class='hidden-print text-right'>
-						36
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						4th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">9.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/388/'>BEAUMONT, Claire</a></td><td>ViCiOUS VELO</td><td class='text-right col-border-right'>33</td><td class='text-right col-border-right-gap'>61</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">4.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/5753/'>COOPER, Marta</a></td><td>Brixton Cycles Club</td><td class='text-right col-border-right'>53</td><td class='text-right col-border-right-gap'>85</td><td class='hidden-print text-right'>
 						33
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						5th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">10.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6920/'>MCDONALD, Rosie</a></td><td></td><td class='text-right col-border-right'>30</td><td class='text-right col-border-right-gap'>64</td><td class='hidden-print text-right'>
-						30
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						6th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">11.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6668/'>ROGERS, Agnes</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>30</td><td class='text-right col-border-right-gap'>64</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						30
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						6th
-					</td></tr><tr><td class="text-right">12.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6930/'>SHEPHERD, Heidi</a></td><td>Brixton Cycles Club</td><td class='text-right col-border-right'>28</td><td class='text-right col-border-right-gap'>66</td><td class='hidden-print text-right'>
-						28
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						7th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">13.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6747/'>RAHIER, Sophie</a></td><td>Brixton Cycles Club</td><td class='text-right col-border-right'>26</td><td class='text-right col-border-right-gap'>68</td><td class='hidden-print text-right'>
-						26
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						8th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">14.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6959/'>SEATON, Florence</a></td><td></td><td class='text-right col-border-right'>24</td><td class='text-right col-border-right-gap'>70</td><td class='hidden-print text-right'>
-						24
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						9th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">15.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6253/'>FODOR, Katherine</a></td><td>Velociposse</td><td class='text-right col-border-right'>22</td><td class='text-right col-border-right-gap'>72</td><td class='hidden-print text-right'>
-						22
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						10th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">16.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/5753/'>COOPER, Marta</a></td><td>Brixton Cycles Club</td><td class='text-right col-border-right'>20</td><td class='text-right col-border-right-gap'>74</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print text-right'>
 						20
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						11th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">17.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/3665/'>FREE, Megan</a></td><td>West Suffolk Wheelers</td><td class='text-right col-border-right'>19</td><td class='text-right col-border-right-gap'>75</td><td class='hidden-print text-right'>
-						19
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">5.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6709/'>GRIVELL-MELLOR, Ruth</a></td><td></td><td class='text-right col-border-right'>52</td><td class='text-right col-border-right-gap'>86</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						16
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						12th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">18.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6924/'>RUSSELL-BATES, Lucy</a></td><td>Brixton Cycles Club</td><td class='text-right col-border-right'>18</td><td class='text-right col-border-right-gap'>76</td><td class='hidden-print text-right'>
-						18
+						15th
+					</td><td class='hidden-print text-right'>
+						36
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						13th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">19.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6946/'>CHOULES, Lucy</a></td><td>SUGO</td><td class='text-right col-border-right'>17</td><td class='text-right col-border-right-gap'>77</td><td class='hidden-print text-right'>
-						17
+						4th
+					</td></tr><tr><td class="text-right">6.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/2637/'>HORNSBY, Emma Jane</a></td><td>London Academy</td><td class='text-right col-border-right'>50</td><td class='text-right col-border-right-gap'>88</td><td class='hidden-print text-right'>
+						50
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						14th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">20.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6940/'>WILCOX, Georgina</a></td><td>London Velo Cycle Club</td><td class='text-right col-border-right'>15</td><td class='text-right col-border-right-gap'>79</td><td class='hidden-print text-right'>
-						15
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">7.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/5195/'>ELLIOTT, Honor</a></td><td></td><td class='text-right col-border-right'>50</td><td class='text-right col-border-right-gap'>88</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						50
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						16th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">21.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6007/'>LITTLE, Mollie</a></td><td>Brixton Cycles Club</td><td class='text-right col-border-right'>14</td><td class='text-right col-border-right-gap'>80</td><td class='hidden-print text-right'>
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">8.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6007/'>LITTLE, Mollie</a></td><td>Brixton Cycles Club</td><td class='text-right col-border-right'>42</td><td class='text-right col-border-right-gap'>96</td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right'>
 						14
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						17th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">22.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6941/'>NAYLOR, Sophie</a></td><td>Islington Cycling Club</td><td class='text-right col-border-right'>13</td><td class='text-right col-border-right-gap'>81</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">9.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6973/'>MORRICE, Alex</a></td><td>Smurfit Westrock Cycling Team</td><td class='text-right col-border-right'>40</td><td class='text-right col-border-right-gap'>98</td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">10.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6079/'>BEARDSALL, Ruby</a></td><td></td><td class='text-right col-border-right'>40</td><td class='text-right col-border-right-gap'>98</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">11.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/5529/'>CALEIA-RAMOS, Natasha</a></td><td>ASSOS UK Racing Team</td><td class='text-right col-border-right'>40</td><td class='text-right col-border-right-gap'>98</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td></tr><tr><td class="text-right">12.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/3432/'>BARNETT, Bethany</a></td><td>O’Shea - Development Team</td><td class='text-right col-border-right'>36</td><td class='text-right col-border-right-gap'>102</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">13.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/388/'>BEAUMONT, Claire</a></td><td>ViCiOUS VELO</td><td class='text-right col-border-right'>33</td><td class='text-right col-border-right-gap'>105</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">14.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/5681/'>WALDER, Monica</a></td><td>C and N Cycles RT</td><td class='text-right col-border-right'>30</td><td class='text-right col-border-right-gap'>108</td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">15.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6920/'>MCDONALD, Rosie</a></td><td></td><td class='text-right col-border-right'>30</td><td class='text-right col-border-right-gap'>108</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">16.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6668/'>ROGERS, Agnes</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>30</td><td class='text-right col-border-right-gap'>108</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td></tr><tr><td class="text-right">17.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6930/'>SHEPHERD, Heidi</a></td><td>Brixton Cycles Club</td><td class='text-right col-border-right'>28</td><td class='text-right col-border-right-gap'>110</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">18.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6747/'>RAHIER, Sophie</a></td><td>Brixton Cycles Club</td><td class='text-right col-border-right'>26</td><td class='text-right col-border-right-gap'>112</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">19.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6959/'>SEATON, Florence</a></td><td></td><td class='text-right col-border-right'>24</td><td class='text-right col-border-right-gap'>114</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						24
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">20.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6253/'>FODOR, Katherine</a></td><td>Velociposse</td><td class='text-right col-border-right'>22</td><td class='text-right col-border-right-gap'>116</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">21.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/3665/'>FREE, Megan</a></td><td>West Suffolk Wheelers</td><td class='text-right col-border-right'>19</td><td class='text-right col-border-right-gap'>119</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">22.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6924/'>RUSSELL-BATES, Lucy</a></td><td>Brixton Cycles Club</td><td class='text-right col-border-right'>18</td><td class='text-right col-border-right-gap'>120</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">23.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6946/'>CHOULES, Lucy</a></td><td>SUGO</td><td class='text-right col-border-right'>17</td><td class='text-right col-border-right-gap'>121</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						17
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">24.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6940/'>WILCOX, Georgina</a></td><td>London Velo Cycle Club</td><td class='text-right col-border-right'>15</td><td class='text-right col-border-right-gap'>123</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						15
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">25.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6941/'>NAYLOR, Sophie</a></td><td>Islington Cycling Club</td><td class='text-right col-border-right'>13</td><td class='text-right col-border-right-gap'>125</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						13
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						18th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">23.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/2456/'>THOMAS, Amy</a></td><td>C and N Cycles RT</td><td class='text-right col-border-right'>12</td><td class='text-right col-border-right-gap'>82</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">26.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/2456/'>THOMAS, Amy</a></td><td>C and N Cycles RT</td><td class='text-right col-border-right'>12</td><td class='text-right col-border-right-gap'>126</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						12
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						19th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">24.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6950/'>COLE, Sophie</a></td><td></td><td class='text-right col-border-right'>10</td><td class='text-right col-border-right-gap'>84</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">27.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6950/'>COLE, Sophie</a></td><td></td><td class='text-right col-border-right'>10</td><td class='text-right col-border-right-gap'>128</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						10
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						21st

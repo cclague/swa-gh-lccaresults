@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{}");
+var payload = JSON.parse("{\u0022bib\u0022:2138,\u0022raceName\u0022:\u0022Round 3 \u002D Pippingford Park \u002D U8 / U10 (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222025\u002D09\u002D28 09:20\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022U8F (Women)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[2138,2142],\u0022gapValue\u0022:[0.0,92.29251],\u0022laps\u0022:3,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u00222138\u0022:{\u0022LastName\u0022:\u0022Miller\u002DEdwards\u0022,\u0022FirstName\u0022:\u0022Seren\u0022,\u0022Team\u0022:\u0022VCGH\u0022,\u0022License\u0022:\u00221859198\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,451.432476,738.849598],\u0022interp\u0022:[0,0,0],\u0022lastTime\u0022:738.849598,\u0022lastTimeOrig\u0022:738.849598,\u0022status\u0022:\u0022Finisher\u0022},\u00222142\u0022:{\u0022LastName\u0022:\u0022Walder\u0022,\u0022FirstName\u0022:\u0022Nellie Anne\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u0022TEMP_881849...\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,538.042423,831.142108],\u0022interp\u0022:[0,0,0],\u0022lastTime\u0022:831.142108,\u0022lastTimeOrig\u0022:831.142108,\u0022status\u0022:\u0022Finisher\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1818,14 +1818,16 @@ function jump( link ) { window.location = link; }
 
 <h1>
 	
-	<strong><a href="/RaceDB/Hub/CompetitionResults/98/">Round 3 - Pippingford Park</a>: U8 / U10</strong>: Registered Only (no results)<br/>
+	<strong><a href="/RaceDB/Hub/CompetitionResults/98/">Round 3 - Pippingford Park</a>: U8 / U10</strong><br/>
 	<span style="font-size: 70%">
 		<strong>U8F (Women) - U8</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 28-09-2025 08:58:41</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 28-09-2025 09:38:31</span>
 		<br/>
-		24-09-2025 09:20&nbsp;&nbsp;
+		28-09-2025 09:20&nbsp;&nbsp;
 		Starters: 2&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
+		
+			Winning Time: 12:18&nbsp;&nbsp;
 		
 		
 	</span>
@@ -1841,13 +1843,25 @@ table.participant_table tr th {
 </style>
 
 <ul class="nav nav-tabs hidden-print">
-	<li class="active"><a data-toggle="tab" href="#sectionResults">Registered</a></li>
+	<li class="active"><a data-toggle="tab" href="#sectionResults">Results</a></li>
+
+	
+		<li><a href="./EventLapTimes/507/0/294/">Times</a></li>
+	
+	
+		<li><a href="./EventLapChart/507/0/294/">Lap Chart</a></li>
+		<li><a href="./EventGapChart/507/0/294/">Gap Chart</a></li>
+		<li><a href="./EventRaceChart/507/0/294/">Race Chart</a></li>
+		<li><a data-toggle="tab" href="#sectionSituation">Situation</a></li>
+	
+	
+		<li><a data-toggle="tab" href="#histogram">Histogram</a></li>
 
 </ul>
 
 <div class="tab-content">
 	<div id="sectionResults" class="tab-pane fade in active">
-<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6977')"><td class="text-right">2138</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6977">MILLER-EDWARDS, Seren</a></td><td>VCGH</td><td>1859198</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6988')"><td class="text-right">2142</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6988">WALDER, Nellie Anne</a></td><td></td><td>TEMP_881849...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr></tbody></table>
+<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Rank</th><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th><th class="text-right">Time</th><th class="text-right">Gap</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6977')"><td class="text-right">1.</td><td class="text-right">2138</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6977">MILLER-EDWARDS, Seren</a></td><td>VCGH</td><td>1859198</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">12:18</td><td class="text-right"></td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6988')"><td class="text-right">2.</td><td class="text-right">2142</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6988">WALDER, Nellie Anne</a></td><td></td><td>TEMP_881849...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">13:51</td><td class="text-right">1&#x27;32&quot;</td></tr></tbody></table>
 
 	</div>
 

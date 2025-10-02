@@ -1,0 +1,1914 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>RaceDB by Edward Sitarski</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="RaceDB: Race Check-in Software">
+<meta name="keywords" content="time trial, road race, cyclocross, mtb, cycling, racing, bicycle, management, software, racedb, crossmgr">
+<meta name="author" content="Edward Sitarski">
+
+
+<script type="text/javascript" src="/static/js/jquery-2.2.4.min.js"></script>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>       
+
+
+<link rel="icon" href="/static/images/RaceDB_32x32.png">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/static/bootstrap/css/datepicker.css">
+<link rel="stylesheet" href="/static/bootstrap/css/bootstrap-datetimepicker.min.css">
+
+
+
+
+<style>
+.row { margin: 8px 0px; }
+h2, h3, h4, h5 { margin: 1px; }
+@media print {
+    .page-break-before {page-break-before: always;}
+
+
+}
+.table-no-border>thead>tr>th, 
+.table-no-border>tbody>tr>th, 
+.table-no-border>tfoot>tr>th, 
+.table-no-border>thead>tr>td, 
+.table-no-border>tbody>tr>td, 
+.table-no-border>tfoot>tr>td {
+  border-top: none; 
+}
+
+.flag {
+    margin: 3px;
+    padding: 0px;
+    border: 1px solid #CCC;
+}
+
+.logo-image {
+	max-height: 70px;
+}
+
+.is-good::before {
+	content: url(/static/images/glyphicons_206_ok_2_blue.png);
+}
+.is-bad::before {
+	content: url(/static/images/glyphicons_207_remove_2_blue.png);
+}
+.is-err::before {
+	content: url(/static/images/error.png);
+	width:20px; height:20px; 
+}
+.is-warn::before {
+	content: url(/static/images/warning.png);
+	width:20px; height:20px; 
+}
+.is-finished::before {
+	content: url(/static/images/finished-flag.png);
+}
+.is-finished-blue::before {
+	content: url(/static/images/finished-flag-blue.png);
+}
+@media print {
+	a[href]:after {
+	content: none !important;
+	}
+}
+
+.main-container {
+	margin-left:-10px;
+	margin-right:-10px;
+}
+.lpad {
+	margin-left: 8px;
+}
+
+</style>
+<script type="text/javascript">
+function setRowSorter( className, sId ) {
+	$('#'+sId).rowSorter({
+		
+		// if new_index === old_index, this function won't be called.
+		onDrop: function(tbody, row, new_index, old_index) {
+			window.location = "./Resequence_" + className + "_Class/" + row.id + "/" + new_index + "/";
+		},
+		
+		// if new_index === old_index, this function will be called.
+		onDragEnd: function(tbody, row, current_index) {
+			window.location = "./" + className + "Edit/" + row.id + "/";
+		}
+	});
+}
+
+function get_pop_url( href ) {
+	var components = href.split( '/' );
+	while( components.length > 0 && components[components.length-1] === "" )
+		components.pop();		// Remove training slashes.
+	while( components.length > 0 ) {
+		if( !/^[0-9,]+$/.test(components[components.length-1]) ) {
+			components.pop();	// Skip url function name.
+			break;
+		}
+		components.pop();		// Skip parameter.
+	}
+	components.push( '' );		// Ensure there is a trailing slash.
+	return components.join('/');
+}
+
+function skip_back_n( n ) {
+	var href = window.location.href;
+	for( var i = 0; i < n; ++i )
+		href = get_pop_url( href );
+	window.location.href = href;
+}
+
+function skip_back() { skip_back_n(1); }
+
+function reformat( value, from_fmt, to_fmt ) {
+	if( !value )			// Handle blank field case.
+		return value;
+	
+	// Ugly, ugly hack to get data/time pickers to work in native format.
+	// One day all browsers will understand how to edit a date/time (sigh...).
+	
+	// Collect the date/time values as specified in the from_fmt.
+	var field = ['mm', 'dd', 'ii', 'ss', 'P', 'p'];
+	field.push( from_fmt.indexOf('yyyy') >= 0 ? 'yyyy': 'yy' );
+	field.push( from_fmt.indexOf('hh') >= 0 ? 'hh' : 'HH' );
+		
+	var val = {};
+	for( var i = 0; i < field.length; ++i ) {
+		var f = field[i], f_len = f.length;
+		val[f] = '0000'.slice(0, f.length);
+		if( f.toLowerCase() == 'p' ) {
+			f_len = 2; val[f] = '';	// Correct for length of 2-char am/pm.
+		}		
+		var pos = from_fmt.indexOf(f);
+		if( pos >= 0 ) {
+			var v = value.slice(pos, pos+f_len);
+			if( v ) {
+				val[f] = v;
+				// console.log( ['input', f, v] );
+			}
+		}
+	}
+	
+	// Normalize 2 and 4 digit year.
+	if( from_fmt.indexOf('yyyy') >= 0 )
+		val['yy'] = val['yyyy'].slice(2);
+	else
+		val['yyyy'] = '20' + val['yy'];
+	
+	// Normalize am/pm.  Accept single character a/p.  Default to am.
+	if( val['P'] ) {
+		val['P'] = val['P'].toUpperCase().slice(0,1) == 'P' ? 'PM': 'AM'; 
+		val['p'] = val['P'].toLowerCase();
+	} else if( val['p'] ) {
+		val['p'] = val['p'].toUpperCase().slice(0,1) == 'p' ? 'pm': 'am'; 
+		val['P'] = val['p'].toUpperCase();
+	} else {
+		val['P'] = 'AM';
+		val['p'] = 'am'; 
+	}
+	val['P'] = val['P'].toUpperCase();
+	val['p'] = val['p'].toLowerCase();
+		
+	if( field.includes('HH') ) {		// We have 12 hour representation.  Get 24 hour representation.
+		var hours = parseInt( val['HH'], 10 );
+		if( Number.isNaN(hours) )
+			hours = 0;
+		// console.log( ['HH', hours, val['HH']] );
+		if( val['P'].slice(0,1) == 'P' && hours < 12 )
+			hours += 12;
+		val['hh'] = (hours < 10 ? '0' : '') + hours;
+	}
+	else {								// We have 24 hour representation.  Get 12 hour representation.
+		var hours = parseInt( val['hh'], 10 );
+		if( Number.isNaN(hours) )
+			hours = 0;
+		val['P'] = hours < 12 ? 'AM' : 'PM';
+		if( hours > 12 )
+			hours -= 12;
+		val['HH'] = (hours < 10 ? '0' : '') + hours;
+	}
+	val['p'] = val['P'].toLowerCase();
+	
+	// Skip two digit date if we know we have a 4 digit one.
+	if( to_fmt.indexOf('yyyy') >= 0 )
+		val['yy'] = '';
+		
+	// Replace the values in the to_fmt with what we collected/computed earlier.
+	var ret = to_fmt;
+	for( var f in val ) {
+		var v = val[f], pos = to_fmt.indexOf(f);
+		if( v && pos >= 0 ) {
+			ret = ret.slice(0, pos) + v + ret.slice(pos+v.length);
+			// console.log( ['output', f, v, ret] );
+		}
+	}
+	
+	return ret;
+}
+
+
+google.charts.load('current', {'packages':['corechart']});
+google.setOnLoadCallback(onLoad);
+
+var payload = JSON.parse("{\u0022bib\u0022:850,\u0022raceName\u0022:\u0022Round 3 \u002D Pippingford Park \u002D Masters 40 and Junior Open (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222025\u002D09\u002D28 11:30\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022Overall\u0022,\u0022catType\u0022:\u0022Custom\u0022,\u0022pos\u0022:[850,565,515,899,784,901,569,258,80,931,55,57,614,871,269,60,344,885,304,175,886,74,278,113,292,731,926,826,180,894,317,133,16,312,358,219,329,172,325,884,157,702,254,137,662,209,217,853,267,206,585,34,356,879,584,323,890,919,947,140,472,283,36,82,141,549,821,918,948],\u0022gapValue\u0022:[0.0,103.76499999999987,120.61999999999989,165.7260000000001,177.11799999999994,179.17599999999993,190.95299999999997,207.51299999999992,208.06399999999985,221.39600000000019,228.34000000000015,243.95199999999977,255.76899999999978,270.6579999999999,273.7339999999999,281.0250000000001,291.37199999999984,301.076,330.9949999999999,355.16600000000017,358.0720000000001,358.875,359.0479999999998,370.2959999999998,378.0799999999999,399.82299999999987,411.1970000000001,455.17999999999984,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D1,\u002D2,\u002D2,\u002D2,\u002D3,\u002D5,\u002D7,\u002D7,\u002D7,\u002D7,\u002D7,\u002D7,\u002D7],\u0022laps\u0022:7,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u0022850\u0022:{\u0022LastName\u0022:\u0022Fletcher\u0022,\u0022FirstName\u0022:\u0022Matthew\u0022,\u0022Team\u0022:\u0022Harrogate Nova Race Team\u0022,\u0022License\u0022:\u0022996202\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,585.952,942.16,1297.37,1650.174,2004.666,2350.672],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2350.672,\u0022lastTimeOrig\u0022:2350.672,\u0022status\u0022:\u0022Finisher\u0022},\u0022565\u0022:{\u0022LastName\u0022:\u0022Cook\u0022,\u0022FirstName\u0022:\u0022James\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u00221095503\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,602.405,966.174,1335.885,1705.234,2078.211,2454.437],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2454.437,\u0022lastTimeOrig\u0022:2454.437,\u0022status\u0022:\u0022Finisher\u0022},\u0022515\u0022:{\u0022LastName\u0022:\u0022Alford\u0022,\u0022FirstName\u0022:\u0022Russell\u0022,\u0022Team\u0022:\u0022ViCiOUS VELO\u0022,\u0022License\u0022:\u0022937081\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,621.077,977.884,1348.002,1720.872,2097.582,2471.292],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2471.292,\u0022lastTimeOrig\u0022:2471.292,\u0022status\u0022:\u0022Finisher\u0022},\u0022899\u0022:{\u0022LastName\u0022:\u0022Mollison\u0022,\u0022FirstName\u0022:\u0022Peter\u0022,\u0022Team\u0022:\u0022ViCiOUS VELO\u0022,\u0022License\u0022:\u0022836835\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,621.822,998.454,1376.219,1759.721,2140.148,2516.398],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2516.398,\u0022lastTimeOrig\u0022:2516.398,\u0022status\u0022:\u0022Finisher\u0022},\u0022784\u0022:{\u0022LastName\u0022:\u0022Heap\u0022,\u0022FirstName\u0022:\u0022Thomas\u0022,\u0022Team\u0022:\u0022Hillingdon Slipstreamers\u0022,\u0022License\u0022:\u00221082354\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Central\u0022,\u0022raceTimes\u0022:[0.0,638.085,1015.174,1396.086,1777.251,2160.447,2527.79],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2527.79,\u0022lastTimeOrig\u0022:2527.79,\u0022status\u0022:\u0022Finisher\u0022},\u0022901\u0022:{\u0022LastName\u0022:\u0022Pearson\u0022,\u0022FirstName\u0022:\u0022Alfred\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u00221847432\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,626.995,998.865,1375.654,1771.682,2158.487,2529.848],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2529.848,\u0022lastTimeOrig\u0022:2529.848,\u0022status\u0022:\u0022Finisher\u0022},\u0022569\u0022:{\u0022LastName\u0022:\u0022Egan\u0022,\u0022FirstName\u0022:\u0022Declan\u0022,\u0022Team\u0022:\u0022Kingston Wheelers CC\u0022,\u0022License\u0022:\u0022957738\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,621.255,1007.357,1395.457,1776.989,2153.477,2541.625],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2541.625,\u0022lastTimeOrig\u0022:2541.625,\u0022status\u0022:\u0022Finisher\u0022},\u0022258\u0022:{\u0022LastName\u0022:\u0022Glowinski\u0022,\u0022FirstName\u0022:\u0022Philip\u0022,\u0022Team\u0022:\u0022VC Londres\u0022,\u0022License\u0022:\u0022443211\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,632.088,1012.743,1399.907,1786.448,2175.08,2558.185],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2558.185,\u0022lastTimeOrig\u0022:2558.185,\u0022status\u0022:\u0022Finisher\u0022},\u002280\u0022:{\u0022LastName\u0022:\u0022Rogers\u0022,\u0022FirstName\u0022:\u0022John\u0022,\u0022Team\u0022:\u0022Southborough \u0026 District Whls\u0022,\u0022License\u0022:\u00221765401\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,636.175,1018.344,1402.876,1791.576,2175.336,2558.736],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2558.736,\u0022lastTimeOrig\u0022:2558.736,\u0022status\u0022:\u0022Finisher\u0022},\u0022931\u0022:{\u0022LastName\u0022:\u0022Harris\u0022,\u0022FirstName\u0022:\u0022Neil\u0022,\u0022Team\u0022:\u0022Southborough \u0026 District Whls\u0022,\u0022License\u0022:\u0022413719\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,670.922,1045.297,1422.699,1813.474,2189.135,2572.068],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2572.068,\u0022lastTimeOrig\u0022:2572.068,\u0022status\u0022:\u0022Finisher\u0022},\u002255\u0022:{\u0022LastName\u0022:\u0022Lulham\u0022,\u0022FirstName\u0022:\u0022Ethan\u0022,\u0022Team\u0022:\u0022ViCiOUS VELO\u0022,\u0022License\u0022:\u00221682944\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,622.573,1013.949,1413.576,1818.068,2207.243,2579.012],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2579.012,\u0022lastTimeOrig\u0022:2579.012,\u0022status\u0022:\u0022Finisher\u0022},\u002257\u0022:{\u0022LastName\u0022:\u0022Lulham\u0022,\u0022FirstName\u0022:\u0022Geoffrey\u0022,\u0022Team\u0022:\u0022ViCiOUS VELO\u0022,\u0022License\u0022:\u0022429274\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,638.733,1025.321,1418.072,1817.229,2205.847,2594.624],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2594.624,\u0022lastTimeOrig\u0022:2594.624,\u0022status\u0022:\u0022Finisher\u0022},\u0022614\u0022:{\u0022LastName\u0022:\u0022Braid\u0022,\u0022FirstName\u0022:\u0022Dan\u0022,\u0022Team\u0022:\u0022ViCiOUS VELO\u0022,\u0022License\u0022:\u0022827387\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,635.228,1019.268,1406.572,1802.876,2194.845,2606.441],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2606.441,\u0022lastTimeOrig\u0022:2606.441,\u0022status\u0022:\u0022Finisher\u0022},\u0022871\u0022:{\u0022LastName\u0022:\u0022Lauder\u0022,\u0022FirstName\u0022:\u0022Neil\u0022,\u0022Team\u0022:\u0022Arctic Aircon RT\u0022,\u0022License\u0022:\u00221009493\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,676.995,1061.906,1447.252,1843.586,2234.974,2621.33],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2621.33,\u0022lastTimeOrig\u0022:2621.33,\u0022status\u0022:\u0022Finisher\u0022},\u0022269\u0022:{\u0022LastName\u0022:\u0022Kononov\u0022,\u0022FirstName\u0022:\u0022Oleg\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u00221544623\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Eastern\u0022,\u0022raceTimes\u0022:[0.0,652.546,1047.007,1442.017,1841.282,2237.619,2624.406],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2624.406,\u0022lastTimeOrig\u0022:2624.406,\u0022status\u0022:\u0022Finisher\u0022},\u002260\u0022:{\u0022LastName\u0022:\u0022Machin\u0022,\u0022FirstName\u0022:\u0022Ryan\u0022,\u0022Team\u0022:\u0022Destination Bike RT\u0022,\u0022License\u0022:\u00221015218\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,654.112,1046.929,1442.338,1843.849,2242.948,2631.697],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2631.697,\u0022lastTimeOrig\u0022:2631.697,\u0022status\u0022:\u0022Finisher\u0022},\u0022344\u0022:{\u0022LastName\u0022:\u0022Kunz\u0022,\u0022FirstName\u0022:\u0022Mattias\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u0022458996\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,647.192,1040.207,1436.943,1842.808,2243.668,2642.044],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2642.044,\u0022lastTimeOrig\u0022:2642.044,\u0022status\u0022:\u0022Finisher\u0022},\u0022885\u0022:{\u0022LastName\u0022:\u0022Shepherd\u0022,\u0022FirstName\u0022:\u0022Mark\u0022,\u0022Team\u0022:\u0022Southborough \u0026 District Whls\u0022,\u0022License\u0022:\u0022717479\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,679.639,1070.609,1460.707,1855.046,2251.896,2651.748],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2651.748,\u0022lastTimeOrig\u0022:2651.748,\u0022status\u0022:\u0022Finisher\u0022},\u0022304\u0022:{\u0022LastName\u0022:\u0022Struele\u0022,\u0022FirstName\u0022:\u0022Dave\u0022,\u0022Team\u0022:\u0022Raptor London\u0022,\u0022License\u0022:\u0022445855\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,676.154,1071.887,1466.95,1873.518,2279.505,2681.667],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2681.667,\u0022lastTimeOrig\u0022:2681.667,\u0022status\u0022:\u0022Finisher\u0022},\u0022175\u0022:{\u0022LastName\u0022:\u0022Plail\u0022,\u0022FirstName\u0022:\u0022Aidan\u0022,\u0022Team\u0022:\u0022Bigfoot CC\u0022,\u0022License\u0022:\u00221262233\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,690.414,1087.394,1492.764,1892.098,2297.713,2705.838],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2705.838,\u0022lastTimeOrig\u0022:2705.838,\u0022status\u0022:\u0022Finisher\u0022},\u0022886\u0022:{\u0022LastName\u0022:\u0022Smith\u0022,\u0022FirstName\u0022:\u0022Matt J\u0022,\u0022Team\u0022:\u0022Beeline Bicycles \u002D Sorb\u0022,\u0022License\u0022:\u00221155759\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,696.337,1098.759,1502.12,1906.085,2308.976,2708.744],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2708.744,\u0022lastTimeOrig\u0022:2708.744,\u0022status\u0022:\u0022Finisher\u0022},\u002274\u0022:{\u0022LastName\u0022:\u0022Osborn\u0022,\u0022FirstName\u0022:\u0022Simon\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u0022913893\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,691.874,1090.073,1493.756,1899.475,2309.907,2709.547],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2709.547,\u0022lastTimeOrig\u0022:2709.547,\u0022status\u0022:\u0022Finisher\u0022},\u0022278\u0022:{\u0022LastName\u0022:\u0022Malone\u0022,\u0022FirstName\u0022:\u0022James\u0022,\u0022Team\u0022:\u0022Dulwich Paragon CC\u0022,\u0022License\u0022:\u00221060319\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,664.889,1057.597,1455.235,1857.909,2270.752,2709.72],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2709.72,\u0022lastTimeOrig\u0022:2709.72,\u0022status\u0022:\u0022Finisher\u0022},\u0022113\u0022:{\u0022LastName\u0022:\u0022Jones\u0022,\u0022FirstName\u0022:\u0022Marcus\u0022,\u0022Team\u0022:\u0022Kingston Wheelers CC\u0022,\u0022License\u0022:\u00221570426\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,687.19,1082.066,1484.145,1894.184,2304.232,2720.968],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2720.968,\u0022lastTimeOrig\u0022:2720.968,\u0022status\u0022:\u0022Finisher\u0022},\u0022292\u0022:{\u0022LastName\u0022:\u0022Newlyn\u0022,\u0022FirstName\u0022:\u0022Kevin\u0022,\u0022Team\u0022:\u0022Sussex Revolution Velo Club\u0022,\u0022License\u0022:\u00221675092\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,679.025,1077.483,1477.345,1897.071,2315.96,2728.752],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2728.752,\u0022lastTimeOrig\u0022:2728.752,\u0022status\u0022:\u0022Finisher\u0022},\u0022731\u0022:{\u0022LastName\u0022:\u0022Aston\u0022,\u0022FirstName\u0022:\u0022John\u0022,\u0022Team\u0022:\u0022Hunt Bike Wheels\u0022,\u0022License\u0022:\u0022724516\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,711.898,1113.003,1513.099,1927.312,2341.695,2750.495],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2750.495,\u0022lastTimeOrig\u0022:2750.495,\u0022status\u0022:\u0022Finisher\u0022},\u0022926\u0022:{\u0022LastName\u0022:\u0022Gregory\u0022,\u0022FirstName\u0022:\u0022Josh\u0022,\u0022Team\u0022:\u0022VC Deal\u0022,\u0022License\u0022:\u0022425067\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,699.679,1102.963,1516.089,1933.057,2347.671,2761.869],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2761.869,\u0022lastTimeOrig\u0022:2761.869,\u0022status\u0022:\u0022Finisher\u0022},\u0022826\u0022:{\u0022LastName\u0022:\u0022Thwaites\u0022,\u0022FirstName\u0022:\u0022Ivo\u0022,\u0022Team\u0022:\u0022Southborough \u0026 District Whls\u0022,\u0022License\u0022:\u00221295066\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,646.363,1062.211,1479.407,1891.736,2338.946,2805.852],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2805.852,\u0022lastTimeOrig\u0022:2805.852,\u0022status\u0022:\u0022Finisher\u0022},\u0022180\u0022:{\u0022LastName\u0022:\u0022Short\u0022,\u0022FirstName\u0022:\u0022Russell\u0022,\u0022Team\u0022:\u0022CHAINGANG Racing Team\u0022,\u0022License\u0022:\u0022439535\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Central\u0022,\u0022raceTimes\u0022:[0.0,732.595,1143.502,1547.055,1957.961,2359.947],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2359.947,\u0022lastTimeOrig\u0022:2359.947,\u0022status\u0022:\u0022Finisher\u0022},\u0022894\u0022:{\u0022LastName\u0022:\u0022Waddington\u0022,\u0022FirstName\u0022:\u0022James\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u0022417201\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,705.257,1109.593,1523.085,1949.314,2360.554],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2360.554,\u0022lastTimeOrig\u0022:2360.554,\u0022status\u0022:\u0022Finisher\u0022},\u0022317\u0022:{\u0022LastName\u0022:\u0022Watkins\u0022,\u0022FirstName\u0022:\u0022Thomas\u0022,\u0022Team\u0022:\u0022Bigfoot CC\u0022,\u0022License\u0022:\u00221346506\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,701.095,1105.186,1519.111,1941.281,2370.308],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2370.308,\u0022lastTimeOrig\u0022:2370.308,\u0022status\u0022:\u0022Finisher\u0022},\u0022133\u0022:{\u0022LastName\u0022:\u0022Hayes\u0022,\u0022FirstName\u0022:\u0022Rory\u0022,\u0022Team\u0022:\u0022Herne Hill Youth CC\u0022,\u0022License\u0022:\u00221810610\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,719.158,1139.467,1558.326,1963.975,2373.473],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2373.473,\u0022lastTimeOrig\u0022:2373.473,\u0022status\u0022:\u0022Finisher\u0022},\u002216\u0022:{\u0022LastName\u0022:\u0022Crawford\u0022,\u0022FirstName\u0022:\u0022Adam\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u00221774712\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,681.102,1106.107,1533.663,1957.24,2380.239],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2380.239,\u0022lastTimeOrig\u0022:2380.239,\u0022status\u0022:\u0022Finisher\u0022},\u0022312\u0022:{\u0022LastName\u0022:\u0022Surda\u0022,\u0022FirstName\u0022:\u0022Pavol\u0022,\u0022Team\u0022:\u0022Dulwich Paragon CC\u0022,\u0022License\u0022:\u00221461673\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,698.11,1124.175,1543.106,1967.552,2391.36],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2391.36,\u0022lastTimeOrig\u0022:2391.36,\u0022status\u0022:\u0022Finisher\u0022},\u0022358\u0022:{\u0022LastName\u0022:\u0022Smith\u0022,\u0022FirstName\u0022:\u0022Andrew\u0022,\u0022Team\u0022:\u0022Brixton Cycles Club\u0022,\u0022License\u0022:\u00221086890\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,720.065,1142.671,1558.531,1975.962,2399.769],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2399.769,\u0022lastTimeOrig\u0022:2399.769,\u0022status\u0022:\u0022Finisher\u0022},\u0022219\u0022:{\u0022LastName\u0022:\u0022McMahon\u0022,\u0022FirstName\u0022:\u0022Tom\u0022,\u0022Team\u0022:\u0022Dulwich Paragon CC\u0022,\u0022License\u0022:\u00221711634\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,703.122,1124.967,1550.024,1975.36,2401.229],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2401.229,\u0022lastTimeOrig\u0022:2401.229,\u0022status\u0022:\u0022Finisher\u0022},\u0022329\u0022:{\u0022LastName\u0022:\u0022Fisher\u0022,\u0022FirstName\u0022:\u0022Dan\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u00221441053\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,716.26,1135.667,1556.397,1987.838,2411.16],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2411.16,\u0022lastTimeOrig\u0022:2411.16,\u0022status\u0022:\u0022Finisher\u0022},\u0022172\u0022:{\u0022LastName\u0022:\u0022Phillips\u0022,\u0022FirstName\u0022:\u0022Kevin\u0022,\u0022Team\u0022:\u0022Brighton Mitre CC\u0022,\u0022License\u0022:\u00221567969\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,729.95,1149.548,1573.395,1998.18,2421.08],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2421.08,\u0022lastTimeOrig\u0022:2421.08,\u0022status\u0022:\u0022Finisher\u0022},\u0022325\u0022:{\u0022LastName\u0022:\u0022Burdon\u0022,\u0022FirstName\u0022:\u0022Lucas\u0022,\u0022Team\u0022:\u0022Southborough \u0026 District Whls\u0022,\u0022License\u0022:\u00221714920\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,699.187,1120.842,1548.246,1982.788,2430.021],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2430.021,\u0022lastTimeOrig\u0022:2430.021,\u0022status\u0022:\u0022Finisher\u0022},\u0022884\u0022:{\u0022LastName\u0022:\u0022Ryan\u0022,\u0022FirstName\u0022:\u0022Leon\u0022,\u0022Team\u0022:\u0022Neighbourhood Brighton CC\u0022,\u0022License\u0022:\u00221308309\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,734.258,1154.951,1576.774,2001.031,2434.151],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2434.151,\u0022lastTimeOrig\u0022:2434.151,\u0022status\u0022:\u0022Finisher\u0022},\u0022157\u0022:{\u0022LastName\u0022:\u0022Graves\u0022,\u0022FirstName\u0022:\u0022Mark\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u00221780880\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,715.457,1146.338,1580.273,2017.673,2445.646],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2445.646,\u0022lastTimeOrig\u0022:2445.646,\u0022status\u0022:\u0022Finisher\u0022},\u0022702\u0022:{\u0022LastName\u0022:\u0022Spicer\u0022,\u0022FirstName\u0022:\u0022Clive\u0022,\u0022Team\u0022:\u0022Preston Park Youth CC (PPYCC)\u0022,\u0022License\u0022:\u00221035197\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,673.088,1079.363,1489.056,2041.215,2461.938],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2461.938,\u0022lastTimeOrig\u0022:2461.938,\u0022status\u0022:\u0022Finisher\u0022},\u0022254\u0022:{\u0022LastName\u0022:\u0022Daley\u0022,\u0022FirstName\u0022:\u0022Lawrence\u0022,\u0022Team\u0022:\u0022Neighbourhood Brighton CC\u0022,\u0022License\u0022:\u00221524856\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,732.798,1153.568,1605.235,2037.932,2482.323],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2482.323,\u0022lastTimeOrig\u0022:2482.323,\u0022status\u0022:\u0022Finisher\u0022},\u0022137\u0022:{\u0022LastName\u0022:\u0022Brett\u0022,\u0022FirstName\u0022:\u0022Damian\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u00221421273\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,748.618,1182.742,1608.029,2050.658,2490.336],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2490.336,\u0022lastTimeOrig\u0022:2490.336,\u0022status\u0022:\u0022Finisher\u0022},\u0022662\u0022:{\u0022LastName\u0022:\u0022Jones\u0022,\u0022FirstName\u0022:\u0022Ben\u0022,\u0022Team\u0022:\u0022Lee Valley Youth Cycling Club\u0022,\u0022License\u0022:\u00221448624\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Central\u0022,\u0022raceTimes\u0022:[0.0,675.425,1088.651,1503.352,1943.906,2491.278],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2491.278,\u0022lastTimeOrig\u0022:2491.278,\u0022status\u0022:\u0022Finisher\u0022},\u0022209\u0022:{\u0022LastName\u0022:\u0022Hill\u0022,\u0022FirstName\u0022:\u0022Alex\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u00221166004\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,731.204,1173.039,1609.059,2058.528,2501.388],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2501.388,\u0022lastTimeOrig\u0022:2501.388,\u0022status\u0022:\u0022Finisher\u0022},\u0022217\u0022:{\u0022LastName\u0022:\u0022McCartney\u0022,\u0022FirstName\u0022:\u0022Simon\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u0022TEMP_215558...\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Eastern\u0022,\u0022raceTimes\u0022:[0.0,778.235,1209.155,1642.97,2081.123,2524.224],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2524.224,\u0022lastTimeOrig\u0022:2524.224,\u0022status\u0022:\u0022Finisher\u0022},\u0022853\u0022:{\u0022LastName\u0022:\u0022Gatt\u0022,\u0022FirstName\u0022:\u0022Christopher\u0022,\u0022Team\u0022:\u0022VC Londres\u0022,\u0022License\u0022:\u0022943360\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,778.682,1229.397,1674.465,2121.0,2564.989],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2564.989,\u0022lastTimeOrig\u0022:2564.989,\u0022status\u0022:\u0022Finisher\u0022},\u0022267\u0022:{\u0022LastName\u0022:\u0022King\u0022,\u0022FirstName\u0022:\u0022Darren\u0022,\u0022Team\u0022:\u0022Rapha Cycling Club\u0022,\u0022License\u0022:\u00221204422\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,751.598,1199.044,1642.021,2109.638,2573.235],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2573.235,\u0022lastTimeOrig\u0022:2573.235,\u0022status\u0022:\u0022Finisher\u0022},\u0022206\u0022:{\u0022LastName\u0022:\u0022Harris\u0022,\u0022FirstName\u0022:\u0022Edward\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u00221365245\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,787.337,1239.905,1692.001,2146.287,2603.887],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2603.887,\u0022lastTimeOrig\u0022:2603.887,\u0022status\u0022:\u0022Finisher\u0022},\u0022585\u0022:{\u0022LastName\u0022:\u0022Howard\u0022,\u0022FirstName\u0022:\u0022Elliot\u0022,\u0022Team\u0022:\u0022Herne Hill Youth CC\u0022,\u0022License\u0022:\u00221674571\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,771.66,1227.632,1692.194,2162.195,2624.474],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2624.474,\u0022lastTimeOrig\u0022:2624.474,\u0022status\u0022:\u0022Finisher\u0022},\u002234\u0022:{\u0022LastName\u0022:\u0022Hermans\u0022,\u0022FirstName\u0022:\u0022Ruben\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u00221770565\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,781.737,1236.51,1703.129,2171.411,2639.91],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2639.91,\u0022lastTimeOrig\u0022:2639.91,\u0022status\u0022:\u0022Finisher\u0022},\u0022356\u0022:{\u0022LastName\u0022:\u0022Sharpe\u0022,\u0022FirstName\u0022:\u0022Jon\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u00221223480\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,785.5,1245.749,1709.315,2179.025,2641.796],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2641.796,\u0022lastTimeOrig\u0022:2641.796,\u0022status\u0022:\u0022Finisher\u0022},\u0022879\u0022:{\u0022LastName\u0022:\u0022Read\u0022,\u0022FirstName\u0022:\u0022Leighton\u0022,\u0022Team\u0022:\u0022Ashford Road Cycling Club\u0022,\u0022License\u0022:\u00221448380\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,808.293,1283.485,1756.871,2236.856,2701.451],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2701.451,\u0022lastTimeOrig\u0022:2701.451,\u0022status\u0022:\u0022Finisher\u0022},\u0022584\u0022:{\u0022LastName\u0022:\u0022Howard\u0022,\u0022FirstName\u0022:\u0022Barney\u0022,\u0022Team\u0022:\u0022Herne Hill Youth CC\u0022,\u0022License\u0022:\u00221674569\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,780.078,1243.893,1727.482,2222.194,2778.457],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2778.457,\u0022lastTimeOrig\u0022:2778.457,\u0022status\u0022:\u0022Finisher\u0022},\u0022323\u0022:{\u0022LastName\u0022:\u0022Aderibigbe\u0022,\u0022FirstName\u0022:\u0022Seun\u0022,\u0022Team\u0022:\u0022Brixton Cycles Club\u0022,\u0022License\u0022:\u00221646307\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Eastern\u0022,\u0022raceTimes\u0022:[0.0,792.957,1270.277,1785.458,2290.685,2781.823],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2781.823,\u0022lastTimeOrig\u0022:2781.823,\u0022status\u0022:\u0022Finisher\u0022},\u0022890\u0022:{\u0022LastName\u0022:\u0022Stewart\u0022,\u0022FirstName\u0022:\u0022Graeme\u0022,\u0022Team\u0022:\u0022Limited Edition Cycling\u0022,\u0022License\u0022:\u00221211570\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,823.507,1300.409,1793.411,2287.99,2781.869],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2781.869,\u0022lastTimeOrig\u0022:2781.869,\u0022status\u0022:\u0022Finisher\u0022},\u0022919\u0022:{\u0022LastName\u0022:\u0022Goscomb\u0022,\u0022FirstName\u0022:\u0022Aleksander\u0022,\u0022Team\u0022:\u0022Southborough \u0026 District Whls\u0022,\u0022License\u0022:\u00221838994\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,824.34,1346.246,1880.302,2394.612],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2394.612,\u0022lastTimeOrig\u0022:2394.612,\u0022status\u0022:\u0022Finisher\u0022},\u0022947\u0022:{\u0022LastName\u0022:\u0022Shearwood\u0022,\u0022FirstName\u0022:\u0022Mark\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u0022TEMP_581218...\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,846.194,1363.475,1894.875,2414.806],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2414.806,\u0022lastTimeOrig\u0022:2414.806,\u0022status\u0022:\u0022Finisher\u0022},\u0022140\u0022:{\u0022LastName\u0022:\u0022Cooper\u0022,\u0022FirstName\u0022:\u0022Tim\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u0022TEMP_444252...\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,851.952,1365.053,1896.278,2416.795],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2416.795,\u0022lastTimeOrig\u0022:2416.795,\u0022status\u0022:\u0022Finisher\u0022},\u0022472\u0022:{\u0022LastName\u0022:\u0022Osborne\u0022,\u0022FirstName\u0022:\u0022Ben\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u00221832338\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,690.76,1106.021,1541.308],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:1541.308,\u0022lastTimeOrig\u0022:1541.308,\u0022status\u0022:\u0022DNF\u0022},\u0022283\u0022:{\u0022LastName\u0022:\u0022Mcghee\u0022,\u0022FirstName\u0022:\u0022Ewan\u0022,\u0022Team\u0022:\u0022C and N Cycles RT\u0022,\u0022License\u0022:\u00221427877\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,987.312],\u0022interp\u0022:[0,0],\u0022lastTime\u0022:987.312,\u0022lastTimeOrig\u0022:987.312,\u0022status\u0022:\u0022DNF\u0022},\u002236\u0022:{\u0022LastName\u0022:\u0022Hopping\u0022,\u0022FirstName\u0022:\u0022Martyn\u0022,\u0022Team\u0022:\u0022Kingston Wheelers CC\u0022,\u0022License\u0022:\u00221084267\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022DNS\u0022},\u002282\u0022:{\u0022LastName\u0022:\u0022Sandell\u0022,\u0022FirstName\u0022:\u0022Theo\u0022,\u0022Team\u0022:\u0022VC Londres\u0022,\u0022License\u0022:\u0022976857\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022DNS\u0022},\u0022141\u0022:{\u0022LastName\u0022:\u0022Davis\u0022,\u0022FirstName\u0022:\u0022Hadley\u0022,\u0022Team\u0022:\u0022VC Londres\u0022,\u0022License\u0022:\u00221582475\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022DNS\u0022},\u0022549\u0022:{\u0022LastName\u0022:\u0022Watson\u0022,\u0022FirstName\u0022:\u0022Keith\u0022,\u0022Team\u0022:\u0022VC Deal\u0022,\u0022License\u0022:\u0022949343\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022DNS\u0022},\u0022821\u0022:{\u0022LastName\u0022:\u0022Smith\u0022,\u0022FirstName\u0022:\u0022David\u0022,\u0022Team\u0022:\u0022VC Londres\u0022,\u0022License\u0022:\u0022410307\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022DNS\u0022},\u0022918\u0022:{\u0022LastName\u0022:\u0022Gamper\u0022,\u0022FirstName\u0022:\u0022Micha\u0022,\u0022Team\u0022:\u0022Clapham Chasers\u0022,\u0022License\u0022:\u00221420552\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022DNS\u0022},\u0022948\u0022:{\u0022LastName\u0022:\u0022Simpson\u0022,\u0022FirstName\u0022:\u0022William\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u00221856686\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022DNS\u0022}},\u0022has_multiple_laps\u0022:true}");
+var data = null;
+var catDetails = null;
+var raceName = null;
+var hub_mode = null;
+var categoryCur = null;
+
+Array.prototype.back = function() {
+	return this[this.length-1];
+}
+Array.prototype.binSearch = function( v ) {
+	var L = this.length, i = -1, m;
+	while( L - i > 1 ) {
+		if( this[m = ((L + i)>>1)] < v )
+			i = m;
+		else
+			L = m;
+	}
+	return L;
+}
+
+Array.prototype.swap = function( x, y ) {
+	var tmp = this[x];
+	this[x] = this[y];
+	this[y] = tmp;
+}
+
+function isCanvasSupported() {
+	var elem = document.createElement('canvas');
+	return !!(elem.getContext && elem.getContext('2d'));
+}
+
+function createChild( parent, tag ) {
+	var child = document.createElement(tag);
+	parent.appendChild( child );
+	return child;
+}
+
+function createTextChild( parent, s ) {
+	var child = document.createTextNode(s);
+	parent.appendChild( child );
+	return child;
+}
+
+function getOrdinal( n ) {
+	var s = ['th', 'st', 'nd', 'rd'], v = n%100;
+	return n + (s[(v-20)%10]||s[v]||s[0]);
+}
+
+function FormatTime( t, highPrecision ) {
+	var tStr = '';
+	if( t < 0 ) {
+		tStr = '-';
+		t = -t;
+	}
+	var secs = ~~t;
+	var h = ~~(secs / (60*60));
+	var m = (~~(secs / 60) % 60);
+	var s = (~~(secs % 60) + t - secs).toFixed( highPrecision ? 3 : 0 );
+	if( h > 0 )
+		tStr += h + (m < 10 ? ':0' : ':') + m + (s < 10 ? ':0' : ':') + s;
+	else
+		tStr += m + (s < 10 ? ':0' : ':') + s;
+	return tStr;
+}
+
+function FormatTimeGap( t, highPrecision ) {
+	var tStr = '';
+	if( t < 0 ) {
+		tStr = '-';
+		t = -t;
+	}
+	var secs = ~~t;
+	var h = ~~(secs / (60*60));
+	var m = (~~(secs / 60) % 60);
+	var s = (~~(secs % 60) + t - secs).toFixed( highPrecision ? 3 : 0 );
+	if( h > 0 )
+		tStr += h + (m < 10 ? 'h0' : 'h') + m + (s < 10 ? "'0" : "'") + s;
+	else
+		tStr += m + (s < 10 ? "'0" : "'") + s;
+	tStr += '"';
+	return tStr;
+}
+
+function DrawCircle( ctx, x, y, radius ) {
+	ctx.beginPath();
+	ctx.arc(x, y, radius, 0.0, Math.PI*2, true);
+	ctx.closePath();
+	ctx.fill();
+	ctx.stroke();
+}
+
+function DrawLine( ctx, x1, y1, x2, y2 ) {
+	ctx.beginPath();
+	ctx.moveTo( x1, y1 );
+	ctx.lineTo( x2, y2 );
+	ctx.stroke();
+}
+
+function FormatDistanceGap( d, distanceUnit ) {
+	var suffix = 'behind';
+	if( d < 0 ) {
+		d *= -1;
+		suffix = 'ahead';
+	}
+	if( distanceUnit == 'km' ) {
+		if( d < 0.1 )
+			return (d*1000.0).toFixed(1) + ' m ' + suffix;
+		return d.toFixed(1) + ' ' + distanceUnit + ' ' + suffix;
+	}
+	else {
+		if( d <= 0.1 )
+			return (d*5280.0).toFixed(0) + ' ft ' + suffix;
+		return d.toFixed(1) + ' ' + distanceUnit + ' ' + suffix;
+	}
+}
+
+function updateHistogramChart() {
+	var container = document.getElementById( 'idHistogramChart' );
+	if( !container.chart )
+		container.chart = new google.visualization.Histogram( container );
+	
+	var dataTable = new google.visualization.DataTable();
+	dataTable.addColumn( 'string', 'Bib Name' );
+	dataTable.addColumn( 'number', 'Finish Time (min)' );
+	
+	var finishTimes = [];
+	var winnerRaceTimesLength = -1;
+	for( var i = 0; i < categoryCur.pos.length; ++i ) {
+		var bibCur = categoryCur.pos[i];
+		var d = data[bibCur];
+		if( !d.raceTimes || d.raceTimes.length < 2 || d.status != 'Finisher' )
+			continue;
+		if( winnerRaceTimesLength < 0 )
+			winnerRaceTimesLength = d.raceTimes.length;
+		if( d.raceTimes.length != winnerRaceTimesLength )
+			continue;
+		var name = '' + (bibCur);
+		if( d.LastName )
+			name += ': ' + d.LastName;
+		if( d.FirstName )
+			name += ', ' + d.FirstName;
+		var finishTime = (d.raceTimes.back() - d.raceTimes[0]) / 60.0;
+		finishTimes.push( finishTime );
+		var row = [ name, finishTime];
+		dataTable.addRow( row );
+	}
+
+	var mean = 0, median = 0, variance = 0, std = 0;
+	if( finishTimes.length > 0 ) {
+		if( (finishTimes.length & 1) == 1 )
+			median = finishTimes[~~(finishTimes.length/2)];
+		else {
+			var i = ~~(finishTimes.length/2);
+			median = (finishTimes[i] + finishTimes[i+1]) / 2.0;
+		}
+		mean = finishTimes.reduce( function(meanTotal, value) { return meanTotal + value; }, 0.0 ) / finishTimes.length;
+		variance = finishTimes.reduce( function(varTotal, value) { return varTotal + value*value; }, 0.0 ) / finishTimes.length;
+		std = Math.sqrt( variance );
+	}
+	var statsDiv = document.getElementById( 'idStatistics' );
+	if( mean != 0 ) {
+		function strong( v ) { return '<strong>' + v + '</strong>'; }
+		statsDiv.innerHTML = '<p>' + 
+			'Total: ' + strong(finishTimes.length) + '&nbsp;&nbsp;' +
+			'Median: ' + strong(median.toFixed(3)) + '&nbsp;&nbsp;' +
+			'Mean: ' + strong(mean.toFixed(3)) + '&nbsp;&nbsp;' +
+			'Std: ' + strong(std.toFixed(3)) + '&nbsp;&nbsp;' +
+			'Var: ' + strong(variance.toFixed(3)) + '' +
+		'</p>';
+	} else
+		statsDiv.innerHTML = '';
+	
+	var options = {
+		title: 'Finish Time Histogram (minutes), Laps: ' + (winnerRaceTimesLength-1),
+		vAxis: { title: "count" },
+		legend: { position: 'none' },
+		height: 400, width: 900,
+	};
+	container.chart.draw( dataTable, options );
+}
+
+// ---------------------------------------------------------------------
+
+class Rect {
+	constructor( x, y, width, height ) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
+	GetLeft()		{ return this.x; }
+	GetRight()		{ return this.x + this.width; }
+	GetTop()		{ return this.y; }
+	GetBottom()		{ return this.y + this.height; }
+	GetWidth()		{ return this.width; }
+	GetHeight()		{ return this.height; }
+	SetTop( y )		{ this.y = y; }
+	SetBottom( y )	{ this.y = y - this.height; }
+	SetLeft( x )	{ this.x = x; }
+	SetRight( x )	{ this.x = x - this.width; }
+	ContainsXY( x, y) {
+		return this.x <= x && x <= this.x + this.width && this.y <= y && y <= this.y + this.height;
+	}
+	Intersects( r ) {
+		return !(
+			r.x + r.width < this.x ||
+			this.x + this.width < r.x ||
+			r.y + r.height < this.y ||
+			this.y + this.height < r.y
+		);
+	}
+	print( label ) {
+		console.log( label + ': Rect(' + this.x + ',' + this.y + ',' + this.width + ',' + this.height + ')' );
+	}
+}
+
+// ---------------------------------------------------------------------
+
+var _resultsNums = [];
+var _raceTMax = null;
+var _lastCategory = '';
+function GetValidResultsNums() {
+	if( _lastCategory == categoryCur )
+		return _resultsNums;
+	
+	_resultsNums = [];
+	_raceTMax = null;
+	for( var c = 0; c < catDetails.length; ++c )
+	{
+		var catDetail = catDetails[c];
+		for( var p = 0; p < catDetail.pos.length; ++p ) {
+			var num = catDetail.pos[p];
+			var d = data[num];
+			var raceTimes = d['raceTimes'];
+			if( raceTimes && raceTimes.length >= 2 )
+				_resultsNums.push( num );
+		}
+		break;
+	}
+	
+	_lastCategory = categoryCur;
+	return _resultsNums;
+}
+function GetRaceTMax() {
+	if( _lastCategory == categoryCur && _raceTMax != null )
+		return _raceTMax;
+	
+	var resultsNums = GetValidResultsNums();
+	_raceTMax = 0.0;
+	for( var i = 0; i < resultsNums.length; ++i ) {
+		var d = data[resultsNums[i]];
+		var raceTimes = d['raceTimes'];
+		if( raceTimes.back() > _raceTMax )
+			_raceTMax = raceTimes.back();
+	}
+	return _raceTMax;
+}
+
+function ShortFormatTimeGap( t ) {
+	var tStr = FormatTimeGap( t );
+	if( tStr.substring(0, 3) == "0'0" )
+		tStr = tStr.substring(3);
+	else if( tStr.substring(0,2) == "0'" )
+		tStr = tStr.substring(2);
+	return tStr;
+}
+
+function GetLapLE( raceTimes, t ) {
+	var lap = raceTimes.binSearch( t );
+	if( lap >= raceTimes.length )
+		lap = raceTimes.length - 1;
+	return raceTimes[lap] > t ? lap-1 : lap;
+}
+
+function GetPositionSpeed( raceTimes, t ) {
+	var lap = GetLapLE( raceTimes, t );
+	var lapStartTime = raceTimes[lap];
+	var lapTime = 0.0;
+	if( lap+1 < raceTimes.length )
+		lapTime = raceTimes[lap+1] - raceTimes[lap];
+	else
+		lapTime = raceTimes[lap] - raceTimes[lap-1];
+	var speed = 1.0 / lapTime;
+	return {'position': lap + (t - lapStartTime) * speed, 'speed': speed};
+}
+
+function GetLeaderGap( leaderPosition, leaderSpeed, leaderRaceTimes, raceTimes, t ) {
+	if( !raceTimes || raceTimes.length == 0 )
+		return null;
+	if( t >= raceTimes[raceTimes.length-1] ) {
+		if( t >= leaderRaceTimes[leaderRaceTimes.length-1] )
+			return {
+				'gap':leaderRaceTimes.length == raceTimes.length ? raceTimes[raceTimes.length-1] - leaderRaceTimes[leaderRaceTimes.length-1] : null,
+				'lapsDown': raceTimes.length - leaderRaceTimes.length
+			};
+		return {'gap':null, 'lapsDown':raceTimes.length - leaderRaceTimes.length};
+	}
+	
+	var ps = GetPositionSpeed( raceTimes, t );
+	var riderPosition = ps.position, riderSpeed = ps.speed;
+	var deltaPostion = leaderPosition - riderPosition;
+	var positionFraction = deltaPostion - Math.floor(deltaPostion);
+	if( positionFraction < 0.0 )
+		positionFraction += 1.0;
+	return {'gap':positionFraction / leaderSpeed, 'lapsDown': -Math.floor(deltaPostion)};
+}
+
+function PathFromPoints( dc, points, xTranslate, yTranslate ) {
+	xTranslate = xTranslate ? xTranslate : 0;
+	yTranslate = yTranslate ? yTranslate : 0;
+	dc.beginPath();
+	dc.moveTo( points[0][0] + xTranslate, points[0][1] + yTranslate );
+	for( var p = 1; p < points.length; ++p )
+		dc.lineTo( points[p][0] + xTranslate, points[p][1] + yTranslate );
+}
+
+function GetSituationGaps( t ) {
+	var BigTime = 1000.0*24.0*60.0*60.0;
+	
+	var resultsNums = GetValidResultsNums();
+	if( resultsNums.length == 0 )
+		return [];
+		
+	var maxLaps = 0;
+	for( var i = 0; i < resultsNums.length; ++i ) {
+		var d = data[resultsNums[i]];
+		if( d.raceTimes && d.raceTimes.length - 1 > maxLaps )
+			maxLaps = d.raceTimes.length - 1;
+	}
+	
+	if( t == undefined )
+		t = BigTime;
+	var raceTMax = GetRaceTMax();
+	t = Math.min( t, raceTMax );
+	
+	var leaderRaceTimes = [];
+	for( var lap = 0; lap <= maxLaps; ++lap ) {
+		var tMinLap = BigTime;
+		for( var i = 0; i < resultsNums.length; ++i ) {
+			var d = data[resultsNums[i]];
+			if( d.raceTimes.length > lap && d.raceTimes[lap] < tMinLap )
+				tMinLap = d.raceTimes[lap];
+		}
+		leaderRaceTimes.push( tMinLap );
+	}
+	
+	function getInfo( num, lapsDown ) {
+		var d = data[num];
+		var names = [];
+		if( d.LastName ) names.push( d.LastName );
+		if( d.FirstName ) names.push( d.FirstName.slice(0, 1) );
+		if( lapsDown != 0 )
+			num = '\u2198' + num;
+		return num + ' ' + names.join(',') + (lapsDown != 0 ? ' (' + lapsDown + ')': '');
+	}
+	
+	var ps = GetPositionSpeed( leaderRaceTimes, t );
+	var leaderPosition = ps.position, leaderSpeed = ps.speed;
+	var gaps = [];
+	for( var i = 0; i < resultsNums.length; ++i ) {
+		var num = resultsNums[i];
+		var d = data[num];
+		gapLapsDown = GetLeaderGap( leaderPosition, leaderSpeed, leaderRaceTimes, d.raceTimes, t );
+		if( gapLapsDown != null && gapLapsDown.gap != null )
+			gaps.push( [gapLapsDown.gap, getInfo(num, gapLapsDown.lapsDown), num] );
+	}
+	
+	gaps.sort( function(a, b) { return a[0] - b[0]; } );
+	
+	if( gaps.length > 0 ) {
+		var gapMin = gaps[0][0];
+		if( gapMin > 0 ) {
+			for( var g = 0; g < gaps.length; ++g )
+				gaps[g][0] -= gapMin;
+		}
+	}
+	
+	var thisLap = GetLapLE(leaderRaceTimes, t);
+	
+	var tCur = t;
+	var tAfterLeader = t - leaderRaceTimes[thisLap];
+	var laps = leaderRaceTimes.length - 1;
+	var lap = Math.min( thisLap + 1, laps );
+	var lapsToGo = Math.max(laps - lap, 0);
+	
+	var title = 
+			'   ' + 'Lap' + ': ' + lap + '/' + laps + '   ' + 'Laps to go' + ': ' + lapsToGo +
+			'    ' + 'Race Time' + ': ' + FormatTime(tCur);
+	
+	return {"gaps":gaps, "tAfterLeader":tAfterLeader, "title":title, "tCur":tCur};
+}
+
+function Situation( situationCanvas, timeRange, detailDiv) {
+	this.situationCanvas = situationCanvas;
+	this.timeRange = timeRange;
+	this.detailDiv = detailDiv;
+
+	var groupIndexColour = '#FFCC99';
+	var groupGapColour = 'rgb(255,255,102)';
+	var groupSizeColour = '#99CCFF';
+	var groupColour = 'rgb(128,128,255)';
+	var packColour = 'rgb(200,255,200)';
+	var greyPenColour = 'rgb(100,100,100, 0.64)';
+	var greyBrushColour = 'rgb(232,232,232)';
+	var blackColour = '#000000';
+	var whiteColour = '#FFFFFF';
+	
+	this.gaps = [];
+	this.groupRectList = [];
+	this.groupFullData = [];
+
+	this.tAfterLeader = null;
+	this.title = null;
+	this.tCur = null;
+	this.zoom = 1.0;
+	this.animate = false;
+		
+	this.groupClickHandler = null;
+	//	self.Bind(wx.EVT_LEFT_UP, self.OnMouseUp )
+		
+	this.SetData = function( gaps, tAfterLeader, title, tCur ) {
+		// each gap is of the form: [gapSeconds, text]
+		// Expected to be sorted by increasing gapSeconds.
+		this.gaps = (gaps && gaps.length > 0) ? gaps : [];
+		
+		this.tAfterLeader = tAfterLeader;
+		this.title = title;
+		this.tCur = tCur;
+		
+		this.DrawDetails( null, null, null, null );
+		this.Refresh();
+	}
+	
+	this.SetZoom = function( zoom ) {
+		this.zoom = zoom;
+		this.Refresh();
+	}
+
+	this.Refresh = function() { this.Draw(); }
+
+	this.Draw = function() {
+		var dc = situationCanvas.getContext('2d');
+		var width = situationCanvas.width;
+		var height = situationCanvas.height;
+		
+		dc.fillStyle = whiteColour;
+		dc.fillRect( 0, 0, width, height );
+		
+		this.groupRectList = [];
+		this.groupFullData = [];
+		
+		function SetGreyPen() { dc.strokeStyle = greyPenColour; dc.lineWidth = 1; }
+			
+		// Partition the gaps into groups separated by at least one second.
+		var maxGapSec = 20.0*60.0*60.0;	// Ignore gaps that are too great.
+		var groups = [];
+		var group = [];
+		var gapPrev = null;
+		for( var g = 0; g < this.gaps.length; ++g ) {
+			var gap = this.gaps[g];
+			if( gap[0] > maxGapSec )
+				break;
+			if( gapPrev == null || gap[0] - gapPrev[0] <= 1.0 )
+				group.push( gap );
+			else {
+				groups.push( group );
+				group = [gap];
+			}
+			gapPrev = gap;
+		}
+		if( group.length > 0 )
+			groups.push( group );
+
+		// Make a copy of all the group info.  Also get the largest group.
+		this.groupFullData = [];
+		var groupMax = 0;
+		var groupTimeMaxSize = null;
+		for( var g = 0; g < groups.length; ++g ) {
+			var group = groups[g];
+			this.groupFullData.push( group.slice() );
+			if( group.length > groupMax ) {
+				groupMax = group.length;
+				groupTimeMaxSize = group[0][0];
+			}
+		}
+		
+		// Add the group header (index, gap and size).
+		for( var i = 0; i < groups.length; ++i ) {
+			var group = groups[i];
+			if( group.length == 0 )
+				continue;
+			var groupSize = group.length;
+			if( group.length > 10 ) {
+				group = [].concat( group.slice(0,5), [[group[5][0], '...']], group.slice(group.length-5, group.length) );
+			}
+			if( i == 0 )
+				group.splice( 0, 0, [group[0][0], 'Lead  \u200B  ' + groupSize] );
+			else
+				group.splice( 0, 0, [group[0][0], 'Chase\u00A0' + i + '  ' + ShortFormatTimeGap(group[0][0]) + 'gap  ' + groupSize] );
+			groups[i] = group;
+		}
+		
+		var fontHeight = height / 40;
+		if( fontHeight == 0 )
+			return;
+
+		var font = fontHeight + 'px Arial';
+		dc.font = font;
+		var spaceWidth = fontHeight / 2;
+		var boldFont = 'bold ' + fontHeight + 'px Arial';
+		
+		var smallFontHeight = fontHeight * 0.75;
+		var smallFont = smallFontHeight + 'px Arial';
+
+		// -------------------------------------------------------------
+		dc.font = font;
+		dc.fillStyle = blackColour;
+		dc.textBaseline = "top";
+
+		var border = Math.min( width, height ) / 25;
+		var xLeft = border*2;
+		var yTop = border*2.25 + fontHeight;
+		if( this.title != null )
+			dc.fillText( this.title, xLeft, border );
+		
+		if( groups.length == 0 )
+			return;
+		
+		function GetGroupTextExtent( group ) {
+			var widthMax = 0;
+			var widthCur;
+			for( var g = 0; g < group.length; ++g ) {
+				widthMax = Math.max( widthMax, dc.measureText(group[g][1]).width );
+			}
+			return {"width":widthMax, "height":group.length*fontHeight*1.1};
+		}
+		
+		var lastWidth = GetGroupTextExtent( groups[groups.length-1] ).width;
+		
+		var xRight = width - border - lastWidth;
+		var yBottom = height - border;
+		
+		var gapMax = 0.0;
+		if( groups.length > 0 && groups[0].length > 0 ) {
+			var groupFirst = groups[0], groupLast = groups[groups.length-1];
+			var tFirst = groupFirst[0][0];
+			var tLast = groupLast[groupLast.length-1][0];
+			gapMax = tLast - tFirst;
+		}
+		var xScale = (xRight - xLeft) / (gapMax != 0.0 ? gapMax : 1.0) * this.zoom;
+		
+		function drawFinishLine() {
+			if( this.tAfterLeader == null )
+				return;
+			var x = xLeft + this.tAfterLeader * xScale;
+			var flWidth = width / 32;
+			if( x - flWidth > width )
+				return;
+			var flTop = yTop - border / 2;
+			var flBottom = flTop + border;
+			dc.strokeStyle = 'rgb(220,220,220)';
+			dc.lineWidth = Math.max(width / 800, 1);
+			dc.fillStyle = whiteColour;
+			dc.fillRect( x - flWidth / 2, flTop, flWidth, flBottom - flTop );
+			dc.strokeRect( x - flWidth / 2, flTop, flWidth, flBottom - flTop );
+			dc.lineWidth = flWidth / 4;
+			dc.lineCap = 'butt';
+			DrawLine( dc, x, flTop, x, flBottom );
+			dc.fillStyle = whiteColour;
+			dc.fillRect( width-border, 0, width, height );
+		}
+		
+		drawFinishLine();
+		
+		// Draw a direction line.
+		dc.strokeStyle = blackColour;
+		dc.lineWidth = 1;
+		dc.fillStyle = blackColour;
+		DrawLine( dc, xLeft - border, yTop, width-border, yTop );
+		var arrowLength = border * 0.8;
+		var points = [[0,0], [arrowLength, arrowLength/4], [arrowLength, -arrowLength/4]];
+		PathFromPoints( dc, points, border/2, yTop ); dc.closePath();
+		dc.fill();
+		dc.stroke();
+		
+		SetGreyPen();
+		
+		var groupTitleBrushes = [
+			groupIndexColour,
+			groupGapColour,
+			groupSizeColour,
+		];
+		
+		var existingRects = [];	// Sequenced by decreasing GetRight().
+		var groupHeight = height / 40;
+		var groupRectList = [];
+		for( var g = 0; g < groups.length; ++g ) {
+			var group = groups[g];
+			
+			// Draw the group.
+			var xBegin = xLeft + group[0][0] * xScale;
+			var xEnd = xLeft + group[group.length-1][0] * xScale;
+			
+			dc.fillStyle = groupColour;
+			dc.fillRect( xBegin - groupHeight/2, yTop - groupHeight/2, xEnd - xBegin + groupHeight, groupHeight );
+			dc.strokeStyle = blackColour;
+			dc.lineCap = 'butt';
+			dc.lineWidth = height / 100;
+			DrawLine( dc, xBegin, yTop, xEnd, yTop );
+			
+			// Find a non-overlapping area to draw the group text.
+			var xText = xBegin;
+			var yText = yTop + groupHeight/2 + fontHeight;
+			var gte = GetGroupTextExtent( group );
+			var gWidth = gte.width;
+			var gHeight = gte.height;
+			var gRect = new Rect( xText, yText, gWidth + spaceWidth*2, gHeight + fontHeight*0.6 );
+			
+			var conflict = true;
+			while( conflict ) {
+				conflict = false;
+				for( var ir = 0; ir < existingRects.length; ++ir ) {
+					var r = existingRects[ir];
+					if( r.GetRight() < gRect.GetLeft() )
+						break;
+					if( r.Intersects(gRect) ) {
+						gRect.SetTop( r.GetBottom()+1 );
+						conflict = true;
+					}
+				}
+			}
+			
+			// Insert the new rectangle into the list.  Keep sequenced by decreasing GetRight().
+			existingRects.push( gRect );
+			for( var i = existingRects.length-2; i >= 0;  --i ) {
+				if( existingRects[i].GetRight() < existingRects[i+1].GetRight() )
+					existingRects.swap(i, i+1);
+				else
+					break;
+			}
+			
+			groupRectList.push( [group, gRect] );
+		}
+		
+		// Connect the text to the group with a line.
+		SetGreyPen();
+		for( var g = 0; g < groupRectList.length; ++g ) {
+			var gRect = groupRectList[g][1];
+			DrawLine( dc, gRect.GetLeft(), yTop, gRect.GetLeft(), gRect.GetTop() );
+		}
+		
+		dc.textBaseline = "top";
+		for( var ig = 0; ig < groupRectList.length; ++ig ) {
+			var group = groupRectList[ig][0], gRect = groupRectList[ig][1];
+			
+			// Draw the group outline.
+			SetGreyPen();
+			dc.fillStyle = group[0][0] != groupTimeMaxSize ? greyBrushColour : packColour;
+			dc.fillRect( gRect.GetLeft(), gRect.GetTop(), gRect.GetWidth()-1, gRect.GetHeight()-fontHeight/2, fontHeight/3 );
+			dc.strokeRect( gRect.GetLeft(), gRect.GetTop(), gRect.GetWidth()-1, gRect.GetHeight()-fontHeight/2, fontHeight/3 );
+			
+			var xText = gRect.GetLeft();
+			
+			// Draw the group text.
+			SetGreyPen();
+			dc.fillStyle = blackColour;
+			var yText = gRect.GetTop()
+			for( var i = 0; i < group.length; ++i ) {
+				var gap = group[i];
+				
+				if( i == 0 ) {
+					// Draw the coloured rectangles to highlight the title fields.
+					var title = gap[1];
+					var fieldWidths = [-spaceWidth+2];
+					var iSpace = 0;
+					while( true ) {
+						var iSpace = title.indexOf( '  ', iSpace );
+						if( iSpace < 0 ) {
+							fieldWidths.push( dc.measureText(title).width + spaceWidth );
+							break;
+						}
+						fieldWidths.push( dc.measureText(title.slice(0,iSpace)).width + spaceWidth );
+						iSpace += 1;
+					}
+					
+					fieldWidths[fieldWidths.length-1] += spaceWidth/2;
+					var iBrush = (fieldWidths.length > 2 ? 0 : 2);
+					var xLast = xText;
+					for( var iField = 1; iField < fieldWidths.length; ++iField ) {
+						var tWidth = fieldWidths[iField] - fieldWidths[iField-1]
+						dc.fillStyle = groupTitleBrushes[iBrush];
+						dc.fillRect( xLast, yText, tWidth, fontHeight*1.08 );
+						dc.strokeRect( xLast, yText, tWidth, fontHeight*1.08 );
+						iBrush += 1;
+						xLast += tWidth;
+					}
+				}
+					
+				dc.fillStyle = blackColour;
+				dc.fillText( gap[1], xText + spaceWidth, yText+fontHeight*0.07 );
+				yText += fontHeight*1.1;
+			}
+		}
+				
+		this.groupRectList = groupRectList;
+				
+		// Draw the gaps between the groups with dimension lines.
+		SetGreyPen();
+		dc.fillStule = greyBrushColour;
+		dc.font = smallFont;
+		var yUp = yTop - groupHeight - smallFontHeight
+		var yText = yUp + smallFontHeight/2;
+		var yTextCenter = yText + smallFontHeight * 0.5;
+		yUp += smallFontHeight/4;
+		
+		var arrowLength = smallFontHeight * 0.75;
+		var leftArrow = [[0,0], [arrowLength, arrowLength/4], [arrowLength, -arrowLength/4]];
+		var rightArrow = [[0,0], [-arrowLength, arrowLength/4], [-arrowLength, -arrowLength/4]];
+
+		dc.textBaseline = "middle";
+		for( var iGroup = 1; iGroup < groups.length; ++iGroup ) {
+			var groupPrev = groups[iGroup-1], groupNext = groups[iGroup];
+			var tPrev = groupPrev[groupPrev.length-1][0], tNext = groupNext[0][0];
+			var xPrev = xLeft + tPrev * xScale, xNext = xLeft + tNext * xScale;
+			var sepStr = ShortFormatTimeGap(tNext - tPrev);
+			var tWidth = dc.measureText( sepStr ).width;
+			if( xNext - xPrev < tWidth * 1.25 )
+				continue;
+			
+			DrawLine( dc, xPrev, yTop, xPrev, yUp );
+			DrawLine( dc, xNext, yTop, xNext, yUp );
+			
+			if( xNext - xPrev > tWidth + arrowLength * 4 ) {
+				DrawLine( dc, xPrev, yTextCenter, xPrev + (xNext - xPrev - tWidth) / 2 - 2, yTextCenter );
+				DrawLine( dc, xNext - (xNext - xPrev - tWidth) / 2 + 2, yTextCenter, xNext, yTextCenter );
+				PathFromPoints( dc, leftArrow, xPrev, yTextCenter ); dc.closePath(); dc.stroke(); dc.fill();
+				PathFromPoints( dc, rightArrow, xNext, yTextCenter ); dc.closePath(); dc.stroke(); dc.fill();
+			}
+			
+			dc.fillStyle = blackColour;
+			dc.fillText( sepStr, xPrev + (xNext - xPrev - tWidth) / 2, yTextCenter );
+		}
+	}
+	
+	this.processClick = function( event ) {
+		var rect = this.situationCanvas.getBoundingClientRect();
+		var xEvent = event.clientX - rect.left;
+		var yEvent = event.clientY - rect.top;
+
+		for( var i = 0; i < this.groupRectList.length; ++i ) {
+			var gRect = this.groupRectList[i][1];
+			if( gRect.ContainsXY( xEvent, yEvent ) ) {
+				this.DrawDetails( gRect, i, this.groupFullData[i], this.tCur, null );
+				return;
+			}
+		}
+		this.DrawDetails( null, null, null, null );
+	}
+	
+	this.DrawDetails = function( gRect, groupIndex, groupInfo, raceTime, clockTime ) {
+		this.detailDiv.innerHTML = '';
+		if( groupIndex == undefined || groupIndex == null ) {
+			var text = '\u25C0&nbsp;&nbsp;' + 'Slide to Change Time' + '<br/><br/><br/><br/><br/>\u25C0&nbsp;&nbsp;' + 'Click Group for Details';
+			var para = createChild( this.detailDiv, 'p' );
+			para.innerHTML = text;
+			para.id = 'detailTitle';
+			return;
+		}
+		
+		var bigSpace = '&nbsp;&nbsp;&nbsp;&nbsp;';
+		var title = 
+			(groupIndex != 0 ? 'Chase Group' + ': ' + groupIndex : 'Leaders' + ': \u2714') + 
+			(groupIndex != 0 ? bigSpace + 'Gap' + ': ' + ShortFormatTimeGap(groupInfo[0][0]) : '') +
+			bigSpace +'Size' + ': ' + groupInfo.length + 
+			(raceTime != null ? bigSpace + 'Race Time' + ': ' + FormatTime(raceTime) : '' ) + 
+			(clockTime != null ? bigSpace + 'Clock' + ': ' + FormatTime(clockTime) : '' );
+		
+		var para = createChild( this.detailDiv, 'p' );
+		para.innerHTML = title;
+		para.id = 'detailTitle';
+		
+		// Get the bibs and laps down.
+		var nums = [];
+		var lapsDown = {};
+		var sequence = {};
+		var numGap = {};
+		for( var i = 0; i < groupInfo.length; ++i ) {
+			var gap = groupInfo[i][0];
+			var info = groupInfo[i][1];
+			var fields = info.split(' ');
+			var num = parseInt( fields[0].replace(/\D/g,'') );
+			var lastField = fields[fields.length-1];
+			if( lastField.slice(0, 1) == '(' && lastField.slice(-1) == ')')
+				lapsDown[num] = lastField.slice(1).slice(0, -1);
+			nums.push( num );
+			numGap[num] = gap;
+			sequence[num] = i+1;
+		}
+		
+		// Adjust to get a combined name field.
+		var detailFields = ['Seq', 'Bib', 'Name'];
+		var numericFields = {'Seq':true, 'Bib':true, 'LapsDown':true};
+		for( var n in lapsDown ) {
+			var iInsert = 2;
+			for( var i = 0; i < detailFields.length; ++i ) {
+				if( detailFields[i] == 'Name' ) {
+					iInsert = i + 1;
+					break;
+				}
+			}
+			detailFields.splice( iInsert, 0, 'LapsDown' );
+			break;
+		}
+
+		var table = createChild( this.detailDiv, 'TABLE');
+		table.className = 'results table table-striped table-hover table-condensed';
+		var thead = createChild( table, 'THEAD' );
+		
+		var tr = createChild( thead, 'TR' );
+		for( var f = 0; f < detailFields.length; ++f ) {
+			var field = detailFields[f];
+			createTextChild( td = createChild(tr, 'TH'), field == 'Seq' ? '' : detailFields[f] );
+			td.id = 'idNonNumeric';
+		}
+		
+		var tbody = createChild( table, 'TBODY' );
+		for( var i = 0; i < nums.length; ++i ) {
+			var num = nums[i];
+			var d = data[num];			
+			
+			function createTD( tr ) {
+				var td = createChild(tr, 'TD');
+				return td;
+			}
+			
+			var tr = createChild(tbody, 'TR');
+			tr.onclick = function(n) { return function() {ToggleNumberHighlight(n);}; }(num);
+
+			// Add the info fields.
+			for( var f = 0; f < detailFields.length; ++f ) {
+				var field = detailFields[f];
+				var v;
+				if( field == 'Seq' )
+					v = i+1 + '.';
+				else if( field == 'Bib' )
+					v = num;
+				else if( field == 'LapsDown' )
+					v = lapsDown[num] != undefined ? lapsDown[num] : '';
+				else if( field == 'Name' ) {
+					if( d['LastName'] && d['FirstName'] )
+						v = d['LastName'] + ',&nbsp;' + d['FirstName'];
+					else
+						v = d['LastName'] || d['FirstName'];
+				}
+				else
+					v = d[field];
+				td = createTD(tr);
+				td.innerHTML = v;
+				if( !numericFields[field] )
+					td.id = 'idNonNumeric'; 
+			}
+		}
+	}
+}
+// ---------------------------------------------------------------------
+var lapChartObj = null;
+function pDistanceSquared(x, y, x1, y1, x2, y2) {
+	var A = x - x1, B = y - y1, C = x2 - x1, D = y2 - y1;
+
+	var dot = A * C + B * D;
+	var len_sq = C * C + D * D;
+	var param = -1;
+	if (len_sq != 0) // 0 length line
+	  param = dot / len_sq;
+
+	var xx, yy;
+
+	if (param < 0) {
+		xx = x1;
+		yy = y1;
+	}
+	else if (param > 1) {
+		xx = x2;
+		yy = y2;
+	}
+	else {
+		xx = x1 + param * C;
+		yy = y1 + param * D;
+	}
+
+	var dx = x - xx;
+	var dy = y - yy;
+	return dx * dx + dy * dy;
+}
+
+var dnfBackgroundColour = "#E0E0E0";
+function LapChart( ) {
+	// From http://tools.medialab.sciences-po.fr/iwanthue/
+	this.lineColours = [
+		"#3A3312",
+		"#9756EF",
+		"#00D222",
+		"#69D2FD",
+		"#F04403",
+		"#FE3D94",
+		"#0EAB6E",
+		"#301F5B",
+		"#CDA303",
+		"#2C6900",
+		"#45DD97",
+		"#E8B8A4",
+		"#D629BD",
+		"#0AA2A1",
+		"#C30043",
+		"#53131A",
+		"#784B07",
+		"#395B8F",
+		"#284299",
+		"#F4B478",
+		"#993AAE",
+		"#13A3E7",
+		"#340631",
+		"#F25DEE"
+	];
+	
+	this.lapLineColour = '#B0B0B0';
+	this.positionBackgroundColour = '#B7B7B7';
+	this.positionHorizontalLineColor = '#B9B9B9';
+	
+	this.topCornerBackgroundColour = '#8E8C8D';
+	this.legendBackgroundColour = '#C8C8C8';
+	this.lappedBackgroundColour = '#D8E6F4';
+	
+	this.lapLabelBorderColour = '#707070';
+	this.primeColour = '#FFFFAA';
+	
+	this.regularLineWidth = 3;
+	this.selectedLineWidth = 7;
+	this.rowHeight = 22;
+	
+	this.canvas = null;
+	this.data = [];
+	this.lapsMax = 0;
+	this.numSelect = null;
+	this.moveTimer = null;
+	
+	this.doMouseMove = function( evt ) {
+		var numSelectOld = this.numSelect;
+		this.numSelect = null;
+		
+		var rect = this.canvas.getBoundingClientRect();
+		var x = evt.clientX - rect.left, y = evt.clientY - rect.top;
+		
+		// Find the category of the mouse.
+		for( var c = 0; c < this.data.length; ++c ) {
+			if( !(this.data[c].yTop <= y && y < this.data[c].yTop + this.data[c].height) )
+				continue;
+				
+			// Check that the mouse is on the name or number.
+			if( this.data[c].xRight <= x ) {
+				var i = parseInt(((y - this.data[c].yTop) / this.rowHeight) - 1);
+				if( 0 <= i && i < this.data[c].nums.length )
+					this.numSelect = this.data[c].nums[i];
+				break;
+			}
+			if( this.data[c].xLeft <= x ) {
+				var numPos = this.data[c].numPos;
+				var lapsData = this.data[c].lapsData;
+				var xLeft = this.data[c].xLeft, xRight = this.data[c].xRight, lapWidth = this.data[c].lapWidth;
+				var yTop = this.data[c].yTop;
+				var rowHeight = this.rowHeight;
+				var lap = parseInt((x - xLeft) / lapWidth);
+				
+				function getX(lap) { return xLeft + lap * lapWidth; }
+				function getY(pos) { return yTop + rowHeight * (pos + 1); }
+				
+				function getSegment( lapCur, j ) {
+					if( !lapsData[lapCur] || !lapsData[lapCur][j] )
+						return null;
+					var num = lapsData[lapCur][j].num;
+					var x1, y1;
+					if( lapCur == 0 ) {
+						x1 = getX(0);
+						y1 = getY(numPos[num][0]) + rowHeight/2;
+					}
+					else {
+						x1 = getX(lapCur-1) + lapWidth/2;
+						y1 = getY(numPos[num][lapCur-1]) + rowHeight/2;
+					}
+					var x2 = getX(lapCur) + lapWidth/2;
+					var y2 = getY(numPos[num][lapCur]) + rowHeight/2;
+					return {'x1':x1, 'y1':y1, 'x2':x2, 'y2':y2, 'num':num};
+				}
+				
+				var dBest = Number.MAX_VALUE;
+				for( var j = 0; j < lapsData[lap].length; ++j ) {
+					for( var lapCur = lap; lapCur < lap + 2; ++lapCur ) {
+						var segment = getSegment( lapCur, j );
+						if( segment !== null ) {
+							var dCur = pDistanceSquared( x, y, segment.x1, segment.y1, segment.x2, segment.y2 );
+							if( dCur < dBest ) {
+								dBest = dCur;
+								this.numSelect = segment.num;
+							}
+						}
+					}
+				}
+				break;
+			}
+		}
+		if( numSelectOld != this.numSelect )
+			this.draw();
+	}
+	
+	this.onMouseMove = function( evt ) {
+		// Only process the move event if the mouse stops moving.
+		if( this.moveTimer ) {
+			if( this.numSelect ) {
+				this.numSelect = null;
+				this.draw();
+			}
+			clearTimeout( this.moveTimer );
+		}
+		var that = this;
+		this.moveTimer = setTimeout( function() { that.doMouseMove(evt); that.moveTimer=null; }, 25 );
+	}
+	
+	this.init = function( canvas ) {
+		this.canvas = canvas;
+		var that = this;
+		this.canvas.addEventListener( 'mousemove', function(evt) {that.onMouseMove(evt);} );
+	}
+	
+	this.getData = function() {
+		this.data = [];
+		
+		this.lapsMax = 0;
+		for( var c = 0; c < catDetails.length; ++c )
+		{
+			var catDetail = catDetails[c];
+			var catName = catDetail.name;
+				
+			var lapsData = [];
+			var numIndex = {};
+			var nums = [];
+			for( var p = 0; p < catDetail.pos.length; ++p )
+			{
+				var num = catDetail.pos[p];
+				if( num in numIndex )
+					continue;
+				var d = data[num];
+				
+				var raceTimes = d['raceTimes'].slice(0);	// Make a copy so we don't disturb the original.
+				if( raceTimes.length === 0 )
+					continue
+				numIndex[num] = nums.length;
+				nums.push( num )
+				
+				// Remove the race start time if this is not a Wave category.
+				if( catDetail.catType != 'Start Wave' && raceTimes.length > 0 ) {
+					for( var j = 1; j < raceTimes.length; ++j )
+						raceTimes[j] -= raceTimes[0];
+					raceTimes[0] = 0;
+				}
+				// Add all the lap information to the overall structure.
+				for( var j = 1; j < raceTimes.length; ++j ) {
+					if( raceIsRunning && raceTimes[j] > t )
+						break;
+					while( lapsData.length < j )
+						lapsData.push( [] );
+					lapsData[j-1].push( {'raceTime':raceTimes[j], 'num':num, 'lapsDown':0} );
+				}
+				this.lapsMax = Math.max( this.lapsMax, raceTimes.length-1 );
+			}
+		
+			// Sort the race times by lap to get the current rank.
+			for( var lap = 0; lap < lapsData.length; ++lap )
+				lapsData[lap].sort( function(x, y) { return x.raceTime - y.raceTime; } );
+			
+			// Set the laps down.
+			for( var lap = 0; lap < lapsData.length-1; ++lap ) {
+				for( var j = lapsData[lap].length-1; j > 0; --j ) {
+					for( var lapNext = lap+1; lapNext < lapsData.length && lapsData[lap][j].raceTime > lapsData[lapNext][0].raceTime; ++lapNext )
+						--lapsData[lap][j].lapsDown;
+					if( lapsData[lap][j] === 0 )
+						break;
+				}
+			}
+			
+			// Compute the position by lap for each rider.
+			var numPos = {};
+			for( var lap = 0; lap < lapsData.length; ++lap ) {
+				for( var pos = 0; pos < lapsData[lap].length; ++pos ) {
+					var num = lapsData[lap][pos].num;
+					if( num in numPos )
+						numPos[num].push( pos );
+					else
+						numPos[num] = [pos];
+				}
+			}
+			
+			if( lapsData.length > 1 && nums.length > 1 )
+				this.data.push( {'lapsData': lapsData, 'numPos': numPos, 'nums': nums, 'catName':catName} );
+		}
+	}
+	
+	this.draw = function() {
+		if( !this.canvas )
+			return;
+		
+		var that = this;
+		this.getData();
+		
+		if( this.data.length == 0 || this.lapsMax <= 1 ) {
+			this.canvas.height = 0;
+			return;
+		}
+		
+		var primeLaps = {};
+		if( primes && primes.length > 0 ) {
+			var lapsMax = 0;
+			for( var c = 0; c < this.data.length; ++c ) {
+				lapsMax = Math.max( lapsMax, this.data[c].lapsData.length );
+			}
+			for( var i = 0; i < primes.length; ++i )
+				primeLaps[lapsMax-primes[i].lapsToGo-1] = true;
+		}
+		
+		var rowsTotal = 0;
+		for( var c = 0; c < this.data.length; ++c ) {
+			rowsTotal += this.data[c].nums.length + 1.5 + 2;
+		}
+		
+		var rowHeight = this.rowHeight;
+		this.canvas.height = rowHeight * rowsTotal;
+		var width = this.canvas.width;
+		
+		var dc = this.canvas.getContext('2d');
+		dc.setTransform( 1, 0, 0, 1, 0, 0 );
+		
+		for( var c = 0; c < this.data.length; ++c ) {
+			var lapsData = this.data[c].lapsData;
+			var numPos = this.data[c].numPos;
+			var nums = this.data[c].nums;
+			
+			var rowTextFraction = 0.7;
+			var fontHeight = rowHeight * rowTextFraction;
+			dc.font = fontHeight + 'px Arial';
+			
+			dc.translate( 0, rowHeight / 2 );
+			var yTop = rowHeight / 2;
+			
+			dc.fillStyle = '#000000';
+			dc.textBaseline = 'middle';
+			dc.textAlign = 'left';
+			dc.fillText( this.data[c].catName, 0, rowHeight / 2 );
+			
+			dc.translate( 0, rowHeight );
+			yTop += rowHeight;
+			var height = rowHeight * (nums.length + 2);
+			
+			this.data[c].yTop = (c == 0 ? yTop : this.data[c-1].yTop + this.data[c-1].height + yTop);
+			this.data[c].height = height;
+			
+			function getName( num ) {
+				var d = data[num];
+				var name = '';
+				if( d.LastName && d.FirstName ) name = d.LastName + ', ' + d.FirstName;
+				else if( d.LastName ) name = d.LastName;
+				else if( d.FirstName ) name = d.FirstName;
+				return name;
+			}
+			
+			var numWidth = 0;
+			var nameWidth = 0;
+			for( var j = 0; j < nums.length; ++j ) {
+				var num = nums[j];
+				numWidth = Math.max( dc.measureText(''+num).width, numWidth );
+				nameWidth = Math.max( dc.measureText(getName(num)).width, nameWidth );
+			}
+			var paddingWidth = dc.measureText('  ').width;
+			nameWidth += paddingWidth;
+			
+			var posWidth = dc.measureText(''+(nums.length+1) ).width + paddingWidth;
+			var swatchColWidth = rowHeight;
+			var xLeft = posWidth;
+			var xRight = width - (swatchColWidth + numWidth + nameWidth + posWidth);
+			this.data[c].xLeft = xLeft;
+			this.data[c].xRight = xRight;
+			
+			var lapsWidth = xRight - xLeft;
+			var lapWidth = lapsWidth / lapsData.length;
+			this.data[c].lapWidth = lapWidth;
+			
+			// Draw the grid.
+			dc.clearRect(0, 0, width, height);
+			if( nums.length === 0 )
+				return;
+			height = rowHeight * (nums.length + 1);
+			
+			dc.lineCap = 'butt';
+			dc.lineJoin = 'round';
+			dc.setLineDash( [] );
+			
+			function getY(row) { return rowHeight * (row+1); }
+			function getX(lap) { return xLeft + lapWidth * lap; }
+			
+			// Draw the primes.
+			var hasPrimes = false;
+			dc.lineWidth = 1;
+			dc.fillStyle = this.primeColour;
+			for( var lap = 0; lap < lapsData.length; ++lap ) {
+				if( lap in primeLaps ) {
+					dc.fillRect( getX(lap), getY(0), lapWidth, getY(nums.length) - getY(0) );
+					hasPrimes = true;
+				}
+			}
+			
+			// Set the background for lapped riders.
+			var hasLapped = false;
+			dc.fillStyle = this.lappedBackgroundColour;
+			for( var lap = 0; lap < lapsData.length; ++lap ) {
+				for( var row = 0; row < lapsData[lap].length; ++row ) {
+					if( lapsData[lap][row].lapsDown !== 0 ) {
+						hasLapped = true;
+						for( ; row < nums.length; ++row )
+							dc.fillRect( getX(lap), getY(row), lapWidth, rowHeight );
+					}
+				}
+			}
+			
+			// Draw the legend.
+			dc.fillStyle = this.legendBackgroundColour;
+			dc.fillRect( 0, 0, width, rowHeight );
+			dc.fillRect( 0, getY(nums.length), width, rowHeight );
+			dc.fillRect( 0, 0, xLeft, height );
+			dc.fillRect( width - posWidth, 0, xLeft, height );
+			
+			dc.fillStyle = '#FFFFFF';
+			dc.textBaseline = 'middle';
+			dc.textAlign = 'center';
+			for( var j = 0; j < nums.length; ++j ) {
+				dc.fillText( ''+(j+1), posWidth/2, getY(j) + rowHeight/2 );
+				if( data[nums[j]].status == 'Finisher' )
+					dc.fillText( ''+(j+1), width - posWidth/2, getY(j) + rowHeight/2 );
+			}
+			
+			// Draw the lap lines.
+			dc.lineWidth = 1;
+			dc.strokeStyle = this.lapLineColour;
+			for( var lap = 0; lap <= lapsData.length; ++lap ) {
+				dc.beginPath();
+				dc.moveTo( getX(lap), 0 );
+				dc.lineTo( getX(lap), height );
+				dc.stroke();
+			}
+			
+			// Set the background of the rider bib and name.
+			dc.fillStyle = dnfBackgroundColour;
+			for( var j = 0; j < nums.length; ++j ) {
+				var d = data[nums[j]];
+				if( nums[j] == this.numSelect ) {
+					dc.save();
+					dc.fillStyle = '#FFFF66';
+					dc.fillRect( xRight, getY(j), width-xRight-posWidth, rowHeight );
+					dc.restore();
+				}
+				else if( d.status !== 'Finisher' )
+					dc.fillRect( xRight, getY(j), width-xRight-posWidth, rowHeight );
+			}
+			
+			// Draw the numbers.
+			dc.fillStyle = '#000000';
+			dc.textAlign = 'right';
+			var xText = width - nameWidth - posWidth;
+			for( var j = 0; j < nums.length; ++j )
+				dc.fillText( nums[j], xText, getY(j) + rowHeight/2 );
+			
+			// Draw the names.
+			dc.textAlign = 'left';
+			var xText =  width - nameWidth - posWidth + paddingWidth/2;
+			for( var j = 0; j < nums.length; ++j )
+				dc.fillText( getName(nums[j]), xText, getY(j) + rowHeight/2 );
+			
+			function drawPath( j, colour ) {
+				var num = nums[j];
+				var path = numPos[num];
+				
+				dc.strokeStyle = colour ? colour : that.lineColours[j % that.lineColours.length];
+				dc.setLineDash( [] );
+				
+				dc.beginPath();
+				dc.moveTo( getX(0), getY(path[0])+rowHeight/2 );
+				dc.lineTo( getX(0) + lapWidth/2, getY(path[0])+rowHeight/2 );
+				var lap;
+				for( lap = 1; lap < path.length; ++lap )
+					dc.lineTo( getX(lap) + lapWidth/2, getY(path[lap])+rowHeight/2 );
+				var lap = path.length-1;
+				dc.stroke();
+				
+				// Draw a curved line to the final position.
+				if( lap != lapsData.length-1 )
+					dc.setLineDash( [10, 5] );
+				dc.beginPath();
+				dc.moveTo( getX(lap) + lapWidth/2, getY(path[lap])+rowHeight/2 );
+				dc.quadraticCurveTo( getX(lap) + lapWidth/2, getY(j) + rowHeight/2, xRight+ + rowHeight/2, getY(j) + rowHeight/2 );
+				dc.stroke();
+			}
+			
+			// Draw the position lines in reverse order so the winner ends on top.
+			dc.lineWidth = this.regularLineWidth;
+			dc.lineCap = 'round';
+			var jSelect = null;
+			for( var j = nums.length - 1; j >= 0; --j ) {
+				if( nums[j] === this.numSelect )
+					jSelect = j;
+				drawPath( j );
+			}
+			if( jSelect !== null ) {
+				dc.lineWidth = this.selectedLineWidth + 4;
+				drawPath( jSelect, '#FFFF00' );
+				dc.lineWidth = this.selectedLineWidth;
+				drawPath( jSelect );
+			}
+			
+			// Draw the colour swatches.
+			var swatchSize = rowHeight * rowTextFraction;
+			var swatchBorder = (rowHeight - swatchSize) / 2.0;
+			var swatchX = xRight + swatchBorder;
+			for( var j = 0; j < nums.length; ++j ) {
+				dc.fillStyle = this.lineColours[j % this.lineColours.length];
+				dc.fillRect( swatchX, getY(j) + swatchBorder, swatchSize, swatchSize );
+			}
+			
+			// Draw the lap numbers.
+			var lapNumHeight = fontHeight;
+			dc.font = lapNumHeight*0.8 + 'px Arial';
+			dc.textAlign = 'center';
+			dc.textBaseline = 'bottom';
+			dc.lineWidth = 1;
+			dc.setLineDash( [] );
+			var xLast = width;
+			for( var lap = lapsData.length - 1; lap >= 0; --lap ) {
+				var sLap = ' ' + (lapsData.length-lap) + ' ';
+				var tWidth = dc.measureText(sLap).width;
+				var xMiddle = getX(lap) + lapWidth/2;
+				if( xMiddle + tWidth / 2 > xLast )
+					continue;
+				
+				var x = getX(lap) + lapWidth/2;
+				var y = getY(0) - lapNumHeight;
+				dc.beginPath()
+				dc.moveTo( x - tWidth/2, y );
+				dc.lineTo( x + tWidth/2, y );
+				dc.lineTo( x + tWidth/2, y + lapNumHeight );
+				dc.lineTo( x, y + lapNumHeight * 1.25 );
+				dc.lineTo( x - tWidth/2, y + lapNumHeight );
+				dc.closePath();
+				
+				dc.fillStyle = '#FFFFFF';
+				dc.fill();
+				dc.strokeStyle = this.lapLabelBorderColour;
+				dc.stroke();
+				
+				dc.fillStyle = '#000000';
+				dc.fillText( sLap, getX(lap) + lapWidth/2, getY(0) );
+				xLast = xMiddle - tWidth/2 - 2;
+			}
+			
+			// Draw the legend.
+			dc.font = fontHeight + 'px Arial';
+			dc.textAlign = 'left';
+			dc.textBaseline = 'middle';
+			var x = xRight;
+			if( hasLapped ) {
+				var s = 'Lapped';
+				x -= dc.measureText(s).width;
+				dc.fillStyle = '#000000';
+				dc.fillText( s, x, getY(nums.length) + rowHeight/2 );
+				x -= rowHeight * 1.2;
+				
+				dc.fillStyle = this.lappedBackgroundColour;
+				dc.fillRect( x + swatchBorder, getY(nums.length) + swatchBorder, swatchSize, swatchSize );
+				x -= rowHeight;
+			}
+			if( hasPrimes ) {
+				var s = 'Prime';
+				x -= dc.measureText(s).width;
+				dc.fillStyle = '#000000';
+				dc.fillText( s, x, getY(nums.length) + rowHeight/2 );
+				x -= rowHeight * 1.2;
+				
+				dc.fillStyle = this.primeColour;
+				dc.fillRect( x + swatchBorder, getY(nums.length) + swatchBorder, swatchSize, swatchSize );
+				x -= rowHeight;
+			}
+			
+			// Update the y position for the next category.
+			dc.translate( 0, height+rowHeight );
+		}
+	}
+}
+
+var situationObj = null;
+function SetSituationZoom( rbutton ) {
+	situationObj.zoom = parseFloat(rbutton.value);
+	SituationRefresh();
+}
+
+function SetSituationTime( value ) {
+	if( situationObj == null )
+		return;
+		
+	if( value == undefined )
+		value = 10000;
+	value = parseInt( value );
+		
+	var tMax = GetRaceTMax();
+	
+	var tRace = tMax * (value / 10000.0);
+	var gs = GetSituationGaps( tRace );
+	situationObj.SetData( gs.gaps, gs.tAfterLeader, gs.title, gs.tCur );
+}
+function SituationRefresh() {
+	var timeRange = document.getElementById('idTimeRange');
+	SetSituationTime( timeRange.value );
+}
+
+var framesPerSec = 10;
+var waitMS = 1000/framesPerSec;
+var totalFrames = 2*60*framesPerSec;
+function SituationAnimate() {
+	console.log( 'SituationAnimate: ' + situationObj.animate );
+	
+	if( situationObj.animate ) {
+		var tMax = GetRaceTMax();
+		var tUpdate = tMax / totalFrames;
+	
+		situationObj.tCur += tUpdate;
+		if( situationObj.tCur >= tMax )
+			situationObj.tCur = 0.0;
+		situationObj.Draw();
+		
+		var timeRange = document.getElementById('idTimeRange');
+		timeRange.value = parseInt(1000.0 * situationObj.tCur / tMax);
+		console.log( situationObj.tCur );
+	}
+
+	setTimeout( SituationAnimate, waitMS );
+}
+
+
+
+function onLoad()
+{
+	// Transform the ISO time formats into local formats.
+	$('.dateinput').each( function(index, element) {
+		element.value = reformat( element.value, 'yyyy-mm-dd', "dd-mm-yyyy" );
+		$(element).attr( 'autocomplete', 'off' );
+	});
+	$('.datetimeinput').each( function(index, element) {
+		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "dd-mm-yyyy hh:ii" );
+		$(element).attr( 'autocomplete', 'off' );
+	});	
+
+	// Initialize the date/time pickers using the local formats.
+	$('.dateinput').datepicker({
+		format: "dd-mm-yyyy",
+		autoclose: true,
+		todayHighlight: true
+	});
+	$('.datetimeinput').datetimepicker({
+		format: "dd-mm-yyyy hh:ii",
+		autoclose: true
+	});
+	
+	// When the form is submitted, transform the local formats back into ISO.
+	$('form').submit(function(){
+		$('.dateinput').each( function(index, element) {
+			element.value = reformat( element.value, "dd-mm-yyyy", 'yyyy-mm-dd' );
+		});
+		$('.datetimeinput').each( function(index, element) {
+			element.value = reformat( element.value, "dd-mm-yyyy hh:ii", 'yyyy-mm-dd hh:ii:ss' );
+		});
+	});
+	
+	// Set button background to black when pressed to give feedback.
+	$('.btn').not('.dropdown-toggle').click(function() {
+		var button = $(this);
+		var backgroundColorCur = button.css( "background-color" );
+		button.css( {"background-color": '#666666'} );
+		setTimeout( function(){ button.css( {"background-color": backgroundColorCur} ); }, 5000 );
+	});
+	
+	// Make click targets larger for touch devices.
+	var is_touch_device = 'ontouchstart' in document.documentElement;
+	if( is_touch_device ) {
+		$('.btn').each(function() {
+			$(this).css( {"font-size": '120%'} );
+		});
+	}
+	
+	// Check for tag and keyboard focus exception.
+	if( document.getElementById("id_rfid_tag") )
+		document.getElementById("id_rfid_tag").focus();	// Make sure tag fields always get focus so auto-enter works.
+	else if( document.getElementById("focus") )
+		document.getElementById("focus").focus();
+	else {
+		// Give the first visible form field the keyboard focus.
+		$(document).ready(function() {
+			$('form:first *:input[type!=hidden]:first').focus();
+		});
+	}
+	
+	// Highlight fields that are filled in.
+	var in_use_color = '#dff0d8';
+	var fs = $("form.search");
+	fs.find(".select.form-control").each(function() {
+		if( $(this).val() != $(this).find('option:first').val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".numberinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".dateinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+	fs.find(".textinput.form-control").each(function() {
+		if( $(this).val() && !$(this).prop('readonly') && !$(this).hasClass('no-highlight') )
+			$(this).css( 'background-color', in_use_color );
+	} );
+
+
+	hub_mode = true;
+	if( payload ) { for( v in payload ) window[v] = payload[v]; payload = null; }
+	categoryCur = catDetails[0];
+	
+	updateHistogramChart();
+	
+	if( !isTimeTrial && isCanvasSupported() ) {
+		var situationCanvas = document.getElementById('idSituation');
+		var timeRange = document.getElementById( 'idTimeRange' );
+		var situationDetail = document.getElementById( 'idSituationDetailDiv' );
+		situationObj = new Situation( situationCanvas, timeRange, situationDetail );
+		situationCanvas.addEventListener('click', function(event) { situationObj.processClick(event); }, false);
+		//situationObj.animate = true;
+		
+		function resizeCanvas() {
+			situationCanvas.width = Math.max(10, window.innerWidth * 0.7);
+			situationCanvas.height = window.innerHeight * 0.75;
+			SituationRefresh();
+		}
+		resizeCanvas();
+		window.addEventListener('resize', resizeCanvas, false);
+			
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+			var activatedTab = e.target;
+			resizeCanvas();
+		});
+	}
+	else {
+		document.getElementById('idLapChartDiv').className = 'hidden';
+	}
+
+
+}
+function jump( link ) { window.location = link; }
+</script>
+</head>
+<body onload="onLoad()">
+
+<div class="container">
+
+
+
+
+<nav class="navbar navbar-default navbar-fixed-top hidden-print">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<ul class="nav navbar-nav">
+				<li>
+					<a href="/2025/2/RaceDB/Hub/SearchCompetitions/">
+						<img alt="RaceDB" src="/static/images/RaceDB_xsmall_text.png">
+					</a>
+				</li>
+				<li><a href="/2025/2/RaceDB/Hub/SearchCompetitions/">Competitions</a></li>
+				<li><a href="/2025/2/RaceDB/Hub/SearchLicenseHolders/">Athletes</a></li>
+				<li><a href="/2025/2/RaceDB/Hub/Series/">Series</a></li>
+				<li><a href="/2025/2/RaceDB/Hub/CustomCategoryResults/510/0/549/QRCode/"><img src="/static/images/glyphicons_258_qrcode.png" alt="QRCode"/></a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<p class="hidden-print"><br/><br/><br/></p>
+
+<h1>
+	
+	<strong><a href="/2025/2/RaceDB/Hub/CompetitionResults/98/">Round 3 - Pippingford Park</a>: Masters 40 and Junior Open</strong><br/>
+	<span style="font-size: 70%">
+		<strong>Overall (Open) - </strong>&nbsp;&nbsp;Cyclocross Regional
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 02-10-2025 21:52:10</span>
+		<br/>
+		28-09-2025 11:30&nbsp;&nbsp;
+		Starters: 62&nbsp;&nbsp;
+		Nations: 1&nbsp;&nbsp;
+		
+		
+	</span>
+</h1>
+
+<style>
+table.participant_table tr td {
+	font-size: 85%;
+}
+table.participant_table tr th {
+	font-size: 85%;
+}
+</style>
+
+<ul class="nav nav-tabs hidden-print">
+	<li class="active"><a data-toggle="tab" href="#sectionResults">Results</a></li>
+
+	
+		<li><a href="./EventLapTimes/510/0//">Times</a></li>
+	
+	
+		<li><a href="./EventLapChart/510/0//">Lap Chart</a></li>
+		<li><a href="./EventGapChart/510/0//">Gap Chart</a></li>
+		<li><a href="./EventRaceChart/510/0//">Race Chart</a></li>
+		<li><a data-toggle="tab" href="#sectionSituation">Situation</a></li>
+	
+	
+		<li><a data-toggle="tab" href="#histogram">Histogram</a></li>
+
+</ul>
+
+<div class="tab-content">
+	<div id="sectionResults" class="tab-pane fade in active">
+<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Rank</th><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>Category</th><th>License</th><th class="text-nowrap">UCI ID</th><th class="text-right">Time</th><th class="text-right">Gap</th></tr></thead><tbody><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5005')"><td class="text-right">1.</td><td class="text-right">850</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5005">FLETCHER, Matthew</a></td><td>Harrogate Nova Race Team</td><td>JunO (Open)</td><td>996202</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">39:10</td><td class="text-right"></td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/2448')"><td class="text-right">2.</td><td class="text-right">565</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/2448">COOK, James</a></td><td>4T+ Cyclopark</td><td>JunO (Open)</td><td>1095503</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">40:54</td><td class="text-right">1:43</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6345')"><td class="text-right">3.</td><td class="text-right">515</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6345">ALFORD, Russell</a></td><td>ViCiOUS VELO</td><td>M40O (Open)</td><td>937081</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">41:11</td><td class="text-right">2:00</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/1663')"><td class="text-right">4.</td><td class="text-right">899</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/1663">MOLLISON, Peter</a></td><td>ViCiOUS VELO</td><td>M40O (Open)</td><td>836835</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">41:56</td><td class="text-right">2:45</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/2780')"><td class="text-right">5.</td><td class="text-right">784</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/2780">HEAP, Thomas</a></td><td>Hillingdon Slipstreamers</td><td>JunO (Open)</td><td>1082354</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">42:07</td><td class="text-right">2:57</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6827')"><td class="text-right">6.</td><td class="text-right">901</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6827">PEARSON, Alfred</a></td><td></td><td>JunO (Open)</td><td>1847432</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">42:09</td><td class="text-right">2:59</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/3083')"><td class="text-right">7.</td><td class="text-right">569</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/3083">EGAN, Declan</a></td><td>Kingston Wheelers CC</td><td>M40O (Open)</td><td>957738</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">42:21</td><td class="text-right">3:10</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/1690')"><td class="text-right">8.</td><td class="text-right">258</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/1690">GLOWINSKI, Philip</a></td><td>VC Londres</td><td>M40O (Open)</td><td>443211</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">42:38</td><td class="text-right">3:27</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6135')"><td class="text-right">9.</td><td class="text-right">80</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6135">ROGERS, John</a></td><td>Southborough &amp; District Whls</td><td>M40O (Open)</td><td>1765401</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">42:38</td><td class="text-right">3:28</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6806')"><td class="text-right">10.</td><td class="text-right">931</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6806">HARRIS, Neil</a></td><td>Southborough &amp; District Whls</td><td>M40O (Open)</td><td>413719</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">42:52</td><td class="text-right">3:41</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5392')"><td class="text-right">11.</td><td class="text-right">55</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5392">LULHAM, Ethan</a></td><td>ViCiOUS VELO</td><td>JunO (Open)</td><td>1682944</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">42:59</td><td class="text-right">3:48</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/2671')"><td class="text-right">12.</td><td class="text-right">57</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/2671">LULHAM, Geoffrey</a></td><td>ViCiOUS VELO</td><td>M40O (Open)</td><td>429274</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">43:14</td><td class="text-right">4:03</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/427')"><td class="text-right">13.</td><td class="text-right">614</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/427">BRAID, Dan</a></td><td>ViCiOUS VELO</td><td>M40O (Open)</td><td>827387</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">43:26</td><td class="text-right">4:15</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6237')"><td class="text-right">14.</td><td class="text-right">871</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6237">LAUDER, Neil</a></td><td>Arctic Aircon RT</td><td>M40O (Open)</td><td>1009493</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">43:41</td><td class="text-right">4:30</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5088')"><td class="text-right">15.</td><td class="text-right">269</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5088">KONONOV, Oleg</a></td><td></td><td>M40O (Open)</td><td>1544623</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">43:44</td><td class="text-right">4:33</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/1837')"><td class="text-right">16.</td><td class="text-right">60</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/1837">MACHIN, Ryan</a></td><td>Destination Bike RT</td><td>M40O (Open)</td><td>1015218</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">43:51</td><td class="text-right">4:41</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5107')"><td class="text-right">17.</td><td class="text-right">344</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5107">KUNZ, Mattias</a></td><td></td><td>M40O (Open)</td><td>458996</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">44:02</td><td class="text-right">4:51</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/1294')"><td class="text-right">18.</td><td class="text-right">885</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/1294">SHEPHERD, Mark</a></td><td>Southborough &amp; District Whls</td><td>M40O (Open)</td><td>717479</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">44:11</td><td class="text-right">5:01</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/487')"><td class="text-right">19.</td><td class="text-right">304</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/487">STRUELE, Dave</a></td><td>Raptor London</td><td>M40O (Open)</td><td>445855</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">44:41</td><td class="text-right">5:30</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5886')"><td class="text-right">20.</td><td class="text-right">175</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5886">PLAIL, Aidan</a></td><td>Bigfoot CC</td><td>JunO (Open)</td><td>1262233</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">45:05</td><td class="text-right">5:55</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5324')"><td class="text-right">21.</td><td class="text-right">886</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5324">SMITH, Matt J</a></td><td>Beeline Bicycles - Sorb</td><td>M40O (Open)</td><td>1155759</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">45:08</td><td class="text-right">5:58</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6677')"><td class="text-right">22.</td><td class="text-right">74</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6677">OSBORN, Simon</a></td><td>4T+ Cyclopark</td><td>M40O (Open)</td><td>913893</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">45:09</td><td class="text-right">5:58</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/907')"><td class="text-right">23.</td><td class="text-right">278</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/907">MALONE, James</a></td><td>Dulwich Paragon CC</td><td>M40O (Open)</td><td>1060319</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">45:09</td><td class="text-right">5:59</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6408')"><td class="text-right">24.</td><td class="text-right">113</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6408">JONES, Marcus</a></td><td>Kingston Wheelers CC</td><td>JunO (Open)</td><td>1570426</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">45:20</td><td class="text-right">6:10</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5356')"><td class="text-right">25.</td><td class="text-right">292</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5356">NEWLYN, Kevin</a></td><td>Sussex Revolution Velo Club</td><td>M40O (Open)</td><td>1675092</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">45:28</td><td class="text-right">6:18</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/1010')"><td class="text-right">26.</td><td class="text-right">731</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/1010">ASTON, John</a></td><td>Hunt Bike Wheels</td><td>M40O (Open)</td><td>724516</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">45:50</td><td class="text-right">6:39</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5659')"><td class="text-right">27.</td><td class="text-right">926</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5659">GREGORY, Josh</a></td><td>VC Deal</td><td>M40O (Open)</td><td>425067</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">46:01</td><td class="text-right">6:51</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/2519')"><td class="text-right">28.</td><td class="text-right">826</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/2519">THWAITES, Ivo</a></td><td>Southborough &amp; District Whls</td><td>JunO (Open)</td><td>1295066</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">46:45</td><td class="text-right">7:35</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/1831')"><td class="text-right">29.</td><td class="text-right">180</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/1831">SHORT, Russell</a></td><td>CHAINGANG Racing Team</td><td>M40O (Open)</td><td>439535</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">39:19</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/931')"><td class="text-right">30.</td><td class="text-right">894</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/931">WADDINGTON, James</a></td><td></td><td>M40O (Open)</td><td>417201</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">39:20</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6137')"><td class="text-right">31.</td><td class="text-right">317</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6137">WATKINS, Thomas</a></td><td>Bigfoot CC</td><td>JunO (Open)</td><td>1346506</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">39:30</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6361')"><td class="text-right">32.</td><td class="text-right">133</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6361">HAYES, Rory</a></td><td>Herne Hill Youth CC</td><td>JunO (Open)</td><td>1810610</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">39:33</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6250')"><td class="text-right">33.</td><td class="text-right">16</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6250">CRAWFORD, Adam</a></td><td></td><td>M40O (Open)</td><td>1774712</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">39:40</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6009')"><td class="text-right">34.</td><td class="text-right">312</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6009">SURDA, Pavol</a></td><td>Dulwich Paragon CC</td><td>M40O (Open)</td><td>1461673</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">39:51</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6915')"><td class="text-right">35.</td><td class="text-right">358</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6915">SMITH, Andrew</a></td><td>Brixton Cycles Club</td><td>M40O (Open)</td><td>1086890</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">39:59</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5884')"><td class="text-right">36.</td><td class="text-right">219</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5884">MCMAHON, Tom</a></td><td>Dulwich Paragon CC</td><td>M40O (Open)</td><td>1711634</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">40:01</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/2234')"><td class="text-right">37.</td><td class="text-right">329</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/2234">FISHER, Dan</a></td><td></td><td>M40O (Open)</td><td>1441053</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">40:11</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6901')"><td class="text-right">38.</td><td class="text-right">172</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6901">PHILLIPS, Kevin</a></td><td>Brighton Mitre CC</td><td>M40O (Open)</td><td>1567969</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">40:21</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5740')"><td class="text-right">39.</td><td class="text-right">325</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5740">BURDON, Lucas</a></td><td>Southborough &amp; District Whls</td><td>JunO (Open)</td><td>1714920</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">40:30</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6840')"><td class="text-right">40.</td><td class="text-right">884</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6840">RYAN, Leon</a></td><td>Neighbourhood Brighton CC</td><td>M40O (Open)</td><td>1308309</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">40:34</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6273')"><td class="text-right">41.</td><td class="text-right">157</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6273">GRAVES, Mark</a></td><td>4T+ Cyclopark</td><td>M40O (Open)</td><td>1780880</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">40:45</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6233')"><td class="text-right">42.</td><td class="text-right">702</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6233">SPICER, Clive</a></td><td>Preston Park Youth CC (PPYCC)</td><td>M40O (Open)</td><td>1035197</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">41:01</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/3193')"><td class="text-right">43.</td><td class="text-right">254</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/3193">DALEY, Lawrence</a></td><td>Neighbourhood Brighton CC</td><td>M40O (Open)</td><td>1524856</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">41:22</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/2274')"><td class="text-right">44.</td><td class="text-right">137</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/2274">BRETT, Damian</a></td><td></td><td>M40O (Open)</td><td>1421273</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">41:30</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6786')"><td class="text-right">45.</td><td class="text-right">662</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6786">JONES, Ben</a></td><td>Lee Valley Youth Cycling Club</td><td>JunO (Open)</td><td>1448624</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">41:31</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6685')"><td class="text-right">46.</td><td class="text-right">209</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6685">HILL, Alex</a></td><td></td><td>M40O (Open)</td><td>1166004</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">41:41</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6908')"><td class="text-right">47.</td><td class="text-right">217</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6908">MCCARTNEY, Simon</a></td><td></td><td>M40O (Open)</td><td>TEMP_215558...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">42:04</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6774')"><td class="text-right">48.</td><td class="text-right">853</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6774">GATT, Christopher</a></td><td>VC Londres</td><td>M40O (Open)</td><td>943360</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">42:44</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/474')"><td class="text-right">49.</td><td class="text-right">267</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/474">KING, Darren</a></td><td>Rapha Cycling Club</td><td>M40O (Open)</td><td>1204422</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">42:53</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6966')"><td class="text-right">50.</td><td class="text-right">206</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6966">HARRIS, Edward</a></td><td></td><td>M40O (Open)</td><td>1365245</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">43:23</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5852')"><td class="text-right">51.</td><td class="text-right">585</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5852">HOWARD, Elliot</a></td><td>Herne Hill Youth CC</td><td>JunO (Open)</td><td>1674571</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">43:44</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6893')"><td class="text-right">52.</td><td class="text-right">34</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6893">HERMANS, Ruben</a></td><td></td><td>M40O (Open)</td><td>1770565</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">43:59</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/2790')"><td class="text-right">53.</td><td class="text-right">356</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/2790">SHARPE, Jon</a></td><td></td><td>M40O (Open)</td><td>1223480</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">44:01</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6968')"><td class="text-right">54.</td><td class="text-right">879</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6968">READ, Leighton</a></td><td>Ashford Road Cycling Club</td><td>M40O (Open)</td><td>1448380</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">45:01</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5855')"><td class="text-right">55.</td><td class="text-right">584</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5855">HOWARD, Barney</a></td><td>Herne Hill Youth CC</td><td>JunO (Open)</td><td>1674569</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">46:18</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6031')"><td class="text-right">56.</td><td class="text-right">323</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6031">ADERIBIGBE, Seun</a></td><td>Brixton Cycles Club</td><td>M40O (Open)</td><td>1646307</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">46:21</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6724')"><td class="text-right">57.</td><td class="text-right">890</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6724">STEWART, Graeme</a></td><td>Limited Edition Cycling</td><td>M40O (Open)</td><td>1211570</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">46:21</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6681')"><td class="text-right">58.</td><td class="text-right">919</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6681">GOSCOMB, Aleksander</a></td><td>Southborough &amp; District Whls</td><td>JunO (Open)</td><td>1838994</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">39:54</td><td class="text-right">-2 laps</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6588')"><td class="text-right">59.</td><td class="text-right">947</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6588">SHEARWOOD, Mark</a></td><td></td><td>M40O (Open)</td><td>TEMP_581218...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">40:14</td><td class="text-right">-2 laps</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6763')"><td class="text-right">60.</td><td class="text-right">140</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6763">COOPER, Tim</a></td><td></td><td>M40O (Open)</td><td>TEMP_444252...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">40:16</td><td class="text-right">-2 laps</td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6660')"><td class="text-right">DNF</td><td class="text-right">472</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6660">OSBORNE, Ben</a></td><td>4T+ Cyclopark</td><td>JunO (Open)</td><td>1832338</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/2720')"><td class="text-right">DNF</td><td class="text-right">283</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/2720">MCGHEE, Ewan</a></td><td>C and N Cycles RT</td><td>JunO (Open)</td><td>1427877</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5924')"><td class="text-right">DNS</td><td class="text-right">36</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5924">HOPPING, Martyn</a></td><td>Kingston Wheelers CC</td><td>M40O (Open)</td><td>1084267</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/2041')"><td class="text-right">DNS</td><td class="text-right">82</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/2041">SANDELL, Theo</a></td><td>VC Londres</td><td>JunO (Open)</td><td>976857</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5124')"><td class="text-right">DNS</td><td class="text-right">141</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5124">DAVIS, Hadley</a></td><td>VC Londres</td><td>JunO (Open)</td><td>1582475</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/4934')"><td class="text-right">DNS</td><td class="text-right">549</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/4934">WATSON, Keith</a></td><td>VC Deal</td><td>M40O (Open)</td><td>949343</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/521')"><td class="text-right">DNS</td><td class="text-right">821</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/521">SMITH, David</a></td><td>VC Londres</td><td>M40O (Open)</td><td>410307</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/5162')"><td class="text-right">DNS</td><td class="text-right">918</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/5162">GAMPER, Micha</a></td><td>Clapham Chasers</td><td>M40O (Open)</td><td>1420552</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/LicenseHolderResults/6976')"><td class="text-right">DNS</td><td class="text-right">948</td><td><a href="/2025/2/RaceDB/Hub/LicenseHolderResults/6976">SIMPSON, William</a></td><td></td><td>M40O (Open)</td><td>1856686</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr></tbody></table>
+
+	</div>
+
+	<div id="sectionSituation" class="tab-pane fade">
+		<div id="idSituationDiv" class="noprint">
+			<table><tr>
+				<td style="vertical-align:top; text-align:center;">
+					<br/><br/><br/><br/>
+					Zoom<br/>
+					+<br/>
+					<input type="radio" name="zoom" value="5.0" onclick="SetSituationZoom(this)"></input><br/>
+					<input type="radio" name="zoom" value="4.5" onclick="SetSituationZoom(this)"></input><br/>
+					<input type="radio" name="zoom" value="4.0" onclick="SetSituationZoom(this)"></input><br/>
+					<input type="radio" name="zoom" value="3.5" checked onclick="SetSituationZoom(this)"></input><br/>
+					<input type="radio" name="zoom" value="3.0" onclick="SetSituationZoom(this)"></input><br/>
+					<input type="radio" name="zoom" value="2.5" onclick="SetSituationZoom(this)"></input><br/>
+					<input type="radio" name="zoom" value="2.0" onclick="SetSituationZoom(this)"></input><br/>
+					<input type="radio" name="zoom" value="1.5" onclick="SetSituationZoom(this)"></input><br/>
+					<input type="radio" name="zoom" value="1.0" checked onclick="SetSituationZoom(this)"></input><br/>
+					-<br/>
+				</td>
+				<td style="vertical-align: top;">
+					Time Slider&nbsp;&nbsp;&nbsp;<input id="idTimeRange" type="range" min="0" max="10000" value="10000" style="width:70%;" oninput="SetSituationTime(this.value)" onchange="SetSituationTime(this.value)"></input><br/>
+					<canvas id="idSituation" width="800" height="600">
+					<a href="http://www.sites.google.com/site/crossmgrsoftware">CrossMgr</a> Requires support for the HTML5 Canvas.<br/>
+					Please upgrade to a more recent browser version.<br/>
+					For Internet Explorer (IE), you need version 9.0 or higher.<br/><br/>
+					Current versions of Chrome, FireFox and Opera work fine.
+					</canvas>
+				</td>
+				<td style="vertical-align: top;">
+					<div id="idSituationDetailDiv"></div>
+				</td>
+			</tr></table>
+		</div><!-- idSituationDiv -->
+	</div>
+
+	<div id="histogram" class="tab-pane fade">
+		<br/>
+		<div id="idHistogramChart"></div>
+		<div id="idStatistics"></div>
+	</div>
+</div>
+
+
+</div>
+<br/>&nbsp;<br/>&nbsp;<br/>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+</body>
+</html>

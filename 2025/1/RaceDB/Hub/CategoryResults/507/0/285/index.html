@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{}");
+var payload = JSON.parse("{\u0022bib\u0022:2045,\u0022raceName\u0022:\u0022Round 3 \u002D Pippingford Park \u002D U8 / U10 (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222025\u002D09\u002D28 09:20\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022U10F (Women)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[2045,2022,2003,2034,2147,2137],\u0022gapValue\u0022:[0.0,21.747037999999975,103.82631600000002,120.80176499999993,152.596409,\u002D1],\u0022laps\u0022:4,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u00222045\u0022:{\u0022LastName\u0022:\u0022Stewart\u0022,\u0022FirstName\u0022:\u0022Lola\u0022,\u0022Team\u0022:\u0022Limited Edition Cycling\u0022,\u0022License\u0022:\u00221720594\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,257.512348,440.630563,623.73491],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:623.73491,\u0022lastTimeOrig\u0022:623.73491,\u0022status\u0022:\u0022Finisher\u0022},\u00222022\u0022:{\u0022LastName\u0022:\u0022Rackley\u0022,\u0022FirstName\u0022:\u0022Enyo\u0022,\u0022Team\u0022:\u0022Limited Edition Cycling\u0022,\u0022License\u0022:\u00221811362\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,264.405316,461.952107,645.481948],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:645.481948,\u0022lastTimeOrig\u0022:645.481948,\u0022status\u0022:\u0022Finisher\u0022},\u00222003\u0022:{\u0022LastName\u0022:\u0022Connor\u0022,\u0022FirstName\u0022:\u0022Olive\u0022,\u0022Team\u0022:\u0022Limited Edition Cycling\u0022,\u0022License\u0022:\u00221804308\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,318.450504,524.397316,727.561226],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:727.561226,\u0022lastTimeOrig\u0022:727.561226,\u0022status\u0022:\u0022Finisher\u0022},\u00222034\u0022:{\u0022LastName\u0022:\u0022Rogers\u0022,\u0022FirstName\u0022:\u0022Frances\u0022,\u0022Team\u0022:\u0022Southborough \u0026 District Whls\u0022,\u0022License\u0022:\u00221819417\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,314.197535,530.456772,744.536675],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:744.536675,\u0022lastTimeOrig\u0022:744.536675,\u0022status\u0022:\u0022Finisher\u0022},\u00222147\u0022:{\u0022LastName\u0022:\u0022Wheeler\u0022,\u0022FirstName\u0022:\u0022Josephine\u0022,\u0022Team\u0022:\u0022Herne Hill Youth CC\u0022,\u0022License\u0022:\u00221861248\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,327.529889,545.402011,776.331319],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:776.331319,\u0022lastTimeOrig\u0022:776.331319,\u0022status\u0022:\u0022Finisher\u0022},\u00222137\u0022:{\u0022LastName\u0022:\u0022Du Preez\u0022,\u0022FirstName\u0022:\u0022Emma\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u0022TEMP_298208...\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,413.537101,684.277374],\u0022interp\u0022:[0,0,0],\u0022lastTime\u0022:684.277374,\u0022lastTimeOrig\u0022:684.277374,\u0022status\u0022:\u0022Finisher\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1818,14 +1818,16 @@ function jump( link ) { window.location = link; }
 
 <h1>
 	
-	<strong><a href="/2025/1/RaceDB/Hub/CompetitionResults/98/">Round 3 - Pippingford Park</a>: U8 / U10</strong>: Registered Only (no results)<br/>
+	<strong><a href="/2025/1/RaceDB/Hub/CompetitionResults/98/">Round 3 - Pippingford Park</a>: U8 / U10</strong><br/>
 	<span style="font-size: 70%">
 		<strong>U10F (Women) - U10</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 02-10-2025 21:51:26</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 03-10-2025 11:54:43</span>
 		<br/>
 		28-09-2025 09:20&nbsp;&nbsp;
 		Starters: 6&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
+		
+			Winning Time: 10:23&nbsp;&nbsp;
 		
 		
 	</span>
@@ -1841,13 +1843,25 @@ table.participant_table tr th {
 </style>
 
 <ul class="nav nav-tabs hidden-print">
-	<li class="active"><a data-toggle="tab" href="#sectionResults">Registered</a></li>
+	<li class="active"><a data-toggle="tab" href="#sectionResults">Results</a></li>
+
+	
+		<li><a href="./EventLapTimes/507/0/285/">Times</a></li>
+	
+	
+		<li><a href="./EventLapChart/507/0/285/">Lap Chart</a></li>
+		<li><a href="./EventGapChart/507/0/285/">Gap Chart</a></li>
+		<li><a href="./EventRaceChart/507/0/285/">Race Chart</a></li>
+		<li><a data-toggle="tab" href="#sectionSituation">Situation</a></li>
+	
+	
+		<li><a data-toggle="tab" href="#histogram">Histogram</a></li>
 
 </ul>
 
 <div class="tab-content">
 	<div id="sectionResults" class="tab-pane fade in active">
-<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th></tr></thead><tbody><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6653')"><td class="text-right">2003</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6653">CONNOR, Olive</a></td><td>Limited Edition Cycling</td><td>1804308</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6834')"><td class="text-right">2137</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6834">DU PREEZ, Emma</a></td><td></td><td>TEMP_298208...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6654')"><td class="text-right">2022</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6654">RACKLEY, Enyo</a></td><td>Limited Edition Cycling</td><td>1811362</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6667')"><td class="text-right">2034</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6667">ROGERS, Frances</a></td><td>Southborough &amp; District Whls</td><td>1819417</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6001')"><td class="text-right">2045</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6001">STEWART, Lola</a></td><td>Limited Edition Cycling</td><td>1720594</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6978')"><td class="text-right">2147</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6978">WHEELER, Josephine</a></td><td>Herne Hill Youth CC</td><td>1861248</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr></tbody></table>
+<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Rank</th><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th><th class="text-right">Time</th><th class="text-right">Gap</th></tr></thead><tbody><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6001')"><td class="text-right">1.</td><td class="text-right">2045</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6001">STEWART, Lola</a></td><td>Limited Edition Cycling</td><td>1720594</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">10:23</td><td class="text-right"></td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6654')"><td class="text-right">2.</td><td class="text-right">2022</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6654">RACKLEY, Enyo</a></td><td>Limited Edition Cycling</td><td>1811362</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">10:45</td><td class="text-right">0&#x27;21&quot;</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6653')"><td class="text-right">3.</td><td class="text-right">2003</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6653">CONNOR, Olive</a></td><td>Limited Edition Cycling</td><td>1804308</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">12:07</td><td class="text-right">1&#x27;43&quot;</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6667')"><td class="text-right">4.</td><td class="text-right">2034</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6667">ROGERS, Frances</a></td><td>Southborough &amp; District Whls</td><td>1819417</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">12:24</td><td class="text-right">2&#x27;00&quot;</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6978')"><td class="text-right">5.</td><td class="text-right">2147</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6978">WHEELER, Josephine</a></td><td>Herne Hill Youth CC</td><td>1861248</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">12:56</td><td class="text-right">2&#x27;32&quot;</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6834')"><td class="text-right">6.</td><td class="text-right">2137</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6834">DU PREEZ, Emma</a></td><td></td><td>TEMP_298208...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">11:24</td><td class="text-right">-1 lap</td></tr></tbody></table>
 
 	</div>
 

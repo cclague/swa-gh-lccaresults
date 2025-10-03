@@ -220,7 +220,7 @@ function reformat( value, from_fmt, to_fmt ) {
 		data.addColumn('string', 'To');
 		data.addColumn('number', 'Points');
 		data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
-		data.addRows(JSON.parse("[[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2025\u002D09\u002D07\u0022,\u0022 1. SHEARWOOD, Woody (50)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2025\u002D09\u002D07\u0022,\u0022 2. ANDERSON, Kit (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2025\u002D09\u002D07\u0022,\u0022 3. ROGERS, Wilfred (40)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022 1. SHEARWOOD, Woody (50)\u0022,\u0022Limited Edition... (50)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022 2. ANDERSON, Kit (44)\u0022,\u00224T+ Cyclopark (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022 3. ROGERS, Wilfred (40)\u0022,\u0022Southborough \u0026... (40)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null]]"));
+		data.addRows(JSON.parse("[[\u0022Round 3 \u002D Pippingford Park\u002DU8 / U10: 2025\u002D09\u002D28\u0022,\u0022 1. SHEARWOOD, Woody (100)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2025\u002D09\u002D07\u0022,\u0022 1. SHEARWOOD, Woody (100)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DU8 / U10: 2025\u002D09\u002D28\u0022,\u0022 2. ANDERSON, Kit (84)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2025\u002D09\u002D07\u0022,\u0022 2. ANDERSON, Kit (84)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DU8 / U10: 2025\u002D09\u002D28\u0022,\u0022 3. CHECKLEY, James T (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2025\u002D09\u002D07\u0022,\u0022 4. ROGERS, Wilfred (40)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DU8 / U10: 2025\u002D09\u002D28\u0022,\u0022 5. BONNEFON, Albert (36)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DU8 / U10: 2025\u002D09\u002D28\u0022,\u0022 6. BEAUMONT, Tom (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022 1. SHEARWOOD, Woody (100)\u0022,\u0022Limited Edition... (100)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022 2. ANDERSON, Kit (84)\u0022,\u00224T+ Cyclopark (84)\u0022,{\u0022v\u0022:84,\u0022f\u0022:\u002284.00\u0022},null],[\u0022 3. CHECKLEY, James T (44)\u0022,\u0022Ind 1 (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022 4. ROGERS, Wilfred (40)\u0022,\u0022Southborough \u0026... (40)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022 5. BONNEFON, Albert (36)\u0022,\u0022Ind 2 (36)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022 6. BEAUMONT, Tom (33)\u0022,\u0022Ind 3 (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null]]"));
 
 		var options = {
 			width: 600,
@@ -379,26 +379,48 @@ table.results-table tr th {
 		U8O (Open)
 	</span>
 </h1>
-Generated: 02-10-2025 21:51:40
+Generated: 03-10-2025 11:55:35
 <table class="table table-striped table-hover table-condensed results-table" style="width: auto;"><thead><tr><th>Rank</th><th>Name</th><th>Team</th><th class='text-right col-border-right'>
 			
 				Points
 			
 		</th><th class='text-right col-border-right-gap'>Gap</th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 3 - Pippingford Park<br/>
+				28-09-2025 09:20<br/><a href='/2025/2/RaceDB/Hub/CategoryResults/507/0/293/index.html'><span style="white-space: nowrap;">U8 / U10</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 1 - Stanmer Park<br/>
-				07-09-2025 09:20<br/><a href='/2025/2/RaceDB/Hub/CategoryResults/486/0/293/index.html'><span style="white-space: nowrap;">U8 / U10</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/2025/2/RaceDB/Hub/Hub/LicenseHolderResults/6595/index.html'>SHEARWOOD, Woody</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>50</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+				07-09-2025 09:20<br/><a href='/2025/2/RaceDB/Hub/CategoryResults/486/0/293/index.html'><span style="white-space: nowrap;">U8 / U10</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/2025/2/RaceDB/Hub/Hub/LicenseHolderResults/6595/index.html'>SHEARWOOD, Woody</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>100</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
 						50
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						1st
-					</td></tr><tr><td class="text-right">2.</td><td><a href='/2025/2/RaceDB/Hub/Hub/LicenseHolderResults/6917/index.html'>ANDERSON, Kit</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>44</td><td class='text-right col-border-right-gap'>6</td><td class='hidden-print text-right'>
-						44
+					</td><td class='hidden-print text-right'>
+						50
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						2nd
-					</td></tr><tr><td class="text-right">3.</td><td><a href='/2025/2/RaceDB/Hub/Hub/LicenseHolderResults/6894/index.html'>ROGERS, Wilfred</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>40</td><td class='text-right col-border-right-gap'>10</td><td class='hidden-print text-right'>
+						1st
+					</td></tr><tr><td class="text-right">2.</td><td><a href='/2025/2/RaceDB/Hub/Hub/LicenseHolderResults/6917/index.html'>ANDERSON, Kit</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>84</td><td class='text-right col-border-right-gap'>16</td><td class='hidden-print text-right'>
 						40
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						3rd
-					</td></tr></tbody></table>
+					</td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td></tr><tr><td class="text-right">3.</td><td><a href='/2025/2/RaceDB/Hub/Hub/LicenseHolderResults/6986/index.html'>CHECKLEY, James T</a></td><td></td><td class='text-right col-border-right'>44</td><td class='text-right col-border-right-gap'>56</td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">4.</td><td><a href='/2025/2/RaceDB/Hub/Hub/LicenseHolderResults/6894/index.html'>ROGERS, Wilfred</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>40</td><td class='text-right col-border-right-gap'>60</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td></tr><tr><td class="text-right">5.</td><td><a href='/2025/2/RaceDB/Hub/Hub/LicenseHolderResults/6975/index.html'>BONNEFON, Albert</a></td><td></td><td class='text-right col-border-right'>36</td><td class='text-right col-border-right-gap'>64</td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">6.</td><td><a href='/2025/2/RaceDB/Hub/Hub/LicenseHolderResults/6987/index.html'>BEAUMONT, Tom</a></td><td></td><td class='text-right col-border-right'>33</td><td class='text-right col-border-right-gap'>67</td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr></tbody></table>
 
 
 

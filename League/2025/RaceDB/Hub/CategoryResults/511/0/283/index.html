@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{\u0022bib\u0022:320,\u0022raceName\u0022:\u0022Round 3 \u002D Pippingford Park \u002D All Women (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222025\u002D09\u002D28 12:30\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022M60F (Women)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[320,42,346],\u0022gapValue\u0022:[0.0,123.90511900000001,400.769906],\u0022laps\u0022:5,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u0022320\u0022:{\u0022LastName\u0022:\u0022Wilkinson\u0022,\u0022FirstName\u0022:\u0022Lesley\u0022,\u0022Team\u0022:\u0022Addiscombe CC\u0022,\u0022License\u0022:\u0022966699\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,867.113701,1379.727694,1901.8794,2409.307438],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2409.307438,\u0022lastTimeOrig\u0022:2409.307438,\u0022status\u0022:\u0022Finisher\u0022},\u002242\u0022:{\u0022LastName\u0022:\u0022Johnson\u0022,\u0022FirstName\u0022:\u0022Clare\u0022,\u0022Team\u0022:\u0022Brighton Mitre CC\u0022,\u0022License\u0022:\u00221262620\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,923.439782,1460.648441,2000.443703,2533.212557],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2533.212557,\u0022lastTimeOrig\u0022:2533.212557,\u0022status\u0022:\u0022Finisher\u0022},\u0022346\u0022:{\u0022LastName\u0022:\u0022McGrath\u0022,\u0022FirstName\u0022:\u0022Karen\u0022,\u0022Team\u0022:\u0022Worthing Excelsior CC\u0022,\u0022License\u0022:\u0022929621\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,1003.935585,1601.58262,2210.205666,2810.077344],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2810.077344,\u0022lastTimeOrig\u0022:2810.077344,\u0022status\u0022:\u0022Finisher\u0022}},\u0022has_multiple_laps\u0022:true}");
+var payload = JSON.parse("{\u0022bib\u0022:320,\u0022raceName\u0022:\u0022Round 3 \u002D Pippingford Park \u002D All Women (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222025\u002D09\u002D28 12:30\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022M60F (Women)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[320,42,346],\u0022gapValue\u0022:[0.0,123.9060000000004,400.77000000000044],\u0022laps\u0022:5,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u0022320\u0022:{\u0022LastName\u0022:\u0022Wilkinson\u0022,\u0022FirstName\u0022:\u0022Lesley\u0022,\u0022Team\u0022:\u0022Addiscombe CC\u0022,\u0022License\u0022:\u0022966699\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,867.114,1379.728,1901.879,2409.307],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2409.307,\u0022lastTimeOrig\u0022:2409.307,\u0022status\u0022:\u0022Finisher\u0022},\u002242\u0022:{\u0022LastName\u0022:\u0022Johnson\u0022,\u0022FirstName\u0022:\u0022Clare\u0022,\u0022Team\u0022:\u0022Brighton Mitre CC\u0022,\u0022License\u0022:\u00221262620\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,923.44,1460.648,2000.444,2533.213],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2533.213,\u0022lastTimeOrig\u0022:2533.213,\u0022status\u0022:\u0022Finisher\u0022},\u0022346\u0022:{\u0022LastName\u0022:\u0022McGrath\u0022,\u0022FirstName\u0022:\u0022Karen\u0022,\u0022Team\u0022:\u0022Worthing Excelsior CC\u0022,\u0022License\u0022:\u0022929621\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,1003.936,1601.583,2210.206,2810.077],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2810.077,\u0022lastTimeOrig\u0022:2810.077,\u0022status\u0022:\u0022Finisher\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1676,32 +1676,32 @@ function onLoad()
 {
 	// Transform the ISO time formats into local formats.
 	$('.dateinput').each( function(index, element) {
-		element.value = reformat( element.value, 'yyyy-mm-dd', "dd-mm-yyyy" );
+		element.value = reformat( element.value, 'yyyy-mm-dd', "yyyy-mm-dd" );
 		$(element).attr( 'autocomplete', 'off' );
 	});
 	$('.datetimeinput').each( function(index, element) {
-		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "dd-mm-yyyy hh:ii" );
+		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "yyyy-mm-dd hh:ii" );
 		$(element).attr( 'autocomplete', 'off' );
 	});	
 
 	// Initialize the date/time pickers using the local formats.
 	$('.dateinput').datepicker({
-		format: "dd-mm-yyyy",
+		format: "yyyy-mm-dd",
 		autoclose: true,
 		todayHighlight: true
 	});
 	$('.datetimeinput').datetimepicker({
-		format: "dd-mm-yyyy hh:ii",
+		format: "yyyy-mm-dd hh:ii",
 		autoclose: true
 	});
 	
 	// When the form is submitted, transform the local formats back into ISO.
 	$('form').submit(function(){
 		$('.dateinput').each( function(index, element) {
-			element.value = reformat( element.value, "dd-mm-yyyy", 'yyyy-mm-dd' );
+			element.value = reformat( element.value, "yyyy-mm-dd", 'yyyy-mm-dd' );
 		});
 		$('.datetimeinput').each( function(index, element) {
-			element.value = reformat( element.value, "dd-mm-yyyy hh:ii", 'yyyy-mm-dd hh:ii:ss' );
+			element.value = reformat( element.value, "yyyy-mm-dd hh:ii", 'yyyy-mm-dd hh:ii:ss' );
 		});
 	});
 	
@@ -1821,9 +1821,9 @@ function jump( link ) { window.location = link; }
 	<strong><a href="/RaceDB/Hub/CompetitionResults/98/">Round 3 - Pippingford Park</a>: All Women</strong><br/>
 	<span style="font-size: 70%">
 		<strong>M60F (Women) - WOMEN</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 30-09-2025 13:18:39</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 2025-10-03 17:35:13</span>
 		<br/>
-		28-09-2025 12:30&nbsp;&nbsp;
+		2025-09-28 12:30&nbsp;&nbsp;
 		Starters: 3&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
 		

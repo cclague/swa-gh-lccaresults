@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{}");
+var payload = JSON.parse("{\u0022bib\u0022:2042,\u0022raceName\u0022:\u0022Round 4 \u002D Herne Hill \u002D U8 / U10 (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222025\u002D10\u002D05 09:20\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022U8O (Open)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[2042,2082,2133,2040,2162],\u0022gapValue\u0022:[0.0,\u002D1,\u002D1,\u002D1,\u002D5],\u0022laps\u0022:5,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u00222042\u0022:{\u0022LastName\u0022:\u0022Shearwood\u0022,\u0022FirstName\u0022:\u0022Woody\u0022,\u0022Team\u0022:\u0022Limited Edition Cycling\u0022,\u0022License\u0022:\u00221819720\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,180.206201,336.56646,509.442426,676.67455],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:676.67455,\u0022lastTimeOrig\u0022:676.67455,\u0022status\u0022:\u0022Finisher\u0022},\u00222082\u0022:{\u0022LastName\u0022:\u0022Anderson\u0022,\u0022FirstName\u0022:\u0022Kit\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u00221685447\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,211.231107,389.913774,574.383079],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:574.383079,\u0022lastTimeOrig\u0022:574.383079,\u0022status\u0022:\u0022Finisher\u0022},\u00222133\u0022:{\u0022LastName\u0022:\u0022Crawford\u0022,\u0022FirstName\u0022:\u0022Fred\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u0022TEMP_533629...\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,211.651901,393.201739,586.239961],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:586.239961,\u0022lastTimeOrig\u0022:586.239961,\u0022status\u0022:\u0022Finisher\u0022},\u00222040\u0022:{\u0022LastName\u0022:\u0022Cherry\u0022,\u0022FirstName\u0022:\u0022Bruno\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u0022TEMP_922308...\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,213.382507,407.029754,620.769101],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:620.769101,\u0022lastTimeOrig\u0022:620.769101,\u0022status\u0022:\u0022Finisher\u0022},\u00222162\u0022:{\u0022LastName\u0022:\u0022Houslop\u002DDuffy\u0022,\u0022FirstName\u0022:\u0022Edward\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u0022TEMP_210215...\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022DNS\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1818,14 +1818,16 @@ function jump( link ) { window.location = link; }
 
 <h1>
 	
-	<strong><a href="/2025/1/RaceDB/Hub/CompetitionResults/99/">Round 4 - Herne Hill</a>: U8 / U10</strong>: Registered Only (no results)<br/>
+	<strong><a href="/2025/1/RaceDB/Hub/CompetitionResults/99/">Round 4 - Herne Hill</a>: U8 / U10</strong><br/>
 	<span style="font-size: 70%">
 		<strong>U8O (Open) - U8</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 05-10-2025 21:23:52</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 05-10-2025 21:41:16</span>
 		<br/>
 		05-10-2025 09:20&nbsp;&nbsp;
-		Starters: 5&nbsp;&nbsp;
+		Starters: 4&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
+		
+			Winning Time: 11:16&nbsp;&nbsp;
 		
 		
 	</span>
@@ -1841,13 +1843,25 @@ table.participant_table tr th {
 </style>
 
 <ul class="nav nav-tabs hidden-print">
-	<li class="active"><a data-toggle="tab" href="#sectionResults">Registered</a></li>
+	<li class="active"><a data-toggle="tab" href="#sectionResults">Results</a></li>
+
+	
+		<li><a href="./EventLapTimes/514/0/293/">Times</a></li>
+	
+	
+		<li><a href="./EventLapChart/514/0/293/">Lap Chart</a></li>
+		<li><a href="./EventGapChart/514/0/293/">Gap Chart</a></li>
+		<li><a href="./EventRaceChart/514/0/293/">Race Chart</a></li>
+		<li><a data-toggle="tab" href="#sectionSituation">Situation</a></li>
+	
+	
+		<li><a data-toggle="tab" href="#histogram">Histogram</a></li>
 
 </ul>
 
 <div class="tab-content">
 	<div id="sectionResults" class="tab-pane fade in active">
-<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th></tr></thead><tbody><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6917')"><td class="text-right">2082</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6917">ANDERSON, Kit</a></td><td>4T+ Cyclopark</td><td>1685447</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/7020')"><td class="text-right">2040</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/7020">CHERRY, Bruno</a></td><td></td><td>TEMP_922308...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6835')"><td class="text-right">2133</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6835">CRAWFORD, Fred</a></td><td></td><td>TEMP_533629...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/7018')"><td class="text-right">2162</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/7018">HOUSLOP-DUFFY, Edward</a></td><td></td><td>TEMP_210215...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6595')"><td class="text-right">2042</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6595">SHEARWOOD, Woody</a></td><td>Limited Edition Cycling</td><td>1819720</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr></tbody></table>
+<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Rank</th><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th><th class="text-right">Time</th><th class="text-right">Gap</th></tr></thead><tbody><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6595')"><td class="text-right">1.</td><td class="text-right">2042</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6595">SHEARWOOD, Woody</a></td><td>Limited Edition Cycling</td><td>1819720</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">11:16</td><td class="text-right"></td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6917')"><td class="text-right">2.</td><td class="text-right">2082</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6917">ANDERSON, Kit</a></td><td>4T+ Cyclopark</td><td>1685447</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">9:34</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/6835')"><td class="text-right">3.</td><td class="text-right">2133</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/6835">CRAWFORD, Fred</a></td><td></td><td>TEMP_533629...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">9:46</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/7020')"><td class="text-right">4.</td><td class="text-right">2040</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/7020">CHERRY, Bruno</a></td><td></td><td>TEMP_922308...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">10:20</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/2025/1/RaceDB/Hub/LicenseHolderResults/7018')"><td class="text-right">DNS</td><td class="text-right">2162</td><td><a href="/2025/1/RaceDB/Hub/LicenseHolderResults/7018">HOUSLOP-DUFFY, Edward</a></td><td></td><td>TEMP_210215...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr></tbody></table>
 
 	</div>
 

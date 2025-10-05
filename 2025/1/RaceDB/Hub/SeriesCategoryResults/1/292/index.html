@@ -220,7 +220,7 @@ function reformat( value, from_fmt, to_fmt ) {
 		data.addColumn('string', 'To');
 		data.addColumn('number', 'Points');
 		data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
-		data.addRows(JSON.parse("[[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 1. DUTTON, Laurie (144)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 1. DUTTON, Laurie (144)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 1. DUTTON, Laurie (144)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 2. GLOAG, Tiger (127)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 2. GLOAG, Tiger (127)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 2. GLOAG, Tiger (127)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 3. BENEZET MINNS, Colin (108)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 3. BENEZET MINNS, Colin (108)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 3. BENEZET MINNS, Colin (108)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 4. LAZENBY, Thomas (102)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 4. LAZENBY, Thomas (102)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 4. LAZENBY, Thomas (102)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 5. PATTEN, Jack (99)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 5. PATTEN, Jack (99)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 5. PATTEN, Jack (99)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 6. HAINES, George (87)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 6. HAINES, George (87)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 6. HAINES, George (87)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 7. WILKINSON, Brodie (72)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 7. WILKINSON, Brodie (72)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 8. GRAVES, Edward (70)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 8. GRAVES, Edward (70)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 9. FLETCHER, Luke (70)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 9. FLETCHER, Luke (70)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 9. FLETCHER, Luke (70)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002210. BALAAM, Otto (66)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u002210. BALAAM, Otto (66)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002210. BALAAM, Otto (66)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002211. MORRIS, Franklin (60)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u002211. MORRIS, Franklin (60)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002211. MORRIS, Franklin (60)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u002212. MAHONEY, Riley (50)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002212. MAHONEY, Riley (50)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002213. PERRY, Isaac (47)\u0022,{\u0022v\u0022:15,\u0022f\u0022:\u002215.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u002213. PERRY, Isaac (47)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002213. PERRY, Isaac (47)\u0022,{\u0022v\u0022:15,\u0022f\u0022:\u002215.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u002214. ABERDOUR, Cooper (38)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002214. ABERDOUR, Cooper (38)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002215. BLYTHE, Noah (34)\u0022,{\u0022v\u0022:16,\u0022f\u0022:\u002216.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u002215. BLYTHE, Noah (34)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002216. KENNARD, William (31)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002216. KENNARD, William (31)\u0022,{\u0022v\u0022:14,\u0022f\u0022:\u002214.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002217. O\u0027RAWE, Oskar (30)\u0022,{\u0022v\u0022:14,\u0022f\u0022:\u002214.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u002217. O\u0027RAWE, Oskar (30)\u0022,{\u0022v\u0022:16,\u0022f\u0022:\u002216.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002218. TUTT, Henry (22)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002219. WHEELER, Wilbur (19)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002220. ALDERSON, Toby (18)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002221. JENKINS, Jack (17)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002222. HILL, Sam (16)\u0022,{\u0022v\u0022:16,\u0022f\u0022:\u002216.00\u0022},null],[\u0022 1. DUTTON, Laurie (144)\u0022,\u0022VC Londres (358)\u0022,{\u0022v\u0022:144,\u0022f\u0022:\u0022144.00\u0022},null],[\u0022 2. GLOAG, Tiger (127)\u0022,\u0022VC Londres (358)\u0022,{\u0022v\u0022:127,\u0022f\u0022:\u0022127.00\u0022},null],[\u0022 3. BENEZET MINNS, Colin (108)\u0022,\u0022Penge Cycle Clu... (108)\u0022,{\u0022v\u0022:108,\u0022f\u0022:\u0022108.00\u0022},null],[\u0022 4. LAZENBY, Thomas (102)\u0022,\u0022Hillingdon Slip... (102)\u0022,{\u0022v\u0022:102,\u0022f\u0022:\u0022102.00\u0022},null],[\u0022 5. PATTEN, Jack (99)\u0022,\u0022Preston Park Yo... (137)\u0022,{\u0022v\u0022:99,\u0022f\u0022:\u002299.00\u0022},null],[\u0022 6. HAINES, George (87)\u0022,\u0022VC Londres (358)\u0022,{\u0022v\u0022:87,\u0022f\u0022:\u002287.00\u0022},null],[\u0022 7. WILKINSON, Brodie (72)\u0022,\u0022Bigfoot Youth C... (72)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022 8. GRAVES, Edward (70)\u0022,\u00224T+ Cyclopark (208)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022 9. FLETCHER, Luke (70)\u0022,\u00224T+ Cyclopark (208)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u002210. BALAAM, Otto (66)\u0022,\u0022Herne Hill Yout... (85)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u002211. MORRIS, Franklin (60)\u0022,\u0022Southborough \u0026... (210)\u0022,{\u0022v\u0022:60,\u0022f\u0022:\u002260.00\u0022},null],[\u002212. MAHONEY, Riley (50)\u0022,\u00224T+ Cyclopark (208)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u002213. PERRY, Isaac (47)\u0022,\u0022Southborough \u0026... (210)\u0022,{\u0022v\u0022:47,\u0022f\u0022:\u002247.00\u0022},null],[\u002214. ABERDOUR, Cooper (38)\u0022,\u0022Preston Park Yo... (137)\u0022,{\u0022v\u0022:38,\u0022f\u0022:\u002238.00\u0022},null],[\u002215. BLYTHE, Noah (34)\u0022,\u0022Southborough \u0026... (210)\u0022,{\u0022v\u0022:34,\u0022f\u0022:\u002234.00\u0022},null],[\u002216. KENNARD, William (31)\u0022,\u0022VC Jubilee (47)\u0022,{\u0022v\u0022:31,\u0022f\u0022:\u002231.00\u0022},null],[\u002217. O\u0027RAWE, Oskar (30)\u0022,\u0022Southborough \u0026... (210)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u002218. TUTT, Henry (22)\u0022,\u0022Southborough \u0026... (210)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u002219. WHEELER, Wilbur (19)\u0022,\u0022Herne Hill Yout... (85)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u002220. ALDERSON, Toby (18)\u0022,\u00224T+ Cyclopark (208)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u002221. JENKINS, Jack (17)\u0022,\u0022Southborough \u0026... (210)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u002222. HILL, Sam (16)\u0022,\u0022VC Jubilee (47)\u0022,{\u0022v\u0022:16,\u0022f\u0022:\u002216.00\u0022},null]]"));
+		data.addRows(JSON.parse("[[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u0022 1. DUTTON, Laurie (194)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 1. DUTTON, Laurie (194)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 1. DUTTON, Laurie (194)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 1. DUTTON, Laurie (194)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u0022 2. GLOAG, Tiger (167)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 2. GLOAG, Tiger (167)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 2. GLOAG, Tiger (167)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 2. GLOAG, Tiger (167)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u0022 3. PATTEN, Jack (135)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 3. PATTEN, Jack (135)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 3. PATTEN, Jack (135)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 3. PATTEN, Jack (135)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u0022 4. LAZENBY, Thomas (132)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 4. LAZENBY, Thomas (132)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 4. LAZENBY, Thomas (132)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 4. LAZENBY, Thomas (132)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u0022 5. HAINES, George (120)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 5. HAINES, George (120)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 5. HAINES, George (120)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 5. HAINES, George (120)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u0022 6. WILKINSON, Brodie (116)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 6. WILKINSON, Brodie (116)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 6. WILKINSON, Brodie (116)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 7. BENEZET MINNS, Colin (108)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 7. BENEZET MINNS, Colin (108)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 7. BENEZET MINNS, Colin (108)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u0022 8. FLETCHER, Luke (90)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 8. FLETCHER, Luke (90)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 8. FLETCHER, Luke (90)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 8. FLETCHER, Luke (90)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u0022 9. MORRIS, Franklin (88)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u0022 9. MORRIS, Franklin (88)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u0022 9. MORRIS, Franklin (88)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u0022 9. MORRIS, Franklin (88)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u002210. BALAAM, Otto (88)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002210. BALAAM, Otto (88)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u002210. BALAAM, Otto (88)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002210. BALAAM, Otto (88)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002211. GRAVES, Edward (70)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002211. GRAVES, Edward (70)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u002212. PERRY, Isaac (63)\u0022,{\u0022v\u0022:16,\u0022f\u0022:\u002216.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002212. PERRY, Isaac (63)\u0022,{\u0022v\u0022:15,\u0022f\u0022:\u002215.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u002212. PERRY, Isaac (63)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002212. PERRY, Isaac (63)\u0022,{\u0022v\u0022:15,\u0022f\u0022:\u002215.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u002213. BLYTHE, Noah (52)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002213. BLYTHE, Noah (52)\u0022,{\u0022v\u0022:16,\u0022f\u0022:\u002216.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u002213. BLYTHE, Noah (52)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u002214. MAHONEY, Riley (50)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002214. MAHONEY, Riley (50)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u002215. O\u0027RAWE, Oskar (47)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002215. O\u0027RAWE, Oskar (47)\u0022,{\u0022v\u0022:14,\u0022f\u0022:\u002214.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u002215. O\u0027RAWE, Oskar (47)\u0022,{\u0022v\u0022:16,\u0022f\u0022:\u002216.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u002216. TUTT, Henry (46)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002216. TUTT, Henry (46)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 2 \u002D Crystal Palace\u002DYouth A B: 2025\u002D09\u002D21\u0022,\u002217. ABERDOUR, Cooper (38)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002217. ABERDOUR, Cooper (38)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002218. KENNARD, William (31)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002218. KENNARD, William (31)\u0022,{\u0022v\u0022:14,\u0022f\u0022:\u002214.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u002219. HIGGINS, Barney (26)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DYouth A B: 2025\u002D10\u002D05\u0022,\u002220. HOLMES, Dominic (19)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002221. WHEELER, Wilbur (19)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DYouth A B: 2025\u002D09\u002D28\u0022,\u002222. ALDERSON, Toby (18)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002223. JENKINS, Jack (17)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DYouth A B: 2025\u002D09\u002D07\u0022,\u002224. HILL, Sam (16)\u0022,{\u0022v\u0022:16,\u0022f\u0022:\u002216.00\u0022},null],[\u0022 1. DUTTON, Laurie (194)\u0022,\u0022VC Londres (507)\u0022,{\u0022v\u0022:194,\u0022f\u0022:\u0022194.00\u0022},null],[\u0022 2. GLOAG, Tiger (167)\u0022,\u0022VC Londres (507)\u0022,{\u0022v\u0022:167,\u0022f\u0022:\u0022167.00\u0022},null],[\u0022 3. PATTEN, Jack (135)\u0022,\u0022Preston Park Yo... (173)\u0022,{\u0022v\u0022:135,\u0022f\u0022:\u0022135.00\u0022},null],[\u0022 4. LAZENBY, Thomas (132)\u0022,\u0022Hillingdon Slip... (132)\u0022,{\u0022v\u0022:132,\u0022f\u0022:\u0022132.00\u0022},null],[\u0022 5. HAINES, George (120)\u0022,\u0022VC Londres (507)\u0022,{\u0022v\u0022:120,\u0022f\u0022:\u0022120.00\u0022},null],[\u0022 6. WILKINSON, Brodie (116)\u0022,\u0022Bigfoot Youth C... (116)\u0022,{\u0022v\u0022:116,\u0022f\u0022:\u0022116.00\u0022},null],[\u0022 7. BENEZET MINNS, Colin (108)\u0022,\u0022Penge Cycle Clu... (108)\u0022,{\u0022v\u0022:108,\u0022f\u0022:\u0022108.00\u0022},null],[\u0022 8. FLETCHER, Luke (90)\u0022,\u00224T+ Cyclopark (228)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022 9. MORRIS, Franklin (88)\u0022,\u0022Southborough \u0026... (332)\u0022,{\u0022v\u0022:88,\u0022f\u0022:\u002288.00\u0022},null],[\u002210. BALAAM, Otto (88)\u0022,\u0022Herne Hill Yout... (107)\u0022,{\u0022v\u0022:88,\u0022f\u0022:\u002288.00\u0022},null],[\u002211. GRAVES, Edward (70)\u0022,\u00224T+ Cyclopark (228)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u002212. PERRY, Isaac (63)\u0022,\u0022Southborough \u0026... (332)\u0022,{\u0022v\u0022:63,\u0022f\u0022:\u002263.00\u0022},null],[\u002213. BLYTHE, Noah (52)\u0022,\u0022Southborough \u0026... (332)\u0022,{\u0022v\u0022:52,\u0022f\u0022:\u002252.00\u0022},null],[\u002214. MAHONEY, Riley (50)\u0022,\u00224T+ Cyclopark (228)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u002215. O\u0027RAWE, Oskar (47)\u0022,\u0022Southborough \u0026... (332)\u0022,{\u0022v\u0022:47,\u0022f\u0022:\u002247.00\u0022},null],[\u002216. TUTT, Henry (46)\u0022,\u0022Southborough \u0026... (332)\u0022,{\u0022v\u0022:46,\u0022f\u0022:\u002246.00\u0022},null],[\u002217. ABERDOUR, Cooper (38)\u0022,\u0022Preston Park Yo... (173)\u0022,{\u0022v\u0022:38,\u0022f\u0022:\u002238.00\u0022},null],[\u002218. KENNARD, William (31)\u0022,\u0022VC Jubilee (47)\u0022,{\u0022v\u0022:31,\u0022f\u0022:\u002231.00\u0022},null],[\u002219. HIGGINS, Barney (26)\u0022,\u0022VC Londres (507)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u002220. HOLMES, Dominic (19)\u0022,\u0022Southborough \u0026... (332)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u002221. WHEELER, Wilbur (19)\u0022,\u0022Herne Hill Yout... (107)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u002222. ALDERSON, Toby (18)\u0022,\u00224T+ Cyclopark (228)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u002223. JENKINS, Jack (17)\u0022,\u0022Southborough \u0026... (332)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u002224. HILL, Sam (16)\u0022,\u0022VC Jubilee (47)\u0022,{\u0022v\u0022:16,\u0022f\u0022:\u002216.00\u0022},null]]"));
 
 		var options = {
 			width: 600,
@@ -379,18 +379,24 @@ table.results-table tr th {
 		YAO (Open)
 	</span>
 </h1>
-Generated: 03-10-2025 11:54:36
+Generated: 05-10-2025 21:23:03
 <table class="table table-striped table-hover table-condensed results-table" style="width: auto;"><thead><tr><th>Rank</th><th>Name</th><th>Team</th><th class='text-right col-border-right'>
 			
 				Points
 			
 		</th><th class='text-right col-border-right-gap'>Gap</th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 4 - Herne Hill<br/>
+				05-10-2025 10:40<br/><a href='/2025/1/RaceDB/Hub/CategoryResults/516/0/292/index.html'><span style="white-space: nowrap;">Youth A B</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 3 - Pippingford Park<br/>
 				28-09-2025 10:40<br/><a href='/2025/1/RaceDB/Hub/CategoryResults/509/0/292/index.html'><span style="white-space: nowrap;">Youth A B</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 2 - Crystal Palace<br/>
 				21-09-2025 10:40<br/><a href='/2025/1/RaceDB/Hub/CategoryResults/495/0/292/index.html'><span style="white-space: nowrap;">Youth A B</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 1 - Stanmer Park<br/>
-				07-09-2025 10:40<br/><a href='/2025/1/RaceDB/Hub/CategoryResults/488/0/292/index.html'><span style="white-space: nowrap;">Youth A B</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5919/index.html'>DUTTON, Laurie</a></td><td>VC Londres</td><td class='text-right col-border-right'>144</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+				07-09-2025 10:40<br/><a href='/2025/1/RaceDB/Hub/CategoryResults/488/0/292/index.html'><span style="white-space: nowrap;">Youth A B</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5919/index.html'>DUTTON, Laurie</a></td><td>VC Londres</td><td class='text-right col-border-right'>194</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
 						44
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						2nd
@@ -402,7 +408,11 @@ Generated: 03-10-2025 11:54:36
 						50
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						1st
-					</td></tr><tr><td class="text-right">2.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/4923/index.html'>GLOAG, Tiger</a></td><td>VC Londres</td><td class='text-right col-border-right'>127</td><td class='text-right col-border-right-gap'>17</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">2.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/4923/index.html'>GLOAG, Tiger</a></td><td>VC Londres</td><td class='text-right col-border-right'>167</td><td class='text-right col-border-right-gap'>27</td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
 						50
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						1st
@@ -414,31 +424,11 @@ Generated: 03-10-2025 11:54:36
 						33
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						5th
-					</td></tr><tr><td class="text-right">3.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5301/index.html'>BENEZET MINNS, Colin</a></td><td>Penge Cycle Club</td><td class='text-right col-border-right'>108</td><td class='text-right col-border-right-gap'>36</td><td class='hidden-print text-right'>
-						40
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						3rd
-					</td><td class='hidden-print text-right'>
-						40
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						3rd
-					</td><td class='hidden-print text-right'>
-						28
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						7th
-					</td></tr><tr><td class="text-right">4.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5531/index.html'>LAZENBY, Thomas</a></td><td>Hillingdon Slipstreamers</td><td class='text-right col-border-right'>102</td><td class='text-right col-border-right-gap'>42</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">3.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6854/index.html'>PATTEN, Jack</a></td><td>Preston Park Youth CC (PPYCC)</td><td class='text-right col-border-right'>135</td><td class='text-right col-border-right-gap'>59</td><td class='hidden-print text-right'>
 						36
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						4th
 					</td><td class='hidden-print text-right'>
-						30
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						6th
-					</td><td class='hidden-print text-right'>
-						36
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						4th
-					</td></tr><tr><td class="text-right">5.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6854/index.html'>PATTEN, Jack</a></td><td>Preston Park Youth CC (PPYCC)</td><td class='text-right col-border-right'>99</td><td class='text-right col-border-right-gap'>45</td><td class='hidden-print text-right'>
 						33
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						5th
@@ -450,7 +440,27 @@ Generated: 03-10-2025 11:54:36
 						30
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						6th
-					</td></tr><tr><td class="text-right">6.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/4838/index.html'>HAINES, George</a></td><td>VC Londres</td><td class='text-right col-border-right'>87</td><td class='text-right col-border-right-gap'>57</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">4.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5531/index.html'>LAZENBY, Thomas</a></td><td>Hillingdon Slipstreamers</td><td class='text-right col-border-right'>132</td><td class='text-right col-border-right-gap'>62</td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td></tr><tr><td class="text-right">5.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/4838/index.html'>HAINES, George</a></td><td>VC Londres</td><td class='text-right col-border-right'>120</td><td class='text-right col-border-right-gap'>74</td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right'>
 						28
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						7th
@@ -462,23 +472,35 @@ Generated: 03-10-2025 11:54:36
 						26
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						8th
-					</td></tr><tr><td class="text-right">7.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5893/index.html'>WILKINSON, Brodie</a></td><td>Bigfoot Youth Cycle Club Ltd</td><td class='text-right col-border-right'>72</td><td class='text-right col-border-right-gap'>72</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						28
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						7th
-					</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">6.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5893/index.html'>WILKINSON, Brodie</a></td><td>Bigfoot Youth Cycle Club Ltd</td><td class='text-right col-border-right'>116</td><td class='text-right col-border-right-gap'>78</td><td class='hidden-print text-right'>
 						44
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						2nd
-					</td></tr><tr><td class="text-right">8.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5401/index.html'>GRAVES, Edward</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>70</td><td class='text-right col-border-right-gap'>74</td><td class='hidden-print text-right'>
-						30
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						6th
 					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td></tr><tr><td class="text-right">7.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5301/index.html'>BENEZET MINNS, Colin</a></td><td>Penge Cycle Club</td><td class='text-right col-border-right'>108</td><td class='text-right col-border-right-gap'>86</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						40
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						3rd
-					</td></tr><tr><td class="text-right">9.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5573/index.html'>FLETCHER, Luke</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>70</td><td class='text-right col-border-right-gap'>74</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td></tr><tr><td class="text-right">8.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5573/index.html'>FLETCHER, Luke</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>90</td><td class='text-right col-border-right-gap'>104</td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print text-right'>
 						26
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						8th
@@ -490,19 +512,11 @@ Generated: 03-10-2025 11:54:36
 						20
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						11th
-					</td></tr><tr><td class="text-right">10.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5914/index.html'>BALAAM, Otto</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>66</td><td class='text-right col-border-right-gap'>78</td><td class='hidden-print text-right'>
-						24
+					</td></tr><tr><td class="text-right">9.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5019/index.html'>MORRIS, Franklin</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>88</td><td class='text-right col-border-right-gap'>106</td><td class='hidden-print text-right'>
+						28
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						9th
+						7th
 					</td><td class='hidden-print text-right'>
-						20
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						11th
-					</td><td class='hidden-print text-right'>
-						22
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						10th
-					</td></tr><tr><td class="text-right">11.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5019/index.html'>MORRIS, Franklin</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>60</td><td class='text-right col-border-right-gap'>84</td><td class='hidden-print text-right'>
 						20
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						11th
@@ -514,15 +528,35 @@ Generated: 03-10-2025 11:54:36
 						18
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						13th
-					</td></tr><tr><td class="text-right">12.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/4929/index.html'>MAHONEY, Riley</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>50</td><td class='text-right col-border-right-gap'>94</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						26
+					</td></tr><tr><td class="text-right">10.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5914/index.html'>BALAAM, Otto</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>88</td><td class='text-right col-border-right-gap'>106</td><td class='hidden-print text-right'>
+						22
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						8th
+						10th
 					</td><td class='hidden-print text-right'>
 						24
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						9th
-					</td></tr><tr><td class="text-right">13.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5564/index.html'>PERRY, Isaac</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>47</td><td class='text-right col-border-right-gap'>97</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td></tr><tr><td class="text-right">11.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5401/index.html'>GRAVES, Edward</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>70</td><td class='text-right col-border-right-gap'>124</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td></tr><tr><td class="text-right">12.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5564/index.html'>PERRY, Isaac</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>63</td><td class='text-right col-border-right-gap'>131</td><td class='hidden-print text-right'>
+						16
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print text-right'>
 						15
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						16th
@@ -534,15 +568,11 @@ Generated: 03-10-2025 11:54:36
 						15
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						16th
-					</td></tr><tr><td class="text-right">14.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5981/index.html'>ABERDOUR, Cooper</a></td><td>Preston Park Youth CC (PPYCC)</td><td class='text-right col-border-right'>38</td><td class='text-right col-border-right-gap'>106</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						19
+					</td></tr><tr><td class="text-right">13.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6447/index.html'>BLYTHE, Noah</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>52</td><td class='text-right col-border-right-gap'>142</td><td class='hidden-print text-right'>
+						18
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						12th
+						13th
 					</td><td class='hidden-print text-right'>
-						19
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						12th
-					</td></tr><tr><td class="text-right">15.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6447/index.html'>BLYTHE, Noah</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>34</td><td class='text-right col-border-right-gap'>110</td><td class='hidden-print text-right'>
 						16
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						15th
@@ -550,7 +580,43 @@ Generated: 03-10-2025 11:54:36
 						18
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						13th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">16.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6676/index.html'>KENNARD, William</a></td><td>VC Jubilee</td><td class='text-right col-border-right'>31</td><td class='text-right col-border-right-gap'>113</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">14.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/4929/index.html'>MAHONEY, Riley</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>50</td><td class='text-right col-border-right-gap'>144</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right'>
+						24
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td></tr><tr><td class="text-right">15.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6329/index.html'>O&#x27;RAWE, Oskar</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>47</td><td class='text-right col-border-right-gap'>147</td><td class='hidden-print text-right'>
+						17
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print text-right'>
+						14
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td><td class='hidden-print text-right'>
+						16
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">16.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6598/index.html'>TUTT, Henry</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>46</td><td class='text-right col-border-right-gap'>148</td><td class='hidden-print text-right'>
+						24
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">17.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5981/index.html'>ABERDOUR, Cooper</a></td><td>Preston Park Youth CC (PPYCC)</td><td class='text-right col-border-right'>38</td><td class='text-right col-border-right-gap'>156</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td></tr><tr><td class="text-right">18.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6676/index.html'>KENNARD, William</a></td><td>VC Jubilee</td><td class='text-right col-border-right'>31</td><td class='text-right col-border-right-gap'>163</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						17
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						14th
@@ -558,31 +624,27 @@ Generated: 03-10-2025 11:54:36
 						14
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						17th
-					</td></tr><tr><td class="text-right">17.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6329/index.html'>O&#x27;RAWE, Oskar</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>30</td><td class='text-right col-border-right-gap'>114</td><td class='hidden-print text-right'>
-						14
+					</td></tr><tr><td class="text-right">19.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/4825/index.html'>HIGGINS, Barney</a></td><td>VC Londres</td><td class='text-right col-border-right'>26</td><td class='text-right col-border-right-gap'>168</td><td class='hidden-print text-right'>
+						26
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						17th
-					</td><td class='hidden-print text-right'>
-						16
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						15th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">18.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6598/index.html'>TUTT, Henry</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>22</td><td class='text-right col-border-right-gap'>122</td><td class='hidden-print text-right'>
-						22
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						10th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">19.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6886/index.html'>WHEELER, Wilbur</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>19</td><td class='text-right col-border-right-gap'>125</td><td class='hidden-print text-right'>
+						8th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">20.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/7003/index.html'>HOLMES, Dominic</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>19</td><td class='text-right col-border-right-gap'>175</td><td class='hidden-print text-right'>
 						19
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						12th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">20.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5010/index.html'>ALDERSON, Toby</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>18</td><td class='text-right col-border-right-gap'>126</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">21.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6886/index.html'>WHEELER, Wilbur</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>19</td><td class='text-right col-border-right-gap'>175</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">22.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/5010/index.html'>ALDERSON, Toby</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>18</td><td class='text-right col-border-right-gap'>176</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						18
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						13th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">21.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6562/index.html'>JENKINS, Jack</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>17</td><td class='text-right col-border-right-gap'>127</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">23.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6562/index.html'>JENKINS, Jack</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>17</td><td class='text-right col-border-right-gap'>177</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						17
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						14th
-					</td></tr><tr><td class="text-right">22.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6904/index.html'>HILL, Sam</a></td><td>VC Jubilee</td><td class='text-right col-border-right'>16</td><td class='text-right col-border-right-gap'>128</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">24.</td><td><a href='/2025/1/RaceDB/Hub/Hub/LicenseHolderResults/6904/index.html'>HILL, Sam</a></td><td>VC Jubilee</td><td class='text-right col-border-right'>16</td><td class='text-right col-border-right-gap'>178</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						16
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						15th

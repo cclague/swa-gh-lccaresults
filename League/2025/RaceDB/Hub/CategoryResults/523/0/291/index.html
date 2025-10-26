@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{}");
+var payload = JSON.parse("{\u0022bib\u0022:149,\u0022raceName\u0022:\u0022Round 5 \u002D Somerhill \u002D Youth A B (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222025\u002D10\u002D26 09:40\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022YAF (Women)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[149,260,979],\u0022gapValue\u0022:[0.0,132.1117549999999,\u002D6],\u0022laps\u0022:6,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u0022149\u0022:{\u0022LastName\u0022:\u0022Gibson\u0022,\u0022FirstName\u0022:\u0022Eva\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u00221429494\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,439.150486,874.971216,1314.842919,1759.162626,2208.799716],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2208.799716,\u0022lastTimeOrig\u0022:2208.799716,\u0022status\u0022:\u0022Finisher\u0022},\u0022260\u0022:{\u0022LastName\u0022:\u0022HACKER\u0022,\u0022FirstName\u0022:\u0022BETSY\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u00221347571\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,480.233685,953.125199,1415.702884,1883.695559,2340.911471],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2340.911471,\u0022lastTimeOrig\u0022:2340.911471,\u0022status\u0022:\u0022Finisher\u0022},\u0022979\u0022:{\u0022LastName\u0022:\u0022Perrin\u0022,\u0022FirstName\u0022:\u0022Jasmyn\u0022,\u0022Team\u0022:\u0022Hadleigh Cycling Club\u0022,\u0022License\u0022:\u00221811890\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Eastern\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022DNS\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1818,14 +1818,16 @@ function jump( link ) { window.location = link; }
 
 <h1>
 	
-	<strong><a href="/RaceDB/Hub/CompetitionResults/100/">Round 5 - Somerhill</a>: Youth A B</strong>: Registered Only (no results)<br/>
+	<strong><a href="/RaceDB/Hub/CompetitionResults/100/">Round 5 - Somerhill</a>: Youth A B</strong><br/>
 	<span style="font-size: 70%">
 		<strong>YAF (Women) - YOUTH</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 26-10-2025 10:52:54</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 26-10-2025 12:32:55</span>
 		<br/>
 		26-10-2025 09:40&nbsp;&nbsp;
-		Starters: 3&nbsp;&nbsp;
+		Starters: 2&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
+		
+			Winning Time: 36:48&nbsp;&nbsp;
 		
 		
 	</span>
@@ -1841,13 +1843,25 @@ table.participant_table tr th {
 </style>
 
 <ul class="nav nav-tabs hidden-print">
-	<li class="active"><a data-toggle="tab" href="#sectionResults">Registered</a></li>
+	<li class="active"><a data-toggle="tab" href="#sectionResults">Results</a></li>
+
+	
+		<li><a href="./EventLapTimes/523/0/291/">Times</a></li>
+	
+	
+		<li><a href="./EventLapChart/523/0/291/">Lap Chart</a></li>
+		<li><a href="./EventGapChart/523/0/291/">Gap Chart</a></li>
+		<li><a href="./EventRaceChart/523/0/291/">Race Chart</a></li>
+		<li><a data-toggle="tab" href="#sectionSituation">Situation</a></li>
+	
+	
+		<li><a data-toggle="tab" href="#histogram">Histogram</a></li>
 
 </ul>
 
 <div class="tab-content">
 	<div id="sectionResults" class="tab-pane fade in active">
-<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/2757')"><td class="text-right">149</td><td><a href="/RaceDB/Hub/LicenseHolderResults/2757">GIBSON, Eva</a></td><td>4T+ Cyclopark</td><td>1429494</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/2705')"><td class="text-right">260</td><td><a href="/RaceDB/Hub/LicenseHolderResults/2705">HACKER, BETSY</a></td><td>4T+ Cyclopark</td><td>1347571</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7027')"><td class="text-right">979</td><td><a href="/RaceDB/Hub/LicenseHolderResults/7027">PERRIN, Jasmyn</a></td><td>Hadleigh Cycling Club</td><td>1811890</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr></tbody></table>
+<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Rank</th><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th><th class="text-right">Time</th><th class="text-right">Gap</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/2757')"><td class="text-right">1.</td><td class="text-right">149</td><td><a href="/RaceDB/Hub/LicenseHolderResults/2757">GIBSON, Eva</a></td><td>4T+ Cyclopark</td><td>1429494</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">36:48</td><td class="text-right"></td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/2705')"><td class="text-right">2.</td><td class="text-right">260</td><td><a href="/RaceDB/Hub/LicenseHolderResults/2705">HACKER, BETSY</a></td><td>4T+ Cyclopark</td><td>1347571</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">39:00</td><td class="text-right">2&#x27;12&quot;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7027')"><td class="text-right">DNS</td><td class="text-right">979</td><td><a href="/RaceDB/Hub/LicenseHolderResults/7027">PERRIN, Jasmyn</a></td><td>Hadleigh Cycling Club</td><td>1811890</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr></tbody></table>
 
 	</div>
 

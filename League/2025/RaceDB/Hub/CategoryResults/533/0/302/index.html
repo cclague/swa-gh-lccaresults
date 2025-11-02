@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{}");
+var payload = JSON.parse("{\u0022bib\u0022:41,\u0022raceName\u0022:\u0022Round 6 \u002D East Bysshe \u002D Masters 50+ Open (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222025\u002D11\u002D02 12:50\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022M70O (Open)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[41,247],\u0022gapValue\u0022:[0.0,94.72111599999971],\u0022laps\u0022:6,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u002241\u0022:{\u0022LastName\u0022:\u0022Mooney\u0022,\u0022FirstName\u0022:\u0022Peter\u0022,\u0022Team\u0022:\u0022Rugby Velo\u0022,\u0022License\u0022:\u0022407436\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022West midlands\u0022,\u0022raceTimes\u0022:[0.0,643.736361,1287.439738,1930.688534,2568.568799,3212.696851],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:3212.696851,\u0022lastTimeOrig\u0022:3212.696851,\u0022status\u0022:\u0022Finisher\u0022},\u0022247\u0022:{\u0022LastName\u0022:\u0022Burgess\u0022,\u0022FirstName\u0022:\u0022Stephen\u0022,\u0022Team\u0022:\u0022Lewes Wanderers CC\u0022,\u0022License\u0022:\u00221012691\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,636.89101,1294.203629,1943.964183,2609.620372,3307.417967],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:3307.417967,\u0022lastTimeOrig\u0022:3307.417967,\u0022status\u0022:\u0022Finisher\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1818,14 +1818,16 @@ function jump( link ) { window.location = link; }
 
 <h1>
 	
-	<strong><a href="/RaceDB/Hub/CompetitionResults/101/">Round 6 - East Bysshe</a>: Masters 50+ Open</strong>: Registered Only (no results)<br/>
+	<strong><a href="/RaceDB/Hub/CompetitionResults/101/">Round 6 - East Bysshe</a>: Masters 50+ Open</strong><br/>
 	<span style="font-size: 70%">
 		<strong>M70O (Open) - V50O/V60O/V70O</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 02-11-2025 13:25:56</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 02-11-2025 14:51:39</span>
 		<br/>
 		02-11-2025 12:50&nbsp;&nbsp;
 		Starters: 2&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
+		
+			Winning Time: 53:32&nbsp;&nbsp;
 		
 		
 	</span>
@@ -1841,13 +1843,25 @@ table.participant_table tr th {
 </style>
 
 <ul class="nav nav-tabs hidden-print">
-	<li class="active"><a data-toggle="tab" href="#sectionResults">Registered</a></li>
+	<li class="active"><a data-toggle="tab" href="#sectionResults">Results</a></li>
+
+	
+		<li><a href="./EventLapTimes/533/0/302/">Times</a></li>
+	
+	
+		<li><a href="./EventLapChart/533/0/302/">Lap Chart</a></li>
+		<li><a href="./EventGapChart/533/0/302/">Gap Chart</a></li>
+		<li><a href="./EventRaceChart/533/0/302/">Race Chart</a></li>
+		<li><a data-toggle="tab" href="#sectionSituation">Situation</a></li>
+	
+	
+		<li><a data-toggle="tab" href="#histogram">Histogram</a></li>
 
 </ul>
 
 <div class="tab-content">
 	<div id="sectionResults" class="tab-pane fade in active">
-<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/1973')"><td class="text-right">247</td><td><a href="/RaceDB/Hub/LicenseHolderResults/1973">BURGESS, Stephen</a></td><td>Lewes Wanderers CC</td><td>1012691</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7074')"><td class="text-right">41</td><td><a href="/RaceDB/Hub/LicenseHolderResults/7074">MOONEY, Peter</a></td><td>Rugby Velo</td><td>407436</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr></tbody></table>
+<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Rank</th><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th><th class="text-right">Time</th><th class="text-right">Gap</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7074')"><td class="text-right">1.</td><td class="text-right">41</td><td><a href="/RaceDB/Hub/LicenseHolderResults/7074">MOONEY, Peter</a></td><td>Rugby Velo</td><td>407436</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">53:32</td><td class="text-right"></td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/1973')"><td class="text-right">2.</td><td class="text-right">247</td><td><a href="/RaceDB/Hub/LicenseHolderResults/1973">BURGESS, Stephen</a></td><td>Lewes Wanderers CC</td><td>1012691</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">55:07</td><td class="text-right">1&#x27;34&quot;</td></tr></tbody></table>
 
 	</div>
 

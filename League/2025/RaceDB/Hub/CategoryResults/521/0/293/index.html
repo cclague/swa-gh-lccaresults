@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{}");
+var payload = JSON.parse("{\u0022bib\u0022:2178,\u0022raceName\u0022:\u0022Round 5 \u002D Somerhill \u002D U8 / U10 (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222025\u002D10\u002D26 08:20\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022U8O (Open)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[2178,2042,2082,2186,2035,2189],\u0022gapValue\u0022:[0.0,53.22399999999993,177.837,177.85199999999998,\u002D1,\u002D5],\u0022laps\u0022:5,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u00222178\u0022:{\u0022LastName\u0022:\u0022Smith\u0022,\u0022FirstName\u0022:\u0022Isaac\u0022,\u0022Team\u0022:\u0022Hadleigh Cycling Club\u0022,\u0022License\u0022:\u00221839878\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Eastern\u0022,\u0022raceTimes\u0022:[0.0,179.633,341.129,499.807,657.533],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:657.533,\u0022lastTimeOrig\u0022:657.533,\u0022status\u0022:\u0022Finisher\u0022},\u00222042\u0022:{\u0022LastName\u0022:\u0022Shearwood\u0022,\u0022FirstName\u0022:\u0022Woody\u0022,\u0022Team\u0022:\u0022Limited Edition Cycling\u0022,\u0022License\u0022:\u00221819720\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,187.288,357.57,533.966,710.757],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:710.757,\u0022lastTimeOrig\u0022:710.757,\u0022status\u0022:\u0022Finisher\u0022},\u00222082\u0022:{\u0022LastName\u0022:\u0022Anderson\u0022,\u0022FirstName\u0022:\u0022Kit\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u00221685447\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,233.533,435.34,631.196,835.37],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:835.37,\u0022lastTimeOrig\u0022:835.37,\u0022status\u0022:\u0022Finisher\u0022},\u00222186\u0022:{\u0022LastName\u0022:\u0022Brett\u0022,\u0022FirstName\u0022:\u0022Harrison\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u0022TEMP_103722...\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,209.551,406.099,590.922,835.385],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:835.385,\u0022lastTimeOrig\u0022:835.385,\u0022status\u0022:\u0022Finisher\u0022},\u00222035\u0022:{\u0022LastName\u0022:\u0022Rogers\u0022,\u0022FirstName\u0022:\u0022Wilfred\u0022,\u0022Team\u0022:\u0022Southborough \u0026 District Whls\u0022,\u0022License\u0022:\u00221821418\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,243.208,466.893,687.765],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:687.765,\u0022lastTimeOrig\u0022:687.765,\u0022status\u0022:\u0022Finisher\u0022},\u00222189\u0022:{\u0022LastName\u0022:\u0022Brett\u0022,\u0022FirstName\u0022:\u0022Luca\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u0022TEMP_883604...\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022DNS\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1818,14 +1818,16 @@ function jump( link ) { window.location = link; }
 
 <h1>
 	
-	<strong><a href="/RaceDB/Hub/CompetitionResults/100/">Round 5 - Somerhill</a>: U8 / U10</strong>: Registered Only (no results)<br/>
+	<strong><a href="/RaceDB/Hub/CompetitionResults/100/">Round 5 - Somerhill</a>: U8 / U10</strong><br/>
 	<span style="font-size: 70%">
 		<strong>U8O (Open) - U8</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 26-10-2025 16:04:33</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 02-11-2025 10:13:04</span>
 		<br/>
 		26-10-2025 08:20&nbsp;&nbsp;
-		Starters: 6&nbsp;&nbsp;
+		Starters: 5&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
+		
+			Winning Time: 10:57&nbsp;&nbsp;
 		
 		
 	</span>
@@ -1841,13 +1843,25 @@ table.participant_table tr th {
 </style>
 
 <ul class="nav nav-tabs hidden-print">
-	<li class="active"><a data-toggle="tab" href="#sectionResults">Registered</a></li>
+	<li class="active"><a data-toggle="tab" href="#sectionResults">Results</a></li>
+
+	
+		<li><a href="./EventLapTimes/521/0/293/">Times</a></li>
+	
+	
+		<li><a href="./EventLapChart/521/0/293/">Lap Chart</a></li>
+		<li><a href="./EventGapChart/521/0/293/">Gap Chart</a></li>
+		<li><a href="./EventRaceChart/521/0/293/">Race Chart</a></li>
+		<li><a data-toggle="tab" href="#sectionSituation">Situation</a></li>
+	
+	
+		<li><a data-toggle="tab" href="#histogram">Histogram</a></li>
 
 </ul>
 
 <div class="tab-content">
 	<div id="sectionResults" class="tab-pane fade in active">
-<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6917')"><td class="text-right">2082</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6917">ANDERSON, Kit</a></td><td>4T+ Cyclopark</td><td>1685447</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7053')"><td class="text-right">2186</td><td><a href="/RaceDB/Hub/LicenseHolderResults/7053">BRETT, Harrison</a></td><td></td><td>TEMP_103722...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7054')"><td class="text-right">2189</td><td><a href="/RaceDB/Hub/LicenseHolderResults/7054">BRETT, Luca</a></td><td></td><td>TEMP_883604...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6894')"><td class="text-right">2035</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6894">ROGERS, Wilfred</a></td><td>Southborough &amp; District Whls</td><td>1821418</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6595')"><td class="text-right">2042</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6595">SHEARWOOD, Woody</a></td><td>Limited Edition Cycling</td><td>1819720</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7034')"><td class="text-right">2178</td><td><a href="/RaceDB/Hub/LicenseHolderResults/7034">SMITH, Isaac</a></td><td>Hadleigh Cycling Club</td><td>1839878</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr></tbody></table>
+<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Rank</th><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th><th class="text-right">Time</th><th class="text-right">Gap</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7034')"><td class="text-right">1.</td><td class="text-right">2178</td><td><a href="/RaceDB/Hub/LicenseHolderResults/7034">SMITH, Isaac</a></td><td>Hadleigh Cycling Club</td><td>1839878</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">10:57</td><td class="text-right"></td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6595')"><td class="text-right">2.</td><td class="text-right">2042</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6595">SHEARWOOD, Woody</a></td><td>Limited Edition Cycling</td><td>1819720</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">11:50</td><td class="text-right">0&#x27;53&quot;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6917')"><td class="text-right">3.</td><td class="text-right">2082</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6917">ANDERSON, Kit</a></td><td>4T+ Cyclopark</td><td>1685447</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">13:55</td><td class="text-right">2&#x27;57&quot;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7053')"><td class="text-right">4.</td><td class="text-right">2186</td><td><a href="/RaceDB/Hub/LicenseHolderResults/7053">BRETT, Harrison</a></td><td></td><td>TEMP_103722...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">13:55</td><td class="text-right">2&#x27;57&quot;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6894')"><td class="text-right">5.</td><td class="text-right">2035</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6894">ROGERS, Wilfred</a></td><td>Southborough &amp; District Whls</td><td>1821418</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">11:27</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7054')"><td class="text-right">DNS</td><td class="text-right">2189</td><td><a href="/RaceDB/Hub/LicenseHolderResults/7054">BRETT, Luca</a></td><td></td><td>TEMP_883604...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr></tbody></table>
 
 	</div>
 

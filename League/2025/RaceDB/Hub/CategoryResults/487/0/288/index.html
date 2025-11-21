@@ -1676,32 +1676,32 @@ function onLoad()
 {
 	// Transform the ISO time formats into local formats.
 	$('.dateinput').each( function(index, element) {
-		element.value = reformat( element.value, 'yyyy-mm-dd', "dd-mm-yyyy" );
+		element.value = reformat( element.value, 'yyyy-mm-dd', "yyyy-mm-dd" );
 		$(element).attr( 'autocomplete', 'off' );
 	});
 	$('.datetimeinput').each( function(index, element) {
-		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "dd-mm-yyyy hh:ii" );
+		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "yyyy-mm-dd hh:ii" );
 		$(element).attr( 'autocomplete', 'off' );
 	});	
 
 	// Initialize the date/time pickers using the local formats.
 	$('.dateinput').datepicker({
-		format: "dd-mm-yyyy",
+		format: "yyyy-mm-dd",
 		autoclose: true,
 		todayHighlight: true
 	});
 	$('.datetimeinput').datetimepicker({
-		format: "dd-mm-yyyy hh:ii",
+		format: "yyyy-mm-dd hh:ii",
 		autoclose: true
 	});
 	
 	// When the form is submitted, transform the local formats back into ISO.
 	$('form').submit(function(){
 		$('.dateinput').each( function(index, element) {
-			element.value = reformat( element.value, "dd-mm-yyyy", 'yyyy-mm-dd' );
+			element.value = reformat( element.value, "yyyy-mm-dd", 'yyyy-mm-dd' );
 		});
 		$('.datetimeinput').each( function(index, element) {
-			element.value = reformat( element.value, "dd-mm-yyyy hh:ii", 'yyyy-mm-dd hh:ii:ss' );
+			element.value = reformat( element.value, "yyyy-mm-dd hh:ii", 'yyyy-mm-dd hh:ii:ss' );
 		});
 	});
 	
@@ -1821,9 +1821,9 @@ function jump( link ) { window.location = link; }
 	<strong><a href="/RaceDB/Hub/CompetitionResults/95/">Round 1 - Stanmer Park</a>: Under 12</strong><br/>
 	<span style="font-size: 70%">
 		<strong>U12O (Open) - U12</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 02-11-2025 14:51:33</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 2025-11-21 20:19:44</span>
 		<br/>
-		07-09-2025 09:40&nbsp;&nbsp;
+		2025-09-07 09:40&nbsp;&nbsp;
 		Starters: 21&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
 		

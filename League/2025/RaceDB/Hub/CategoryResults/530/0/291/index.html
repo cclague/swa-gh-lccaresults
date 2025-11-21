@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{\u0022bib\u0022:149,\u0022raceName\u0022:\u0022Round 6 \u002D East Bysshe \u002D Youth A B (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222025\u002D11\u002D02 09:40\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022YAF (Women)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[149,260,9,193,143],\u0022gapValue\u0022:[0.0,37.75574599999982,76.16801499999974,\u002D1,\u002D5],\u0022laps\u0022:5,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u0022149\u0022:{\u0022LastName\u0022:\u0022Gibson\u0022,\u0022FirstName\u0022:\u0022Eva\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u00221429494\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,503.843416,1004.874126,1520.163079,2044.144275],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2044.144275,\u0022lastTimeOrig\u0022:2044.144275,\u0022status\u0022:\u0022Finisher\u0022},\u0022260\u0022:{\u0022LastName\u0022:\u0022HACKER\u0022,\u0022FirstName\u0022:\u0022BETSY\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u00221347571\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,508.851147,1029.696308,1554.991024,2081.900021],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2081.900021,\u0022lastTimeOrig\u0022:2081.900021,\u0022status\u0022:\u0022Finisher\u0022},\u00229\u0022:{\u0022LastName\u0022:\u0022Buffa\u0022,\u0022FirstName\u0022:\u0022Emma\u0022,\u0022Team\u0022:\u0022VC Londres\u0022,\u0022License\u0022:\u00221734669\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,524.386996,1037.617065,1584.296814,2120.31229],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2120.31229,\u0022lastTimeOrig\u0022:2120.31229,\u0022status\u0022:\u0022Finisher\u0022},\u0022193\u0022:{\u0022LastName\u0022:\u0022Wright\u0022,\u0022FirstName\u0022:\u0022Edie\u0022,\u0022Team\u0022:\u0022Limited Edition Cycling\u0022,\u0022License\u0022:\u00221710990\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,619.125981,1311.865821,1969.084934],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:1969.084934,\u0022lastTimeOrig\u0022:1969.084934,\u0022status\u0022:\u0022Finisher\u0022},\u0022143\u0022:{\u0022LastName\u0022:\u0022Thompson\u0022,\u0022FirstName\u0022:\u0022Eleanor\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u00221346515\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022DNS\u0022}},\u0022has_multiple_laps\u0022:true}");
+var payload = JSON.parse("{\u0022bib\u0022:149,\u0022raceName\u0022:\u0022Round 6 \u002D East Bysshe \u002D Youth A B (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222025\u002D11\u002D02 09:40\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022YAF (Women)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[149,260,9,193,143],\u0022gapValue\u0022:[0.0,37.756000000000085,76.16799999999989,\u002D1,\u002D5],\u0022laps\u0022:5,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u0022149\u0022:{\u0022LastName\u0022:\u0022Gibson\u0022,\u0022FirstName\u0022:\u0022Eva\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u00221429494\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,503.843,1004.874,1520.163,2044.144],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2044.144,\u0022lastTimeOrig\u0022:2044.144,\u0022status\u0022:\u0022Finisher\u0022},\u0022260\u0022:{\u0022LastName\u0022:\u0022HACKER\u0022,\u0022FirstName\u0022:\u0022BETSY\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u00221347571\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,508.851,1029.696,1554.991,2081.9],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2081.9,\u0022lastTimeOrig\u0022:2081.9,\u0022status\u0022:\u0022Finisher\u0022},\u00229\u0022:{\u0022LastName\u0022:\u0022Buffa\u0022,\u0022FirstName\u0022:\u0022Emma\u0022,\u0022Team\u0022:\u0022VC Londres\u0022,\u0022License\u0022:\u00221734669\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,524.387,1037.617,1584.297,2120.312],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2120.312,\u0022lastTimeOrig\u0022:2120.312,\u0022status\u0022:\u0022Finisher\u0022},\u0022193\u0022:{\u0022LastName\u0022:\u0022Wright\u0022,\u0022FirstName\u0022:\u0022Edie\u0022,\u0022Team\u0022:\u0022Limited Edition Cycling\u0022,\u0022License\u0022:\u00221710990\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,619.126,1311.866,1969.085],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:1969.085,\u0022lastTimeOrig\u0022:1969.085,\u0022status\u0022:\u0022Finisher\u0022},\u0022143\u0022:{\u0022LastName\u0022:\u0022Thompson\u0022,\u0022FirstName\u0022:\u0022Eleanor\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u00221346515\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022DNS\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1676,32 +1676,32 @@ function onLoad()
 {
 	// Transform the ISO time formats into local formats.
 	$('.dateinput').each( function(index, element) {
-		element.value = reformat( element.value, 'yyyy-mm-dd', "dd-mm-yyyy" );
+		element.value = reformat( element.value, 'yyyy-mm-dd', "yyyy-mm-dd" );
 		$(element).attr( 'autocomplete', 'off' );
 	});
 	$('.datetimeinput').each( function(index, element) {
-		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "dd-mm-yyyy hh:ii" );
+		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "yyyy-mm-dd hh:ii" );
 		$(element).attr( 'autocomplete', 'off' );
 	});	
 
 	// Initialize the date/time pickers using the local formats.
 	$('.dateinput').datepicker({
-		format: "dd-mm-yyyy",
+		format: "yyyy-mm-dd",
 		autoclose: true,
 		todayHighlight: true
 	});
 	$('.datetimeinput').datetimepicker({
-		format: "dd-mm-yyyy hh:ii",
+		format: "yyyy-mm-dd hh:ii",
 		autoclose: true
 	});
 	
 	// When the form is submitted, transform the local formats back into ISO.
 	$('form').submit(function(){
 		$('.dateinput').each( function(index, element) {
-			element.value = reformat( element.value, "dd-mm-yyyy", 'yyyy-mm-dd' );
+			element.value = reformat( element.value, "yyyy-mm-dd", 'yyyy-mm-dd' );
 		});
 		$('.datetimeinput').each( function(index, element) {
-			element.value = reformat( element.value, "dd-mm-yyyy hh:ii", 'yyyy-mm-dd hh:ii:ss' );
+			element.value = reformat( element.value, "yyyy-mm-dd hh:ii", 'yyyy-mm-dd hh:ii:ss' );
 		});
 	});
 	
@@ -1821,9 +1821,9 @@ function jump( link ) { window.location = link; }
 	<strong><a href="/RaceDB/Hub/CompetitionResults/101/">Round 6 - East Bysshe</a>: Youth A B</strong><br/>
 	<span style="font-size: 70%">
 		<strong>YAF (Women) - YOUTH</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 02-11-2025 14:51:10</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 2025-11-21 20:18:13</span>
 		<br/>
-		02-11-2025 09:40&nbsp;&nbsp;
+		2025-11-02 09:40&nbsp;&nbsp;
 		Starters: 4&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
 		

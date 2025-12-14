@@ -16,9 +16,6 @@
 
 
 
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-
 
 <link rel="icon" href="/static/images/RaceDB_32x32.png">
 <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
@@ -211,32 +208,6 @@ function reformat( value, from_fmt, to_fmt ) {
 
 
 
-	google.charts.load('current', {'packages':['sankey']});
-	google.charts.setOnLoadCallback(drawSankey);
-
-	function drawSankey() {
-		var data = new google.visualization.DataTable();
-		data.addColumn('string', 'From');
-		data.addColumn('string', 'To');
-		data.addColumn('number', 'Points');
-		data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
-		data.addRows(JSON.parse("[[\u0022Round 3 \u002D Pippingford Park\u002DU8 / U10: 2025\u002D09\u002D28\u0022,\u0022 1. MILLER\u002DEDWARDS, Seren (50)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 3 \u002D Pippingford Park\u002DU8 / U10: 2025\u002D09\u002D28\u0022,\u0022 2. WALDER, Nellie Anne (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022 1. MILLER\u002DEDWARDS, Seren (50)\u0022,\u0022VCGH (50)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022 2. WALDER, Nellie Anne (44)\u0022,\u0022Ind 1 (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null]]"));
-
-		var options = {
-			width: 600,
-			sankey: {
-				iterations: 0,
-			},
-		  tooltip: {
-				textStyle: {fontSize: 11}
-			}
-		};
-
-		var chart = new google.visualization.Sankey(document.getElementById('idSankeyChart'));
-		chart.draw(data, options);
-	}
-
-
 
 function onLoad()
 {
@@ -330,26 +301,6 @@ function jump( link ) { window.location = link; }
 <div class="container">
 
 
-<style>
-table.results-table tr td {
-	font-size: 85%;
-}
-table.results-table tr th {
-	font-size: 85%;
-}
-.col-border-right {
-    border-right: 1px solid #ccc;
-}
-.col-border-right-gap {
-    border-right: 1px solid #ccc;
-}
-.result-detail {
-	font-style: italic;
-	color: #080808; 
-}
-</style>
-
-
 
 
 <nav class="navbar navbar-default navbar-fixed-top hidden-print">
@@ -364,7 +315,7 @@ table.results-table tr th {
 				<li><a href="/RaceDB/Hub/SearchCompetitions/">Competitions</a></li>
 				<li><a href="/RaceDB/Hub/SearchLicenseHolders/">Athletes</a></li>
 				<li><a href="/RaceDB/Hub/Series/">Series</a></li>
-				<li><a href="/RaceDB/Hub/SeriesCategoryResults/2/294/QRCode/"><img src="/static/images/glyphicons_258_qrcode.png" alt="QRCode"/></a></li>
+				<li><a href="/RaceDB/Hub/CompetitionResults/104/QRCode/"><img src="/static/images/glyphicons_258_qrcode.png" alt="QRCode"/></a></li>
 			</ul>
 		</div>
 	</div>
@@ -373,77 +324,53 @@ table.results-table tr th {
 
 <h1>
 	
-	<strong><a href='/RaceDB/Hub/SeriesCategories/2/'>Sussex 2025/26</strong></a> <span style="font-size: 75%">Sussex League</span><br/>
+	<strong>Round 8 - Canada Heights</strong><br/>
 	<span style="font-size: 75%">
-		
-		U8F (Women)
+		2025 Dec 7,
+		Swanley<br/>
+		by Dylan Bexley, Cyclocross Regional
 	</span>
 </h1>
-Generated: 14-12-2025 10:08:08
-<table class="table table-striped table-hover table-condensed results-table" style="width: auto;"><thead><tr><th>Rank</th><th>Name</th><th>Team</th><th class='text-right col-border-right'>
-			
-				Points
-			
-		</th><th class='text-right col-border-right-gap'>Gap</th><th colspan="2" class="text-center col-border-right hidden-print">
-				Round 3 - Pippingford Park<br/>
-				28-09-2025 09:20<br/><a href='/RaceDB/Hub/CategoryResults/507/0/294/'><span style="white-space: nowrap;">U8 / U10</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6977/'>MILLER-EDWARDS, Seren</a></td><td>VCGH</td><td class='text-right col-border-right'>50</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
-						50
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						1st
-					</td></tr><tr><td class="text-right">2.</td><td><a href='/RaceDB/Hub/Hub/LicenseHolderResults/6988/'>WALDER, Nellie Anne</a></td><td></td><td class='text-right col-border-right'>44</td><td class='text-right col-border-right-gap'>6</td><td class='hidden-print text-right'>
-						44
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						2nd
-					</td></tr></tbody></table>
+<p>&nbsp;</p>
 
+<div class="row">
 
+	<div class="col-md-6">
+		<h3>Women</h3>
+		<table class="table table-condensed table-striped table-bordered table-hover" style="width: auto;"><thead><tr><th>Category</th><th class="text-center">2025-12-07</th></tr></thead><tbody><tr><td>JunF</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/553/0/273/"><strong>All Women </strong></a></li></ul></td></tr><tr><td>SenF</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/553/0/276/"><strong>All Women </strong></a></li></ul></td></tr><tr><td>U23F</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/553/0/277/"><strong>All Women </strong></a></li></ul></td></tr><tr><td>M40F</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/553/0/279/"><strong>All Women </strong></a></li></ul></td></tr><tr><td>M50F</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/553/0/281/"><strong>All Women </strong></a></li></ul></td></tr><tr><td>M60F</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/553/0/283/"><strong>All Women </strong></a></li></ul></td></tr><tr><td>U10F</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/549/0/285/"><strong>U8 / U10 </strong></a></li></ul></td></tr><tr><td>U12F</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/550/0/287/"><strong>Under 12 </strong></a></li></ul></td></tr><tr><td>YBF</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/551/0/289/"><strong>Youth A B </strong></a></li></ul></td></tr><tr><td>YAF</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/551/0/291/"><strong>Youth A B </strong></a></li></ul></td></tr><tr><td>U8F</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/549/0/294/"><strong>U8 / U10 </strong></a></li></ul></td></tr></tbody></table>
+	</div>
 
+	<div class="col-md-6">
+		<h3>Open</h3>
+		<table class="table table-condensed table-striped table-bordered table-hover" style="width: auto;"><thead><tr><th>Category</th><th class="text-center">2025-12-07</th></tr></thead><tbody><tr><td>JunO</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/552/0/274/"><strong>Masters 40 and Junior Open </strong></a></li></ul></td></tr><tr><td>U23O</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/555/0/275/"><strong>Senior Open </strong></a></li></ul></td></tr><tr><td>SenO</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/555/0/278/"><strong>Senior Open </strong></a></li></ul></td></tr><tr><td>M40O</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/552/0/280/"><strong>Masters 40 and Junior Open </strong></a></li></ul></td></tr><tr><td>M50O</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/554/0/282/"><strong>Masters 50+ Open </strong></a></li></ul></td></tr><tr><td>M60O</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/554/0/284/"><strong>Masters 50+ Open </strong></a></li></ul></td></tr><tr><td>U10O</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/549/0/286/"><strong>U8 / U10 </strong></a></li></ul></td></tr><tr><td>U12O</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/550/0/288/"><strong>Under 12 </strong></a></li></ul></td></tr><tr><td>YBO</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/551/0/290/"><strong>Youth A B </strong></a></li></ul></td></tr><tr><td>YAO</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/551/0/292/"><strong>Youth A B </strong></a></li></ul></td></tr><tr><td>U8O</td><td><ul><li><a href="/RaceDB/Hub/CategoryResults/549/0/293/"><strong>U8 / U10 </strong></a></li></ul></td></tr></tbody></table>
+	</div>
 
-	<p>
-	Best 3 results considered.
-	</p>
+</div>
 
-
-<hr/>
-<h4>
-
-	Ranked by Points
-
-</h4>
-
-	
-		<p/>
-		<h4>Points Structures</h4>
-		
-			<ol>
-			
-				Women/Youth/U12: Points for place: 50,44,40,36,33,30,28,26,24,22,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1: U8 / U10, Under 12, Youth A B, All Women, U8 / U10, Under 12, Youth A B, All Women
-			
-				Senior/Vet Open: Points for place: 100,94,90,86,83,80,78,76,74,72,70,69,68,67,66,65,64,63,62,61,60,59,58,57,56,55,54,53,52,51,50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1: Masters 40 and Junior Open, Masters 50+ Open, Senior Open, Masters 40 and Junior Open, Masters 50+ Open, Senior Open
-			
-			</ol>
-		
-	
-	
-	
-
-
-
-
-<p/>
-<h4>Tie-breaking Rules</h4>
-<ol>
-
-
-	<li>Number of 1st, 2nd, 3rd, 4th then 5th place finishes.  If still a tie:</li>
-
-	<li>Most recent event's results.</li>
-</ol>
-
-
-	<hr/>
-	<div class='hidden-print' id="idSankeyChart" style="width: 1200px; height: 900px;"></div>
-
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Custom</h3>
+			<table class="table table-condensed table-striped table-bordered table-hover" style="width: auto;"><thead><tr><th class="text-center">2025-12-07</th></tr></thead><tbody><tr><td>
+								
+									Under 12
+									<ul><li><a href="/RaceDB/Hub/CustomCategoryResults/550/0/579/"><strong>U12 Open (Open)</strong></a></li></ul></td></tr><tr><td>
+								
+									Youth A B
+									<ul><li><a href="/RaceDB/Hub/CustomCategoryResults/551/0/580/"><strong>Youth Overall (Open)</strong></a></li></ul></td></tr><tr><td>
+								
+									Masters 40 and Junior Open
+									<ul><li><a href="/RaceDB/Hub/CustomCategoryResults/552/0/581/"><strong>Overall (Open)</strong></a></li></ul></td></tr><tr><td>
+								
+									All Women
+									<ul><li><a href="/RaceDB/Hub/CustomCategoryResults/553/0/582/"><strong>All Women (Women)</strong></a></li></ul></td></tr><tr><td>
+								
+									Masters 50+ Open
+									<ul><li><a href="/RaceDB/Hub/CustomCategoryResults/554/0/583/"><strong>V50/60/70 Open (Open)</strong></a></li></ul></td></tr><tr><td>
+								
+									Senior Open
+									<ul><li><a href="/RaceDB/Hub/CustomCategoryResults/555/0/584/"><strong>Senior - Open (Open)</strong></a></li></ul></td></tr></tbody></table>
+		</div>
+	</div>
 
 
 </div>

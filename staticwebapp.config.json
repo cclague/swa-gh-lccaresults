@@ -1,22 +1,4 @@
 {
-  "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": [
-      "/assets/*",
-      "/images/*",
-      "/site_assets/*",
-      "/static/*",
-      "/*.css",
-      "/*.js",
-      "/*.ico",
-      "/*.png",
-      "/*.jpg",
-      "/*.jpeg",
-      "/*.svg",
-      "/*.webp",
-      "/*.json"
-    ]
-  },
   "responseOverrides": {
     "404": {
       "rewrite": "/404.html",

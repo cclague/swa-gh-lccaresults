@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{}");
+var payload = JSON.parse("{\u0022bib\u0022:260,\u0022raceName\u0022:\u0022Round 9 \u002D Herne Hill \u002D Youth A B (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222026\u002D01\u002D25 09:40\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022YAF (Women)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[260,193,650,539],\u0022gapValue\u0022:[0.0,\u002D1,\u002D1,\u002D1],\u0022laps\u0022:5,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u0022260\u0022:{\u0022LastName\u0022:\u0022HACKER\u0022,\u0022FirstName\u0022:\u0022BETSY\u0022,\u0022Team\u0022:\u00224T+ Cyclopark\u0022,\u0022License\u0022:\u00221347571\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,635.994265,1116.91342,1612.408183,2116.367984],\u0022interp\u0022:[0,0,0,0,0],\u0022lastTime\u0022:2116.367984,\u0022lastTimeOrig\u0022:2116.367984,\u0022status\u0022:\u0022Finisher\u0022},\u0022193\u0022:{\u0022LastName\u0022:\u0022Wright\u0022,\u0022FirstName\u0022:\u0022Edie\u0022,\u0022Team\u0022:\u0022Limited Edition Cycling\u0022,\u0022License\u0022:\u00221710990\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,729.157411,1288.168514,1841.181585],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:1841.181585,\u0022lastTimeOrig\u0022:1841.181585,\u0022status\u0022:\u0022Finisher\u0022},\u0022650\u0022:{\u0022LastName\u0022:\u0022Galbraith\u0022,\u0022FirstName\u0022:\u0022Evelyne\u0022,\u0022Team\u0022:\u0022Penge Cycle Club\u0022,\u0022License\u0022:\u00221735066\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,780.91496,1401.506823,2018.450414],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:2018.450414,\u0022lastTimeOrig\u0022:2018.450414,\u0022status\u0022:\u0022Finisher\u0022},\u0022539\u0022:{\u0022LastName\u0022:\u0022Rosenkranz\u0022,\u0022FirstName\u0022:\u0022Sophie\u0022,\u0022Team\u0022:\u0022Kingston Junior Cycle Club\u0022,\u0022License\u0022:\u00221865659\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,778.32659,1413.333951,2034.50175],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:2034.50175,\u0022lastTimeOrig\u0022:2034.50175,\u0022status\u0022:\u0022Finisher\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1818,14 +1818,16 @@ function jump( link ) { window.location = link; }
 
 <h1>
 	
-	<strong><a href="/RaceDB/Hub/CompetitionResults/105/">Round 9 - Herne Hill</a>: Youth A B</strong>: Registered Only (no results)<br/>
+	<strong><a href="/RaceDB/Hub/CompetitionResults/105/">Round 9 - Herne Hill</a>: Youth A B</strong><br/>
 	<span style="font-size: 70%">
 		<strong>YAF (Women) - YOUTH</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 25-01-2026 10:11:22</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 25-01-2026 11:22:31</span>
 		<br/>
 		25-01-2026 09:40&nbsp;&nbsp;
 		Starters: 4&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
+		
+			Winning Time: 35:16&nbsp;&nbsp;
 		
 		
 	</span>
@@ -1841,13 +1843,25 @@ table.participant_table tr th {
 </style>
 
 <ul class="nav nav-tabs hidden-print">
-	<li class="active"><a data-toggle="tab" href="#sectionResults">Registered</a></li>
+	<li class="active"><a data-toggle="tab" href="#sectionResults">Results</a></li>
+
+	
+		<li><a href="./EventLapTimes/558/0/291/">Times</a></li>
+	
+	
+		<li><a href="./EventLapChart/558/0/291/">Lap Chart</a></li>
+		<li><a href="./EventGapChart/558/0/291/">Gap Chart</a></li>
+		<li><a href="./EventRaceChart/558/0/291/">Race Chart</a></li>
+		<li><a data-toggle="tab" href="#sectionSituation">Situation</a></li>
+	
+	
+		<li><a data-toggle="tab" href="#histogram">Histogram</a></li>
 
 </ul>
 
 <div class="tab-content">
 	<div id="sectionResults" class="tab-pane fade in active">
-<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6943')"><td class="text-right">650</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6943">GALBRAITH, Evelyne</a></td><td>Penge Cycle Club</td><td>1735066</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/2705')"><td class="text-right">260</td><td><a href="/RaceDB/Hub/LicenseHolderResults/2705">HACKER, BETSY</a></td><td>4T+ Cyclopark</td><td>1347571</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6936')"><td class="text-right">539</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6936">ROSENKRANZ, Sophie</a></td><td>Kingston Junior Cycle Club</td><td>1865659</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/5970')"><td class="text-right">193</td><td><a href="/RaceDB/Hub/LicenseHolderResults/5970">WRIGHT, Edie</a></td><td>Limited Edition Cycling</td><td>1710990</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr></tbody></table>
+<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Rank</th><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th><th class="text-right">Time</th><th class="text-right">Gap</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/2705')"><td class="text-right">1.</td><td class="text-right">260</td><td><a href="/RaceDB/Hub/LicenseHolderResults/2705">HACKER, BETSY</a></td><td>4T+ Cyclopark</td><td>1347571</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">35:16</td><td class="text-right"></td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/5970')"><td class="text-right">2.</td><td class="text-right">193</td><td><a href="/RaceDB/Hub/LicenseHolderResults/5970">WRIGHT, Edie</a></td><td>Limited Edition Cycling</td><td>1710990</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">30:41</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6943')"><td class="text-right">3.</td><td class="text-right">650</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6943">GALBRAITH, Evelyne</a></td><td>Penge Cycle Club</td><td>1735066</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">33:38</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6936')"><td class="text-right">4.</td><td class="text-right">539</td><td><a href="/RaceDB/Hub/LicenseHolderResults/6936">ROSENKRANZ, Sophie</a></td><td>Kingston Junior Cycle Club</td><td>1865659</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">33:54</td><td class="text-right">-1 lap</td></tr></tbody></table>
 
 	</div>
 

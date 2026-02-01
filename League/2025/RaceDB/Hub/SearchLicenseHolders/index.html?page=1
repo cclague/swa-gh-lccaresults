@@ -326,7 +326,7 @@ function jump( link ) { window.location = link; }
 
 
 
-<form  action="." class="form-inline search" method="post" > <input type="hidden" name="csrfmiddlewaretoken" value="QFTPzhd5Epr5ypkbW87dfdzDn6yqyb3LQUnlL0daHFBAuCI7yvK2ZWB57QzFrTBO"> <div  
+<form  action="." class="form-inline search" method="post" > <input type="hidden" name="csrfmiddlewaretoken" value="fnOQklqy1Oi9sS81C67b8IcMFuAi1n55qCTcrzT0EMmxoP6lQ28gZOOVH39nBLcJ"> <div  
     class="row" > <span style="font-size: 180%; vertical-align:middle;">Search Athletes</span>&nbsp;&nbsp;
 
 

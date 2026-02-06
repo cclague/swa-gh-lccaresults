@@ -326,7 +326,7 @@ function jump( link ) { window.location = link; }
 
 
 
-<form  action="." class="form-inline search" method="post" > <input type="hidden" name="csrfmiddlewaretoken" value="62A1YGqZU183hKarRjJ15Ra8QmVFWaAnBTG1xT1rygITrLpj4rq3o1ceWewdZcCE"> <div  
+<form  action="." class="form-inline search" method="post" > <input type="hidden" name="csrfmiddlewaretoken" value="PufMhX1JVDW6gBKaj6MtFjEcKt1H6OnWNNV977vXyaJ3CaxKiWJyMcxxnnkErx7H"> <div  
     class="row" > <span style="font-size: 180%;">Search Competitions</span>&nbsp;&nbsp;
 
 
@@ -371,9 +371,9 @@ function jump( link ) { window.location = link; }
 </div> </form>
 
 
-<nav aria-label="Page navigation"><ul class="pagination pagination-sm"><li class="disabled"><span aria-hidden="true">&laquo;</span></li><li class="active"><a href="?page=1">1</a></li><li class="disabled"><span aria-hidden="true">&raquo;</span></li><li class="disabled">&nbsp;&nbsp;2&nbsp;Total</li></ul></nav>
+<nav aria-label="Page navigation"><ul class="pagination pagination-sm"><li class="disabled"><span aria-hidden="true">&laquo;</span></li><li class="active"><a href="?page=1">1</a></li><li class="disabled"><span aria-hidden="true">&raquo;</span></li><li class="disabled">&nbsp;&nbsp;3&nbsp;Total</li></ul></nav>
 
-<table class="table table-striped table-hover table-condensed"><thead><tr><th></th><th>Date</th><th>Discipline</th><th>Name</th><th>Location</th><th>Organizer</th><th>Class</th><th>Results</th></tr></thead><tbody><tr onclick="jump('/2025/2/RaceDB/Hub/CompetitionResults/106/');"><td class="text-right">1.</td><td>2026 Feb 1</td><td>Cyclocross</td><td><a href="/2025/2/RaceDB/Hub/CompetitionResults/106/"><strong>Round10</strong></a></td><td>Brighton</td><td>Clare Johnson</td><td>Regional</td><td><span class="is-finished"/></td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/CompetitionResults/105/');"><td class="text-right">2.</td><td>2026 Jan 25</td><td>Cyclocross</td><td><a href="/2025/2/RaceDB/Hub/CompetitionResults/105/"><strong>Round09</strong></a></td><td>Herne Hill</td><td>Charlie Codrington</td><td>Regional</td><td><span class="is-finished"/></td></tr></tbody></table><nav aria-label="Page navigation"><ul class="pagination pagination-sm"><li class="disabled"><span aria-hidden="true">&laquo;</span></li><li class="active"><a href="?page=1">1</a></li><li class="disabled"><span aria-hidden="true">&raquo;</span></li><li class="disabled">&nbsp;&nbsp;2&nbsp;Total</li></ul></nav>
+<table class="table table-striped table-hover table-condensed"><thead><tr><th></th><th>Date</th><th>Discipline</th><th>Name</th><th>Location</th><th>Organizer</th><th>Class</th><th>Results</th></tr></thead><tbody><tr onclick="jump('/2025/2/RaceDB/Hub/CompetitionResults/107/');"><td class="text-right">1.</td><td>2026 Feb 8</td><td>Cyclocross</td><td><a href="/2025/2/RaceDB/Hub/CompetitionResults/107/"><strong>TeamChamps</strong></a></td><td>Cyclopark</td><td>Luke Anderson</td><td>Club</td><td></td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/CompetitionResults/106/');"><td class="text-right">2.</td><td>2026 Feb 1</td><td>Cyclocross</td><td><a href="/2025/2/RaceDB/Hub/CompetitionResults/106/"><strong>Round10</strong></a></td><td>Brighton</td><td>Clare Johnson</td><td>Regional</td><td><span class="is-finished"/></td></tr><tr onclick="jump('/2025/2/RaceDB/Hub/CompetitionResults/105/');"><td class="text-right">3.</td><td>2026 Jan 25</td><td>Cyclocross</td><td><a href="/2025/2/RaceDB/Hub/CompetitionResults/105/"><strong>Round09</strong></a></td><td>Herne Hill</td><td>Charlie Codrington</td><td>Regional</td><td><span class="is-finished"/></td></tr></tbody></table><nav aria-label="Page navigation"><ul class="pagination pagination-sm"><li class="disabled"><span aria-hidden="true">&laquo;</span></li><li class="active"><a href="?page=1">1</a></li><li class="disabled"><span aria-hidden="true">&raquo;</span></li><li class="disabled">&nbsp;&nbsp;3&nbsp;Total</li></ul></nav>
 
 </div>
 <br/>&nbsp;<br/>&nbsp;<br/>

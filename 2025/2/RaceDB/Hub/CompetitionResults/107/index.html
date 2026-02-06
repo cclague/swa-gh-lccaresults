@@ -16,9 +16,6 @@
 
 
 
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-
 
 <link rel="icon" href="/static/images/RaceDB_32x32.png">
 <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
@@ -211,32 +208,6 @@ function reformat( value, from_fmt, to_fmt ) {
 
 
 
-	google.charts.load('current', {'packages':['sankey']});
-	google.charts.setOnLoadCallback(drawSankey);
-
-	function drawSankey() {
-		var data = new google.visualization.DataTable();
-		data.addColumn('string', 'From');
-		data.addColumn('string', 'To');
-		data.addColumn('number', 'Points');
-		data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
-		data.addRows(JSON.parse("[]"));
-
-		var options = {
-			width: 600,
-			sankey: {
-				iterations: 0,
-			},
-		  tooltip: {
-				textStyle: {fontSize: 11}
-			}
-		};
-
-		var chart = new google.visualization.Sankey(document.getElementById('idSankeyChart'));
-		chart.draw(data, options);
-	}
-
-
 
 function onLoad()
 {
@@ -330,26 +301,6 @@ function jump( link ) { window.location = link; }
 <div class="container">
 
 
-<style>
-table.results-table tr td {
-	font-size: 85%;
-}
-table.results-table tr th {
-	font-size: 85%;
-}
-.col-border-right {
-    border-right: 1px solid #ccc;
-}
-.col-border-right-gap {
-    border-right: 1px solid #ccc;
-}
-.result-detail {
-	font-style: italic;
-	color: #080808; 
-}
-</style>
-
-
 
 
 <nav class="navbar navbar-default navbar-fixed-top hidden-print">
@@ -364,7 +315,7 @@ table.results-table tr th {
 				<li><a href="/2025/2/RaceDB/Hub/SearchCompetitions/">Competitions</a></li>
 				<li><a href="/2025/2/RaceDB/Hub/SearchLicenseHolders/">Athletes</a></li>
 				<li><a href="/2025/2/RaceDB/Hub/Series/">Series</a></li>
-				<li><a href="/2025/2/RaceDB/Hub/SeriesCategoryResults/2/303/QRCode/"><img src="/static/images/glyphicons_258_qrcode.png" alt="QRCode"/></a></li>
+				<li><a href="/2025/2/RaceDB/Hub/CompetitionResults/107/QRCode/"><img src="/static/images/glyphicons_258_qrcode.png" alt="QRCode"/></a></li>
 			</ul>
 		</div>
 	</div>
@@ -373,67 +324,28 @@ table.results-table tr th {
 
 <h1>
 	
-	<strong><a href='/2025/2/RaceDB/Hub/SeriesCategories/2/index.html'>Sussex 2025/26</strong></a> <span style="font-size: 75%">Sussex League</span><br/>
+	<strong>LCCA Team Championships</strong><br/>
 	<span style="font-size: 75%">
-		
-		M70F (Women)
+		2026 Feb 8,
+		Cyclopark<br/>
+		by Luke Anderson, Cyclocross Club
 	</span>
 </h1>
-Generated: 06-02-2026 20:07:14
-<table class="table table-striped table-hover table-condensed results-table" style="width: auto;"><thead><tr><th>Rank</th><th>Name</th><th>Team</th><th class='text-right col-border-right'>
-			
-				Points
-			
-		</th><th class='text-right col-border-right-gap'>Gap</th></tr></thead><tbody></tbody></table>
+<p>&nbsp;</p>
 
+<div class="row">
 
+	<div class="col-md-6">
+		<h3>Women</h3>
+		<table class="table table-condensed table-striped table-bordered table-hover" style="width: auto;"><thead><tr><th>Category</th><th class="text-center">2026-02-08</th></tr></thead><tbody><tr><td>BUCSFemale</td><td><ul><li><a href="/2025/2/RaceDB/Hub/CategoryResults/574/0/304/"><strong>BUCS Championship </strong></a></li></ul></td></tr></tbody></table>
+	</div>
 
+	<div class="col-md-6">
+		<h3>Open</h3>
+		<table class="table table-condensed table-striped table-bordered table-hover" style="width: auto;"><thead><tr><th>Category</th><th class="text-center">2026-02-08</th></tr></thead><tbody><tr><td>BUCSOpen</td><td><ul><li><a href="/2025/2/RaceDB/Hub/CategoryResults/574/0/305/"><strong>BUCS Championship </strong></a></li></ul></td></tr></tbody></table>
+	</div>
 
-	<p>
-	Best 3 results considered.
-	</p>
-
-
-<hr/>
-<h4>
-
-	Ranked by Points
-
-</h4>
-
-	
-		<p/>
-		<h4>Points Structures</h4>
-		
-			<ol>
-			
-				Senior/Vet Open: Points for place: 100,94,90,86,83,80,78,76,74,72,70,69,68,67,66,65,64,63,62,61,60,59,58,57,56,55,54,53,52,51,50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1: Masters 40 and Junior Open, Masters 50+ Open, Senior Open, Masters 40 and Junior Open, Masters 50+ Open, Senior Open, Masters 40 and Junior Open, Masters 50+ Open, Senior Open
-			
-				Women/Youth/U12: Points for place: 50,44,40,36,33,30,28,26,24,22,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1: U8 / U10, Under 12, Youth A B, All Women, U8 / U10, Under 12, Youth A B, All Women, U8 / U10, Under 12, Youth A B, All Women
-			
-			</ol>
-		
-	
-	
-	
-
-
-
-
-<p/>
-<h4>Tie-breaking Rules</h4>
-<ol>
-
-
-	<li>Number of 1st, 2nd, 3rd, 4th then 5th place finishes.  If still a tie:</li>
-
-	<li>Most recent event's results.</li>
-</ol>
-
-
-	<hr/>
-	<div class='hidden-print' id="idSankeyChart" style="width: 1200px; height: 900px;"></div>
-
+</div>
 
 
 </div>

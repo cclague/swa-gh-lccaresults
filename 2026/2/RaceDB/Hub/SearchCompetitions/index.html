@@ -214,32 +214,32 @@ function onLoad()
 {
 	// Transform the ISO time formats into local formats.
 	$('.dateinput').each( function(index, element) {
-		element.value = reformat( element.value, 'yyyy-mm-dd', "yyyy-mm-dd" );
+		element.value = reformat( element.value, 'yyyy-mm-dd', "dd-mm-yyyy" );
 		$(element).attr( 'autocomplete', 'off' );
 	});
 	$('.datetimeinput').each( function(index, element) {
-		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "yyyy-mm-dd hh:ii" );
+		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "dd-mm-yyyy hh:ii" );
 		$(element).attr( 'autocomplete', 'off' );
 	});	
 
 	// Initialize the date/time pickers using the local formats.
 	$('.dateinput').datepicker({
-		format: "yyyy-mm-dd",
+		format: "dd-mm-yyyy",
 		autoclose: true,
 		todayHighlight: true
 	});
 	$('.datetimeinput').datetimepicker({
-		format: "yyyy-mm-dd hh:ii",
+		format: "dd-mm-yyyy hh:ii",
 		autoclose: true
 	});
 	
 	// When the form is submitted, transform the local formats back into ISO.
 	$('form').submit(function(){
 		$('.dateinput').each( function(index, element) {
-			element.value = reformat( element.value, "yyyy-mm-dd", 'yyyy-mm-dd' );
+			element.value = reformat( element.value, "dd-mm-yyyy", 'yyyy-mm-dd' );
 		});
 		$('.datetimeinput').each( function(index, element) {
-			element.value = reformat( element.value, "yyyy-mm-dd hh:ii", 'yyyy-mm-dd hh:ii:ss' );
+			element.value = reformat( element.value, "dd-mm-yyyy hh:ii", 'yyyy-mm-dd hh:ii:ss' );
 		});
 	});
 	
@@ -326,7 +326,7 @@ function jump( link ) { window.location = link; }
 
 
 
-<form  action="." class="form-inline search" method="post" > <input type="hidden" name="csrfmiddlewaretoken" value="WYrdR96Qy51YdCyyCk15t3wB2CB549iWHwS2gmC8PeHIhqk5fTOTnT9me6UkASiY"> <div  
+<form  action="." class="form-inline search" method="post" > <input type="hidden" name="csrfmiddlewaretoken" value="J5QCPOwDpkJAe3vAogBOw4ESM2fiNVc9mcWHtwtInJGisZKk2jbj2WtpvR8nCY7e"> <div  
     class="row" > <span style="font-size: 180%;">Search Competitions</span>&nbsp;&nbsp;
 
 
@@ -344,7 +344,7 @@ function jump( link ) { window.location = link; }
     
     <div id="div_id_discipline" class="form-group"> <label for="id_discipline"  class="control-label ">
                 Discipline
-            </label> <div class="controls "> <select name="discipline" class="select form-control" id="id_discipline"> <option value="-1">----</option>
+            </label> <div class="controls "> <select name="discipline" class="select form-control" id="id_discipline"> <option value="-1">----</option> <option value="3">Cyclocross</option>
 
 </select> </div> </div>
     

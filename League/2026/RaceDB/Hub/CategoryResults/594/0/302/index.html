@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{}");
+var payload = JSON.parse("{\u0022bib\u0022:301,\u0022raceName\u0022:\u0022Round 2 \u002D Pippingford \u002D Masters 50+ Open (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222026\u002D09\u002D20 13:50\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022M70O (Open)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[301,149,283,239],\u0022gapValue\u0022:[0.0,\u002D1,\u002D1,\u002D5],\u0022laps\u0022:7,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u0022301\u0022:{\u0022LastName\u0022:\u0022McMullen\u0022,\u0022FirstName\u0022:\u0022Dave\u0022,\u0022Team\u0022:\u0022cotswold veldrijden\u0022,\u0022License\u0022:\u0022409387\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Central\u0022,\u0022raceTimes\u0022:[0.0,459.884665,902.359885,1352.736379,1802.643651,2295.397757,2844.519244],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2844.519244,\u0022lastTimeOrig\u0022:2844.519244,\u0022status\u0022:\u0022Finisher\u0022},\u0022149\u0022:{\u0022LastName\u0022:\u0022Burgess\u0022,\u0022FirstName\u0022:\u0022Stephen\u0022,\u0022Team\u0022:\u0022Lewes Wanderers CC\u0022,\u0022License\u0022:\u00221012691\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,534.36214,1078.311232,1607.719611,2149.254334,2696.37555],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2696.37555,\u0022lastTimeOrig\u0022:2696.37555,\u0022status\u0022:\u0022Finisher\u0022},\u0022283\u0022:{\u0022LastName\u0022:\u0022Glowinski\u0022,\u0022FirstName\u0022:\u0022Marek\u0022,\u0022Team\u0022:\u0022VC Londres\u0022,\u0022License\u0022:\u0022409226\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,532.135677,1064.044442,1606.408798,2157.596606,2852.232618],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2852.232618,\u0022lastTimeOrig\u0022:2852.232618,\u0022status\u0022:\u0022Finisher\u0022},\u0022239\u0022:{\u0022LastName\u0022:\u0022Allen\u0022,\u0022FirstName\u0022:\u0022Barry\u0022,\u0022Team\u0022:\u0022London Phoenix CC\u0022,\u0022License\u0022:\u0022426417\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Sussex\u0022,\u0022raceTimes\u0022:[0.0,861.741632],\u0022interp\u0022:[0,0],\u0022lastTime\u0022:861.741632,\u0022lastTimeOrig\u0022:861.741632,\u0022status\u0022:\u0022DNF\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1818,14 +1818,16 @@ function jump( link ) { window.location = link; }
 
 <h1>
 	
-	<strong><a href="/RaceDB/Hub/CompetitionResults/110/">Round 2 - Pippingford</a>: Masters 50+ Open</strong>: Registered Only (no results)<br/>
+	<strong><a href="/RaceDB/Hub/CompetitionResults/110/">Round 2 - Pippingford</a>: Masters 50+ Open</strong><br/>
 	<span style="font-size: 70%">
 		<strong>M70O (Open) - V50O/V60O/V70O</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 20-09-2026 16:01:39</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 20-09-2026 18:03:12</span>
 		<br/>
 		20-09-2026 13:50&nbsp;&nbsp;
 		Starters: 4&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
+		
+			Winning Time: 47:24&nbsp;&nbsp;
 		
 		
 	</span>
@@ -1841,13 +1843,25 @@ table.participant_table tr th {
 </style>
 
 <ul class="nav nav-tabs hidden-print">
-	<li class="active"><a data-toggle="tab" href="#sectionResults">Registered</a></li>
+	<li class="active"><a data-toggle="tab" href="#sectionResults">Results</a></li>
+
+	
+		<li><a href="./EventLapTimes/594/0/302/">Times</a></li>
+	
+	
+		<li><a href="./EventLapChart/594/0/302/">Lap Chart</a></li>
+		<li><a href="./EventGapChart/594/0/302/">Gap Chart</a></li>
+		<li><a href="./EventRaceChart/594/0/302/">Race Chart</a></li>
+		<li><a data-toggle="tab" href="#sectionSituation">Situation</a></li>
+	
+	
+		<li><a data-toggle="tab" href="#histogram">Histogram</a></li>
 
 </ul>
 
 <div class="tab-content">
 	<div id="sectionResults" class="tab-pane fade in active">
-<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/212')"><td class="text-right">239</td><td><a href="/RaceDB/Hub/LicenseHolderResults/212">ALLEN, Barry</a></td><td>London Phoenix CC</td><td>426417</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/1973')"><td class="text-right">149</td><td><a href="/RaceDB/Hub/LicenseHolderResults/1973">BURGESS, Stephen</a></td><td>Lewes Wanderers CC</td><td>1012691</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/1267')"><td class="text-right">283</td><td><a href="/RaceDB/Hub/LicenseHolderResults/1267">GLOWINSKI, Marek</a></td><td>VC Londres</td><td>409226</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/485')"><td class="text-right">301</td><td><a href="/RaceDB/Hub/LicenseHolderResults/485">MCMULLEN, Dave</a></td><td>cotswold veldrijden</td><td>409387</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr></tbody></table>
+<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Rank</th><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th><th class="text-right">Time</th><th class="text-right">Gap</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/485')"><td class="text-right">1.</td><td class="text-right">301</td><td><a href="/RaceDB/Hub/LicenseHolderResults/485">MCMULLEN, Dave</a></td><td>cotswold veldrijden</td><td>409387</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">47:24</td><td class="text-right"></td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/1973')"><td class="text-right">2.</td><td class="text-right">149</td><td><a href="/RaceDB/Hub/LicenseHolderResults/1973">BURGESS, Stephen</a></td><td>Lewes Wanderers CC</td><td>1012691</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">44:56</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/1267')"><td class="text-right">3.</td><td class="text-right">283</td><td><a href="/RaceDB/Hub/LicenseHolderResults/1267">GLOWINSKI, Marek</a></td><td>VC Londres</td><td>409226</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">47:32</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/212')"><td class="text-right">DNF</td><td class="text-right">239</td><td><a href="/RaceDB/Hub/LicenseHolderResults/212">ALLEN, Barry</a></td><td>London Phoenix CC</td><td>426417</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr></tbody></table>
 
 	</div>
 

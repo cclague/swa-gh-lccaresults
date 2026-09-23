@@ -220,7 +220,7 @@ function reformat( value, from_fmt, to_fmt ) {
 		data.addColumn('string', 'To');
 		data.addColumn('number', 'Points');
 		data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
-		data.addRows(JSON.parse("[[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 1. WILKINSON, Brodie (100)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 2. LULHAM, Ethan (94)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 3. GRAVES, Edward (90)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 4. PLAIL, Aidan (86)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 5. MORRIS, Franklin (83)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 6. FRANKLIN, Connor (80)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 7. CAMPBELL, Alexander (78)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 8. HOWARD, Elliot (76)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 9. LENNON, Francis (74)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u002210. MISTRY, Jayden (72)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u002211. BLYTHE, Noah (70)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u002212. MISTRY, Kiran (69)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022 1. WILKINSON, Brodie (100)\u0022,\u0022Bigfoot Youth C... (100)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022 2. LULHAM, Ethan (94)\u0022,\u0022ViCiOUS VELO (94)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022 3. GRAVES, Edward (90)\u0022,\u00224T+ Cyclopark (176)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022 4. PLAIL, Aidan (86)\u0022,\u00224T+ Cyclopark (176)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022 5. MORRIS, Franklin (83)\u0022,\u0022Southborough \u0026... (153)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022 6. FRANKLIN, Connor (80)\u0022,\u0022VC Jubilee (80)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022 7. CAMPBELL, Alexander (78)\u0022,\u0022Ind 1 (78)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022 8. HOWARD, Elliot (76)\u0022,\u0022Herne Hill Yout... (76)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022 9. LENNON, Francis (74)\u0022,\u0022Ind 2 (74)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u002210. MISTRY, Jayden (72)\u0022,\u0022Ind 3 (72)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u002211. BLYTHE, Noah (70)\u0022,\u0022Southborough \u0026... (153)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u002212. MISTRY, Kiran (69)\u0022,\u0022Ind 4 (69)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null]]"));
+		data.addRows(JSON.parse("[[\u0022Round 2 \u002D Pippingford\u002DMasters 40 and Junior Open: 2026\u002D09\u002D20\u0022,\u0022 1. LULHAM, Ethan (194)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 1. LULHAM, Ethan (194)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 40 and Junior Open: 2026\u002D09\u002D20\u0022,\u0022 2. WILKINSON, Brodie (186)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 2. WILKINSON, Brodie (186)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 40 and Junior Open: 2026\u002D09\u002D20\u0022,\u0022 3. GRAVES, Edward (184)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 3. GRAVES, Edward (184)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 40 and Junior Open: 2026\u002D09\u002D20\u0022,\u0022 4. PLAIL, Aidan (166)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 4. PLAIL, Aidan (166)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 40 and Junior Open: 2026\u002D09\u002D20\u0022,\u0022 5. MORRIS, Franklin (157)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 5. MORRIS, Franklin (157)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 40 and Junior Open: 2026\u002D09\u002D20\u0022,\u0022 6. HOWARD, Elliot (143)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 6. HOWARD, Elliot (143)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 40 and Junior Open: 2026\u002D09\u002D20\u0022,\u0022 7. BLYTHE, Noah (139)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u0022 7. BLYTHE, Noah (139)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 40 and Junior Open: 2026\u002D09\u002D20\u0022,\u0022 8. BENEZET MINNS, Colin (90)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 40 and Junior Open: 2026\u002D09\u002D20\u0022,\u0022 9. THWAITES, Ivo (83)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u002210. FRANKLIN, Connor (80)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 40 and Junior Open: 2026\u002D09\u002D20\u0022,\u002211. WATKINS, Thomas (78)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u002212. CAMPBELL, Alexander (78)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 40 and Junior Open: 2026\u002D09\u002D20\u0022,\u002213. HAYES, Rory (76)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u002214. LENNON, Francis (74)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 40 and Junior Open: 2026\u002D09\u002D20\u0022,\u002215. BARITSCH, Oscar (72)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u002216. MISTRY, Jayden (72)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 40 and Junior Open: 2026\u002D09\u002D20\u0022,\u002217. LANSDOWNE, Gethin (70)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 40 and Junior Open: 2026\u002D09\u002D06\u0022,\u002218. MISTRY, Kiran (69)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 40 and Junior Open: 2026\u002D09\u002D20\u0022,\u002219. HOWARD, Barney (68)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u0022 1. LULHAM, Ethan (194)\u0022,\u0022ViCiOUS VELO (194)\u0022,{\u0022v\u0022:194,\u0022f\u0022:\u0022194.00\u0022},null],[\u0022 2. WILKINSON, Brodie (186)\u0022,\u0022Bigfoot Youth C... (186)\u0022,{\u0022v\u0022:186,\u0022f\u0022:\u0022186.00\u0022},null],[\u0022 3. GRAVES, Edward (184)\u0022,\u00224T+ Cyclopark (350)\u0022,{\u0022v\u0022:184,\u0022f\u0022:\u0022184.00\u0022},null],[\u0022 4. PLAIL, Aidan (166)\u0022,\u00224T+ Cyclopark (350)\u0022,{\u0022v\u0022:166,\u0022f\u0022:\u0022166.00\u0022},null],[\u0022 5. MORRIS, Franklin (157)\u0022,\u0022Southborough \u0026... (379)\u0022,{\u0022v\u0022:157,\u0022f\u0022:\u0022157.00\u0022},null],[\u0022 6. HOWARD, Elliot (143)\u0022,\u0022Herne Hill Yout... (287)\u0022,{\u0022v\u0022:143,\u0022f\u0022:\u0022143.00\u0022},null],[\u0022 7. BLYTHE, Noah (139)\u0022,\u0022Southborough \u0026... (379)\u0022,{\u0022v\u0022:139,\u0022f\u0022:\u0022139.00\u0022},null],[\u0022 8. BENEZET MINNS, Colin (90)\u0022,\u0022Penge Cycle Clu... (90)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022 9. THWAITES, Ivo (83)\u0022,\u0022Southborough \u0026... (379)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u002210. FRANKLIN, Connor (80)\u0022,\u0022VC Jubilee (80)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u002211. WATKINS, Thomas (78)\u0022,\u0022Bigfoot CC (78)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u002212. CAMPBELL, Alexander (78)\u0022,\u0022Ind 1 (78)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u002213. HAYES, Rory (76)\u0022,\u0022Herne Hill Yout... (287)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u002214. LENNON, Francis (74)\u0022,\u0022Ind 2 (74)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u002215. BARITSCH, Oscar (72)\u0022,\u0022Ind 3 (72)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u002216. MISTRY, Jayden (72)\u0022,\u0022Ind 4 (72)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u002217. LANSDOWNE, Gethin (70)\u0022,\u0022Ind 5 (70)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u002218. MISTRY, Kiran (69)\u0022,\u0022Ind 6 (69)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u002219. HOWARD, Barney (68)\u0022,\u0022Herne Hill Yout... (287)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null]]"));
 
 		var options = {
 			width: 600,
@@ -357,14 +357,14 @@ table.results-table tr th {
 		<div class="navbar-header">
 			<ul class="nav navbar-nav">
 				<li>
-					<a href="/2026/2/RaceDB/Hub/SearchCompetitions/">
+					<a href="/2026/2/RaceDB/Hub/SearchCompetitions/index.html">
 						<img alt="RaceDB" src="/static/images/RaceDB_xsmall_text.png">
 					</a>
 				</li>
-				<li><a href="/2026/2/RaceDB/Hub/SearchCompetitions/">Competitions</a></li>
-				<li><a href="/2026/2/RaceDB/Hub/SearchLicenseHolders/">Athletes</a></li>
-				<li><a href="/2026/2/RaceDB/Hub/Series/">Series</a></li>
-				<li><a href="/2026/2/RaceDB/Hub/SeriesCategoryResults/2/274/QRCode/"><img src="/static/images/glyphicons_258_qrcode.png" alt="QRCode"/></a></li>
+				<li><a href="/2026/2/RaceDB/Hub/SearchCompetitions/index.html">Competitions</a></li>
+				<li><a href="/2026/2/RaceDB/Hub/SearchLicenseHolders/index.html">Athletes</a></li>
+				<li><a href="/2026/2/RaceDB/Hub/Series/index.html">Series</a></li>
+				<li><a href="/2026/2/RaceDB/Hub/SeriesCategoryResults/2/274/QRCode/index.html"><img src="/static/images/glyphicons_258_qrcode.png" alt="QRCode"/></a></li>
 			</ul>
 		</div>
 	</div>
@@ -379,62 +379,120 @@ table.results-table tr th {
 		JunO (Open)
 	</span>
 </h1>
-Generated: 22-09-2026 16:30:39
+Generated: 23-09-2026 20:16:30
 <table class="table table-striped table-hover table-condensed results-table" style="width: auto;"><thead><tr><th>Rank</th><th>Name</th><th>Team</th><th class='text-right col-border-right'>
 			
 				Points
 			
 		</th><th class='text-right col-border-right-gap'>Gap</th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 2 - Pippingford<br/>
+				20-09-2026 11:30<br/><a href='/2026/2/RaceDB/Hub/CategoryResults/592/0/274/index.html'><span style="white-space: nowrap;">Masters 40 and Junior Open</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 1 - Stanmer Park<br/>
-				06-09-2026 11:30<br/><a href='/2026/2/RaceDB/Hub/CategoryResults/585/0/274/index.html'><span style="white-space: nowrap;">Masters 40 and Junior Open</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/5893/index.html'>WILKINSON, Brodie</a></td><td>Bigfoot Youth Cycle Club Ltd</td><td class='text-right col-border-right'>100</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+				06-09-2026 11:30<br/><a href='/2026/2/RaceDB/Hub/CategoryResults/585/0/274/index.html'><span style="white-space: nowrap;">Masters 40 and Junior Open</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/5392/index.html'>LULHAM, Ethan</a></td><td>ViCiOUS VELO</td><td class='text-right col-border-right'>194</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
 						100
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						1st
-					</td></tr><tr><td class="text-right">2.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/5392/index.html'>LULHAM, Ethan</a></td><td>ViCiOUS VELO</td><td class='text-right col-border-right'>94</td><td class='text-right col-border-right-gap'>6</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print text-right'>
 						94
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						2nd
-					</td></tr><tr><td class="text-right">3.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/5401/index.html'>GRAVES, Edward</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>90</td><td class='text-right col-border-right-gap'>10</td><td class='hidden-print text-right'>
-						90
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						3rd
-					</td></tr><tr><td class="text-right">4.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/5886/index.html'>PLAIL, Aidan</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>86</td><td class='text-right col-border-right-gap'>14</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">2.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/5893/index.html'>WILKINSON, Brodie</a></td><td>Bigfoot Youth Cycle Club Ltd</td><td class='text-right col-border-right'>186</td><td class='text-right col-border-right-gap'>8</td><td class='hidden-print text-right'>
 						86
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						4th
-					</td></tr><tr><td class="text-right">5.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/5019/index.html'>MORRIS, Franklin</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>83</td><td class='text-right col-border-right-gap'>17</td><td class='hidden-print text-right'>
-						83
+					</td><td class='hidden-print text-right'>
+						100
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						5th
-					</td></tr><tr><td class="text-right">6.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/6918/index.html'>FRANKLIN, Connor</a></td><td>VC Jubilee</td><td class='text-right col-border-right'>80</td><td class='text-right col-border-right-gap'>20</td><td class='hidden-print text-right'>
+						1st
+					</td></tr><tr><td class="text-right">3.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/5401/index.html'>GRAVES, Edward</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>184</td><td class='text-right col-border-right-gap'>10</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td></tr><tr><td class="text-right">4.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/5886/index.html'>PLAIL, Aidan</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>166</td><td class='text-right col-border-right-gap'>28</td><td class='hidden-print text-right'>
 						80
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						6th
-					</td></tr><tr><td class="text-right">7.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/2580/index.html'>CAMPBELL, Alexander</a></td><td></td><td class='text-right col-border-right'>78</td><td class='text-right col-border-right-gap'>22</td><td class='hidden-print text-right'>
-						78
+					</td><td class='hidden-print text-right'>
+						86
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						7th
-					</td></tr><tr><td class="text-right">8.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/5852/index.html'>HOWARD, Elliot</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>76</td><td class='text-right col-border-right-gap'>24</td><td class='hidden-print text-right'>
-						76
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						8th
-					</td></tr><tr><td class="text-right">9.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/7241/index.html'>LENNON, Francis</a></td><td></td><td class='text-right col-border-right'>74</td><td class='text-right col-border-right-gap'>26</td><td class='hidden-print text-right'>
+						4th
+					</td></tr><tr><td class="text-right">5.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/5019/index.html'>MORRIS, Franklin</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>157</td><td class='text-right col-border-right-gap'>37</td><td class='hidden-print text-right'>
 						74
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						9th
-					</td></tr><tr><td class="text-right">10.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/7238/index.html'>MISTRY, Jayden</a></td><td></td><td class='text-right col-border-right'>72</td><td class='text-right col-border-right-gap'>28</td><td class='hidden-print text-right'>
-						72
+					</td><td class='hidden-print text-right'>
+						83
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						10th
-					</td></tr><tr><td class="text-right">11.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/6447/index.html'>BLYTHE, Noah</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>70</td><td class='text-right col-border-right-gap'>30</td><td class='hidden-print text-right'>
-						70
+						5th
+					</td></tr><tr><td class="text-right">6.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/5852/index.html'>HOWARD, Elliot</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>143</td><td class='text-right col-border-right-gap'>51</td><td class='hidden-print text-right'>
+						67
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						11th
-					</td></tr><tr><td class="text-right">12.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/7239/index.html'>MISTRY, Kiran</a></td><td></td><td class='text-right col-border-right'>69</td><td class='text-right col-border-right-gap'>31</td><td class='hidden-print text-right'>
+						14th
+					</td><td class='hidden-print text-right'>
+						76
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td></tr><tr><td class="text-right">7.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/6447/index.html'>BLYTHE, Noah</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>139</td><td class='text-right col-border-right-gap'>55</td><td class='hidden-print text-right'>
 						69
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						12th
-					</td></tr></tbody></table>
+					</td><td class='hidden-print text-right'>
+						70
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td></tr><tr><td class="text-right">8.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/5301/index.html'>BENEZET MINNS, Colin</a></td><td>Penge Cycle Club</td><td class='text-right col-border-right'>90</td><td class='text-right col-border-right-gap'>104</td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">9.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/2519/index.html'>THWAITES, Ivo</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>83</td><td class='text-right col-border-right-gap'>111</td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">10.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/6918/index.html'>FRANKLIN, Connor</a></td><td>VC Jubilee</td><td class='text-right col-border-right'>80</td><td class='text-right col-border-right-gap'>114</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						80
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td></tr><tr><td class="text-right">11.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/6137/index.html'>WATKINS, Thomas</a></td><td>Bigfoot CC</td><td class='text-right col-border-right'>78</td><td class='text-right col-border-right-gap'>116</td><td class='hidden-print text-right'>
+						78
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">12.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/2580/index.html'>CAMPBELL, Alexander</a></td><td></td><td class='text-right col-border-right'>78</td><td class='text-right col-border-right-gap'>116</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						78
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td></tr><tr><td class="text-right">13.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/6361/index.html'>HAYES, Rory</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>76</td><td class='text-right col-border-right-gap'>118</td><td class='hidden-print text-right'>
+						76
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">14.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/7241/index.html'>LENNON, Francis</a></td><td></td><td class='text-right col-border-right'>74</td><td class='text-right col-border-right-gap'>120</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						74
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td></tr><tr><td class="text-right">15.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/7295/index.html'>BARITSCH, Oscar</a></td><td></td><td class='text-right col-border-right'>72</td><td class='text-right col-border-right-gap'>122</td><td class='hidden-print text-right'>
+						72
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">16.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/7238/index.html'>MISTRY, Jayden</a></td><td></td><td class='text-right col-border-right'>72</td><td class='text-right col-border-right-gap'>122</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						72
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td></tr><tr><td class="text-right">17.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/7227/index.html'>LANSDOWNE, Gethin</a></td><td></td><td class='text-right col-border-right'>70</td><td class='text-right col-border-right-gap'>124</td><td class='hidden-print text-right'>
+						70
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">18.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/7239/index.html'>MISTRY, Kiran</a></td><td></td><td class='text-right col-border-right'>69</td><td class='text-right col-border-right-gap'>125</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						69
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td></tr><tr><td class="text-right">19.</td><td><a href='/2026/2/RaceDB/Hub/Hub/LicenseHolderResults/5855/index.html'>HOWARD, Barney</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>68</td><td class='text-right col-border-right-gap'>126</td><td class='hidden-print text-right'>
+						68
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr></tbody></table>
 
 
 

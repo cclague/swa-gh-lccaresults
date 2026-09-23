@@ -310,14 +310,14 @@ function jump( link ) { window.location = link; }
 		<div class="navbar-header">
 			<ul class="nav navbar-nav">
 				<li>
-					<a href="/2026/2/RaceDB/Hub/SearchCompetitions/">
+					<a href="/RaceDB/Hub/SearchCompetitions/">
 						<img alt="RaceDB" src="/static/images/RaceDB_xsmall_text.png">
 					</a>
 				</li>
-				<li><a href="/2026/2/RaceDB/Hub/SearchCompetitions/">Competitions</a></li>
-				<li><a href="/2026/2/RaceDB/Hub/SearchLicenseHolders/">Athletes</a></li>
-				<li><a href="/2026/2/RaceDB/Hub/Series/">Series</a></li>
-				<li><a href="/2026/2/RaceDB/Hub/SearchCompetitions/QRCode/"><img src="/static/images/glyphicons_258_qrcode.png" alt="QRCode"/></a></li>
+				<li><a href="/RaceDB/Hub/SearchCompetitions/">Competitions</a></li>
+				<li><a href="/RaceDB/Hub/SearchLicenseHolders/">Athletes</a></li>
+				<li><a href="/RaceDB/Hub/Series/">Series</a></li>
+				<li><a href="/RaceDB/Hub/SearchCompetitions/QRCode/"><img src="/static/images/glyphicons_258_qrcode.png" alt="QRCode"/></a></li>
 			</ul>
 		</div>
 	</div>
@@ -326,7 +326,7 @@ function jump( link ) { window.location = link; }
 
 
 
-<form  action="." class="form-inline search" method="post" > <input type="hidden" name="csrfmiddlewaretoken" value="NSlxLq8KNuOb2YcubrkFBHJTFN4XI5ZDh9006FGWHJ4bRK16kDscfpx5Z3IhStGh"> <div  
+<form  action="." class="form-inline search" method="post" > <input type="hidden" name="csrfmiddlewaretoken" value="lAbMRNPoChhAJOJYkmTWqgl52iDu8YktvhOgF2f0KUj3BlRwyeraK9nFkYqiLdvJ"> <div  
     class="row" > <span style="font-size: 180%;">Search Competitions</span>&nbsp;&nbsp;
 
 

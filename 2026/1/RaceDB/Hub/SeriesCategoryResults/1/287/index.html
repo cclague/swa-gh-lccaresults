@@ -220,7 +220,7 @@ function reformat( value, from_fmt, to_fmt ) {
 		data.addColumn('string', 'To');
 		data.addColumn('number', 'Points');
 		data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
-		data.addRows(JSON.parse("[[\u0022Round 3 \u002D Crystal Palace\u002DUnder 12: 2026\u002D09\u002D27\u0022,\u0022 1. STEWART, Lola (116)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DUnder 12: 2026\u002D09\u002D20\u0022,\u0022 1. STEWART, Lola (116)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 1. STEWART, Lola (116)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DUnder 12: 2026\u002D09\u002D27\u0022,\u0022 2. ROGERS, Esme (111)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DUnder 12: 2026\u002D09\u002D20\u0022,\u0022 2. ROGERS, Esme (111)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 2. ROGERS, Esme (111)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DUnder 12: 2026\u002D09\u002D20\u0022,\u0022 3. EVANS, Jessica (100)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 3. EVANS, Jessica (100)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DUnder 12: 2026\u002D09\u002D27\u0022,\u0022 4. WHEELER, Josephine (85)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DUnder 12: 2026\u002D09\u002D20\u0022,\u0022 4. WHEELER, Josephine (85)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 4. WHEELER, Josephine (85)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DUnder 12: 2026\u002D09\u002D20\u0022,\u0022 5. DEWEY, Alice (84)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 5. DEWEY, Alice (84)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DUnder 12: 2026\u002D09\u002D27\u0022,\u0022 6. CONNOR, Olive (82)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DUnder 12: 2026\u002D09\u002D20\u0022,\u0022 6. CONNOR, Olive (82)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 6. CONNOR, Olive (82)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DUnder 12: 2026\u002D09\u002D20\u0022,\u0022 7. CALLAND, Edith (74)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 7. CALLAND, Edith (74)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DUnder 12: 2026\u002D09\u002D27\u0022,\u0022 8. DE BEULE, Victoria (72)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 8. DE BEULE, Victoria (72)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DUnder 12: 2026\u002D09\u002D27\u0022,\u0022 9. RACKLEY, Enyo (70)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 9. RACKLEY, Enyo (70)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u002210. HALL, Theodora (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DUnder 12: 2026\u002D09\u002D27\u0022,\u002211. KLOS, Bianka (28)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022 1. STEWART, Lola (116)\u0022,\u0022Limited Edition... (340)\u0022,{\u0022v\u0022:116,\u0022f\u0022:\u0022116.00\u0022},null],[\u0022 2. ROGERS, Esme (111)\u0022,\u0022Southborough \u0026... (111)\u0022,{\u0022v\u0022:111,\u0022f\u0022:\u0022111.00\u0022},null],[\u0022 3. EVANS, Jessica (100)\u0022,\u0022Preston Park Yo... (184)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022 4. WHEELER, Josephine (85)\u0022,\u0022Herne Hill Yout... (85)\u0022,{\u0022v\u0022:85,\u0022f\u0022:\u002285.00\u0022},null],[\u0022 5. DEWEY, Alice (84)\u0022,\u0022Preston Park Yo... (184)\u0022,{\u0022v\u0022:84,\u0022f\u0022:\u002284.00\u0022},null],[\u0022 6. CONNOR, Olive (82)\u0022,\u0022Limited Edition... (340)\u0022,{\u0022v\u0022:82,\u0022f\u0022:\u002282.00\u0022},null],[\u0022 7. CALLAND, Edith (74)\u0022,\u0022Ind 1 (74)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022 8. DE BEULE, Victoria (72)\u0022,\u0022Limited Edition... (340)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022 9. RACKLEY, Enyo (70)\u0022,\u0022Limited Edition... (340)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u002210. HALL, Theodora (33)\u0022,\u0022Kingston Junior... (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u002211. KLOS, Bianka (28)\u0022,\u0022Lee Valley Yout... (28)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null]]"));
+		data.addRows(JSON.parse("[[\u0022Round 4 \u002D Herne Hill\u002DUnder 12: 2026\u002D10\u002D04\u0022,\u0022 1. STEWART, Lola (160)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DUnder 12: 2026\u002D09\u002D27\u0022,\u0022 1. STEWART, Lola (160)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DUnder 12: 2026\u002D09\u002D20\u0022,\u0022 1. STEWART, Lola (160)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 1. STEWART, Lola (160)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DUnder 12: 2026\u002D10\u002D04\u0022,\u0022 2. ROGERS, Esme (151)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DUnder 12: 2026\u002D09\u002D27\u0022,\u0022 2. ROGERS, Esme (151)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DUnder 12: 2026\u002D09\u002D20\u0022,\u0022 2. ROGERS, Esme (151)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 2. ROGERS, Esme (151)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DUnder 12: 2026\u002D10\u002D04\u0022,\u0022 3. EVANS, Jessica (150)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DUnder 12: 2026\u002D09\u002D20\u0022,\u0022 3. EVANS, Jessica (150)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 3. EVANS, Jessica (150)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DUnder 12: 2026\u002D10\u002D04\u0022,\u0022 4. RACKLEY, Enyo (106)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DUnder 12: 2026\u002D09\u002D27\u0022,\u0022 4. RACKLEY, Enyo (106)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 4. RACKLEY, Enyo (106)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DUnder 12: 2026\u002D09\u002D27\u0022,\u0022 5. WHEELER, Josephine (85)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DUnder 12: 2026\u002D09\u002D20\u0022,\u0022 5. WHEELER, Josephine (85)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 5. WHEELER, Josephine (85)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DUnder 12: 2026\u002D09\u002D20\u0022,\u0022 6. DEWEY, Alice (84)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 6. DEWEY, Alice (84)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DUnder 12: 2026\u002D09\u002D27\u0022,\u0022 7. CONNOR, Olive (82)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DUnder 12: 2026\u002D09\u002D20\u0022,\u0022 7. CONNOR, Olive (82)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 7. CONNOR, Olive (82)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DUnder 12: 2026\u002D09\u002D20\u0022,\u0022 8. CALLAND, Edith (74)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 8. CALLAND, Edith (74)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DUnder 12: 2026\u002D09\u002D27\u0022,\u0022 9. DE BEULE, Victoria (72)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u0022 9. DE BEULE, Victoria (72)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DUnder 12: 2026\u002D10\u002D04\u0022,\u002210. CROSSLEY, Autumn (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DUnder 12: 2026\u002D09\u002D06\u0022,\u002211. HALL, Theodora (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DUnder 12: 2026\u002D10\u002D04\u0022,\u002212. SUNDKVIST\u002DSTRINGER, Francis (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DUnder 12: 2026\u002D09\u002D27\u0022,\u002213. KLOS, Bianka (28)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022 1. STEWART, Lola (160)\u0022,\u0022Limited Edition... (420)\u0022,{\u0022v\u0022:160,\u0022f\u0022:\u0022160.00\u0022},null],[\u0022 2. ROGERS, Esme (151)\u0022,\u0022Southborough \u0026... (151)\u0022,{\u0022v\u0022:151,\u0022f\u0022:\u0022151.00\u0022},null],[\u0022 3. EVANS, Jessica (150)\u0022,\u0022Preston Park Yo... (234)\u0022,{\u0022v\u0022:150,\u0022f\u0022:\u0022150.00\u0022},null],[\u0022 4. RACKLEY, Enyo (106)\u0022,\u0022Limited Edition... (420)\u0022,{\u0022v\u0022:106,\u0022f\u0022:\u0022106.00\u0022},null],[\u0022 5. WHEELER, Josephine (85)\u0022,\u0022Herne Hill Yout... (85)\u0022,{\u0022v\u0022:85,\u0022f\u0022:\u002285.00\u0022},null],[\u0022 6. DEWEY, Alice (84)\u0022,\u0022Preston Park Yo... (234)\u0022,{\u0022v\u0022:84,\u0022f\u0022:\u002284.00\u0022},null],[\u0022 7. CONNOR, Olive (82)\u0022,\u0022Limited Edition... (420)\u0022,{\u0022v\u0022:82,\u0022f\u0022:\u002282.00\u0022},null],[\u0022 8. CALLAND, Edith (74)\u0022,\u0022Ind 1 (74)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022 9. DE BEULE, Victoria (72)\u0022,\u0022Limited Edition... (420)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u002210. CROSSLEY, Autumn (33)\u0022,\u0022Forest Side Rid... (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u002211. HALL, Theodora (33)\u0022,\u0022Kingston Junior... (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u002212. SUNDKVIST\u002DSTRINGER, Francis (30)\u0022,\u0022VC Londres (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u002213. KLOS, Bianka (28)\u0022,\u0022Lee Valley Yout... (28)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null]]"));
 
 		var options = {
 			width: 600,
@@ -379,18 +379,24 @@ table.results-table tr th {
 		U12F (Women)
 	</span>
 </h1>
-Generated: 04-10-2026 09:52:39
+Generated: 04-10-2026 10:12:45
 <table class="table table-striped table-hover table-condensed results-table" style="width: auto;"><thead><tr><th>Rank</th><th>Name</th><th>Team</th><th class='text-right col-border-right'>
 			
 				Points
 			
 		</th><th class='text-right col-border-right-gap'>Gap</th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 4 - Herne Hill<br/>
+				04-10-2026 09:40<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/604/0/287/index.html'><span style="white-space: nowrap;">Under 12</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 3 - Crystal Palace<br/>
 				27-09-2026 09:40<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/597/0/287/index.html'><span style="white-space: nowrap;">Under 12</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 2 - Pippingford<br/>
 				20-09-2026 09:40<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/590/0/287/index.html'><span style="white-space: nowrap;">Under 12</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 1 - Stanmer Park<br/>
-				06-09-2026 09:40<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/583/0/287/index.html'><span style="white-space: nowrap;">Under 12</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6001/index.html'>STEWART, Lola</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>116</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+				06-09-2026 09:40<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/583/0/287/index.html'><span style="white-space: nowrap;">Under 12</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6001/index.html'>STEWART, Lola</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>160</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print text-right'>
 						40
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						3rd
@@ -402,7 +408,11 @@ Generated: 04-10-2026 09:52:39
 						40
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						3rd
-					</td></tr><tr><td class="text-right">2.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6367/index.html'>ROGERS, Esme</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>111</td><td class='text-right col-border-right-gap'>5</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">2.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6367/index.html'>ROGERS, Esme</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>151</td><td class='text-right col-border-right-gap'>9</td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
 						50
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						1st
@@ -414,7 +424,11 @@ Generated: 04-10-2026 09:52:39
 						28
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						7th
-					</td></tr><tr><td class="text-right">3.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6511/index.html'>EVANS, Jessica</a></td><td>Preston Park Youth CC (PPYCC)</td><td class='text-right col-border-right'>100</td><td class='text-right col-border-right-gap'>16</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">3.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6511/index.html'>EVANS, Jessica</a></td><td>Preston Park Youth CC (PPYCC)</td><td class='text-right col-border-right'>150</td><td class='text-right col-border-right-gap'>10</td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						50
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						1st
@@ -422,7 +436,19 @@ Generated: 04-10-2026 09:52:39
 						50
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						1st
-					</td></tr><tr><td class="text-right">4.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6978/index.html'>WHEELER, Josephine</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>85</td><td class='text-right col-border-right-gap'>31</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">4.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6654/index.html'>RACKLEY, Enyo</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>106</td><td class='text-right col-border-right-gap'>54</td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td></tr><tr><td class="text-right">5.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6978/index.html'>WHEELER, Josephine</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>85</td><td class='text-right col-border-right-gap'>75</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						33
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						5th
@@ -434,7 +460,7 @@ Generated: 04-10-2026 09:52:39
 						24
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						9th
-					</td></tr><tr><td class="text-right">5.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6820/index.html'>DEWEY, Alice</a></td><td>Preston Park Youth CC (PPYCC)</td><td class='text-right col-border-right'>84</td><td class='text-right col-border-right-gap'>32</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">6.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6820/index.html'>DEWEY, Alice</a></td><td>Preston Park Youth CC (PPYCC)</td><td class='text-right col-border-right'>84</td><td class='text-right col-border-right-gap'>76</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						40
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						3rd
@@ -442,7 +468,7 @@ Generated: 04-10-2026 09:52:39
 						44
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						2nd
-					</td></tr><tr><td class="text-right">6.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6653/index.html'>CONNOR, Olive</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>82</td><td class='text-right col-border-right-gap'>34</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">7.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6653/index.html'>CONNOR, Olive</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>82</td><td class='text-right col-border-right-gap'>78</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						30
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						6th
@@ -454,7 +480,7 @@ Generated: 04-10-2026 09:52:39
 						22
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						10th
-					</td></tr><tr><td class="text-right">7.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5962/index.html'>CALLAND, Edith</a></td><td></td><td class='text-right col-border-right'>74</td><td class='text-right col-border-right-gap'>42</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">8.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5962/index.html'>CALLAND, Edith</a></td><td></td><td class='text-right col-border-right'>74</td><td class='text-right col-border-right-gap'>86</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						44
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						2nd
@@ -462,7 +488,7 @@ Generated: 04-10-2026 09:52:39
 						30
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						6th
-					</td></tr><tr><td class="text-right">8.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6942/index.html'>DE BEULE, Victoria</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>72</td><td class='text-right col-border-right-gap'>44</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">9.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6942/index.html'>DE BEULE, Victoria</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>72</td><td class='text-right col-border-right-gap'>88</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						36
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						4th
@@ -470,19 +496,19 @@ Generated: 04-10-2026 09:52:39
 						36
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						4th
-					</td></tr><tr><td class="text-right">9.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6654/index.html'>RACKLEY, Enyo</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>70</td><td class='text-right col-border-right-gap'>46</td><td class='hidden-print text-right'>
-						44
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						2nd
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						26
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						8th
-					</td></tr><tr><td class="text-right">10.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6530/index.html'>HALL, Theodora</a></td><td>Kingston Junior Cycle Club</td><td class='text-right col-border-right'>33</td><td class='text-right col-border-right-gap'>83</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">10.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7344/index.html'>CROSSLEY, Autumn</a></td><td>Forest Side Riders</td><td class='text-right col-border-right'>33</td><td class='text-right col-border-right-gap'>127</td><td class='hidden-print text-right'>
 						33
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						5th
-					</td></tr><tr><td class="text-right">11.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7320/index.html'>KLOS, Bianka</a></td><td>Lee Valley Youth Cycling Club</td><td class='text-right col-border-right'>28</td><td class='text-right col-border-right-gap'>88</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">11.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6530/index.html'>HALL, Theodora</a></td><td>Kingston Junior Cycle Club</td><td class='text-right col-border-right'>33</td><td class='text-right col-border-right-gap'>127</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td></tr><tr><td class="text-right">12.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7349/index.html'>SUNDKVIST-STRINGER, Francis</a></td><td>VC Londres</td><td class='text-right col-border-right'>30</td><td class='text-right col-border-right-gap'>130</td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">13.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7320/index.html'>KLOS, Bianka</a></td><td>Lee Valley Youth Cycling Club</td><td class='text-right col-border-right'>28</td><td class='text-right col-border-right-gap'>132</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						28
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						7th

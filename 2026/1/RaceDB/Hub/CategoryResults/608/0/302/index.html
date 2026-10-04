@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{\u0022bib\u0022:283,\u0022raceName\u0022:\u0022Round 4 \u002D Herne Hill \u002D Masters 50+ Open (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222026\u002D10\u002D04 13:50\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022M70O (Open)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[283],\u0022gapValue\u0022:[0.0],\u0022laps\u0022:7,\u0022startOffset\u0022:0,\u0022raceDistance\u0022:12.06347948915,\u0022firstLapDistance\u0022:2.01,\u0022lapDistance\u0022:4.264157175460939}],\u0022data\u0022:{\u0022283\u0022:{\u0022LastName\u0022:\u0022Glowinski\u0022,\u0022FirstName\u0022:\u0022Marek\u0022,\u0022Team\u0022:\u0022VC Londres\u0022,\u0022License\u0022:\u0022409226\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,477.65868,903.580154,1330.370764,1758.298939,2195.459138,2643.245658],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2643.245658,\u0022lastTimeOrig\u0022:2643.245658,\u0022status\u0022:\u0022Finisher\u0022,\u0022speed\u0022:\u002216.43 km/h\u0022,\u0022lapSpeeds\u0022:[15.14889251044281,16.989047140647337,16.954449864770922,16.909379710742343,16.55228453219731,16.159485997925987]}},\u0022has_multiple_laps\u0022:true}");
+var payload = JSON.parse("{\u0022bib\u0022:283,\u0022raceName\u0022:\u0022Round 4 \u002D Herne Hill \u002D Masters 50+ Open (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222026\u002D10\u002D04 13:50\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022M70O (Open)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[283],\u0022gapValue\u0022:[0.0],\u0022laps\u0022:7,\u0022startOffset\u0022:0,\u0022raceDistance\u0022:12.041452441999999,\u0022firstLapDistance\u0022:2.007294090816254,\u0022lapDistance\u0022:4.2584166669723755}],\u0022data\u0022:{\u0022283\u0022:{\u0022LastName\u0022:\u0022Glowinski\u0022,\u0022FirstName\u0022:\u0022Marek\u0022,\u0022Team\u0022:\u0022VC Londres\u0022,\u0022License\u0022:\u0022409226\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,477.65868,903.580154,1330.370764,1758.298939,2195.459138,2643.245658],\u0022interp\u0022:[0,0,0,0,0,0,0],\u0022lastTime\u0022:2643.245658,\u0022lastTimeOrig\u0022:2643.245658,\u0022status\u0022:\u0022Finisher\u0022,\u0022speed\u0022:\u002216.40 km/h\u0022,\u0022lapSpeeds\u0022:[15.12849871573257,16.96617608657721,16.93162538636573,16.886615906836504,16.530001458203458,16.137731718539722]}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1821,7 +1821,7 @@ function jump( link ) { window.location = link; }
 	<strong><a href="/2026/1/RaceDB/Hub/CompetitionResults/112/index.html">Round 4 - Herne Hill</a>: Masters 50+ Open</strong><br/>
 	<span style="font-size: 70%">
 		<strong>M70O (Open) - V50O/V60O/V70O</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 04-10-2026 14:45:37</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 04-10-2026 15:55:55</span>
 		<br/>
 		04-10-2026 13:50&nbsp;&nbsp;
 		Starters: 1&nbsp;&nbsp;
@@ -1830,7 +1830,7 @@ function jump( link ) { window.location = link; }
 			Winning Time: 44:03&nbsp;&nbsp;
 		
 		
-			Ave. Speed: 16.43 km/h&nbsp;&nbsp;
+			Ave. Speed: 16.40 km/h&nbsp;&nbsp;
 		
 	</span>
 </h1>

@@ -220,7 +220,7 @@ function reformat( value, from_fmt, to_fmt ) {
 		data.addColumn('string', 'To');
 		data.addColumn('number', 'Points');
 		data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
-		data.addRows(JSON.parse("[[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 1. DEAR, James (300)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 1. DEAR, James (300)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 1. DEAR, James (300)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 2. FRESHWATER, Richard (278)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 2. FRESHWATER, Richard (278)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 2. FRESHWATER, Richard (278)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 3. BRAID, Dan (274)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 3. BRAID, Dan (274)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 3. BRAID, Dan (274)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 4. STREET, Dan (228)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 4. STREET, Dan (228)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 4. STREET, Dan (228)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 5. HEAP, Matthew (218)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 5. HEAP, Matthew (218)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 5. HEAP, Matthew (218)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 6. HAYWARD, Robert (212)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 6. HAYWARD, Robert (212)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 6. HAYWARD, Robert (212)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 7. MURRELL, Philip (207)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 7. MURRELL, Philip (207)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 7. MURRELL, Philip (207)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 8. MCCARTNEY, Simon (202)\u0022,{\u0022v\u0022:64,\u0022f\u0022:\u002264.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 8. MCCARTNEY, Simon (202)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 8. MCCARTNEY, Simon (202)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 9. TREACHER, Martin (195)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 9. TREACHER, Martin (195)\u0022,{\u0022v\u0022:64,\u0022f\u0022:\u002264.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 9. TREACHER, Martin (195)\u0022,{\u0022v\u0022:65,\u0022f\u0022:\u002265.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002210. ST\u002DAMOUR, Peter (194)\u0022,{\u0022v\u0022:65,\u0022f\u0022:\u002265.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002210. ST\u002DAMOUR, Peter (194)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002210. ST\u002DAMOUR, Peter (194)\u0022,{\u0022v\u0022:63,\u0022f\u0022:\u002263.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002211. POWERS, Andrew (193)\u0022,{\u0022v\u0022:61,\u0022f\u0022:\u002261.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002211. POWERS, Andrew (193)\u0022,{\u0022v\u0022:65,\u0022f\u0022:\u002265.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002211. POWERS, Andrew (193)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002212. CAIRD, Andrew (179)\u0022,{\u0022v\u0022:59,\u0022f\u0022:\u002259.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002212. CAIRD, Andrew (179)\u0022,{\u0022v\u0022:60,\u0022f\u0022:\u002260.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002212. CAIRD, Andrew (179)\u0022,{\u0022v\u0022:60,\u0022f\u0022:\u002260.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002213. SHORT, Russell (178)\u0022,{\u0022v\u0022:58,\u0022f\u0022:\u002258.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002213. SHORT, Russell (178)\u0022,{\u0022v\u0022:62,\u0022f\u0022:\u002262.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002213. SHORT, Russell (178)\u0022,{\u0022v\u0022:58,\u0022f\u0022:\u002258.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002214. WENLOCK, Edward (169)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002214. WENLOCK, Edward (169)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002215. LARKING, Andrew (169)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002215. LARKING, Andrew (169)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002216. BELL, Bill (164)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002216. BELL, Bill (164)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002217. POPE, Steven (162)\u0022,{\u0022v\u0022:53,\u0022f\u0022:\u002253.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002217. POPE, Steven (162)\u0022,{\u0022v\u0022:59,\u0022f\u0022:\u002259.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002217. POPE, Steven (162)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002218. SPIES, Stuart (161)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002218. SPIES, Stuart (161)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002219. CAMIER, Dean (160)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002219. CAMIER, Dean (160)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002220. MOYLAN, Brendan (156)\u0022,{\u0022v\u0022:51,\u0022f\u0022:\u002251.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002220. MOYLAN, Brendan (156)\u0022,{\u0022v\u0022:49,\u0022f\u0022:\u002249.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002220. MOYLAN, Brendan (156)\u0022,{\u0022v\u0022:56,\u0022f\u0022:\u002256.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002221. WILLS, Magnus (150)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002221. WILLS, Magnus (150)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002222. SIMPSON, Robert (143)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002222. SIMPSON, Robert (143)\u0022,{\u0022v\u0022:47,\u0022f\u0022:\u002247.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002222. SIMPSON, Robert (143)\u0022,{\u0022v\u0022:46,\u0022f\u0022:\u002246.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002223. DAVIDSON, Andy (137)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002223. DAVIDSON, Andy (137)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002224. LEMONIUS, John (135)\u0022,{\u0022v\u0022:45,\u0022f\u0022:\u002245.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002224. LEMONIUS, John (135)\u0022,{\u0022v\u0022:45,\u0022f\u0022:\u002245.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002224. LEMONIUS, John (135)\u0022,{\u0022v\u0022:45,\u0022f\u0022:\u002245.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002225. WILLIAMS, Michael (131)\u0022,{\u0022v\u0022:63,\u0022f\u0022:\u002263.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002225. WILLIAMS, Michael (131)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002226. WILLIAMS, Keir (131)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002226. WILLIAMS, Keir (131)\u0022,{\u0022v\u0022:64,\u0022f\u0022:\u002264.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002227. TREDRAY, James (121)\u0022,{\u0022v\u0022:60,\u0022f\u0022:\u002260.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002227. TREDRAY, James (121)\u0022,{\u0022v\u0022:61,\u0022f\u0022:\u002261.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002228. MILES, Nick (116)\u0022,{\u0022v\u0022:38,\u0022f\u0022:\u002238.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002228. MILES, Nick (116)\u0022,{\u0022v\u0022:41,\u0022f\u0022:\u002241.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002228. MILES, Nick (116)\u0022,{\u0022v\u0022:37,\u0022f\u0022:\u002237.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002229. HIGGS, George (112)\u0022,{\u0022v\u0022:57,\u0022f\u0022:\u002257.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002229. HIGGS, George (112)\u0022,{\u0022v\u0022:55,\u0022f\u0022:\u002255.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002230. BARKER, Anthony (109)\u0022,{\u0022v\u0022:56,\u0022f\u0022:\u002256.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002230. BARKER, Anthony (109)\u0022,{\u0022v\u0022:53,\u0022f\u0022:\u002253.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002231. RIMMER, Duncan (109)\u0022,{\u0022v\u0022:55,\u0022f\u0022:\u002255.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002231. RIMMER, Duncan (109)\u0022,{\u0022v\u0022:54,\u0022f\u0022:\u002254.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002232. HAYNES, Darren (109)\u0022,{\u0022v\u0022:55,\u0022f\u0022:\u002255.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002232. HAYNES, Darren (109)\u0022,{\u0022v\u0022:54,\u0022f\u0022:\u002254.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002233. WARD, Edwin (106)\u0022,{\u0022v\u0022:48,\u0022f\u0022:\u002248.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002233. WARD, Edwin (106)\u0022,{\u0022v\u0022:58,\u0022f\u0022:\u002258.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002234. BURKINSHAW, Jason (105)\u0022,{\u0022v\u0022:56,\u0022f\u0022:\u002256.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002234. BURKINSHAW, Jason (105)\u0022,{\u0022v\u0022:49,\u0022f\u0022:\u002249.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002235. BURT, Jo (104)\u0022,{\u0022v\u0022:52,\u0022f\u0022:\u002252.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002235. BURT, Jo (104)\u0022,{\u0022v\u0022:52,\u0022f\u0022:\u002252.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002236. BYSOUTH, Richard (100)\u0022,{\u0022v\u0022:53,\u0022f\u0022:\u002253.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002236. BYSOUTH, Richard (100)\u0022,{\u0022v\u0022:47,\u0022f\u0022:\u002247.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002237. HARVEY, Barry (99)\u0022,{\u0022v\u0022:51,\u0022f\u0022:\u002251.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002237. HARVEY, Barry (99)\u0022,{\u0022v\u0022:48,\u0022f\u0022:\u002248.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002238. LOTT, Kev (97)\u0022,{\u0022v\u0022:47,\u0022f\u0022:\u002247.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002238. LOTT, Kev (97)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002239. NEWMAN, Piers (96)\u0022,{\u0022v\u0022:31,\u0022f\u0022:\u002231.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002239. NEWMAN, Piers (96)\u0022,{\u0022v\u0022:34,\u0022f\u0022:\u002234.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002239. NEWMAN, Piers (96)\u0022,{\u0022v\u0022:31,\u0022f\u0022:\u002231.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002240. MONTAGU, Chris (93)\u0022,{\u0022v\u0022:54,\u0022f\u0022:\u002254.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002240. MONTAGU, Chris (93)\u0022,{\u0022v\u0022:39,\u0022f\u0022:\u002239.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002241. SOUTH, Andrew (92)\u0022,{\u0022v\u0022:49,\u0022f\u0022:\u002249.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002241. SOUTH, Andrew (92)\u0022,{\u0022v\u0022:43,\u0022f\u0022:\u002243.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002242. KIRBY, Phil (87)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002242. KIRBY, Phil (87)\u0022,{\u0022v\u0022:43,\u0022f\u0022:\u002243.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002243. COLLIER, Lloyd (80)\u0022,{\u0022v\u0022:42,\u0022f\u0022:\u002242.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002243. COLLIER, Lloyd (80)\u0022,{\u0022v\u0022:38,\u0022f\u0022:\u002238.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002244. WATSON\u002DSMITH, Andrew (80)\u0022,{\u0022v\u0022:29,\u0022f\u0022:\u002229.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002244. WATSON\u002DSMITH, Andrew (80)\u0022,{\u0022v\u0022:51,\u0022f\u0022:\u002251.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002245. GEORGE, Matthew (80)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002246. SAITO, Yuzo (79)\u0022,{\u0022v\u0022:39,\u0022f\u0022:\u002239.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002246. SAITO, Yuzo (79)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002247. KELSALL, Liam (77)\u0022,{\u0022v\u0022:37,\u0022f\u0022:\u002237.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002247. KELSALL, Liam (77)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002248. VANCE, Michael (76)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002248. VANCE, Michael (76)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002249. HUMPHESON, Sam (74)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002250. TUTT, John (73)\u0022,{\u0022v\u0022:38,\u0022f\u0022:\u002238.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002250. TUTT, John (73)\u0022,{\u0022v\u0022:35,\u0022f\u0022:\u002235.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002251. TIPPINS, Duncan (71)\u0022,{\u0022v\u0022:32,\u0022f\u0022:\u002232.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002251. TIPPINS, Duncan (71)\u0022,{\u0022v\u0022:39,\u0022f\u0022:\u002239.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002252. LONGMATE, Gary (69)\u0022,{\u0022v\u0022:37,\u0022f\u0022:\u002237.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002252. LONGMATE, Gary (69)\u0022,{\u0022v\u0022:32,\u0022f\u0022:\u002232.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002253. FAGG, Daniel (69)\u0022,{\u0022v\u0022:35,\u0022f\u0022:\u002235.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002253. FAGG, Daniel (69)\u0022,{\u0022v\u0022:34,\u0022f\u0022:\u002234.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002254. SHOTTER, Jezz (66)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002255. HARDCASTLE, Matthew (63)\u0022,{\u0022v\u0022:63,\u0022f\u0022:\u002263.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002256. OXBERRY, David (62)\u0022,{\u0022v\u0022:62,\u0022f\u0022:\u002262.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002257. THOMAS, Calum (62)\u0022,{\u0022v\u0022:62,\u0022f\u0022:\u002262.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002258. CROUCH, Rupert (61)\u0022,{\u0022v\u0022:61,\u0022f\u0022:\u002261.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002259. SANDELL, Bruce (60)\u0022,{\u0022v\u0022:27,\u0022f\u0022:\u002227.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002259. SANDELL, Bruce (60)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002260. MILTON, Gary (59)\u0022,{\u0022v\u0022:59,\u0022f\u0022:\u002259.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002261. DURAN, Dan (57)\u0022,{\u0022v\u0022:57,\u0022f\u0022:\u002257.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002262. STONE, James (57)\u0022,{\u0022v\u0022:57,\u0022f\u0022:\u002257.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002263. PITTOCK, Damian (52)\u0022,{\u0022v\u0022:52,\u0022f\u0022:\u002252.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002264. MANSFIELD, Neil (48)\u0022,{\u0022v\u0022:48,\u0022f\u0022:\u002248.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002265. TURNOCK, Andrew (46)\u0022,{\u0022v\u0022:46,\u0022f\u0022:\u002246.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002266. BURCHETT, Richard (46)\u0022,{\u0022v\u0022:46,\u0022f\u0022:\u002246.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002267. BRADY, Fergus (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002268. BUNYAN, Tobias (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002269. BENFIELD, Matt (43)\u0022,{\u0022v\u0022:43,\u0022f\u0022:\u002243.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002270. LANSDOWNE, Anthony (42)\u0022,{\u0022v\u0022:42,\u0022f\u0022:\u002242.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002271. STEER, Alex (42)\u0022,{\u0022v\u0022:42,\u0022f\u0022:\u002242.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002272. VAUGHAN, Dan (41)\u0022,{\u0022v\u0022:41,\u0022f\u0022:\u002241.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002273. PRENELLE, Ian (41)\u0022,{\u0022v\u0022:41,\u0022f\u0022:\u002241.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002274. MUIR, Andrew (36)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002275. NEVILLE, Paul (36)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002276. BENDEL, Simon (35)\u0022,{\u0022v\u0022:35,\u0022f\u0022:\u002235.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002277. MARLEE, Damian (34)\u0022,{\u0022v\u0022:34,\u0022f\u0022:\u002234.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002278. MUNDAY, Paul (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002279. HEMMING, Dave (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002280. JONES, Daran (32)\u0022,{\u0022v\u0022:32,\u0022f\u0022:\u002232.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002281. SHARPE, Troy (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002282. BEATTIE, Daniel (28)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002283. BARRIE, Mike (26)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022 1. DEAR, James (300)\u0022,\u0022Destination Bik... (300)\u0022,{\u0022v\u0022:300,\u0022f\u0022:\u0022300.00\u0022},null],[\u0022 2. FRESHWATER, Richard (278)\u0022,\u0022Strada Wheels R... (278)\u0022,{\u0022v\u0022:278,\u0022f\u0022:\u0022278.00\u0022},null],[\u0022 3. BRAID, Dan (274)\u0022,\u0022ViCiOUS VELO (274)\u0022,{\u0022v\u0022:274,\u0022f\u0022:\u0022274.00\u0022},null],[\u0022 4. STREET, Dan (228)\u0022,\u0022Lewes Wanderers... (541)\u0022,{\u0022v\u0022:228,\u0022f\u0022:\u0022228.00\u0022},null],[\u0022 5. HEAP, Matthew (218)\u0022,\u0022Twickenham CC (298)\u0022,{\u0022v\u0022:218,\u0022f\u0022:\u0022218.00\u0022},null],[\u0022 6. HAYWARD, Robert (212)\u0022,\u0022Southborough \u0026... (614)\u0022,{\u0022v\u0022:212,\u0022f\u0022:\u0022212.00\u0022},null],[\u0022 7. MURRELL, Philip (207)\u0022,\u0022Forest Side Rid... (207)\u0022,{\u0022v\u0022:207,\u0022f\u0022:\u0022207.00\u0022},null],[\u0022 8. MCCARTNEY, Simon (202)\u0022,\u0022Ind 1 (202)\u0022,{\u0022v\u0022:202,\u0022f\u0022:\u0022202.00\u0022},null],[\u0022 9. TREACHER, Martin (195)\u0022,\u0022Primo RT (195)\u0022,{\u0022v\u0022:195,\u0022f\u0022:\u0022195.00\u0022},null],[\u002210. ST\u002DAMOUR, Peter (194)\u0022,\u0022Ind 2 (194)\u0022,{\u0022v\u0022:194,\u0022f\u0022:\u0022194.00\u0022},null],[\u002211. POWERS, Andrew (193)\u0022,\u0022Ind 3 (193)\u0022,{\u0022v\u0022:193,\u0022f\u0022:\u0022193.00\u0022},null],[\u002212. CAIRD, Andrew (179)\u0022,\u0022Ind 4 (179)\u0022,{\u0022v\u0022:179,\u0022f\u0022:\u0022179.00\u0022},null],[\u002213. SHORT, Russell (178)\u0022,\u0022CHAINGANG Racin... (339)\u0022,{\u0022v\u0022:178,\u0022f\u0022:\u0022178.00\u0022},null],[\u002214. WENLOCK, Edward (169)\u0022,\u0022Southborough \u0026... (614)\u0022,{\u0022v\u0022:169,\u0022f\u0022:\u0022169.00\u0022},null],[\u002215. LARKING, Andrew (169)\u0022,\u0022Sussex Revoluti... (238)\u0022,{\u0022v\u0022:169,\u0022f\u0022:\u0022169.00\u0022},null],[\u002216. BELL, Bill (164)\u0022,\u0022Bigfoot CC (207)\u0022,{\u0022v\u0022:164,\u0022f\u0022:\u0022164.00\u0022},null],[\u002217. POPE, Steven (162)\u0022,\u0022San Fairy Ann C... (162)\u0022,{\u0022v\u0022:162,\u0022f\u0022:\u0022162.00\u0022},null],[\u002218. SPIES, Stuart (161)\u0022,\u0022CHAINGANG Racin... (339)\u0022,{\u0022v\u0022:161,\u0022f\u0022:\u0022161.00\u0022},null],[\u002219. CAMIER, Dean (160)\u0022,\u0022CX Cartel (160)\u0022,{\u0022v\u0022:160,\u0022f\u0022:\u0022160.00\u0022},null],[\u002220. MOYLAN, Brendan (156)\u0022,\u0022C and N Cycles... (350)\u0022,{\u0022v\u0022:156,\u0022f\u0022:\u0022156.00\u0022},null],[\u002221. WILLS, Magnus (150)\u0022,\u0022Dulwich Paragon... (615)\u0022,{\u0022v\u0022:150,\u0022f\u0022:\u0022150.00\u0022},null],[\u002222. SIMPSON, Robert (143)\u0022,\u0022Ind 5 (143)\u0022,{\u0022v\u0022:143,\u0022f\u0022:\u0022143.00\u0022},null],[\u002223. DAVIDSON, Andy (137)\u0022,\u0022Dulwich Paragon... (615)\u0022,{\u0022v\u0022:137,\u0022f\u0022:\u0022137.00\u0022},null],[\u002224. LEMONIUS, John (135)\u0022,\u0022Ind 6 (135)\u0022,{\u0022v\u0022:135,\u0022f\u0022:\u0022135.00\u0022},null],[\u002225. WILLIAMS, Michael (131)\u0022,\u0022Dulwich Paragon... (615)\u0022,{\u0022v\u0022:131,\u0022f\u0022:\u0022131.00\u0022},null],[\u002226. WILLIAMS, Keir (131)\u0022,\u0022Hythe Cycling C... (131)\u0022,{\u0022v\u0022:131,\u0022f\u0022:\u0022131.00\u0022},null],[\u002227. TREDRAY, James (121)\u0022,\u0022Dulwich Paragon... (615)\u0022,{\u0022v\u0022:121,\u0022f\u0022:\u0022121.00\u0022},null],[\u002228. MILES, Nick (116)\u0022,\u0022Lewes Wanderers... (541)\u0022,{\u0022v\u0022:116,\u0022f\u0022:\u0022116.00\u0022},null],[\u002229. HIGGS, George (112)\u0022,\u0022Crawley Wheeler... (221)\u0022,{\u0022v\u0022:112,\u0022f\u0022:\u0022112.00\u0022},null],[\u002230. BARKER, Anthony (109)\u0022,\u0022Crawley Wheeler... (221)\u0022,{\u0022v\u0022:109,\u0022f\u0022:\u0022109.00\u0022},null],[\u002231. RIMMER, Duncan (109)\u0022,\u0022Morden Cycle Ra... (109)\u0022,{\u0022v\u0022:109,\u0022f\u0022:\u0022109.00\u0022},null],[\u002232. HAYNES, Darren (109)\u0022,\u0022Lewes Wanderers... (541)\u0022,{\u0022v\u0022:109,\u0022f\u0022:\u0022109.00\u0022},null],[\u002233. WARD, Edwin (106)\u0022,\u0022C and N Cycles... (350)\u0022,{\u0022v\u0022:106,\u0022f\u0022:\u0022106.00\u0022},null],[\u002234. BURKINSHAW, Jason (105)\u0022,\u0022Fatcreations/ U... (204)\u0022,{\u0022v\u0022:105,\u0022f\u0022:\u0022105.00\u0022},null],[\u002235. BURT, Jo (104)\u0022,\u0022Ind 7 (104)\u0022,{\u0022v\u0022:104,\u0022f\u0022:\u0022104.00\u0022},null],[\u002236. BYSOUTH, Richard (100)\u0022,\u0022Southborough \u0026... (614)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u002237. HARVEY, Barry (99)\u0022,\u0022Fatcreations/ U... (204)\u0022,{\u0022v\u0022:99,\u0022f\u0022:\u002299.00\u0022},null],[\u002238. LOTT, Kev (97)\u0022,\u0022VC Deal (236)\u0022,{\u0022v\u0022:97,\u0022f\u0022:\u002297.00\u0022},null],[\u002239. NEWMAN, Piers (96)\u0022,\u0022East Grinstead... (96)\u0022,{\u0022v\u0022:96,\u0022f\u0022:\u002296.00\u0022},null],[\u002240. MONTAGU, Chris (93)\u0022,\u0022Kingston Wheele... (93)\u0022,{\u0022v\u0022:93,\u0022f\u0022:\u002293.00\u0022},null],[\u002241. SOUTH, Andrew (92)\u0022,\u0022GS Avanti (92)\u0022,{\u0022v\u0022:92,\u0022f\u0022:\u002292.00\u0022},null],[\u002242. KIRBY, Phil (87)\u0022,\u0022VC Londres (164)\u0022,{\u0022v\u0022:87,\u0022f\u0022:\u002287.00\u0022},null],[\u002243. COLLIER, Lloyd (80)\u0022,\u0022Brixton Cycles... (80)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u002244. WATSON\u002DSMITH, Andrew (80)\u0022,\u00226AM Cycling (143)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u002245. GEORGE, Matthew (80)\u0022,\u0022Twickenham CC (298)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u002246. SAITO, Yuzo (79)\u0022,\u0022Ind 8 (79)\u0022,{\u0022v\u0022:79,\u0022f\u0022:\u002279.00\u0022},null],[\u002247. KELSALL, Liam (77)\u0022,\u0022VC Deal (236)\u0022,{\u0022v\u0022:77,\u0022f\u0022:\u002277.00\u0022},null],[\u002248. VANCE, Michael (76)\u0022,\u0022Dulwich Paragon... (615)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u002249. HUMPHESON, Sam (74)\u0022,\u0022Ind 9 (74)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u002250. TUTT, John (73)\u0022,\u0022Southborough \u0026... (614)\u0022,{\u0022v\u0022:73,\u0022f\u0022:\u002273.00\u0022},null],[\u002251. TIPPINS, Duncan (71)\u0022,\u00224T+ Cyclopark (104)\u0022,{\u0022v\u0022:71,\u0022f\u0022:\u002271.00\u0022},null],[\u002252. LONGMATE, Gary (69)\u0022,\u0022Sussex Revoluti... (238)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u002253. FAGG, Daniel (69)\u0022,\u0022Brighton Mitre... (69)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u002254. SHOTTER, Jezz (66)\u0022,\u0022Brighton Excels... (123)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u002255. HARDCASTLE, Matthew (63)\u0022,\u00226AM Cycling (143)\u0022,{\u0022v\u0022:63,\u0022f\u0022:\u002263.00\u0022},null],[\u002256. OXBERRY, David (62)\u0022,\u0022VC Deal (236)\u0022,{\u0022v\u0022:62,\u0022f\u0022:\u002262.00\u0022},null],[\u002257. THOMAS, Calum (62)\u0022,\u0022Ind 10 (62)\u0022,{\u0022v\u0022:62,\u0022f\u0022:\u002262.00\u0022},null],[\u002258. CROUCH, Rupert (61)\u0022,\u0022Ind 11 (61)\u0022,{\u0022v\u0022:61,\u0022f\u0022:\u002261.00\u0022},null],[\u002259. SANDELL, Bruce (60)\u0022,\u0022Southborough \u0026... (614)\u0022,{\u0022v\u0022:60,\u0022f\u0022:\u002260.00\u0022},null],[\u002260. MILTON, Gary (59)\u0022,\u0022Blazing Saddles... (59)\u0022,{\u0022v\u0022:59,\u0022f\u0022:\u002259.00\u0022},null],[\u002261. DURAN, Dan (57)\u0022,\u0022Ind 12 (57)\u0022,{\u0022v\u0022:57,\u0022f\u0022:\u002257.00\u0022},null],[\u002262. STONE, James (57)\u0022,\u0022Brighton Excels... (123)\u0022,{\u0022v\u0022:57,\u0022f\u0022:\u002257.00\u0022},null],[\u002263. PITTOCK, Damian (52)\u0022,\u0022C and N Cycles... (350)\u0022,{\u0022v\u0022:52,\u0022f\u0022:\u002252.00\u0022},null],[\u002264. MANSFIELD, Neil (48)\u0022,\u0022Grity Race Team (48)\u0022,{\u0022v\u0022:48,\u0022f\u0022:\u002248.00\u0022},null],[\u002265. TURNOCK, Andrew (46)\u0022,\u0022Finsbury Park C... (46)\u0022,{\u0022v\u0022:46,\u0022f\u0022:\u002246.00\u0022},null],[\u002266. BURCHETT, Richard (46)\u0022,\u0022Lewes Wanderers... (541)\u0022,{\u0022v\u0022:46,\u0022f\u0022:\u002246.00\u0022},null],[\u002267. BRADY, Fergus (44)\u0022,\u0022VC Meudon (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u002268. BUNYAN, Tobias (44)\u0022,\u0022Eastbourne Rove... (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u002269. BENFIELD, Matt (43)\u0022,\u0022Bigfoot CC (207)\u0022,{\u0022v\u0022:43,\u0022f\u0022:\u002243.00\u0022},null],[\u002270. LANSDOWNE, Anthony (42)\u0022,\u0022Ind 13 (42)\u0022,{\u0022v\u0022:42,\u0022f\u0022:\u002242.00\u0022},null],[\u002271. STEER, Alex (42)\u0022,\u0022Lewes Wanderers... (541)\u0022,{\u0022v\u0022:42,\u0022f\u0022:\u002242.00\u0022},null],[\u002272. VAUGHAN, Dan (41)\u0022,\u0022SaddleDrunk Cyc... (41)\u0022,{\u0022v\u0022:41,\u0022f\u0022:\u002241.00\u0022},null],[\u002273. PRENELLE, Ian (41)\u0022,\u0022VC Londres (164)\u0022,{\u0022v\u0022:41,\u0022f\u0022:\u002241.00\u0022},null],[\u002274. MUIR, Andrew (36)\u0022,\u0022VC Londres (164)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u002275. NEVILLE, Paul (36)\u0022,\u0022C and N Cycles... (350)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u002276. BENDEL, Simon (35)\u0022,\u0022Ind 14 (35)\u0022,{\u0022v\u0022:35,\u0022f\u0022:\u002235.00\u0022},null],[\u002277. MARLEE, Damian (34)\u0022,\u0022Ind 15 (34)\u0022,{\u0022v\u0022:34,\u0022f\u0022:\u002234.00\u0022},null],[\u002278. MUNDAY, Paul (33)\u0022,\u00224T+ Cyclopark (104)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u002279. HEMMING, Dave (33)\u0022,\u0022Foxgrove Cyclin... (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u002280. JONES, Daran (32)\u0022,\u0022Ind 16 (32)\u0022,{\u0022v\u0022:32,\u0022f\u0022:\u002232.00\u0022},null],[\u002281. SHARPE, Troy (30)\u0022,\u0022Ind 17 (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u002282. BEATTIE, Daniel (28)\u0022,\u0022Penge Cycle Clu... (28)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u002283. BARRIE, Mike (26)\u0022,\u0022Ind 18 (26)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null]]"));
+		data.addRows(JSON.parse("[[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u0022 1. FRESHWATER, Richard (378)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 1. FRESHWATER, Richard (378)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 1. FRESHWATER, Richard (378)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 1. FRESHWATER, Richard (378)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u0022 2. BRAID, Dan (364)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 2. BRAID, Dan (364)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 2. BRAID, Dan (364)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 2. BRAID, Dan (364)\u0022,{\u0022v\u0022:90,\u0022f\u0022:\u002290.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u0022 3. STREET, Dan (308)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 3. STREET, Dan (308)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 3. STREET, Dan (308)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 3. STREET, Dan (308)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 4. DEAR, James (300)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 4. DEAR, James (300)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 4. DEAR, James (300)\u0022,{\u0022v\u0022:100,\u0022f\u0022:\u0022100.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u0022 5. HEAP, Matthew (290)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 5. HEAP, Matthew (290)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 5. HEAP, Matthew (290)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 5. HEAP, Matthew (290)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u0022 6. MURRELL, Philip (276)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 6. MURRELL, Philip (276)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 6. MURRELL, Philip (276)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 6. MURRELL, Philip (276)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u0022 7. MCCARTNEY, Simon (269)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 7. MCCARTNEY, Simon (269)\u0022,{\u0022v\u0022:64,\u0022f\u0022:\u002264.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 7. MCCARTNEY, Simon (269)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 7. MCCARTNEY, Simon (269)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u0022 8. POWERS, Andrew (261)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 8. POWERS, Andrew (261)\u0022,{\u0022v\u0022:61,\u0022f\u0022:\u002261.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 8. POWERS, Andrew (261)\u0022,{\u0022v\u0022:65,\u0022f\u0022:\u002265.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 8. POWERS, Andrew (261)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u0022 9. ST\u002DAMOUR, Peter (260)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u0022 9. ST\u002DAMOUR, Peter (260)\u0022,{\u0022v\u0022:65,\u0022f\u0022:\u002265.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u0022 9. ST\u002DAMOUR, Peter (260)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u0022 9. ST\u002DAMOUR, Peter (260)\u0022,{\u0022v\u0022:63,\u0022f\u0022:\u002263.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002210. TREACHER, Martin (259)\u0022,{\u0022v\u0022:64,\u0022f\u0022:\u002264.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002210. TREACHER, Martin (259)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002210. TREACHER, Martin (259)\u0022,{\u0022v\u0022:64,\u0022f\u0022:\u002264.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002210. TREACHER, Martin (259)\u0022,{\u0022v\u0022:65,\u0022f\u0022:\u002265.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002211. BELL, Bill (250)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002211. BELL, Bill (250)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002211. BELL, Bill (250)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002212. SPIES, Stuart (244)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002212. SPIES, Stuart (244)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002212. SPIES, Stuart (244)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002213. SHORT, Russell (243)\u0022,{\u0022v\u0022:65,\u0022f\u0022:\u002265.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002213. SHORT, Russell (243)\u0022,{\u0022v\u0022:58,\u0022f\u0022:\u002258.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002213. SHORT, Russell (243)\u0022,{\u0022v\u0022:62,\u0022f\u0022:\u002262.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002213. SHORT, Russell (243)\u0022,{\u0022v\u0022:58,\u0022f\u0022:\u002258.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002214. WILLS, Magnus (228)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002214. WILLS, Magnus (228)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002214. WILLS, Magnus (228)\u0022,{\u0022v\u0022:78,\u0022f\u0022:\u002278.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002215. POPE, Steven (221)\u0022,{\u0022v\u0022:59,\u0022f\u0022:\u002259.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002215. POPE, Steven (221)\u0022,{\u0022v\u0022:53,\u0022f\u0022:\u002253.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002215. POPE, Steven (221)\u0022,{\u0022v\u0022:59,\u0022f\u0022:\u002259.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002215. POPE, Steven (221)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002216. DAVIDSON, Andy (213)\u0022,{\u0022v\u0022:76,\u0022f\u0022:\u002276.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002216. DAVIDSON, Andy (213)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002216. DAVIDSON, Andy (213)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002217. MOYLAN, Brendan (212)\u0022,{\u0022v\u0022:56,\u0022f\u0022:\u002256.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002217. MOYLAN, Brendan (212)\u0022,{\u0022v\u0022:51,\u0022f\u0022:\u002251.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002217. MOYLAN, Brendan (212)\u0022,{\u0022v\u0022:49,\u0022f\u0022:\u002249.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002217. MOYLAN, Brendan (212)\u0022,{\u0022v\u0022:56,\u0022f\u0022:\u002256.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002218. HAYWARD, Robert (212)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002218. HAYWARD, Robert (212)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002218. HAYWARD, Robert (212)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002219. WILLIAMS, Michael (205)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002219. WILLIAMS, Michael (205)\u0022,{\u0022v\u0022:63,\u0022f\u0022:\u002263.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002219. WILLIAMS, Michael (205)\u0022,{\u0022v\u0022:68,\u0022f\u0022:\u002268.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002220. TREDRAY, James (191)\u0022,{\u0022v\u0022:70,\u0022f\u0022:\u002270.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002220. TREDRAY, James (191)\u0022,{\u0022v\u0022:60,\u0022f\u0022:\u002260.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002220. TREDRAY, James (191)\u0022,{\u0022v\u0022:61,\u0022f\u0022:\u002261.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002221. CAIRD, Andrew (179)\u0022,{\u0022v\u0022:59,\u0022f\u0022:\u002259.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002221. CAIRD, Andrew (179)\u0022,{\u0022v\u0022:60,\u0022f\u0022:\u002260.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002221. CAIRD, Andrew (179)\u0022,{\u0022v\u0022:60,\u0022f\u0022:\u002260.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002222. LEMONIUS, John (178)\u0022,{\u0022v\u0022:43,\u0022f\u0022:\u002243.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002222. LEMONIUS, John (178)\u0022,{\u0022v\u0022:45,\u0022f\u0022:\u002245.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002222. LEMONIUS, John (178)\u0022,{\u0022v\u0022:45,\u0022f\u0022:\u002245.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002222. LEMONIUS, John (178)\u0022,{\u0022v\u0022:45,\u0022f\u0022:\u002245.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002223. WENLOCK, Edward (169)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002223. WENLOCK, Edward (169)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002224. LARKING, Andrew (169)\u0022,{\u0022v\u0022:83,\u0022f\u0022:\u002283.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002224. LARKING, Andrew (169)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002225. BYSOUTH, Richard (161)\u0022,{\u0022v\u0022:61,\u0022f\u0022:\u002261.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002225. BYSOUTH, Richard (161)\u0022,{\u0022v\u0022:53,\u0022f\u0022:\u002253.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002225. BYSOUTH, Richard (161)\u0022,{\u0022v\u0022:47,\u0022f\u0022:\u002247.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002226. WARD, Edwin (161)\u0022,{\u0022v\u0022:55,\u0022f\u0022:\u002255.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002226. WARD, Edwin (161)\u0022,{\u0022v\u0022:48,\u0022f\u0022:\u002248.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002226. WARD, Edwin (161)\u0022,{\u0022v\u0022:58,\u0022f\u0022:\u002258.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002227. CAMIER, Dean (160)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002227. CAMIER, Dean (160)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002228. SOUTH, Andrew (150)\u0022,{\u0022v\u0022:58,\u0022f\u0022:\u002258.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002228. SOUTH, Andrew (150)\u0022,{\u0022v\u0022:49,\u0022f\u0022:\u002249.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002228. SOUTH, Andrew (150)\u0022,{\u0022v\u0022:43,\u0022f\u0022:\u002243.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002229. HARVEY, Barry (147)\u0022,{\u0022v\u0022:48,\u0022f\u0022:\u002248.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002229. HARVEY, Barry (147)\u0022,{\u0022v\u0022:51,\u0022f\u0022:\u002251.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002229. HARVEY, Barry (147)\u0022,{\u0022v\u0022:48,\u0022f\u0022:\u002248.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002230. SIMPSON, Robert (143)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002230. SIMPSON, Robert (143)\u0022,{\u0022v\u0022:47,\u0022f\u0022:\u002247.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002230. SIMPSON, Robert (143)\u0022,{\u0022v\u0022:46,\u0022f\u0022:\u002246.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002231. MONTAGU, Chris (139)\u0022,{\u0022v\u0022:46,\u0022f\u0022:\u002246.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002231. MONTAGU, Chris (139)\u0022,{\u0022v\u0022:54,\u0022f\u0022:\u002254.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002231. MONTAGU, Chris (139)\u0022,{\u0022v\u0022:39,\u0022f\u0022:\u002239.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002232. WATSON\u002DSMITH, Andrew (134)\u0022,{\u0022v\u0022:54,\u0022f\u0022:\u002254.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002232. WATSON\u002DSMITH, Andrew (134)\u0022,{\u0022v\u0022:29,\u0022f\u0022:\u002229.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002232. WATSON\u002DSMITH, Andrew (134)\u0022,{\u0022v\u0022:51,\u0022f\u0022:\u002251.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002233. WILLIAMS, Keir (131)\u0022,{\u0022v\u0022:67,\u0022f\u0022:\u002267.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002233. WILLIAMS, Keir (131)\u0022,{\u0022v\u0022:64,\u0022f\u0022:\u002264.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002234. SAITO, Yuzo (126)\u0022,{\u0022v\u0022:47,\u0022f\u0022:\u002247.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002234. SAITO, Yuzo (126)\u0022,{\u0022v\u0022:39,\u0022f\u0022:\u002239.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002234. SAITO, Yuzo (126)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002235. NEWMAN, Piers (126)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002235. NEWMAN, Piers (126)\u0022,{\u0022v\u0022:31,\u0022f\u0022:\u002231.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002235. NEWMAN, Piers (126)\u0022,{\u0022v\u0022:34,\u0022f\u0022:\u002234.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002235. NEWMAN, Piers (126)\u0022,{\u0022v\u0022:31,\u0022f\u0022:\u002231.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002236. KELSALL, Liam (122)\u0022,{\u0022v\u0022:45,\u0022f\u0022:\u002245.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002236. KELSALL, Liam (122)\u0022,{\u0022v\u0022:37,\u0022f\u0022:\u002237.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002236. KELSALL, Liam (122)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002237. VANCE, Michael (116)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002237. VANCE, Michael (116)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002237. VANCE, Michael (116)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002238. MILES, Nick (116)\u0022,{\u0022v\u0022:38,\u0022f\u0022:\u002238.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002238. MILES, Nick (116)\u0022,{\u0022v\u0022:41,\u0022f\u0022:\u002241.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002238. MILES, Nick (116)\u0022,{\u0022v\u0022:37,\u0022f\u0022:\u002237.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002239. TIPPINS, Duncan (115)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002239. TIPPINS, Duncan (115)\u0022,{\u0022v\u0022:32,\u0022f\u0022:\u002232.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002239. TIPPINS, Duncan (115)\u0022,{\u0022v\u0022:39,\u0022f\u0022:\u002239.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002240. COLLIER, Lloyd (114)\u0022,{\u0022v\u0022:34,\u0022f\u0022:\u002234.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002240. COLLIER, Lloyd (114)\u0022,{\u0022v\u0022:42,\u0022f\u0022:\u002242.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002240. COLLIER, Lloyd (114)\u0022,{\u0022v\u0022:38,\u0022f\u0022:\u002238.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002241. PITTOCK, Damian (112)\u0022,{\u0022v\u0022:60,\u0022f\u0022:\u002260.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002241. PITTOCK, Damian (112)\u0022,{\u0022v\u0022:52,\u0022f\u0022:\u002252.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002242. HIGGS, George (112)\u0022,{\u0022v\u0022:57,\u0022f\u0022:\u002257.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002242. HIGGS, George (112)\u0022,{\u0022v\u0022:55,\u0022f\u0022:\u002255.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002243. BARKER, Anthony (109)\u0022,{\u0022v\u0022:56,\u0022f\u0022:\u002256.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002243. BARKER, Anthony (109)\u0022,{\u0022v\u0022:53,\u0022f\u0022:\u002253.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002244. RIMMER, Duncan (109)\u0022,{\u0022v\u0022:55,\u0022f\u0022:\u002255.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002244. RIMMER, Duncan (109)\u0022,{\u0022v\u0022:54,\u0022f\u0022:\u002254.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002245. HAYNES, Darren (109)\u0022,{\u0022v\u0022:55,\u0022f\u0022:\u002255.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002245. HAYNES, Darren (109)\u0022,{\u0022v\u0022:54,\u0022f\u0022:\u002254.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002246. TURNOCK, Andrew (108)\u0022,{\u0022v\u0022:62,\u0022f\u0022:\u002262.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002246. TURNOCK, Andrew (108)\u0022,{\u0022v\u0022:46,\u0022f\u0022:\u002246.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002247. BURKINSHAW, Jason (105)\u0022,{\u0022v\u0022:56,\u0022f\u0022:\u002256.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002247. BURKINSHAW, Jason (105)\u0022,{\u0022v\u0022:49,\u0022f\u0022:\u002249.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002248. BURT, Jo (104)\u0022,{\u0022v\u0022:52,\u0022f\u0022:\u002252.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002248. BURT, Jo (104)\u0022,{\u0022v\u0022:52,\u0022f\u0022:\u002252.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002249. FAGG, Daniel (98)\u0022,{\u0022v\u0022:29,\u0022f\u0022:\u002229.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002249. FAGG, Daniel (98)\u0022,{\u0022v\u0022:35,\u0022f\u0022:\u002235.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002249. FAGG, Daniel (98)\u0022,{\u0022v\u0022:34,\u0022f\u0022:\u002234.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002250. LOTT, Kev (97)\u0022,{\u0022v\u0022:47,\u0022f\u0022:\u002247.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002250. LOTT, Kev (97)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002251. BRADY, Fergus (96)\u0022,{\u0022v\u0022:52,\u0022f\u0022:\u002252.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002251. BRADY, Fergus (96)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002252. WEBBER, Matthew (94)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002253. BURCHETT, Richard (88)\u0022,{\u0022v\u0022:42,\u0022f\u0022:\u002242.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002253. BURCHETT, Richard (88)\u0022,{\u0022v\u0022:46,\u0022f\u0022:\u002246.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002254. KIRBY, Phil (87)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002254. KIRBY, Phil (87)\u0022,{\u0022v\u0022:43,\u0022f\u0022:\u002243.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002255. NEVILLE, Paul (86)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002255. NEVILLE, Paul (86)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002256. GEORGE, Matthew (80)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002257. PRENELLE, Ian (77)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002257. PRENELLE, Ian (77)\u0022,{\u0022v\u0022:41,\u0022f\u0022:\u002241.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002258. HUMPHESON, Sam (74)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002259. TUTT, John (73)\u0022,{\u0022v\u0022:38,\u0022f\u0022:\u002238.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002259. TUTT, John (73)\u0022,{\u0022v\u0022:35,\u0022f\u0022:\u002235.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002260. MUNDAY, Paul (72)\u0022,{\u0022v\u0022:39,\u0022f\u0022:\u002239.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002260. MUNDAY, Paul (72)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002261. LONGMATE, Gary (69)\u0022,{\u0022v\u0022:37,\u0022f\u0022:\u002237.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002261. LONGMATE, Gary (69)\u0022,{\u0022v\u0022:32,\u0022f\u0022:\u002232.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002262. SHOTTER, Jezz (66)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002263. PRICE, Gavin (63)\u0022,{\u0022v\u0022:63,\u0022f\u0022:\u002263.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002264. HARDCASTLE, Matthew (63)\u0022,{\u0022v\u0022:63,\u0022f\u0022:\u002263.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002265. OXBERRY, David (62)\u0022,{\u0022v\u0022:62,\u0022f\u0022:\u002262.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002266. THOMAS, Calum (62)\u0022,{\u0022v\u0022:62,\u0022f\u0022:\u002262.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002267. CROUCH, Rupert (61)\u0022,{\u0022v\u0022:61,\u0022f\u0022:\u002261.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002268. SANDELL, Bruce (60)\u0022,{\u0022v\u0022:27,\u0022f\u0022:\u002227.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002268. SANDELL, Bruce (60)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002269. MILTON, Gary (59)\u0022,{\u0022v\u0022:59,\u0022f\u0022:\u002259.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002270. BARRIE, Mike (58)\u0022,{\u0022v\u0022:32,\u0022f\u0022:\u002232.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002270. BARRIE, Mike (58)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002271. JONES, Russell (57)\u0022,{\u0022v\u0022:57,\u0022f\u0022:\u002257.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002272. DURAN, Dan (57)\u0022,{\u0022v\u0022:57,\u0022f\u0022:\u002257.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002273. STONE, James (57)\u0022,{\u0022v\u0022:57,\u0022f\u0022:\u002257.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002274. LEWIS, Oliver (53)\u0022,{\u0022v\u0022:53,\u0022f\u0022:\u002253.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002275. BRAYBROOK, Ian (51)\u0022,{\u0022v\u0022:51,\u0022f\u0022:\u002251.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002276. PARRY, Andy (49)\u0022,{\u0022v\u0022:49,\u0022f\u0022:\u002249.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002277. MANSFIELD, Neil (48)\u0022,{\u0022v\u0022:48,\u0022f\u0022:\u002248.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002278. BUNYAN, Tobias (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002279. BENFIELD, Matt (43)\u0022,{\u0022v\u0022:43,\u0022f\u0022:\u002243.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002280. LANSDOWNE, Anthony (42)\u0022,{\u0022v\u0022:42,\u0022f\u0022:\u002242.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002281. STEER, Alex (42)\u0022,{\u0022v\u0022:42,\u0022f\u0022:\u002242.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002282. STRINGER, Rufus (41)\u0022,{\u0022v\u0022:41,\u0022f\u0022:\u002241.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002283. VAUGHAN, Dan (41)\u0022,{\u0022v\u0022:41,\u0022f\u0022:\u002241.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002284. MACLEOD, Iain (38)\u0022,{\u0022v\u0022:38,\u0022f\u0022:\u002238.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002285. NEILSON, Stuart (37)\u0022,{\u0022v\u0022:37,\u0022f\u0022:\u002237.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002286. MUIR, Andrew (36)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002287. LINARES, Javi (35)\u0022,{\u0022v\u0022:35,\u0022f\u0022:\u002235.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002288. BENDEL, Simon (35)\u0022,{\u0022v\u0022:35,\u0022f\u0022:\u002235.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002289. MARLEE, Damian (34)\u0022,{\u0022v\u0022:34,\u0022f\u0022:\u002234.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002290. CROSSLEY, Duncan (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DMasters 50+ Open: 2026\u002D09\u002D06\u0022,\u002291. HEMMING, Dave (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DMasters 50+ Open: 2026\u002D09\u002D20\u0022,\u002292. JONES, Daran (32)\u0022,{\u0022v\u0022:32,\u0022f\u0022:\u002232.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002293. HAINES, Aaron (31)\u0022,{\u0022v\u0022:31,\u0022f\u0022:\u002231.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002294. SHARPE, Troy (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DMasters 50+ Open: 2026\u002D10\u002D04\u0022,\u002295. RICHARDSON, Joe (28)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DMasters 50+ Open: 2026\u002D09\u002D27\u0022,\u002296. BEATTIE, Daniel (28)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022 1. FRESHWATER, Richard (378)\u0022,\u0022Strada Wheels R... (378)\u0022,{\u0022v\u0022:378,\u0022f\u0022:\u0022378.00\u0022},null],[\u0022 2. BRAID, Dan (364)\u0022,\u0022ViCiOUS VELO (364)\u0022,{\u0022v\u0022:364,\u0022f\u0022:\u0022364.00\u0022},null],[\u0022 3. STREET, Dan (308)\u0022,\u0022Lewes Wanderers... (663)\u0022,{\u0022v\u0022:308,\u0022f\u0022:\u0022308.00\u0022},null],[\u0022 4. DEAR, James (300)\u0022,\u0022Destination Bik... (300)\u0022,{\u0022v\u0022:300,\u0022f\u0022:\u0022300.00\u0022},null],[\u0022 5. HEAP, Matthew (290)\u0022,\u0022Twickenham CC (433)\u0022,{\u0022v\u0022:290,\u0022f\u0022:\u0022290.00\u0022},null],[\u0022 6. MURRELL, Philip (276)\u0022,\u0022Forest Side Rid... (403)\u0022,{\u0022v\u0022:276,\u0022f\u0022:\u0022276.00\u0022},null],[\u0022 7. MCCARTNEY, Simon (269)\u0022,\u0022Ind 1 (269)\u0022,{\u0022v\u0022:269,\u0022f\u0022:\u0022269.00\u0022},null],[\u0022 8. POWERS, Andrew (261)\u0022,\u0022Ind 2 (261)\u0022,{\u0022v\u0022:261,\u0022f\u0022:\u0022261.00\u0022},null],[\u0022 9. ST\u002DAMOUR, Peter (260)\u0022,\u0022Ind 3 (260)\u0022,{\u0022v\u0022:260,\u0022f\u0022:\u0022260.00\u0022},null],[\u002210. TREACHER, Martin (259)\u0022,\u0022Primo RT (259)\u0022,{\u0022v\u0022:259,\u0022f\u0022:\u0022259.00\u0022},null],[\u002211. BELL, Bill (250)\u0022,\u0022Bigfoot CC (293)\u0022,{\u0022v\u0022:250,\u0022f\u0022:\u0022250.00\u0022},null],[\u002212. SPIES, Stuart (244)\u0022,\u0022CHAINGANG Racin... (487)\u0022,{\u0022v\u0022:244,\u0022f\u0022:\u0022244.00\u0022},null],[\u002213. SHORT, Russell (243)\u0022,\u0022CHAINGANG Racin... (487)\u0022,{\u0022v\u0022:243,\u0022f\u0022:\u0022243.00\u0022},null],[\u002214. WILLS, Magnus (228)\u0022,\u0022Dulwich Paragon... (984)\u0022,{\u0022v\u0022:228,\u0022f\u0022:\u0022228.00\u0022},null],[\u002215. POPE, Steven (221)\u0022,\u0022San Fairy Ann C... (221)\u0022,{\u0022v\u0022:221,\u0022f\u0022:\u0022221.00\u0022},null],[\u002216. DAVIDSON, Andy (213)\u0022,\u0022Dulwich Paragon... (984)\u0022,{\u0022v\u0022:213,\u0022f\u0022:\u0022213.00\u0022},null],[\u002217. MOYLAN, Brendan (212)\u0022,\u0022C and N Cycles... (571)\u0022,{\u0022v\u0022:212,\u0022f\u0022:\u0022212.00\u0022},null],[\u002218. HAYWARD, Robert (212)\u0022,\u0022Southborough \u0026... (675)\u0022,{\u0022v\u0022:212,\u0022f\u0022:\u0022212.00\u0022},null],[\u002219. WILLIAMS, Michael (205)\u0022,\u0022Dulwich Paragon... (984)\u0022,{\u0022v\u0022:205,\u0022f\u0022:\u0022205.00\u0022},null],[\u002220. TREDRAY, James (191)\u0022,\u0022Dulwich Paragon... (984)\u0022,{\u0022v\u0022:191,\u0022f\u0022:\u0022191.00\u0022},null],[\u002221. CAIRD, Andrew (179)\u0022,\u0022Ind 4 (179)\u0022,{\u0022v\u0022:179,\u0022f\u0022:\u0022179.00\u0022},null],[\u002222. LEMONIUS, John (178)\u0022,\u0022Ind 5 (178)\u0022,{\u0022v\u0022:178,\u0022f\u0022:\u0022178.00\u0022},null],[\u002223. WENLOCK, Edward (169)\u0022,\u0022Southborough \u0026... (675)\u0022,{\u0022v\u0022:169,\u0022f\u0022:\u0022169.00\u0022},null],[\u002224. LARKING, Andrew (169)\u0022,\u0022Sussex Revoluti... (238)\u0022,{\u0022v\u0022:169,\u0022f\u0022:\u0022169.00\u0022},null],[\u002225. BYSOUTH, Richard (161)\u0022,\u0022Southborough \u0026... (675)\u0022,{\u0022v\u0022:161,\u0022f\u0022:\u0022161.00\u0022},null],[\u002226. WARD, Edwin (161)\u0022,\u0022C and N Cycles... (571)\u0022,{\u0022v\u0022:161,\u0022f\u0022:\u0022161.00\u0022},null],[\u002227. CAMIER, Dean (160)\u0022,\u0022CX Cartel (160)\u0022,{\u0022v\u0022:160,\u0022f\u0022:\u0022160.00\u0022},null],[\u002228. SOUTH, Andrew (150)\u0022,\u0022GS Avanti (150)\u0022,{\u0022v\u0022:150,\u0022f\u0022:\u0022150.00\u0022},null],[\u002229. HARVEY, Barry (147)\u0022,\u0022Fatcreations/ U... (252)\u0022,{\u0022v\u0022:147,\u0022f\u0022:\u0022147.00\u0022},null],[\u002230. SIMPSON, Robert (143)\u0022,\u0022Ind 6 (143)\u0022,{\u0022v\u0022:143,\u0022f\u0022:\u0022143.00\u0022},null],[\u002231. MONTAGU, Chris (139)\u0022,\u0022Kingston Wheele... (139)\u0022,{\u0022v\u0022:139,\u0022f\u0022:\u0022139.00\u0022},null],[\u002232. WATSON\u002DSMITH, Andrew (134)\u0022,\u00226AM Cycling (197)\u0022,{\u0022v\u0022:134,\u0022f\u0022:\u0022134.00\u0022},null],[\u002233. WILLIAMS, Keir (131)\u0022,\u0022Hythe Cycling C... (131)\u0022,{\u0022v\u0022:131,\u0022f\u0022:\u0022131.00\u0022},null],[\u002234. SAITO, Yuzo (126)\u0022,\u0022Ind 7 (126)\u0022,{\u0022v\u0022:126,\u0022f\u0022:\u0022126.00\u0022},null],[\u002235. NEWMAN, Piers (126)\u0022,\u0022East Grinstead... (126)\u0022,{\u0022v\u0022:126,\u0022f\u0022:\u0022126.00\u0022},null],[\u002236. KELSALL, Liam (122)\u0022,\u0022VC Deal (281)\u0022,{\u0022v\u0022:122,\u0022f\u0022:\u0022122.00\u0022},null],[\u002237. VANCE, Michael (116)\u0022,\u0022Dulwich Paragon... (984)\u0022,{\u0022v\u0022:116,\u0022f\u0022:\u0022116.00\u0022},null],[\u002238. MILES, Nick (116)\u0022,\u0022Lewes Wanderers... (663)\u0022,{\u0022v\u0022:116,\u0022f\u0022:\u0022116.00\u0022},null],[\u002239. TIPPINS, Duncan (115)\u0022,\u00224T+ Cyclopark (187)\u0022,{\u0022v\u0022:115,\u0022f\u0022:\u0022115.00\u0022},null],[\u002240. COLLIER, Lloyd (114)\u0022,\u0022Brixton Cycles... (114)\u0022,{\u0022v\u0022:114,\u0022f\u0022:\u0022114.00\u0022},null],[\u002241. PITTOCK, Damian (112)\u0022,\u0022C and N Cycles... (571)\u0022,{\u0022v\u0022:112,\u0022f\u0022:\u0022112.00\u0022},null],[\u002242. HIGGS, George (112)\u0022,\u0022Crawley Wheeler... (221)\u0022,{\u0022v\u0022:112,\u0022f\u0022:\u0022112.00\u0022},null],[\u002243. BARKER, Anthony (109)\u0022,\u0022Crawley Wheeler... (221)\u0022,{\u0022v\u0022:109,\u0022f\u0022:\u0022109.00\u0022},null],[\u002244. RIMMER, Duncan (109)\u0022,\u0022Morden Cycle Ra... (109)\u0022,{\u0022v\u0022:109,\u0022f\u0022:\u0022109.00\u0022},null],[\u002245. HAYNES, Darren (109)\u0022,\u0022Lewes Wanderers... (663)\u0022,{\u0022v\u0022:109,\u0022f\u0022:\u0022109.00\u0022},null],[\u002246. TURNOCK, Andrew (108)\u0022,\u0022Finsbury Park C... (108)\u0022,{\u0022v\u0022:108,\u0022f\u0022:\u0022108.00\u0022},null],[\u002247. BURKINSHAW, Jason (105)\u0022,\u0022Fatcreations/ U... (252)\u0022,{\u0022v\u0022:105,\u0022f\u0022:\u0022105.00\u0022},null],[\u002248. BURT, Jo (104)\u0022,\u0022Ind 8 (104)\u0022,{\u0022v\u0022:104,\u0022f\u0022:\u0022104.00\u0022},null],[\u002249. FAGG, Daniel (98)\u0022,\u0022Brighton Mitre... (98)\u0022,{\u0022v\u0022:98,\u0022f\u0022:\u002298.00\u0022},null],[\u002250. LOTT, Kev (97)\u0022,\u0022VC Deal (281)\u0022,{\u0022v\u0022:97,\u0022f\u0022:\u002297.00\u0022},null],[\u002251. BRADY, Fergus (96)\u0022,\u0022VC Meudon (96)\u0022,{\u0022v\u0022:96,\u0022f\u0022:\u002296.00\u0022},null],[\u002252. WEBBER, Matthew (94)\u0022,\u0022Forest Side Rid... (403)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u002253. BURCHETT, Richard (88)\u0022,\u0022Lewes Wanderers... (663)\u0022,{\u0022v\u0022:88,\u0022f\u0022:\u002288.00\u0022},null],[\u002254. KIRBY, Phil (87)\u0022,\u0022VC Londres (290)\u0022,{\u0022v\u0022:87,\u0022f\u0022:\u002287.00\u0022},null],[\u002255. NEVILLE, Paul (86)\u0022,\u0022C and N Cycles... (571)\u0022,{\u0022v\u0022:86,\u0022f\u0022:\u002286.00\u0022},null],[\u002256. GEORGE, Matthew (80)\u0022,\u0022Twickenham CC (433)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u002257. PRENELLE, Ian (77)\u0022,\u0022VC Londres (290)\u0022,{\u0022v\u0022:77,\u0022f\u0022:\u002277.00\u0022},null],[\u002258. HUMPHESON, Sam (74)\u0022,\u0022Ind 9 (74)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u002259. TUTT, John (73)\u0022,\u0022Southborough \u0026... (675)\u0022,{\u0022v\u0022:73,\u0022f\u0022:\u002273.00\u0022},null],[\u002260. MUNDAY, Paul (72)\u0022,\u00224T+ Cyclopark (187)\u0022,{\u0022v\u0022:72,\u0022f\u0022:\u002272.00\u0022},null],[\u002261. LONGMATE, Gary (69)\u0022,\u0022Sussex Revoluti... (238)\u0022,{\u0022v\u0022:69,\u0022f\u0022:\u002269.00\u0022},null],[\u002262. SHOTTER, Jezz (66)\u0022,\u0022Brighton Excels... (123)\u0022,{\u0022v\u0022:66,\u0022f\u0022:\u002266.00\u0022},null],[\u002263. PRICE, Gavin (63)\u0022,\u0022Twickenham CC (433)\u0022,{\u0022v\u0022:63,\u0022f\u0022:\u002263.00\u0022},null],[\u002264. HARDCASTLE, Matthew (63)\u0022,\u00226AM Cycling (197)\u0022,{\u0022v\u0022:63,\u0022f\u0022:\u002263.00\u0022},null],[\u002265. OXBERRY, David (62)\u0022,\u0022VC Deal (281)\u0022,{\u0022v\u0022:62,\u0022f\u0022:\u002262.00\u0022},null],[\u002266. THOMAS, Calum (62)\u0022,\u0022Ind 10 (62)\u0022,{\u0022v\u0022:62,\u0022f\u0022:\u002262.00\u0022},null],[\u002267. CROUCH, Rupert (61)\u0022,\u0022Ind 11 (61)\u0022,{\u0022v\u0022:61,\u0022f\u0022:\u002261.00\u0022},null],[\u002268. SANDELL, Bruce (60)\u0022,\u0022Southborough \u0026... (675)\u0022,{\u0022v\u0022:60,\u0022f\u0022:\u002260.00\u0022},null],[\u002269. MILTON, Gary (59)\u0022,\u0022Blazing Saddles... (59)\u0022,{\u0022v\u0022:59,\u0022f\u0022:\u002259.00\u0022},null],[\u002270. BARRIE, Mike (58)\u0022,\u0022Ind 12 (58)\u0022,{\u0022v\u0022:58,\u0022f\u0022:\u002258.00\u0022},null],[\u002271. JONES, Russell (57)\u0022,\u0022Ind 13 (57)\u0022,{\u0022v\u0022:57,\u0022f\u0022:\u002257.00\u0022},null],[\u002272. DURAN, Dan (57)\u0022,\u0022Ind 14 (57)\u0022,{\u0022v\u0022:57,\u0022f\u0022:\u002257.00\u0022},null],[\u002273. STONE, James (57)\u0022,\u0022Brighton Excels... (123)\u0022,{\u0022v\u0022:57,\u0022f\u0022:\u002257.00\u0022},null],[\u002274. LEWIS, Oliver (53)\u0022,\u0022De Laune CC (53)\u0022,{\u0022v\u0022:53,\u0022f\u0022:\u002253.00\u0022},null],[\u002275. BRAYBROOK, Ian (51)\u0022,\u0022Basildon CC (51)\u0022,{\u0022v\u0022:51,\u0022f\u0022:\u002251.00\u0022},null],[\u002276. PARRY, Andy (49)\u0022,\u0022VC Londres (290)\u0022,{\u0022v\u0022:49,\u0022f\u0022:\u002249.00\u0022},null],[\u002277. MANSFIELD, Neil (48)\u0022,\u0022Grity Race Team (48)\u0022,{\u0022v\u0022:48,\u0022f\u0022:\u002248.00\u0022},null],[\u002278. BUNYAN, Tobias (44)\u0022,\u0022Eastbourne Rove... (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u002279. BENFIELD, Matt (43)\u0022,\u0022Bigfoot CC (293)\u0022,{\u0022v\u0022:43,\u0022f\u0022:\u002243.00\u0022},null],[\u002280. LANSDOWNE, Anthony (42)\u0022,\u0022Ind 15 (42)\u0022,{\u0022v\u0022:42,\u0022f\u0022:\u002242.00\u0022},null],[\u002281. STEER, Alex (42)\u0022,\u0022Lewes Wanderers... (663)\u0022,{\u0022v\u0022:42,\u0022f\u0022:\u002242.00\u0022},null],[\u002282. STRINGER, Rufus (41)\u0022,\u0022VC Londres (290)\u0022,{\u0022v\u0022:41,\u0022f\u0022:\u002241.00\u0022},null],[\u002283. VAUGHAN, Dan (41)\u0022,\u0022SaddleDrunk Cyc... (41)\u0022,{\u0022v\u0022:41,\u0022f\u0022:\u002241.00\u0022},null],[\u002284. MACLEOD, Iain (38)\u0022,\u0022Ind 16 (38)\u0022,{\u0022v\u0022:38,\u0022f\u0022:\u002238.00\u0022},null],[\u002285. NEILSON, Stuart (37)\u0022,\u0022GS Invicta\u002DELO\u002D... (37)\u0022,{\u0022v\u0022:37,\u0022f\u0022:\u002237.00\u0022},null],[\u002286. MUIR, Andrew (36)\u0022,\u0022VC Londres (290)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u002287. LINARES, Javi (35)\u0022,\u0022Islington Cycli... (35)\u0022,{\u0022v\u0022:35,\u0022f\u0022:\u002235.00\u0022},null],[\u002288. BENDEL, Simon (35)\u0022,\u0022Ind 17 (35)\u0022,{\u0022v\u0022:35,\u0022f\u0022:\u002235.00\u0022},null],[\u002289. MARLEE, Damian (34)\u0022,\u0022Ind 18 (34)\u0022,{\u0022v\u0022:34,\u0022f\u0022:\u002234.00\u0022},null],[\u002290. CROSSLEY, Duncan (33)\u0022,\u0022Forest Side Rid... (403)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u002291. HEMMING, Dave (33)\u0022,\u0022Foxgrove Cyclin... (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u002292. JONES, Daran (32)\u0022,\u0022Ind 19 (32)\u0022,{\u0022v\u0022:32,\u0022f\u0022:\u002232.00\u0022},null],[\u002293. HAINES, Aaron (31)\u0022,\u0022Dulwich Paragon... (984)\u0022,{\u0022v\u0022:31,\u0022f\u0022:\u002231.00\u0022},null],[\u002294. SHARPE, Troy (30)\u0022,\u0022Ind 20 (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u002295. RICHARDSON, Joe (28)\u0022,\u0022Ind 21 (28)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u002296. BEATTIE, Daniel (28)\u0022,\u0022Penge Cycle Clu... (28)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null]]"));
 
 		var options = {
 			width: 600,
@@ -379,30 +379,24 @@ table.results-table tr th {
 		M50O (Open)
 	</span>
 </h1>
-Generated: 04-10-2026 13:24:53
+Generated: 04-10-2026 14:45:01
 <table class="table table-striped table-hover table-condensed results-table" style="width: auto;"><thead><tr><th>Rank</th><th>Name</th><th>Team</th><th class='text-right col-border-right'>
 			
 				Points
 			
 		</th><th class='text-right col-border-right-gap'>Gap</th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 4 - Herne Hill<br/>
+				04-10-2026 13:50<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/608/0/282/index.html'><span style="white-space: nowrap;">Masters 50+ Open</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 3 - Crystal Palace<br/>
 				27-09-2026 13:50<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/601/0/282/index.html'><span style="white-space: nowrap;">Masters 50+ Open</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 2 - Pippingford<br/>
 				20-09-2026 13:50<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/594/0/282/index.html'><span style="white-space: nowrap;">Masters 50+ Open</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 1 - Stanmer Park<br/>
-				06-09-2026 13:50<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/587/0/282/index.html'><span style="white-space: nowrap;">Masters 50+ Open</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2277/index.html'>DEAR, James</a></td><td>Destination Bike RT</td><td class='text-right col-border-right'>300</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+				06-09-2026 13:50<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/587/0/282/index.html'><span style="white-space: nowrap;">Masters 50+ Open</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6336/index.html'>FRESHWATER, Richard</a></td><td>Strada Wheels RT Lucentsys</td><td class='text-right col-border-right'>378</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
 						100
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						1st
 					</td><td class='hidden-print text-right'>
-						100
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						1st
-					</td><td class='hidden-print text-right'>
-						100
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						1st
-					</td></tr><tr><td class="text-right">2.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6336/index.html'>FRESHWATER, Richard</a></td><td>Strada Wheels RT Lucentsys</td><td class='text-right col-border-right'>278</td><td class='text-right col-border-right-gap'>22</td><td class='hidden-print text-right'>
 						90
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						3rd
@@ -414,7 +408,11 @@ Generated: 04-10-2026 13:24:53
 						94
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						2nd
-					</td></tr><tr><td class="text-right">3.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/427/index.html'>BRAID, Dan</a></td><td>ViCiOUS VELO</td><td class='text-right col-border-right'>274</td><td class='text-right col-border-right-gap'>26</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">2.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/427/index.html'>BRAID, Dan</a></td><td>ViCiOUS VELO</td><td class='text-right col-border-right'>364</td><td class='text-right col-border-right-gap'>14</td><td class='hidden-print text-right'>
+						90
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
 						94
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						2nd
@@ -426,10 +424,10 @@ Generated: 04-10-2026 13:24:53
 						90
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						3rd
-					</td></tr><tr><td class="text-right">4.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2802/index.html'>STREET, Dan</a></td><td>Lewes Wanderers CC</td><td class='text-right col-border-right'>228</td><td class='text-right col-border-right-gap'>72</td><td class='hidden-print text-right'>
-						76
+					</td></tr><tr><td class="text-right">3.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2802/index.html'>STREET, Dan</a></td><td>Lewes Wanderers CC</td><td class='text-right col-border-right'>308</td><td class='text-right col-border-right-gap'>70</td><td class='hidden-print text-right'>
+						80
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						8th
+						6th
 					</td><td class='hidden-print text-right'>
 						76
 					</td><td class='hidden-print text-right col-border-right result-detail'>
@@ -438,7 +436,27 @@ Generated: 04-10-2026 13:24:53
 						76
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						8th
-					</td></tr><tr><td class="text-right">5.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2868/index.html'>HEAP, Matthew</a></td><td>Twickenham CC</td><td class='text-right col-border-right'>218</td><td class='text-right col-border-right-gap'>82</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print text-right'>
+						76
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td></tr><tr><td class="text-right">4.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2277/index.html'>DEAR, James</a></td><td>Destination Bike RT</td><td class='text-right col-border-right'>300</td><td class='text-right col-border-right-gap'>78</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
+						100
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td></tr><tr><td class="text-right">5.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2868/index.html'>HEAP, Matthew</a></td><td>Twickenham CC</td><td class='text-right col-border-right'>290</td><td class='text-right col-border-right-gap'>88</td><td class='hidden-print text-right'>
+						72
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print text-right'>
 						70
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						11th
@@ -450,19 +468,11 @@ Generated: 04-10-2026 13:24:53
 						74
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						9th
-					</td></tr><tr><td class="text-right">6.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6343/index.html'>HAYWARD, Robert</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>212</td><td class='text-right col-border-right-gap'>88</td><td class='hidden-print text-right'>
-						68
+					</td></tr><tr><td class="text-right">6.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1694/index.html'>MURRELL, Philip</a></td><td>Forest Side Riders</td><td class='text-right col-border-right'>276</td><td class='text-right col-border-right-gap'>102</td><td class='hidden-print text-right'>
+						69
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						13th
+						12th
 					</td><td class='hidden-print text-right'>
-						72
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						10th
-					</td><td class='hidden-print text-right'>
-						72
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						10th
-					</td></tr><tr><td class="text-right">7.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1694/index.html'>MURRELL, Philip</a></td><td>Forest Side Riders</td><td class='text-right col-border-right'>207</td><td class='text-right col-border-right-gap'>93</td><td class='hidden-print text-right'>
 						67
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						14th
@@ -474,7 +484,11 @@ Generated: 04-10-2026 13:24:53
 						70
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						11th
-					</td></tr><tr><td class="text-right">8.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7244/index.html'>MCCARTNEY, Simon</a></td><td></td><td class='text-right col-border-right'>202</td><td class='text-right col-border-right-gap'>98</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">7.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7244/index.html'>MCCARTNEY, Simon</a></td><td></td><td class='text-right col-border-right'>269</td><td class='text-right col-border-right-gap'>109</td><td class='hidden-print text-right'>
+						67
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print text-right'>
 						64
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						17th
@@ -486,31 +500,11 @@ Generated: 04-10-2026 13:24:53
 						69
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						12th
-					</td></tr><tr><td class="text-right">9.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6819/index.html'>TREACHER, Martin</a></td><td>Primo RT</td><td class='text-right col-border-right'>195</td><td class='text-right col-border-right-gap'>105</td><td class='hidden-print text-right'>
-						66
+					</td></tr><tr><td class="text-right">8.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/130/index.html'>POWERS, Andrew</a></td><td></td><td class='text-right col-border-right'>261</td><td class='text-right col-border-right-gap'>117</td><td class='hidden-print text-right'>
+						68
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						15th
+						13th
 					</td><td class='hidden-print text-right'>
-						64
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						17th
-					</td><td class='hidden-print text-right'>
-						65
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						16th
-					</td></tr><tr><td class="text-right">10.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1670/index.html'>ST-AMOUR, Peter</a></td><td></td><td class='text-right col-border-right'>194</td><td class='text-right col-border-right-gap'>106</td><td class='hidden-print text-right'>
-						65
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						16th
-					</td><td class='hidden-print text-right'>
-						66
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						15th
-					</td><td class='hidden-print text-right'>
-						63
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						18th
-					</td></tr><tr><td class="text-right">11.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/130/index.html'>POWERS, Andrew</a></td><td></td><td class='text-right col-border-right'>193</td><td class='text-right col-border-right-gap'>107</td><td class='hidden-print text-right'>
 						61
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						20th
@@ -522,19 +516,67 @@ Generated: 04-10-2026 13:24:53
 						67
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						14th
-					</td></tr><tr><td class="text-right">12.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6892/index.html'>CAIRD, Andrew</a></td><td></td><td class='text-right col-border-right'>179</td><td class='text-right col-border-right-gap'>121</td><td class='hidden-print text-right'>
-						59
+					</td></tr><tr><td class="text-right">9.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1670/index.html'>ST-AMOUR, Peter</a></td><td></td><td class='text-right col-border-right'>260</td><td class='text-right col-border-right-gap'>118</td><td class='hidden-print text-right'>
+						66
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						22nd
+						15th
 					</td><td class='hidden-print text-right'>
-						60
+						65
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						21st
+						16th
 					</td><td class='hidden-print text-right'>
-						60
+						66
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						21st
-					</td></tr><tr><td class="text-right">13.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1831/index.html'>SHORT, Russell</a></td><td>CHAINGANG Racing Team</td><td class='text-right col-border-right'>178</td><td class='text-right col-border-right-gap'>122</td><td class='hidden-print text-right'>
+						15th
+					</td><td class='hidden-print text-right'>
+						63
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						18th
+					</td></tr><tr><td class="text-right">10.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6819/index.html'>TREACHER, Martin</a></td><td>Primo RT</td><td class='text-right col-border-right'>259</td><td class='text-right col-border-right-gap'>119</td><td class='hidden-print text-right'>
+						64
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td><td class='hidden-print text-right'>
+						66
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print text-right'>
+						64
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td><td class='hidden-print text-right'>
+						65
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td></tr><tr><td class="text-right">11.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/260/index.html'>BELL, Bill</a></td><td>Bigfoot CC</td><td class='text-right col-border-right'>250</td><td class='text-right col-border-right-gap'>128</td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						78
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">12.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2454/index.html'>SPIES, Stuart</a></td><td>CHAINGANG Racing Team</td><td class='text-right col-border-right'>244</td><td class='text-right col-border-right-gap'>134</td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right'>
+						78
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td></tr><tr><td class="text-right">13.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1831/index.html'>SHORT, Russell</a></td><td>CHAINGANG Racing Team</td><td class='text-right col-border-right'>243</td><td class='text-right col-border-right-gap'>135</td><td class='hidden-print text-right'>
+						65
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print text-right'>
 						58
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						23rd
@@ -546,31 +588,23 @@ Generated: 04-10-2026 13:24:53
 						58
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						23rd
-					</td></tr><tr><td class="text-right">14.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6170/index.html'>WENLOCK, Edward</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>169</td><td class='text-right col-border-right-gap'>131</td><td class='hidden-print text-right'>
-						83
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						5th
-					</td><td class='hidden-print text-right'>
-						86
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						4th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">15.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/4876/index.html'>LARKING, Andrew</a></td><td>Sussex Revolution Velo Club</td><td class='text-right col-border-right'>169</td><td class='text-right col-border-right-gap'>131</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						83
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						5th
-					</td><td class='hidden-print text-right'>
-						86
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						4th
-					</td></tr><tr><td class="text-right">16.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/260/index.html'>BELL, Bill</a></td><td>Bigfoot CC</td><td class='text-right col-border-right'>164</td><td class='text-right col-border-right-gap'>136</td><td class='hidden-print text-right'>
-						86
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						4th
-					</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">14.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/3118/index.html'>WILLS, Magnus</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>228</td><td class='text-right col-border-right-gap'>150</td><td class='hidden-print text-right'>
 						78
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						7th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">17.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6687/index.html'>POPE, Steven</a></td><td>San Fairy Ann CC</td><td class='text-right col-border-right'>162</td><td class='text-right col-border-right-gap'>138</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print text-right'>
+						72
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						78
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td></tr><tr><td class="text-right">15.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6687/index.html'>POPE, Steven</a></td><td>San Fairy Ann CC</td><td class='text-right col-border-right'>221</td><td class='text-right col-border-right-gap'>157</td><td class='hidden-print text-right'>
+						59
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						22nd
+					</td><td class='hidden-print text-right'>
 						53
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						28th
@@ -582,23 +616,23 @@ Generated: 04-10-2026 13:24:53
 						50
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						31st
-					</td></tr><tr><td class="text-right">18.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2454/index.html'>SPIES, Stuart</a></td><td>CHAINGANG Racing Team</td><td class='text-right col-border-right'>161</td><td class='text-right col-border-right-gap'>139</td><td class='hidden-print text-right'>
-						78
+					</td></tr><tr><td class="text-right">16.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7125/index.html'>DAVIDSON, Andy</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>213</td><td class='text-right col-border-right-gap'>165</td><td class='hidden-print text-right'>
+						76
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						7th
+						8th
+					</td><td class='hidden-print text-right'>
+						69
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
 					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						83
+						68
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						5th
-					</td></tr><tr><td class="text-right">19.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6235/index.html'>CAMIER, Dean</a></td><td>CX Cartel</td><td class='text-right col-border-right'>160</td><td class='text-right col-border-right-gap'>140</td><td class='hidden-print text-right'>
-						80
+						13th
+					</td></tr><tr><td class="text-right">17.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/274/index.html'>MOYLAN, Brendan</a></td><td>C and N Cycles RT</td><td class='text-right col-border-right'>212</td><td class='text-right col-border-right-gap'>166</td><td class='hidden-print text-right'>
+						56
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						6th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						80
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						6th
-					</td></tr><tr><td class="text-right">20.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/274/index.html'>MOYLAN, Brendan</a></td><td>C and N Cycles RT</td><td class='text-right col-border-right'>156</td><td class='text-right col-border-right-gap'>144</td><td class='hidden-print text-right'>
+						25th
+					</td><td class='hidden-print text-right'>
 						51
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						30th
@@ -610,15 +644,143 @@ Generated: 04-10-2026 13:24:53
 						56
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						25th
-					</td></tr><tr><td class="text-right">21.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/3118/index.html'>WILLS, Magnus</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>150</td><td class='text-right col-border-right-gap'>150</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">18.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6343/index.html'>HAYWARD, Robert</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>212</td><td class='text-right col-border-right-gap'>166</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						68
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print text-right'>
 						72
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						10th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						78
+					</td><td class='hidden-print text-right'>
+						72
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						7th
-					</td></tr><tr><td class="text-right">22.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/4864/index.html'>SIMPSON, Robert</a></td><td></td><td class='text-right col-border-right'>143</td><td class='text-right col-border-right-gap'>157</td><td class='hidden-print text-right'>
+						10th
+					</td></tr><tr><td class="text-right">19.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1423/index.html'>WILLIAMS, Michael</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>205</td><td class='text-right col-border-right-gap'>173</td><td class='hidden-print text-right'>
+						74
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print text-right'>
+						63
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						18th
+					</td><td class='hidden-print text-right'>
+						68
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">20.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5001/index.html'>TREDRAY, James</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>191</td><td class='text-right col-border-right-gap'>187</td><td class='hidden-print text-right'>
+						70
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print text-right'>
+						60
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						21st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						61
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						20th
+					</td></tr><tr><td class="text-right">21.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6892/index.html'>CAIRD, Andrew</a></td><td></td><td class='text-right col-border-right'>179</td><td class='text-right col-border-right-gap'>199</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						59
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						22nd
+					</td><td class='hidden-print text-right'>
+						60
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						21st
+					</td><td class='hidden-print text-right'>
+						60
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						21st
+					</td></tr><tr><td class="text-right">22.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1021/index.html'>LEMONIUS, John</a></td><td></td><td class='text-right col-border-right'>178</td><td class='text-right col-border-right-gap'>200</td><td class='hidden-print text-right'>
+						43
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						38th
+					</td><td class='hidden-print text-right'>
+						45
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						36th
+					</td><td class='hidden-print text-right'>
+						45
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						36th
+					</td><td class='hidden-print text-right'>
+						45
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						36th
+					</td></tr><tr><td class="text-right">23.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6170/index.html'>WENLOCK, Edward</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>169</td><td class='text-right col-border-right-gap'>209</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">24.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/4876/index.html'>LARKING, Andrew</a></td><td>Sussex Revolution Velo Club</td><td class='text-right col-border-right'>169</td><td class='text-right col-border-right-gap'>209</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						83
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print text-right'>
+						86
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td></tr><tr><td class="text-right">25.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6965/index.html'>BYSOUTH, Richard</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>161</td><td class='text-right col-border-right-gap'>217</td><td class='hidden-print text-right'>
+						61
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						20th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						53
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						28th
+					</td><td class='hidden-print text-right'>
+						47
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						34th
+					</td></tr><tr><td class="text-right">26.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2439/index.html'>WARD, Edwin</a></td><td>C and N Cycles RT</td><td class='text-right col-border-right'>161</td><td class='text-right col-border-right-gap'>217</td><td class='hidden-print text-right'>
+						55
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						26th
+					</td><td class='hidden-print text-right'>
+						48
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						33rd
+					</td><td class='hidden-print text-right'>
+						58
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						23rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">27.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6235/index.html'>CAMIER, Dean</a></td><td>CX Cartel</td><td class='text-right col-border-right'>160</td><td class='text-right col-border-right-gap'>218</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						80
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						80
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td></tr><tr><td class="text-right">28.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2570/index.html'>SOUTH, Andrew</a></td><td>GS Avanti</td><td class='text-right col-border-right'>150</td><td class='text-right col-border-right-gap'>228</td><td class='hidden-print text-right'>
+						58
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						23rd
+					</td><td class='hidden-print text-right'>
+						49
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						32nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						43
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						38th
+					</td></tr><tr><td class="text-right">29.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/213/index.html'>HARVEY, Barry</a></td><td>Fatcreations/ USE Components</td><td class='text-right col-border-right'>147</td><td class='text-right col-border-right-gap'>231</td><td class='hidden-print text-right'>
+						48
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						33rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						51
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						30th
+					</td><td class='hidden-print text-right'>
+						48
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						33rd
+					</td></tr><tr><td class="text-right">30.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/4864/index.html'>SIMPSON, Robert</a></td><td></td><td class='text-right col-border-right'>143</td><td class='text-right col-border-right-gap'>235</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						50
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						31st
@@ -630,155 +792,11 @@ Generated: 04-10-2026 13:24:53
 						46
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						35th
-					</td></tr><tr><td class="text-right">23.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7125/index.html'>DAVIDSON, Andy</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>137</td><td class='text-right col-border-right-gap'>163</td><td class='hidden-print text-right'>
-						69
+					</td></tr><tr><td class="text-right">31.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/356/index.html'>MONTAGU, Chris</a></td><td>Kingston Wheelers CC</td><td class='text-right col-border-right'>139</td><td class='text-right col-border-right-gap'>239</td><td class='hidden-print text-right'>
+						46
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						12th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						68
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						13th
-					</td></tr><tr><td class="text-right">24.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1021/index.html'>LEMONIUS, John</a></td><td></td><td class='text-right col-border-right'>135</td><td class='text-right col-border-right-gap'>165</td><td class='hidden-print text-right'>
-						45
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						36th
+						35th
 					</td><td class='hidden-print text-right'>
-						45
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						36th
-					</td><td class='hidden-print text-right'>
-						45
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						36th
-					</td></tr><tr><td class="text-right">25.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1423/index.html'>WILLIAMS, Michael</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>131</td><td class='text-right col-border-right-gap'>169</td><td class='hidden-print text-right'>
-						63
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						18th
-					</td><td class='hidden-print text-right'>
-						68
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						13th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">26.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6964/index.html'>WILLIAMS, Keir</a></td><td>Hythe Cycling Club</td><td class='text-right col-border-right'>131</td><td class='text-right col-border-right-gap'>169</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						67
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						14th
-					</td><td class='hidden-print text-right'>
-						64
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						17th
-					</td></tr><tr><td class="text-right">27.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5001/index.html'>TREDRAY, James</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>121</td><td class='text-right col-border-right-gap'>179</td><td class='hidden-print text-right'>
-						60
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						21st
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						61
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						20th
-					</td></tr><tr><td class="text-right">28.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1507/index.html'>MILES, Nick</a></td><td>Lewes Wanderers CC</td><td class='text-right col-border-right'>116</td><td class='text-right col-border-right-gap'>184</td><td class='hidden-print text-right'>
-						38
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						43rd
-					</td><td class='hidden-print text-right'>
-						41
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						40th
-					</td><td class='hidden-print text-right'>
-						37
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						44th
-					</td></tr><tr><td class="text-right">29.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/708/index.html'>HIGGS, George</a></td><td>Crawley Wheelers</td><td class='text-right col-border-right'>112</td><td class='text-right col-border-right-gap'>188</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						57
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						24th
-					</td><td class='hidden-print text-right'>
-						55
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						26th
-					</td></tr><tr><td class="text-right">30.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2260/index.html'>BARKER, Anthony</a></td><td>Crawley Wheelers</td><td class='text-right col-border-right'>109</td><td class='text-right col-border-right-gap'>191</td><td class='hidden-print text-right'>
-						56
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						25th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						53
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						28th
-					</td></tr><tr><td class="text-right">31.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/562/index.html'>RIMMER, Duncan</a></td><td>Morden Cycle Racing Club</td><td class='text-right col-border-right'>109</td><td class='text-right col-border-right-gap'>191</td><td class='hidden-print text-right'>
-						55
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						26th
-					</td><td class='hidden-print text-right'>
-						54
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						27th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">32.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/472/index.html'>HAYNES, Darren</a></td><td>Lewes Wanderers CC</td><td class='text-right col-border-right'>109</td><td class='text-right col-border-right-gap'>191</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						55
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						26th
-					</td><td class='hidden-print text-right'>
-						54
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						27th
-					</td></tr><tr><td class="text-right">33.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2439/index.html'>WARD, Edwin</a></td><td>C and N Cycles RT</td><td class='text-right col-border-right'>106</td><td class='text-right col-border-right-gap'>194</td><td class='hidden-print text-right'>
-						48
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						33rd
-					</td><td class='hidden-print text-right'>
-						58
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						23rd
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">34.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/950/index.html'>BURKINSHAW, Jason</a></td><td>Fatcreations/ USE Components</td><td class='text-right col-border-right'>105</td><td class='text-right col-border-right-gap'>195</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						56
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						25th
-					</td><td class='hidden-print text-right'>
-						49
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						32nd
-					</td></tr><tr><td class="text-right">35.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/984/index.html'>BURT, Jo</a></td><td></td><td class='text-right col-border-right'>104</td><td class='text-right col-border-right-gap'>196</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						52
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						29th
-					</td><td class='hidden-print text-right'>
-						52
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						29th
-					</td></tr><tr><td class="text-right">36.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6965/index.html'>BYSOUTH, Richard</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>100</td><td class='text-right col-border-right-gap'>200</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						53
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						28th
-					</td><td class='hidden-print text-right'>
-						47
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						34th
-					</td></tr><tr><td class="text-right">37.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/213/index.html'>HARVEY, Barry</a></td><td>Fatcreations/ USE Components</td><td class='text-right col-border-right'>99</td><td class='text-right col-border-right-gap'>201</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						51
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						30th
-					</td><td class='hidden-print text-right'>
-						48
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						33rd
-					</td></tr><tr><td class="text-right">38.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5738/index.html'>LOTT, Kev</a></td><td>VC Deal</td><td class='text-right col-border-right'>97</td><td class='text-right col-border-right-gap'>203</td><td class='hidden-print text-right'>
-						47
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						34th
-					</td><td class='hidden-print text-right'>
-						50
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						31st
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">39.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7066/index.html'>NEWMAN, Piers</a></td><td>East Grinstead CC</td><td class='text-right col-border-right'>96</td><td class='text-right col-border-right-gap'>204</td><td class='hidden-print text-right'>
-						31
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						50th
-					</td><td class='hidden-print text-right'>
-						34
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						47th
-					</td><td class='hidden-print text-right'>
-						31
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						50th
-					</td></tr><tr><td class="text-right">40.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/356/index.html'>MONTAGU, Chris</a></td><td>Kingston Wheelers CC</td><td class='text-right col-border-right'>93</td><td class='text-right col-border-right-gap'>207</td><td class='hidden-print text-right'>
 						54
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						27th
@@ -786,31 +804,11 @@ Generated: 04-10-2026 13:24:53
 						39
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						42nd
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">41.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2570/index.html'>SOUTH, Andrew</a></td><td>GS Avanti</td><td class='text-right col-border-right'>92</td><td class='text-right col-border-right-gap'>208</td><td class='hidden-print text-right'>
-						49
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">32.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/160/index.html'>WATSON-SMITH, Andrew</a></td><td>6AM Cycling</td><td class='text-right col-border-right'>134</td><td class='text-right col-border-right-gap'>244</td><td class='hidden-print text-right'>
+						54
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						32nd
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						43
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						38th
-					</td></tr><tr><td class="text-right">42.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1683/index.html'>KIRBY, Phil</a></td><td>VC Londres</td><td class='text-right col-border-right'>87</td><td class='text-right col-border-right-gap'>213</td><td class='hidden-print text-right'>
-						44
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						37th
+						27th
 					</td><td class='hidden-print text-right'>
-						43
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						38th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">43.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5922/index.html'>COLLIER, Lloyd</a></td><td>Brixton Cycles Club</td><td class='text-right col-border-right'>80</td><td class='text-right col-border-right-gap'>220</td><td class='hidden-print text-right'>
-						42
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						39th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						38
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						43rd
-					</td></tr><tr><td class="text-right">44.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/160/index.html'>WATSON-SMITH, Andrew</a></td><td>6AM Cycling</td><td class='text-right col-border-right'>80</td><td class='text-right col-border-right-gap'>220</td><td class='hidden-print text-right'>
 						29
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						52nd
@@ -818,11 +816,19 @@ Generated: 04-10-2026 13:24:53
 						51
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						30th
-					</td></tr><tr><td class="text-right">45.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5925/index.html'>GEORGE, Matthew</a></td><td>Twickenham CC</td><td class='text-right col-border-right'>80</td><td class='text-right col-border-right-gap'>220</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						80
+					</td></tr><tr><td class="text-right">33.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6964/index.html'>WILLIAMS, Keir</a></td><td>Hythe Cycling Club</td><td class='text-right col-border-right'>131</td><td class='text-right col-border-right-gap'>247</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						67
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						6th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">46.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5643/index.html'>SAITO, Yuzo</a></td><td></td><td class='text-right col-border-right'>79</td><td class='text-right col-border-right-gap'>221</td><td class='hidden-print text-right'>
+						14th
+					</td><td class='hidden-print text-right'>
+						64
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td></tr><tr><td class="text-right">34.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5643/index.html'>SAITO, Yuzo</a></td><td></td><td class='text-right col-border-right'>126</td><td class='text-right col-border-right-gap'>252</td><td class='hidden-print text-right'>
+						47
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						34th
+					</td><td class='hidden-print text-right'>
 						39
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						42nd
@@ -830,7 +836,27 @@ Generated: 04-10-2026 13:24:53
 						40
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						41st
-					</td></tr><tr><td class="text-right">47.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5170/index.html'>KELSALL, Liam</a></td><td>VC Deal</td><td class='text-right col-border-right'>77</td><td class='text-right col-border-right-gap'>223</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">35.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7066/index.html'>NEWMAN, Piers</a></td><td>East Grinstead CC</td><td class='text-right col-border-right'>126</td><td class='text-right col-border-right-gap'>252</td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						51st
+					</td><td class='hidden-print text-right'>
+						31
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						50th
+					</td><td class='hidden-print text-right'>
+						34
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						47th
+					</td><td class='hidden-print text-right'>
+						31
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						50th
+					</td></tr><tr><td class="text-right">36.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5170/index.html'>KELSALL, Liam</a></td><td>VC Deal</td><td class='text-right col-border-right'>122</td><td class='text-right col-border-right-gap'>256</td><td class='hidden-print text-right'>
+						45
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						36th
+					</td><td class='hidden-print text-right'>
 						37
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						44th
@@ -838,7 +864,11 @@ Generated: 04-10-2026 13:24:53
 						40
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						41st
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">48.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2432/index.html'>VANCE, Michael</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>76</td><td class='text-right col-border-right-gap'>224</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">37.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2432/index.html'>VANCE, Michael</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>116</td><td class='text-right col-border-right-gap'>262</td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						41st
+					</td><td class='hidden-print text-right'>
 						40
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						41st
@@ -846,11 +876,179 @@ Generated: 04-10-2026 13:24:53
 						36
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						45th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">49.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1854/index.html'>HUMPHESON, Sam</a></td><td></td><td class='text-right col-border-right'>74</td><td class='text-right col-border-right-gap'>226</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">38.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1507/index.html'>MILES, Nick</a></td><td>Lewes Wanderers CC</td><td class='text-right col-border-right'>116</td><td class='text-right col-border-right-gap'>262</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						38
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						43rd
+					</td><td class='hidden-print text-right'>
+						41
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						40th
+					</td><td class='hidden-print text-right'>
+						37
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						44th
+					</td></tr><tr><td class="text-right">39.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6309/index.html'>TIPPINS, Duncan</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>115</td><td class='text-right col-border-right-gap'>263</td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						37th
+					</td><td class='hidden-print text-right'>
+						32
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						49th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						39
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						42nd
+					</td></tr><tr><td class="text-right">40.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5922/index.html'>COLLIER, Lloyd</a></td><td>Brixton Cycles Club</td><td class='text-right col-border-right'>114</td><td class='text-right col-border-right-gap'>264</td><td class='hidden-print text-right'>
+						34
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						47th
+					</td><td class='hidden-print text-right'>
+						42
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						39th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						38
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						43rd
+					</td></tr><tr><td class="text-right">41.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/420/index.html'>PITTOCK, Damian</a></td><td>C and N Cycles RT</td><td class='text-right col-border-right'>112</td><td class='text-right col-border-right-gap'>266</td><td class='hidden-print text-right'>
+						60
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						21st
+					</td><td class='hidden-print text-right'>
+						52
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						29th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">42.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/708/index.html'>HIGGS, George</a></td><td>Crawley Wheelers</td><td class='text-right col-border-right'>112</td><td class='text-right col-border-right-gap'>266</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						57
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						24th
+					</td><td class='hidden-print text-right'>
+						55
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						26th
+					</td></tr><tr><td class="text-right">43.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2260/index.html'>BARKER, Anthony</a></td><td>Crawley Wheelers</td><td class='text-right col-border-right'>109</td><td class='text-right col-border-right-gap'>269</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						56
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						25th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						53
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						28th
+					</td></tr><tr><td class="text-right">44.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/562/index.html'>RIMMER, Duncan</a></td><td>Morden Cycle Racing Club</td><td class='text-right col-border-right'>109</td><td class='text-right col-border-right-gap'>269</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						55
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						26th
+					</td><td class='hidden-print text-right'>
+						54
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						27th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">45.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/472/index.html'>HAYNES, Darren</a></td><td>Lewes Wanderers CC</td><td class='text-right col-border-right'>109</td><td class='text-right col-border-right-gap'>269</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						55
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						26th
+					</td><td class='hidden-print text-right'>
+						54
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						27th
+					</td></tr><tr><td class="text-right">46.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5747/index.html'>TURNOCK, Andrew</a></td><td>Finsbury Park CC</td><td class='text-right col-border-right'>108</td><td class='text-right col-border-right-gap'>270</td><td class='hidden-print text-right'>
+						62
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						19th
+					</td><td class='hidden-print text-right'>
+						46
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						35th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">47.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/950/index.html'>BURKINSHAW, Jason</a></td><td>Fatcreations/ USE Components</td><td class='text-right col-border-right'>105</td><td class='text-right col-border-right-gap'>273</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						56
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						25th
+					</td><td class='hidden-print text-right'>
+						49
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						32nd
+					</td></tr><tr><td class="text-right">48.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/984/index.html'>BURT, Jo</a></td><td></td><td class='text-right col-border-right'>104</td><td class='text-right col-border-right-gap'>274</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						52
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						29th
+					</td><td class='hidden-print text-right'>
+						52
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						29th
+					</td></tr><tr><td class="text-right">49.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/446/index.html'>FAGG, Daniel</a></td><td>Brighton Mitre CC</td><td class='text-right col-border-right'>98</td><td class='text-right col-border-right-gap'>280</td><td class='hidden-print text-right'>
+						29
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						52nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						35
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						46th
+					</td><td class='hidden-print text-right'>
+						34
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						47th
+					</td></tr><tr><td class="text-right">50.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5738/index.html'>LOTT, Kev</a></td><td>VC Deal</td><td class='text-right col-border-right'>97</td><td class='text-right col-border-right-gap'>281</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						47
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						34th
+					</td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						31st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">51.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5714/index.html'>BRADY, Fergus</a></td><td>VC Meudon</td><td class='text-right col-border-right'>96</td><td class='text-right col-border-right-gap'>282</td><td class='hidden-print text-right'>
+						52
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						29th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						37th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">52.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1373/index.html'>WEBBER, Matthew</a></td><td>Forest Side Riders</td><td class='text-right col-border-right'>94</td><td class='text-right col-border-right-gap'>284</td><td class='hidden-print text-right'>
+						94
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">53.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5340/index.html'>BURCHETT, Richard</a></td><td>Lewes Wanderers CC</td><td class='text-right col-border-right'>88</td><td class='text-right col-border-right-gap'>290</td><td class='hidden-print text-right'>
+						42
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						39th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						46
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						35th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">54.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1683/index.html'>KIRBY, Phil</a></td><td>VC Londres</td><td class='text-right col-border-right'>87</td><td class='text-right col-border-right-gap'>291</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						37th
+					</td><td class='hidden-print text-right'>
+						43
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						38th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">55.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1618/index.html'>NEVILLE, Paul</a></td><td>C and N Cycles RT</td><td class='text-right col-border-right'>86</td><td class='text-right col-border-right-gap'>292</td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						31st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						45th
+					</td></tr><tr><td class="text-right">56.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5925/index.html'>GEORGE, Matthew</a></td><td>Twickenham CC</td><td class='text-right col-border-right'>80</td><td class='text-right col-border-right-gap'>298</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						80
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">57.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/828/index.html'>PRENELLE, Ian</a></td><td>VC Londres</td><td class='text-right col-border-right'>77</td><td class='text-right col-border-right-gap'>301</td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						45th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						41
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						40th
+					</td></tr><tr><td class="text-right">58.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1854/index.html'>HUMPHESON, Sam</a></td><td></td><td class='text-right col-border-right'>74</td><td class='text-right col-border-right-gap'>304</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						74
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						9th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">50.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6757/index.html'>TUTT, John</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>73</td><td class='text-right col-border-right-gap'>227</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">59.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6757/index.html'>TUTT, John</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>73</td><td class='text-right col-border-right-gap'>305</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						38
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						43rd
@@ -858,15 +1056,15 @@ Generated: 04-10-2026 13:24:53
 						35
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						46th
-					</td></tr><tr><td class="text-right">51.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6309/index.html'>TIPPINS, Duncan</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>71</td><td class='text-right col-border-right-gap'>229</td><td class='hidden-print text-right'>
-						32
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						49th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">60.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1617/index.html'>MUNDAY, Paul</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>72</td><td class='text-right col-border-right-gap'>306</td><td class='hidden-print text-right'>
 						39
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						42nd
-					</td></tr><tr><td class="text-right">52.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6347/index.html'>LONGMATE, Gary</a></td><td>Sussex Revolution Velo Club</td><td class='text-right col-border-right'>69</td><td class='text-right col-border-right-gap'>231</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						48th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">61.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6347/index.html'>LONGMATE, Gary</a></td><td>Sussex Revolution Velo Club</td><td class='text-right col-border-right'>69</td><td class='text-right col-border-right-gap'>309</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						37
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						44th
@@ -874,35 +1072,31 @@ Generated: 04-10-2026 13:24:53
 						32
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						49th
-					</td></tr><tr><td class="text-right">53.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/446/index.html'>FAGG, Daniel</a></td><td>Brighton Mitre CC</td><td class='text-right col-border-right'>69</td><td class='text-right col-border-right-gap'>231</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						35
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						46th
-					</td><td class='hidden-print text-right'>
-						34
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						47th
-					</td></tr><tr><td class="text-right">54.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/979/index.html'>SHOTTER, Jezz</a></td><td>Brighton Excelsior CC</td><td class='text-right col-border-right'>66</td><td class='text-right col-border-right-gap'>234</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">62.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/979/index.html'>SHOTTER, Jezz</a></td><td>Brighton Excelsior CC</td><td class='text-right col-border-right'>66</td><td class='text-right col-border-right-gap'>312</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						66
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						15th
-					</td></tr><tr><td class="text-right">55.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6088/index.html'>HARDCASTLE, Matthew</a></td><td>6AM Cycling</td><td class='text-right col-border-right'>63</td><td class='text-right col-border-right-gap'>237</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">63.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7342/index.html'>PRICE, Gavin</a></td><td>Twickenham CC</td><td class='text-right col-border-right'>63</td><td class='text-right col-border-right-gap'>315</td><td class='hidden-print text-right'>
 						63
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						18th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">56.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2678/index.html'>OXBERRY, David</a></td><td>VC Deal</td><td class='text-right col-border-right'>62</td><td class='text-right col-border-right-gap'>238</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">64.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6088/index.html'>HARDCASTLE, Matthew</a></td><td>6AM Cycling</td><td class='text-right col-border-right'>63</td><td class='text-right col-border-right-gap'>315</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						63
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						18th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">65.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2678/index.html'>OXBERRY, David</a></td><td>VC Deal</td><td class='text-right col-border-right'>62</td><td class='text-right col-border-right-gap'>316</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						62
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						19th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">57.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6126/index.html'>THOMAS, Calum</a></td><td></td><td class='text-right col-border-right'>62</td><td class='text-right col-border-right-gap'>238</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">66.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6126/index.html'>THOMAS, Calum</a></td><td></td><td class='text-right col-border-right'>62</td><td class='text-right col-border-right-gap'>316</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						62
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						19th
-					</td></tr><tr><td class="text-right">58.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6344/index.html'>CROUCH, Rupert</a></td><td></td><td class='text-right col-border-right'>61</td><td class='text-right col-border-right-gap'>239</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">67.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6344/index.html'>CROUCH, Rupert</a></td><td></td><td class='text-right col-border-right'>61</td><td class='text-right col-border-right-gap'>317</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						61
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						20th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">59.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/286/index.html'>SANDELL, Bruce</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>60</td><td class='text-right col-border-right-gap'>240</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">68.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/286/index.html'>SANDELL, Bruce</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>60</td><td class='text-right col-border-right-gap'>318</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						27
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						54th
@@ -910,102 +1104,122 @@ Generated: 04-10-2026 13:24:53
 						33
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						48th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">60.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2297/index.html'>MILTON, Gary</a></td><td>Blazing Saddles RT</td><td class='text-right col-border-right'>59</td><td class='text-right col-border-right-gap'>241</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">69.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2297/index.html'>MILTON, Gary</a></td><td>Blazing Saddles RT</td><td class='text-right col-border-right'>59</td><td class='text-right col-border-right-gap'>319</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						59
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						22nd
-					</td></tr><tr><td class="text-right">61.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/3128/index.html'>DURAN, Dan</a></td><td></td><td class='text-right col-border-right'>57</td><td class='text-right col-border-right-gap'>243</td><td class='hidden-print text-right'>
-						57
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						24th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">62.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/930/index.html'>STONE, James</a></td><td>Brighton Excelsior CC</td><td class='text-right col-border-right'>57</td><td class='text-right col-border-right-gap'>243</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						57
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						24th
-					</td></tr><tr><td class="text-right">63.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/420/index.html'>PITTOCK, Damian</a></td><td>C and N Cycles RT</td><td class='text-right col-border-right'>52</td><td class='text-right col-border-right-gap'>248</td><td class='hidden-print text-right'>
-						52
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						29th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">64.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7289/index.html'>MANSFIELD, Neil</a></td><td>Grity Race Team</td><td class='text-right col-border-right'>48</td><td class='text-right col-border-right-gap'>252</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						48
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						33rd
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">65.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5747/index.html'>TURNOCK, Andrew</a></td><td>Finsbury Park CC</td><td class='text-right col-border-right'>46</td><td class='text-right col-border-right-gap'>254</td><td class='hidden-print text-right'>
-						46
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						35th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">66.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5340/index.html'>BURCHETT, Richard</a></td><td>Lewes Wanderers CC</td><td class='text-right col-border-right'>46</td><td class='text-right col-border-right-gap'>254</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						46
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						35th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">67.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5714/index.html'>BRADY, Fergus</a></td><td>VC Meudon</td><td class='text-right col-border-right'>44</td><td class='text-right col-border-right-gap'>256</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						44
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						37th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">68.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2212/index.html'>BUNYAN, Tobias</a></td><td>Eastbourne Rovers CC</td><td class='text-right col-border-right'>44</td><td class='text-right col-border-right-gap'>256</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						44
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						37th
-					</td></tr><tr><td class="text-right">69.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1326/index.html'>BENFIELD, Matt</a></td><td>Bigfoot CC</td><td class='text-right col-border-right'>43</td><td class='text-right col-border-right-gap'>257</td><td class='hidden-print text-right'>
-						43
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						38th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">70.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7161/index.html'>LANSDOWNE, Anthony</a></td><td></td><td class='text-right col-border-right'>42</td><td class='text-right col-border-right-gap'>258</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						42
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						39th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">71.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7247/index.html'>STEER, Alex</a></td><td>Lewes Wanderers CC</td><td class='text-right col-border-right'>42</td><td class='text-right col-border-right-gap'>258</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						42
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						39th
-					</td></tr><tr><td class="text-right">72.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7119/index.html'>VAUGHAN, Dan</a></td><td>SaddleDrunk Cycling Club</td><td class='text-right col-border-right'>41</td><td class='text-right col-border-right-gap'>259</td><td class='hidden-print text-right'>
-						41
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						40th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">73.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/828/index.html'>PRENELLE, Ian</a></td><td>VC Londres</td><td class='text-right col-border-right'>41</td><td class='text-right col-border-right-gap'>259</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						41
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						40th
-					</td></tr><tr><td class="text-right">74.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7300/index.html'>MUIR, Andrew</a></td><td>VC Londres</td><td class='text-right col-border-right'>36</td><td class='text-right col-border-right-gap'>264</td><td class='hidden-print text-right'>
-						36
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						45th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">75.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1618/index.html'>NEVILLE, Paul</a></td><td>C and N Cycles RT</td><td class='text-right col-border-right'>36</td><td class='text-right col-border-right-gap'>264</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						36
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						45th
-					</td></tr><tr><td class="text-right">76.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7308/index.html'>BENDEL, Simon</a></td><td></td><td class='text-right col-border-right'>35</td><td class='text-right col-border-right-gap'>265</td><td class='hidden-print text-right'>
-						35
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						46th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">77.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/419/index.html'>MARLEE, Damian</a></td><td></td><td class='text-right col-border-right'>34</td><td class='text-right col-border-right-gap'>266</td><td class='hidden-print text-right'>
-						34
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						47th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">78.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1617/index.html'>MUNDAY, Paul</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>33</td><td class='text-right col-border-right-gap'>267</td><td class='hidden-print text-right'>
-						33
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						48th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">79.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7263/index.html'>HEMMING, Dave</a></td><td>Foxgrove Cycling Club</td><td class='text-right col-border-right'>33</td><td class='text-right col-border-right-gap'>267</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						33
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						48th
-					</td></tr><tr><td class="text-right">80.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6442/index.html'>JONES, Daran</a></td><td></td><td class='text-right col-border-right'>32</td><td class='text-right col-border-right-gap'>268</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">70.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1429/index.html'>BARRIE, Mike</a></td><td></td><td class='text-right col-border-right'>58</td><td class='text-right col-border-right-gap'>320</td><td class='hidden-print text-right'>
 						32
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						49th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">81.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6952/index.html'>SHARPE, Troy</a></td><td></td><td class='text-right col-border-right'>30</td><td class='text-right col-border-right-gap'>270</td><td class='hidden-print text-right'>
-						30
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						51st
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">82.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6923/index.html'>BEATTIE, Daniel</a></td><td>Penge Cycle Club</td><td class='text-right col-border-right'>28</td><td class='text-right col-border-right-gap'>272</td><td class='hidden-print text-right'>
-						28
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						53rd
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">83.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1429/index.html'>BARRIE, Mike</a></td><td></td><td class='text-right col-border-right'>26</td><td class='text-right col-border-right-gap'>274</td><td class='hidden-print text-right'>
+					</td><td class='hidden-print text-right'>
 						26
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						55th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">71.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1830/index.html'>JONES, Russell</a></td><td></td><td class='text-right col-border-right'>57</td><td class='text-right col-border-right-gap'>321</td><td class='hidden-print text-right'>
+						57
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						24th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">72.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/3128/index.html'>DURAN, Dan</a></td><td></td><td class='text-right col-border-right'>57</td><td class='text-right col-border-right-gap'>321</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						57
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						24th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">73.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/930/index.html'>STONE, James</a></td><td>Brighton Excelsior CC</td><td class='text-right col-border-right'>57</td><td class='text-right col-border-right-gap'>321</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						57
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						24th
+					</td></tr><tr><td class="text-right">74.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6566/index.html'>LEWIS, Oliver</a></td><td>De Laune CC</td><td class='text-right col-border-right'>53</td><td class='text-right col-border-right-gap'>325</td><td class='hidden-print text-right'>
+						53
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						28th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">75.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/3249/index.html'>BRAYBROOK, Ian</a></td><td>Basildon CC</td><td class='text-right col-border-right'>51</td><td class='text-right col-border-right-gap'>327</td><td class='hidden-print text-right'>
+						51
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						30th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">76.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/4932/index.html'>PARRY, Andy</a></td><td>VC Londres</td><td class='text-right col-border-right'>49</td><td class='text-right col-border-right-gap'>329</td><td class='hidden-print text-right'>
+						49
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						32nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">77.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7289/index.html'>MANSFIELD, Neil</a></td><td>Grity Race Team</td><td class='text-right col-border-right'>48</td><td class='text-right col-border-right-gap'>330</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						48
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						33rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">78.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2212/index.html'>BUNYAN, Tobias</a></td><td>Eastbourne Rovers CC</td><td class='text-right col-border-right'>44</td><td class='text-right col-border-right-gap'>334</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						37th
+					</td></tr><tr><td class="text-right">79.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1326/index.html'>BENFIELD, Matt</a></td><td>Bigfoot CC</td><td class='text-right col-border-right'>43</td><td class='text-right col-border-right-gap'>335</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						43
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						38th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">80.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7161/index.html'>LANSDOWNE, Anthony</a></td><td></td><td class='text-right col-border-right'>42</td><td class='text-right col-border-right-gap'>336</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						42
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						39th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">81.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7247/index.html'>STEER, Alex</a></td><td>Lewes Wanderers CC</td><td class='text-right col-border-right'>42</td><td class='text-right col-border-right-gap'>336</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						42
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						39th
+					</td></tr><tr><td class="text-right">82.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7348/index.html'>STRINGER, Rufus</a></td><td>VC Londres</td><td class='text-right col-border-right'>41</td><td class='text-right col-border-right-gap'>337</td><td class='hidden-print text-right'>
+						41
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						40th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">83.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7119/index.html'>VAUGHAN, Dan</a></td><td>SaddleDrunk Cycling Club</td><td class='text-right col-border-right'>41</td><td class='text-right col-border-right-gap'>337</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						41
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						40th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">84.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5305/index.html'>MACLEOD, Iain</a></td><td></td><td class='text-right col-border-right'>38</td><td class='text-right col-border-right-gap'>340</td><td class='hidden-print text-right'>
+						38
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						43rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">85.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/5026/index.html'>NEILSON, Stuart</a></td><td>GS Invicta-ELO-Herberts Cycles</td><td class='text-right col-border-right'>37</td><td class='text-right col-border-right-gap'>341</td><td class='hidden-print text-right'>
+						37
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						44th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">86.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7300/index.html'>MUIR, Andrew</a></td><td>VC Londres</td><td class='text-right col-border-right'>36</td><td class='text-right col-border-right-gap'>342</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						45th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">87.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7341/index.html'>LINARES, Javi</a></td><td>Islington Cycling Club</td><td class='text-right col-border-right'>35</td><td class='text-right col-border-right-gap'>343</td><td class='hidden-print text-right'>
+						35
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						46th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">88.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7308/index.html'>BENDEL, Simon</a></td><td></td><td class='text-right col-border-right'>35</td><td class='text-right col-border-right-gap'>343</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						35
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						46th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">89.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/419/index.html'>MARLEE, Damian</a></td><td></td><td class='text-right col-border-right'>34</td><td class='text-right col-border-right-gap'>344</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						34
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						47th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">90.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7364/index.html'>CROSSLEY, Duncan</a></td><td>Forest Side Riders</td><td class='text-right col-border-right'>33</td><td class='text-right col-border-right-gap'>345</td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						48th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">91.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7263/index.html'>HEMMING, Dave</a></td><td>Foxgrove Cycling Club</td><td class='text-right col-border-right'>33</td><td class='text-right col-border-right-gap'>345</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						48th
+					</td></tr><tr><td class="text-right">92.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6442/index.html'>JONES, Daran</a></td><td></td><td class='text-right col-border-right'>32</td><td class='text-right col-border-right-gap'>346</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						32
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						49th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">93.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/2235/index.html'>HAINES, Aaron</a></td><td>Dulwich Paragon CC</td><td class='text-right col-border-right'>31</td><td class='text-right col-border-right-gap'>347</td><td class='hidden-print text-right'>
+						31
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						50th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">94.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6952/index.html'>SHARPE, Troy</a></td><td></td><td class='text-right col-border-right'>30</td><td class='text-right col-border-right-gap'>348</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						51st
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">95.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/1003/index.html'>RICHARDSON, Joe</a></td><td></td><td class='text-right col-border-right'>28</td><td class='text-right col-border-right-gap'>350</td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						53rd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">96.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6923/index.html'>BEATTIE, Daniel</a></td><td>Penge Cycle Club</td><td class='text-right col-border-right'>28</td><td class='text-right col-border-right-gap'>350</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						53rd
 					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr></tbody></table>
 
 

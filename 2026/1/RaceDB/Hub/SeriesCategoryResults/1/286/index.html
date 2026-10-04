@@ -220,7 +220,7 @@ function reformat( value, from_fmt, to_fmt ) {
 		data.addColumn('string', 'To');
 		data.addColumn('number', 'Points');
 		data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
-		data.addRows(JSON.parse("[[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 1. HOPPING, Macsen (140)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 1. HOPPING, Macsen (140)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 1. HOPPING, Macsen (140)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 2. LOOBY, Caleb (112)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 2. LOOBY, Caleb (112)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 2. LOOBY, Caleb (112)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 3. TOLFTS, Alfie (102)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 3. TOLFTS, Alfie (102)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 3. TOLFTS, Alfie (102)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 4. SHEARWOOD, Woody (88)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 4. SHEARWOOD, Woody (88)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 4. SHEARWOOD, Woody (88)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 5. SPICER, Thor (84)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 5. SPICER, Thor (84)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 6. HILL, Teddy (80)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 6. HILL, Teddy (80)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 6. HILL, Teddy (80)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 7. CIOROABA, Oscar (74)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 7. CIOROABA, Oscar (74)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 7. CIOROABA, Oscar (74)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 8. CAVERS, Arto (63)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 8. CAVERS, Arto (63)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 9. FORMBY, Euan (61)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 9. FORMBY, Euan (61)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u002210. RUDZKI, Kyrylo (50)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u002211. STONE, Magnus (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u002212. VERMONT, Reuben (42)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u002212. VERMONT, Reuben (42)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u002213. HOUSLOP\u002DDUFFY, Edward (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u002214. CRAWFORD, Fred (24)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u002215. BRETT, Harrison (22)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u002216. BRANCHER\u002DSMALL, Kasper (22)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u002217. KEEN, Charlie (20)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u002218. JAMISON\u002DLAMBETH, Kilian (20)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u002219. HESKETH, Remy (19)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u002220. BAREHAM, William (19)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u002221. TURNER, Thomas (18)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u002222. BEAUMONT, Tom (17)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u0022 1. HOPPING, Macsen (140)\u0022,\u0022Sutton Cycling... (190)\u0022,{\u0022v\u0022:140,\u0022f\u0022:\u0022140.00\u0022},null],[\u0022 2. LOOBY, Caleb (112)\u0022,\u0022Hillingdon Slip... (156)\u0022,{\u0022v\u0022:112,\u0022f\u0022:\u0022112.00\u0022},null],[\u0022 3. TOLFTS, Alfie (102)\u0022,\u0022VC Londres (102)\u0022,{\u0022v\u0022:102,\u0022f\u0022:\u0022102.00\u0022},null],[\u0022 4. SHEARWOOD, Woody (88)\u0022,\u0022Limited Edition... (284)\u0022,{\u0022v\u0022:88,\u0022f\u0022:\u002288.00\u0022},null],[\u0022 5. SPICER, Thor (84)\u0022,\u0022Preston Park Yo... (84)\u0022,{\u0022v\u0022:84,\u0022f\u0022:\u002284.00\u0022},null],[\u0022 6. HILL, Teddy (80)\u0022,\u0022Limited Edition... (284)\u0022,{\u0022v\u0022:80,\u0022f\u0022:\u002280.00\u0022},null],[\u0022 7. CIOROABA, Oscar (74)\u0022,\u0022Limited Edition... (284)\u0022,{\u0022v\u0022:74,\u0022f\u0022:\u002274.00\u0022},null],[\u0022 8. CAVERS, Arto (63)\u0022,\u00224T+ Cyclopark (63)\u0022,{\u0022v\u0022:63,\u0022f\u0022:\u002263.00\u0022},null],[\u0022 9. FORMBY, Euan (61)\u0022,\u0022Southborough \u0026... (61)\u0022,{\u0022v\u0022:61,\u0022f\u0022:\u002261.00\u0022},null],[\u002210. RUDZKI, Kyrylo (50)\u0022,\u0022Sutton Cycling... (190)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u002211. STONE, Magnus (44)\u0022,\u0022Hillingdon Slip... (156)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u002212. VERMONT, Reuben (42)\u0022,\u0022Limited Edition... (284)\u0022,{\u0022v\u0022:42,\u0022f\u0022:\u002242.00\u0022},null],[\u002213. HOUSLOP\u002DDUFFY, Edward (30)\u0022,\u0022Ind 1 (30)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u002214. CRAWFORD, Fred (24)\u0022,\u0022Herne Hill Yout... (24)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u002215. BRETT, Harrison (22)\u0022,\u0022Ind 2 (22)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u002216. BRANCHER\u002DSMALL, Kasper (22)\u0022,\u0022Ind 3 (22)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u002217. KEEN, Charlie (20)\u0022,\u0022Ind 4 (20)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u002218. JAMISON\u002DLAMBETH, Kilian (20)\u0022,\u0022Ind 5 (20)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u002219. HESKETH, Remy (19)\u0022,\u0022Ind 6 (19)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u002220. BAREHAM, William (19)\u0022,\u0022Ind 7 (19)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u002221. TURNER, Thomas (18)\u0022,\u0022VCGH (18)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u002222. BEAUMONT, Tom (17)\u0022,\u0022Ind 8 (17)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null]]"));
+		data.addRows(JSON.parse("[[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u0022 1. HOPPING, Macsen (190)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 1. HOPPING, Macsen (190)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 1. HOPPING, Macsen (190)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 1. HOPPING, Macsen (190)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u0022 2. LOOBY, Caleb (148)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 2. LOOBY, Caleb (148)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 2. LOOBY, Caleb (148)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 2. LOOBY, Caleb (148)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u0022 3. TOLFTS, Alfie (128)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 3. TOLFTS, Alfie (128)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 3. TOLFTS, Alfie (128)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 3. TOLFTS, Alfie (128)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u0022 4. HILL, Teddy (120)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 4. HILL, Teddy (120)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 4. HILL, Teddy (120)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 4. HILL, Teddy (120)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u0022 5. SHEARWOOD, Woody (116)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 5. SHEARWOOD, Woody (116)\u0022,{\u0022v\u0022:36,\u0022f\u0022:\u002236.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 5. SHEARWOOD, Woody (116)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 5. SHEARWOOD, Woody (116)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u0022 6. SPICER, Thor (114)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 6. SPICER, Thor (114)\u0022,{\u0022v\u0022:40,\u0022f\u0022:\u002240.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 6. SPICER, Thor (114)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u0022 7. CIOROABA, Oscar (94)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 7. CIOROABA, Oscar (94)\u0022,{\u0022v\u0022:26,\u0022f\u0022:\u002226.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 7. CIOROABA, Oscar (94)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u0022 7. CIOROABA, Oscar (94)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 8. CAVERS, Arto (63)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 8. CAVERS, Arto (63)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u0022 9. VERMONT, Reuben (61)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u0022 9. VERMONT, Reuben (61)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u0022 9. VERMONT, Reuben (61)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u002210. FORMBY, Euan (61)\u0022,{\u0022v\u0022:28,\u0022f\u0022:\u002228.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u002210. FORMBY, Euan (61)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u002211. HOUSLOP\u002DDUFFY, Edward (54)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u002211. HOUSLOP\u002DDUFFY, Edward (54)\u0022,{\u0022v\u0022:30,\u0022f\u0022:\u002230.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u002212. RUDZKI, Kyrylo (50)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u002213. CRAWFORD, Fred (46)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u002213. CRAWFORD, Fred (46)\u0022,{\u0022v\u0022:24,\u0022f\u0022:\u002224.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u002214. WOOD, Joey (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u002215. STONE, Magnus (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u002216. KEEN, Charlie (37)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u002216. KEEN, Charlie (37)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u002217. SMITH, Isaac (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u002218. HESKETH, Remy (32)\u0022,{\u0022v\u0022:13,\u0022f\u0022:\u002213.00\u0022},null],[\u0022Round 3 \u002D Crystal Palace\u002DU8 / U10: 2026\u002D09\u002D27\u0022,\u002218. HESKETH, Remy (32)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u002219. BRETT, Harrison (22)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u002220. BRANCHER\u002DSMALL, Kasper (22)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u0022Round 1 \u002D Stanmer Park\u002DU8 / U10: 2026\u002D09\u002D06\u0022,\u002221. JAMISON\u002DLAMBETH, Kilian (20)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u002222. BAREHAM, William (19)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u002223. SMIRNOV, Mark (18)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u002224. TURNER, Thomas (18)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u0022Round 2 \u002D Pippingford\u002DU8 / U10: 2026\u002D09\u002D20\u0022,\u002225. BEAUMONT, Tom (17)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u002226. NIXON, Leo (16)\u0022,{\u0022v\u0022:16,\u0022f\u0022:\u002216.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u002227. MARSTON, Reuben (15)\u0022,{\u0022v\u0022:15,\u0022f\u0022:\u002215.00\u0022},null],[\u0022Round 4 \u002D Herne Hill\u002DU8 / U10: 2026\u002D10\u002D04\u0022,\u002228. CORDELL, James (14)\u0022,{\u0022v\u0022:14,\u0022f\u0022:\u002214.00\u0022},null],[\u0022 1. HOPPING, Macsen (190)\u0022,\u0022Sutton Cycling... (240)\u0022,{\u0022v\u0022:190,\u0022f\u0022:\u0022190.00\u0022},null],[\u0022 2. LOOBY, Caleb (148)\u0022,\u0022Hillingdon Slip... (210)\u0022,{\u0022v\u0022:148,\u0022f\u0022:\u0022148.00\u0022},null],[\u0022 3. TOLFTS, Alfie (128)\u0022,\u0022VC Londres (128)\u0022,{\u0022v\u0022:128,\u0022f\u0022:\u0022128.00\u0022},null],[\u0022 4. HILL, Teddy (120)\u0022,\u0022Limited Edition... (391)\u0022,{\u0022v\u0022:120,\u0022f\u0022:\u0022120.00\u0022},null],[\u0022 5. SHEARWOOD, Woody (116)\u0022,\u0022Limited Edition... (391)\u0022,{\u0022v\u0022:116,\u0022f\u0022:\u0022116.00\u0022},null],[\u0022 6. SPICER, Thor (114)\u0022,\u0022Preston Park Yo... (114)\u0022,{\u0022v\u0022:114,\u0022f\u0022:\u0022114.00\u0022},null],[\u0022 7. CIOROABA, Oscar (94)\u0022,\u0022Limited Edition... (391)\u0022,{\u0022v\u0022:94,\u0022f\u0022:\u002294.00\u0022},null],[\u0022 8. CAVERS, Arto (63)\u0022,\u00224T+ Cyclopark (63)\u0022,{\u0022v\u0022:63,\u0022f\u0022:\u002263.00\u0022},null],[\u0022 9. VERMONT, Reuben (61)\u0022,\u0022Limited Edition... (391)\u0022,{\u0022v\u0022:61,\u0022f\u0022:\u002261.00\u0022},null],[\u002210. FORMBY, Euan (61)\u0022,\u0022Southborough \u0026... (115)\u0022,{\u0022v\u0022:61,\u0022f\u0022:\u002261.00\u0022},null],[\u002211. HOUSLOP\u002DDUFFY, Edward (54)\u0022,\u0022Southborough \u0026... (115)\u0022,{\u0022v\u0022:54,\u0022f\u0022:\u002254.00\u0022},null],[\u002212. RUDZKI, Kyrylo (50)\u0022,\u0022Sutton Cycling... (240)\u0022,{\u0022v\u0022:50,\u0022f\u0022:\u002250.00\u0022},null],[\u002213. CRAWFORD, Fred (46)\u0022,\u0022Herne Hill Yout... (60)\u0022,{\u0022v\u0022:46,\u0022f\u0022:\u002246.00\u0022},null],[\u002214. WOOD, Joey (44)\u0022,\u0022VC Deal (44)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u002215. STONE, Magnus (44)\u0022,\u0022Hillingdon Slip... (210)\u0022,{\u0022v\u0022:44,\u0022f\u0022:\u002244.00\u0022},null],[\u002216. KEEN, Charlie (37)\u0022,\u0022Ind 1 (37)\u0022,{\u0022v\u0022:37,\u0022f\u0022:\u002237.00\u0022},null],[\u002217. SMITH, Isaac (33)\u0022,\u0022Hadleigh Cyclin... (33)\u0022,{\u0022v\u0022:33,\u0022f\u0022:\u002233.00\u0022},null],[\u002218. HESKETH, Remy (32)\u0022,\u0022Ind 2 (32)\u0022,{\u0022v\u0022:32,\u0022f\u0022:\u002232.00\u0022},null],[\u002219. BRETT, Harrison (22)\u0022,\u0022Ind 3 (22)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u002220. BRANCHER\u002DSMALL, Kasper (22)\u0022,\u0022Ind 4 (22)\u0022,{\u0022v\u0022:22,\u0022f\u0022:\u002222.00\u0022},null],[\u002221. JAMISON\u002DLAMBETH, Kilian (20)\u0022,\u0022Ind 5 (20)\u0022,{\u0022v\u0022:20,\u0022f\u0022:\u002220.00\u0022},null],[\u002222. BAREHAM, William (19)\u0022,\u0022Ind 6 (19)\u0022,{\u0022v\u0022:19,\u0022f\u0022:\u002219.00\u0022},null],[\u002223. SMIRNOV, Mark (18)\u0022,\u0022Hillingdon Slip... (210)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u002224. TURNER, Thomas (18)\u0022,\u0022VCGH (18)\u0022,{\u0022v\u0022:18,\u0022f\u0022:\u002218.00\u0022},null],[\u002225. BEAUMONT, Tom (17)\u0022,\u0022Ind 7 (17)\u0022,{\u0022v\u0022:17,\u0022f\u0022:\u002217.00\u0022},null],[\u002226. NIXON, Leo (16)\u0022,\u0022Ind 8 (16)\u0022,{\u0022v\u0022:16,\u0022f\u0022:\u002216.00\u0022},null],[\u002227. MARSTON, Reuben (15)\u0022,\u0022Ind 9 (15)\u0022,{\u0022v\u0022:15,\u0022f\u0022:\u002215.00\u0022},null],[\u002228. CORDELL, James (14)\u0022,\u0022Herne Hill Yout... (60)\u0022,{\u0022v\u0022:14,\u0022f\u0022:\u002214.00\u0022},null]]"));
 
 		var options = {
 			width: 600,
@@ -379,18 +379,24 @@ table.results-table tr th {
 		U10O (Open)
 	</span>
 </h1>
-Generated: 28-09-2026 21:59:39
+Generated: 04-10-2026 09:52:43
 <table class="table table-striped table-hover table-condensed results-table" style="width: auto;"><thead><tr><th>Rank</th><th>Name</th><th>Team</th><th class='text-right col-border-right'>
 			
 				Points
 			
 		</th><th class='text-right col-border-right-gap'>Gap</th><th colspan="2" class="text-center col-border-right hidden-print">
+				Round 4 - Herne Hill<br/>
+				04-10-2026 09:20<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/603/0/286/index.html'><span style="white-space: nowrap;">U8 / U10</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 3 - Crystal Palace<br/>
 				27-09-2026 09:20<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/596/0/286/index.html'><span style="white-space: nowrap;">U8 / U10</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 2 - Pippingford<br/>
 				20-09-2026 09:20<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/589/0/286/index.html'><span style="white-space: nowrap;">U8 / U10</span></a><br/></th><th colspan="2" class="text-center col-border-right hidden-print">
 				Round 1 - Stanmer Park<br/>
-				06-09-2026 09:20<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/582/0/286/index.html'><span style="white-space: nowrap;">U8 / U10</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6084/index.html'>HOPPING, Macsen</a></td><td>Sutton Cycling Club</td><td class='text-right col-border-right'>140</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+				06-09-2026 09:20<br/><a href='/2026/1/RaceDB/Hub/CategoryResults/582/0/286/index.html'><span style="white-space: nowrap;">U8 / U10</span></a><br/></th></tr></thead><tbody><tr><td class="text-right">1.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6084/index.html'>HOPPING, Macsen</a></td><td>Sutton Cycling Club</td><td class='text-right col-border-right'>190</td><td class='text-right col-border-right-gap'></td><td class='hidden-print text-right'>
+						50
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						1st
+					</td><td class='hidden-print text-right'>
 						50
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						1st
@@ -402,7 +408,11 @@ Generated: 28-09-2026 21:59:39
 						40
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						3rd
-					</td></tr><tr><td class="text-right">2.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6376/index.html'>LOOBY, Caleb</a></td><td>Hillingdon Slipstreamers</td><td class='text-right col-border-right'>112</td><td class='text-right col-border-right-gap'>28</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">2.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6376/index.html'>LOOBY, Caleb</a></td><td>Hillingdon Slipstreamers</td><td class='text-right col-border-right'>148</td><td class='text-right col-border-right-gap'>42</td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
 						40
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						3rd
@@ -414,7 +424,11 @@ Generated: 28-09-2026 21:59:39
 						36
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						4th
-					</td></tr><tr><td class="text-right">3.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7242/index.html'>TOLFTS, Alfie</a></td><td>VC Londres</td><td class='text-right col-border-right'>102</td><td class='text-right col-border-right-gap'>38</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">3.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7242/index.html'>TOLFTS, Alfie</a></td><td>VC Londres</td><td class='text-right col-border-right'>128</td><td class='text-right col-border-right-gap'>62</td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right'>
 						30
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						6th
@@ -426,27 +440,11 @@ Generated: 28-09-2026 21:59:39
 						28
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						7th
-					</td></tr><tr><td class="text-right">4.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6595/index.html'>SHEARWOOD, Woody</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>88</td><td class='text-right col-border-right-gap'>52</td><td class='hidden-print text-right'>
-						36
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						4th
-					</td><td class='hidden-print text-right'>
-						26
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						8th
-					</td><td class='hidden-print text-right'>
-						26
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						8th
-					</td></tr><tr><td class="text-right">5.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6794/index.html'>SPICER, Thor</a></td><td>Preston Park Youth CC (PPYCC)</td><td class='text-right col-border-right'>84</td><td class='text-right col-border-right-gap'>56</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">4.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7250/index.html'>HILL, Teddy</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>120</td><td class='text-right col-border-right-gap'>70</td><td class='hidden-print text-right'>
 						40
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						3rd
 					</td><td class='hidden-print text-right'>
-						44
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						2nd
-					</td></tr><tr><td class="text-right">6.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7250/index.html'>HILL, Teddy</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>80</td><td class='text-right col-border-right-gap'>60</td><td class='hidden-print text-right'>
 						28
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						7th
@@ -458,7 +456,39 @@ Generated: 28-09-2026 21:59:39
 						19
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						12th
-					</td></tr><tr><td class="text-right">7.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7251/index.html'>CIOROABA, Oscar</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>74</td><td class='text-right col-border-right-gap'>66</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">5.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6595/index.html'>SHEARWOOD, Woody</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>116</td><td class='text-right col-border-right-gap'>74</td><td class='hidden-print text-right'>
+						28
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						7th
+					</td><td class='hidden-print text-right'>
+						36
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						4th
+					</td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td><td class='hidden-print text-right'>
+						26
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						8th
+					</td></tr><tr><td class="text-right">6.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6794/index.html'>SPICER, Thor</a></td><td>Preston Park Youth CC (PPYCC)</td><td class='text-right col-border-right'>114</td><td class='text-right col-border-right-gap'>76</td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						40
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						3rd
+					</td><td class='hidden-print text-right'>
+						44
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						2nd
+					</td></tr><tr><td class="text-right">7.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7251/index.html'>CIOROABA, Oscar</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>94</td><td class='text-right col-border-right-gap'>96</td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print text-right'>
 						26
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						8th
@@ -470,7 +500,7 @@ Generated: 28-09-2026 21:59:39
 						24
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						9th
-					</td></tr><tr><td class="text-right">8.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7032/index.html'>CAVERS, Arto</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>63</td><td class='text-right col-border-right-gap'>77</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">8.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7032/index.html'>CAVERS, Arto</a></td><td>4T+ Cyclopark</td><td class='text-right col-border-right'>63</td><td class='text-right col-border-right-gap'>127</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						33
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						5th
@@ -478,7 +508,19 @@ Generated: 28-09-2026 21:59:39
 						30
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						6th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">9.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6761/index.html'>FORMBY, Euan</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>61</td><td class='text-right col-border-right-gap'>79</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">9.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7144/index.html'>VERMONT, Reuben</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>61</td><td class='text-right col-border-right-gap'>129</td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">10.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6761/index.html'>FORMBY, Euan</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>61</td><td class='text-right col-border-right-gap'>129</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						28
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						7th
@@ -486,63 +528,95 @@ Generated: 28-09-2026 21:59:39
 						33
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						5th
-					</td></tr><tr><td class="text-right">10.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7253/index.html'>RUDZKI, Kyrylo</a></td><td>Sutton Cycling Club</td><td class='text-right col-border-right'>50</td><td class='text-right col-border-right-gap'>90</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">11.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7261/index.html'>HOUSLOP-DUFFY, Edward</a></td><td>Southborough &amp; District Whls</td><td class='text-right col-border-right'>54</td><td class='text-right col-border-right-gap'>136</td><td class='hidden-print text-right'>
+						24
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						9th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						30
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						6th
+					</td></tr><tr><td class="text-right">12.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7253/index.html'>RUDZKI, Kyrylo</a></td><td>Sutton Cycling Club</td><td class='text-right col-border-right'>50</td><td class='text-right col-border-right-gap'>140</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
 						50
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						1st
-					</td></tr><tr><td class="text-right">11.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6822/index.html'>STONE, Magnus</a></td><td>Hillingdon Slipstreamers</td><td class='text-right col-border-right'>44</td><td class='text-right col-border-right-gap'>96</td><td class='hidden-print text-right'>
-						44
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						2nd
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">12.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7144/index.html'>VERMONT, Reuben</a></td><td>Limited Edition Cycling</td><td class='text-right col-border-right'>42</td><td class='text-right col-border-right-gap'>98</td><td class='hidden-print text-right'>
+					</td></tr><tr><td class="text-right">13.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7306/index.html'>CRAWFORD, Fred</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>46</td><td class='text-right col-border-right-gap'>144</td><td class='hidden-print text-right'>
 						22
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						10th
 					</td><td class='hidden-print text-right'>
-						20
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						11th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">13.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7261/index.html'>HOUSLOP-DUFFY, Edward</a></td><td></td><td class='text-right col-border-right'>30</td><td class='text-right col-border-right-gap'>110</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						30
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						6th
-					</td></tr><tr><td class="text-right">14.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7306/index.html'>CRAWFORD, Fred</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>24</td><td class='text-right col-border-right-gap'>116</td><td class='hidden-print text-right'>
 						24
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						9th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">15.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7053/index.html'>BRETT, Harrison</a></td><td></td><td class='text-right col-border-right'>22</td><td class='text-right col-border-right-gap'>118</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						22
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">14.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6134/index.html'>WOOD, Joey</a></td><td>VC Deal</td><td class='text-right col-border-right'>44</td><td class='text-right col-border-right-gap'>146</td><td class='hidden-print text-right'>
+						44
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						10th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">16.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7086/index.html'>BRANCHER-SMALL, Kasper</a></td><td></td><td class='text-right col-border-right'>22</td><td class='text-right col-border-right-gap'>118</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						22
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">15.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6822/index.html'>STONE, Magnus</a></td><td>Hillingdon Slipstreamers</td><td class='text-right col-border-right'>44</td><td class='text-right col-border-right-gap'>146</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						44
 					</td><td class='hidden-print text-right col-border-right result-detail'>
-						10th
-					</td></tr><tr><td class="text-right">17.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6482/index.html'>KEEN, Charlie</a></td><td></td><td class='text-right col-border-right'>20</td><td class='text-right col-border-right-gap'>120</td><td class='hidden-print text-right'>
-						20
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						11th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">18.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6899/index.html'>JAMISON-LAMBETH, Kilian</a></td><td></td><td class='text-right col-border-right'>20</td><td class='text-right col-border-right-gap'>120</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						20
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						11th
-					</td></tr><tr><td class="text-right">19.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7336/index.html'>HESKETH, Remy</a></td><td></td><td class='text-right col-border-right'>19</td><td class='text-right col-border-right-gap'>121</td><td class='hidden-print text-right'>
-						19
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						12th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">20.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7052/index.html'>BAREHAM, William</a></td><td></td><td class='text-right col-border-right'>19</td><td class='text-right col-border-right-gap'>121</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						19
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						12th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">21.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7281/index.html'>TURNER, Thomas</a></td><td>VCGH</td><td class='text-right col-border-right'>18</td><td class='text-right col-border-right-gap'>122</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
-						18
-					</td><td class='hidden-print text-right col-border-right result-detail'>
-						13th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">22.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6987/index.html'>BEAUMONT, Tom</a></td><td></td><td class='text-right col-border-right'>17</td><td class='text-right col-border-right-gap'>123</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						2nd
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">16.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6482/index.html'>KEEN, Charlie</a></td><td></td><td class='text-right col-border-right'>37</td><td class='text-right col-border-right-gap'>153</td><td class='hidden-print text-right'>
 						17
 					</td><td class='hidden-print text-right col-border-right result-detail'>
 						14th
-					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr></tbody></table>
+					</td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">17.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7034/index.html'>SMITH, Isaac</a></td><td>Hadleigh Cycling Club</td><td class='text-right col-border-right'>33</td><td class='text-right col-border-right-gap'>157</td><td class='hidden-print text-right'>
+						33
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						5th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">18.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7336/index.html'>HESKETH, Remy</a></td><td></td><td class='text-right col-border-right'>32</td><td class='text-right col-border-right-gap'>158</td><td class='hidden-print text-right'>
+						13
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						18th
+					</td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">19.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7053/index.html'>BRETT, Harrison</a></td><td></td><td class='text-right col-border-right'>22</td><td class='text-right col-border-right-gap'>168</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">20.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7086/index.html'>BRANCHER-SMALL, Kasper</a></td><td></td><td class='text-right col-border-right'>22</td><td class='text-right col-border-right-gap'>168</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						22
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						10th
+					</td></tr><tr><td class="text-right">21.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6899/index.html'>JAMISON-LAMBETH, Kilian</a></td><td></td><td class='text-right col-border-right'>20</td><td class='text-right col-border-right-gap'>170</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						20
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						11th
+					</td></tr><tr><td class="text-right">22.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7052/index.html'>BAREHAM, William</a></td><td></td><td class='text-right col-border-right'>19</td><td class='text-right col-border-right-gap'>171</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						19
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						12th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">23.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7361/index.html'>SMIRNOV, Mark</a></td><td>Hillingdon Slipstreamers</td><td class='text-right col-border-right'>18</td><td class='text-right col-border-right-gap'>172</td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">24.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7281/index.html'>TURNER, Thomas</a></td><td>VCGH</td><td class='text-right col-border-right'>18</td><td class='text-right col-border-right-gap'>172</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						18
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						13th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">25.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/6987/index.html'>BEAUMONT, Tom</a></td><td></td><td class='text-right col-border-right'>17</td><td class='text-right col-border-right-gap'>173</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print text-right'>
+						17
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						14th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">26.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7374/index.html'>NIXON, Leo</a></td><td></td><td class='text-right col-border-right'>16</td><td class='text-right col-border-right-gap'>174</td><td class='hidden-print text-right'>
+						16
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						15th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">27.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7375/index.html'>MARSTON, Reuben</a></td><td></td><td class='text-right col-border-right'>15</td><td class='text-right col-border-right-gap'>175</td><td class='hidden-print text-right'>
+						15
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						16th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr><tr><td class="text-right">28.</td><td><a href='/2026/1/RaceDB/Hub/Hub/LicenseHolderResults/7355/index.html'>CORDELL, James</a></td><td>Herne Hill Youth CC</td><td class='text-right col-border-right'>14</td><td class='text-right col-border-right-gap'>176</td><td class='hidden-print text-right'>
+						14
+					</td><td class='hidden-print text-right col-border-right result-detail'>
+						17th
+					</td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td><td class='hidden-print'></td><td class='hidden-print col-border-right'></td></tr></tbody></table>
 
 
 

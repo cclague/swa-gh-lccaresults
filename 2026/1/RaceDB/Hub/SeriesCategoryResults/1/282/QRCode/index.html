@@ -213,32 +213,32 @@ function onLoad()
 {
 	// Transform the ISO time formats into local formats.
 	$('.dateinput').each( function(index, element) {
-		element.value = reformat( element.value, 'yyyy-mm-dd', "dd-mm-yyyy" );
+		element.value = reformat( element.value, 'yyyy-mm-dd', "yyyy-mm-dd" );
 		$(element).attr( 'autocomplete', 'off' );
 	});
 	$('.datetimeinput').each( function(index, element) {
-		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "dd-mm-yyyy hh:ii" );
+		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "yyyy-mm-dd hh:ii" );
 		$(element).attr( 'autocomplete', 'off' );
 	});	
 
 	// Initialize the date/time pickers using the local formats.
 	$('.dateinput').datepicker({
-		format: "dd-mm-yyyy",
+		format: "yyyy-mm-dd",
 		autoclose: true,
 		todayHighlight: true
 	});
 	$('.datetimeinput').datetimepicker({
-		format: "dd-mm-yyyy hh:ii",
+		format: "yyyy-mm-dd hh:ii",
 		autoclose: true
 	});
 	
 	// When the form is submitted, transform the local formats back into ISO.
 	$('form').submit(function(){
 		$('.dateinput').each( function(index, element) {
-			element.value = reformat( element.value, "dd-mm-yyyy", 'yyyy-mm-dd' );
+			element.value = reformat( element.value, "yyyy-mm-dd", 'yyyy-mm-dd' );
 		});
 		$('.datetimeinput').each( function(index, element) {
-			element.value = reformat( element.value, "dd-mm-yyyy hh:ii", 'yyyy-mm-dd hh:ii:ss' );
+			element.value = reformat( element.value, "yyyy-mm-dd hh:ii", 'yyyy-mm-dd hh:ii:ss' );
 		});
 	});
 	
@@ -304,12 +304,12 @@ function jump( link ) { window.location = link; }
 <script type="text/javascript" src="/static/js/qrcode.min.js"></script>
 
 <br/><br/><br/>
-<h2>http://172.17.0.1/RaceDB/Hub/SeriesCategoryResults/1/282/</h2>
+<h2>http://localhost/RaceDB/Hub/SeriesCategoryResults/1/282/</h2>
 <br/><br/><br/>
 <div id="qrcode"></div>
 <script type="text/javascript">
 new QRCode("qrcode", {
-    text: "http://172.17.0.1/RaceDB/Hub/SeriesCategoryResults/1/282/",
+    text: "http://localhost/RaceDB/Hub/SeriesCategoryResults/1/282/",
     width: 440,
     height: 440,
     colorDark : "#000000",

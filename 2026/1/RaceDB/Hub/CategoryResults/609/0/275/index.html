@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{\u0022bib\u0022:470,\u0022raceName\u0022:\u0022Round 4 \u002D Herne Hill \u002D Senior Open (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222026\u002D10\u002D04 14:50\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022U23O (Open)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[470,309,321,102],\u0022gapValue\u0022:[0.0,262.5541699999999,272.2494959999999,\u002D11],\u0022laps\u0022:11,\u0022startOffset\u0022:0,\u0022raceDistance\u0022:20.070123345000003,\u0022firstLapDistance\u0022:2.0072940908162544,\u0022lapDistance\u0022:4.147652178762822}],\u0022data\u0022:{\u0022470\u0022:{\u0022LastName\u0022:\u0022Amey\u0022,\u0022FirstName\u0022:\u0022Alfie\u0022,\u0022Team\u0022:\u0022TEKKERZ CC\u0022,\u0022License\u0022:\u0022919387\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,333.197547,645.680524,962.362094,1279.15948,1597.146158,1917.717972,2245.549449,2564.575343,2888.636823,3224.1162],\u0022interp\u0022:[0,0,0,0,0,0,0,0,0,0,0],\u0022lastTime\u0022:3224.1162,\u0022lastTimeOrig\u0022:3224.1162,\u0022status\u0022:\u0022Finisher\u0022,\u0022speed\u0022:\u002222.41 km/h\u0022,\u0022lapSpeeds\u0022:[21.687610824273314,23.125287643872248,22.818690481225406,22.8103483370867,22.725036068770518,22.54177819556687,22.04260186686867,22.651010036628932,22.299036364761772,21.54009820680725]},\u0022309\u0022:{\u0022LastName\u0022:\u0022Pearson\u0022,\u0022FirstName\u0022:\u0022Alfie\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u00221846054\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,342.138749,685.536894,1029.243555,1377.369486,1726.860903,2080.119151,2434.488869,2779.77085,3118.770489,3486.67037],\u0022interp\u0022:[0,0,0,0,0,0,0,0,0,0,0],\u0022lastTime\u0022:3486.67037,\u0022lastTimeOrig\u0022:3486.67037,\u0022status\u0022:\u0022Finisher\u0022,\u0022speed\u0022:\u002220.73 km/h\u0022,\u0022lapSpeeds\u0022:[21.120842781062823,21.043383117105996,21.024494276351877,20.757599717380764,20.676498407222734,20.4560226628835,20.391862960871048,20.928571789381948,21.31642012438401,19.641916456446257]},\u0022321\u0022:{\u0022LastName\u0022:\u0022Williams\u0022,\u0022FirstName\u0022:\u0022Owain\u0022,\u0022Team\u0022:\u0022London Dynamo\u0022,\u0022License\u0022:\u00221010879\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,348.202712,689.099263,1029.791848,1368.265804,1712.725762,2059.901284,2425.764809,2772.525399,3148.790961,3496.365696],\u0022interp\u0022:[0,0,0,0,0,0,0,0,0,0,0],\u0022lastTime\u0022:3496.365696,\u0022lastTimeOrig\u0022:3496.365696,\u0022status\u0022:\u0022Finisher\u0022,\u0022speed\u0022:\u002220.67 km/h\u0022,\u0022lapSpeeds\u0022:[20.75302252941245,21.19780533343829,21.21049604569032,21.349526599732005,20.978515961319697,20.814424603755665,19.75124119557565,20.839331040873212,19.205208918212172,20.790517834786012]},\u0022102\u0022:{\u0022LastName\u0022:\u0022Jones\u0022,\u0022FirstName\u0022:\u0022Marcus\u0022,\u0022Team\u0022:\u0022Kingston Wheelers CC\u0022,\u0022License\u0022:\u00221570426\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022DNS\u0022}},\u0022has_multiple_laps\u0022:true}");
+var payload = JSON.parse("{\u0022bib\u0022:470,\u0022raceName\u0022:\u0022Round 4 \u002D Herne Hill \u002D Senior Open (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222026\u002D10\u002D04 14:50\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022U23O (Open)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[470,309,321,102],\u0022gapValue\u0022:[0.0,262.5540000000001,272.25,\u002D11],\u0022laps\u0022:11,\u0022startOffset\u0022:0,\u0022raceDistance\u0022:20.0701221,\u0022firstLapDistance\u0022:2.0072968198406165,\u0022lapDistance\u0022:4.147655236439744}],\u0022data\u0022:{\u0022470\u0022:{\u0022LastName\u0022:\u0022Amey\u0022,\u0022FirstName\u0022:\u0022Alfie\u0022,\u0022Team\u0022:\u0022TEKKERZ CC\u0022,\u0022License\u0022:\u0022919387\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,333.198,645.681,962.362,1279.159,1597.146,1917.718,2245.549,2564.575,2888.637,3224.116],\u0022interp\u0022:[0,0,0,0,0,0,0,0,0,0,0],\u0022lastTime\u0022:3224.116,\u0022lastTimeOrig\u0022:3224.116,\u0022status\u0022:\u0022Finisher\u0022,\u0022speed\u0022:\u002222.41 km/h\u0022,\u0022lapSpeeds\u0022:[21.687610824273314,23.125287643872248,22.818690481225406,22.8103483370867,22.725036068770518,22.54177819556687,22.04260186686867,22.651010036628932,22.299036364761772,21.54009820680725]},\u0022309\u0022:{\u0022LastName\u0022:\u0022Pearson\u0022,\u0022FirstName\u0022:\u0022Alfie\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u00221846054\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,342.139,685.537,1029.244,1377.369,1726.861,2080.119,2434.489,2779.771,3118.77,3486.67],\u0022interp\u0022:[0,0,0,0,0,0,0,0,0,0,0],\u0022lastTime\u0022:3486.67,\u0022lastTimeOrig\u0022:3486.67,\u0022status\u0022:\u0022Finisher\u0022,\u0022speed\u0022:\u002220.73 km/h\u0022,\u0022lapSpeeds\u0022:[21.120842781062823,21.043383117105996,21.024494276351877,20.757599717380764,20.676498407222734,20.4560226628835,20.391862960871048,20.928571789381948,21.31642012438401,19.641916456446257]},\u0022321\u0022:{\u0022LastName\u0022:\u0022Williams\u0022,\u0022FirstName\u0022:\u0022Owain\u0022,\u0022Team\u0022:\u0022London Dynamo\u0022,\u0022License\u0022:\u00221010879\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,348.203,689.099,1029.792,1368.266,1712.726,2059.901,2425.765,2772.525,3148.791,3496.366],\u0022interp\u0022:[0,0,0,0,0,0,0,0,0,0,0],\u0022lastTime\u0022:3496.366,\u0022lastTimeOrig\u0022:3496.366,\u0022status\u0022:\u0022Finisher\u0022,\u0022speed\u0022:\u002220.67 km/h\u0022,\u0022lapSpeeds\u0022:[20.75302252941245,21.19780533343829,21.21049604569032,21.349526599732005,20.978515961319697,20.814424603755665,19.75124119557565,20.839331040873212,19.205208918212172,20.790517834786012]},\u0022102\u0022:{\u0022LastName\u0022:\u0022Jones\u0022,\u0022FirstName\u0022:\u0022Marcus\u0022,\u0022Team\u0022:\u0022Kingston Wheelers CC\u0022,\u0022License\u0022:\u00221570426\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Men\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022DNS\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1676,32 +1676,32 @@ function onLoad()
 {
 	// Transform the ISO time formats into local formats.
 	$('.dateinput').each( function(index, element) {
-		element.value = reformat( element.value, 'yyyy-mm-dd', "dd-mm-yyyy" );
+		element.value = reformat( element.value, 'yyyy-mm-dd', "yyyy-mm-dd" );
 		$(element).attr( 'autocomplete', 'off' );
 	});
 	$('.datetimeinput').each( function(index, element) {
-		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "dd-mm-yyyy hh:ii" );
+		element.value = reformat( element.value, 'yyyy-mm-dd hh:ii:ss', "yyyy-mm-dd hh:ii" );
 		$(element).attr( 'autocomplete', 'off' );
 	});	
 
 	// Initialize the date/time pickers using the local formats.
 	$('.dateinput').datepicker({
-		format: "dd-mm-yyyy",
+		format: "yyyy-mm-dd",
 		autoclose: true,
 		todayHighlight: true
 	});
 	$('.datetimeinput').datetimepicker({
-		format: "dd-mm-yyyy hh:ii",
+		format: "yyyy-mm-dd hh:ii",
 		autoclose: true
 	});
 	
 	// When the form is submitted, transform the local formats back into ISO.
 	$('form').submit(function(){
 		$('.dateinput').each( function(index, element) {
-			element.value = reformat( element.value, "dd-mm-yyyy", 'yyyy-mm-dd' );
+			element.value = reformat( element.value, "yyyy-mm-dd", 'yyyy-mm-dd' );
 		});
 		$('.datetimeinput').each( function(index, element) {
-			element.value = reformat( element.value, "dd-mm-yyyy hh:ii", 'yyyy-mm-dd hh:ii:ss' );
+			element.value = reformat( element.value, "yyyy-mm-dd hh:ii", 'yyyy-mm-dd hh:ii:ss' );
 		});
 	});
 	
@@ -1821,9 +1821,9 @@ function jump( link ) { window.location = link; }
 	<strong><a href="/2026/1/RaceDB/Hub/CompetitionResults/112/index.html">Round 4 - Herne Hill</a>: Senior Open</strong><br/>
 	<span style="font-size: 70%">
 		<strong>U23O (Open) - SENIOR</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 05-10-2026 21:56:38</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 2026-10-08 23:51:06</span>
 		<br/>
-		04-10-2026 14:50&nbsp;&nbsp;
+		2026-10-04 14:50&nbsp;&nbsp;
 		Starters: 3&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
 		

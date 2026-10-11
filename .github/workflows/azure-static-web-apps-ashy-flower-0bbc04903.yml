@@ -24,6 +24,8 @@ jobs:
           submodules: true
           lfs: false
       - name: Prepare deployment bundle
+        env:
+          CURRENT_SEASON: "2026" # Season start year: 2026/27
         run: python3 scripts/prepare_deployment.py
       - name: Build And Deploy
         id: builddeploy

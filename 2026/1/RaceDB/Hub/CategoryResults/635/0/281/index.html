@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{}");
+var payload = JSON.parse("{\u0022bib\u0022:523,\u0022raceName\u0022:\u0022Round 8 \u002D Hog Hill \u002D All Women (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222026\u002D11\u002D08 11:30\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022M50F (Women)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[523,189,379,224,255],\u0022gapValue\u0022:[0.0,47.824638999999934,127.76772299999993,208.1950770000003,\u002D2],\u0022laps\u0022:6,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u0022523\u0022:{\u0022LastName\u0022:\u0022Hughes\u0022,\u0022FirstName\u0022:\u0022Nicky\u0022,\u0022Team\u0022:\u0022Southborough \u0026 District Whls\u0022,\u0022License\u0022:\u0022418082\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,544.341367,994.580507,1447.767627,1903.826323,2362.868787],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2362.868787,\u0022lastTimeOrig\u0022:2362.868787,\u0022status\u0022:\u0022Finisher\u0022},\u0022189\u0022:{\u0022LastName\u0022:\u0022Malpass\u0022,\u0022FirstName\u0022:\u0022Jo\u0022,\u0022Team\u0022:\u0022VC Deal\u0022,\u0022License\u0022:\u0022977833\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,547.936963,1005.077227,1468.468889,1939.956063,2410.693426],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2410.693426,\u0022lastTimeOrig\u0022:2410.693426,\u0022status\u0022:\u0022Finisher\u0022},\u0022379\u0022:{\u0022LastName\u0022:\u0022Petersmann\u0022,\u0022FirstName\u0022:\u0022Danielle\u0022,\u0022Team\u0022:\u0022VC Deal\u0022,\u0022License\u0022:\u00221018665\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,570.066422,1048.508004,1529.693306,2015.620322,2490.63651],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2490.63651,\u0022lastTimeOrig\u0022:2490.63651,\u0022status\u0022:\u0022Finisher\u0022},\u0022224\u0022:{\u0022LastName\u0022:\u0022Spicer\u0022,\u0022FirstName\u0022:\u0022Sharon\u0022,\u0022Team\u0022:\u0022Preston Park Youth CC (PPYCC)\u0022,\u0022License\u0022:\u00221744745\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,598.103484,1098.871386,1594.029286,2089.622656,2571.063864],\u0022interp\u0022:[0,0,0,0,0,0],\u0022lastTime\u0022:2571.063864,\u0022lastTimeOrig\u0022:2571.063864,\u0022status\u0022:\u0022Finisher\u0022},\u0022255\u0022:{\u0022LastName\u0022:\u0022Lansdowne\u0022,\u0022FirstName\u0022:\u0022Jenny\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u00221859685\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022South east\u0022,\u0022raceTimes\u0022:[0.0,862.096908,1629.668113,2423.789079],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:2423.789079,\u0022lastTimeOrig\u0022:2423.789079,\u0022status\u0022:\u0022Finisher\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1818,14 +1818,16 @@ function jump( link ) { window.location = link; }
 
 <h1>
 	
-	<strong><a href="/2026/1/RaceDB/Hub/CompetitionResults/116/index.html">Round 8 - Hog Hill</a>: All Women</strong>: Registered Only (no results)<br/>
+	<strong><a href="/2026/1/RaceDB/Hub/CompetitionResults/116/index.html">Round 8 - Hog Hill</a>: All Women</strong><br/>
 	<span style="font-size: 70%">
 		<strong>M50F (Women) - WOMEN</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 08-11-2026 12:19:35</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 08-11-2026 13:16:48</span>
 		<br/>
 		08-11-2026 11:30&nbsp;&nbsp;
 		Starters: 5&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
+		
+			Winning Time: 39:22&nbsp;&nbsp;
 		
 		
 	</span>
@@ -1841,13 +1843,25 @@ table.participant_table tr th {
 </style>
 
 <ul class="nav nav-tabs hidden-print">
-	<li class="active"><a data-toggle="tab" href="#sectionResults">Registered</a></li>
+	<li class="active"><a data-toggle="tab" href="#sectionResults">Results</a></li>
+
+	
+		<li><a href="/2026/1/RaceDB/Hub/CategoryResults/635/0/281/EventLapTimes/635/0/281/index.html">Times</a></li>
+	
+	
+		<li><a href="/2026/1/RaceDB/Hub/CategoryResults/635/0/281/EventLapChart/635/0/281/index.html">Lap Chart</a></li>
+		<li><a href="/2026/1/RaceDB/Hub/CategoryResults/635/0/281/EventGapChart/635/0/281/index.html">Gap Chart</a></li>
+		<li><a href="/2026/1/RaceDB/Hub/CategoryResults/635/0/281/EventRaceChart/635/0/281/index.html">Race Chart</a></li>
+		<li><a data-toggle="tab" href="#sectionSituation">Situation</a></li>
+	
+	
+		<li><a data-toggle="tab" href="#histogram">Histogram</a></li>
 
 </ul>
 
 <div class="tab-content">
 	<div id="sectionResults" class="tab-pane fade in active">
-<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/1515')"><td class="text-right">523</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/1515">HUGHES, Nicky</a></td><td>Southborough &amp; District Whls</td><td>418082</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7280')"><td class="text-right">255</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/7280">LANSDOWNE, Jenny</a></td><td></td><td>1859685</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/5167')"><td class="text-right">189</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/5167">MALPASS, Jo</a></td><td>VC Deal</td><td>977833</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6271')"><td class="text-right">379</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/6271">PETERSMANN, Danielle</a></td><td>VC Deal</td><td>1018665</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6224')"><td class="text-right">224</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/6224">SPICER, Sharon</a></td><td>Preston Park Youth CC (PPYCC)</td><td>1744745</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr></tbody></table>
+<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Rank</th><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th><th class="text-right">Time</th><th class="text-right">Gap</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/1515')"><td class="text-right">1.</td><td class="text-right">523</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/1515">HUGHES, Nicky</a></td><td>Southborough &amp; District Whls</td><td>418082</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">39:22</td><td class="text-right"></td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/5167')"><td class="text-right">2.</td><td class="text-right">189</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/5167">MALPASS, Jo</a></td><td>VC Deal</td><td>977833</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">40:10</td><td class="text-right">0&#x27;47&quot;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6271')"><td class="text-right">3.</td><td class="text-right">379</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/6271">PETERSMANN, Danielle</a></td><td>VC Deal</td><td>1018665</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">41:30</td><td class="text-right">2&#x27;07&quot;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6224')"><td class="text-right">4.</td><td class="text-right">224</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/6224">SPICER, Sharon</a></td><td>Preston Park Youth CC (PPYCC)</td><td>1744745</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">42:51</td><td class="text-right">3&#x27;28&quot;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7280')"><td class="text-right">5.</td><td class="text-right">255</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/7280">LANSDOWNE, Jenny</a></td><td></td><td>1859685</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">40:23</td><td class="text-right">-2 laps</td></tr></tbody></table>
 
 	</div>
 

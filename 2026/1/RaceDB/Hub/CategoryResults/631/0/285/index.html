@@ -218,7 +218,7 @@ function reformat( value, from_fmt, to_fmt ) {
 google.charts.load('current', {'packages':['corechart']});
 google.setOnLoadCallback(onLoad);
 
-var payload = JSON.parse("{}");
+var payload = JSON.parse("{\u0022bib\u0022:2070,\u0022raceName\u0022:\u0022Round 8 \u002D Hog Hill \u002D U8 / U10 (Cyclocross)\u0022,\u0022raceScheduledStart\u0022:\u00222026\u002D11\u002D08 08:20\u0022,\u0022winAndOut\u0022:false,\u0022isTimeTrial\u0022:false,\u0022primes\u0022:null,\u0022raceIsRunning\u0022:false,\u0022raceIsUnstarted\u0022:false,\u0022infoFields\u0022:[\u0022LastName\u0022,\u0022FirstName\u0022,\u0022Team\u0022,\u0022License\u0022,\u0022UCI ID\u0022,\u0022NatCode\u0022,\u0022City\u0022,\u0022StateProv\u0022],\u0022has_results\u0022:true,\u0022catDetails\u0022:[{\u0022name\u0022:\u0022U10F (Women)\u0022,\u0022catType\u0022:\u0022Component\u0022,\u0022pos\u0022:[2070,2157,2059,2176,2082],\u0022gapValue\u0022:[0.0,66.91672300000005,\u002D1,\u002D1,\u002D4],\u0022laps\u0022:4,\u0022startOffset\u0022:0}],\u0022data\u0022:{\u00222070\u0022:{\u0022LastName\u0022:\u0022Child\u0022,\u0022FirstName\u0022:\u0022Matilda\u0022,\u0022Team\u0022:\u0022Colchester Rovers CC\u0022,\u0022License\u0022:\u00221820216\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Eastern\u0022,\u0022raceTimes\u0022:[0.0,206.015498,425.087048,635.187908],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:635.187908,\u0022lastTimeOrig\u0022:635.187908,\u0022status\u0022:\u0022Finisher\u0022},\u00222157\u0022:{\u0022LastName\u0022:\u0022Brinkman\u0022,\u0022FirstName\u0022:\u0022Alana\u0022,\u0022Team\u0022:\u0022Welwyn Wheelers CC\u0022,\u0022License\u0022:\u00221761411\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Central\u0022,\u0022raceTimes\u0022:[0.0,245.283505,477.836918,702.104631],\u0022interp\u0022:[0,0,0,0],\u0022lastTime\u0022:702.104631,\u0022lastTimeOrig\u0022:702.104631,\u0022status\u0022:\u0022Finisher\u0022},\u00222059\u0022:{\u0022LastName\u0022:\u0022Benolli\u0022,\u0022FirstName\u0022:\u0022Zoe\u0022,\u0022Team\u0022:\u0022Lee Valley Youth Cycling Club\u0022,\u0022License\u0022:\u00221824552\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Eastern\u0022,\u0022raceTimes\u0022:[0.0,274.33906,567.687817],\u0022interp\u0022:[0,0,0],\u0022lastTime\u0022:567.687817,\u0022lastTimeOrig\u0022:567.687817,\u0022status\u0022:\u0022Finisher\u0022},\u00222176\u0022:{\u0022LastName\u0022:\u0022Raji\u0022,\u0022FirstName\u0022:\u0022Ariella\u0022,\u0022Team\u0022:\u0022\u0022,\u0022License\u0022:\u0022TEMP_431439...\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Eastern\u0022,\u0022raceTimes\u0022:[0.0,338.879687,615.127238],\u0022interp\u0022:[0,0,0],\u0022lastTime\u0022:615.127238,\u0022lastTimeOrig\u0022:615.127238,\u0022status\u0022:\u0022Finisher\u0022},\u00222082\u0022:{\u0022LastName\u0022:\u0022Turnock\u0022,\u0022FirstName\u0022:\u0022Morven\u0022,\u0022Team\u0022:\u0022Finsbury Park CC\u0022,\u0022License\u0022:\u00221770648\u0022,\u0022UCIID\u0022:\u0022\u0022,\u0022NatCode\u0022:\u0022GBR\u0022,\u0022Gender\u0022:\u0022Women\u0022,\u0022City\u0022:\u0022\u0022,\u0022StateProv\u0022:\u0022Eastern\u0022,\u0022raceTimes\u0022:[],\u0022interp\u0022:[],\u0022lastTime\u0022:0.0,\u0022lastTimeOrig\u0022:0.0,\u0022status\u0022:\u0022NP\u0022}},\u0022has_multiple_laps\u0022:true}");
 var data = null;
 var catDetails = null;
 var raceName = null;
@@ -1818,14 +1818,16 @@ function jump( link ) { window.location = link; }
 
 <h1>
 	
-	<strong><a href="/2026/1/RaceDB/Hub/CompetitionResults/116/index.html">Round 8 - Hog Hill</a>: U8 / U10</strong>: Registered Only (no results)<br/>
+	<strong><a href="/2026/1/RaceDB/Hub/CompetitionResults/116/index.html">Round 8 - Hog Hill</a>: U8 / U10</strong><br/>
 	<span style="font-size: 70%">
 		<strong>U10F (Women) - U10</strong>&nbsp;&nbsp;Cyclocross Regional
-		&nbsp;&nbsp;<span style="font-size:75%">Generated: 08-11-2026 00:25:43</span>
+		&nbsp;&nbsp;<span style="font-size:75%">Generated: 08-11-2026 09:41:03</span>
 		<br/>
 		08-11-2026 08:20&nbsp;&nbsp;
 		Starters: 5&nbsp;&nbsp;
 		Nations: 1&nbsp;&nbsp;
+		
+			Winning Time: 10:35&nbsp;&nbsp;
 		
 		
 	</span>
@@ -1841,13 +1843,25 @@ table.participant_table tr th {
 </style>
 
 <ul class="nav nav-tabs hidden-print">
-	<li class="active"><a data-toggle="tab" href="#sectionResults">Registered</a></li>
+	<li class="active"><a data-toggle="tab" href="#sectionResults">Results</a></li>
+
+	
+		<li><a href="/2026/1/RaceDB/Hub/CategoryResults/631/0/285/EventLapTimes/631/0/285/index.html">Times</a></li>
+	
+	
+		<li><a href="/2026/1/RaceDB/Hub/CategoryResults/631/0/285/EventLapChart/631/0/285/index.html">Lap Chart</a></li>
+		<li><a href="/2026/1/RaceDB/Hub/CategoryResults/631/0/285/EventGapChart/631/0/285/index.html">Gap Chart</a></li>
+		<li><a href="/2026/1/RaceDB/Hub/CategoryResults/631/0/285/EventRaceChart/631/0/285/index.html">Race Chart</a></li>
+		<li><a data-toggle="tab" href="#sectionSituation">Situation</a></li>
+	
+	
+		<li><a data-toggle="tab" href="#histogram">Histogram</a></li>
 
 </ul>
 
 <div class="tab-content">
 	<div id="sectionResults" class="tab-pane fade in active">
-<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7112')"><td class="text-right">2059</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/7112">BENOLLI, Zoe</a></td><td>Lee Valley Youth Cycling Club</td><td>1824552</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7478')"><td class="text-right">2157</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/7478">BRINKMAN, Alana</a></td><td>Welwyn Wheelers CC</td><td>1761411</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7346')"><td class="text-right">2070</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/7346">CHILD, Matilda</a></td><td>Colchester Rovers CC</td><td>1820216</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7132')"><td class="text-right">2176</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/7132">RAJI, Ariella</a></td><td></td><td>TEMP_431439...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6818')"><td class="text-right">2082</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/6818">TURNOCK, Morven</a></td><td>Finsbury Park CC</td><td>1770648</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td></tr></tbody></table>
+<table class="table table-striped table-hover table-condensed participant_table"><thead><tr><th class="text-right">Rank</th><th class="text-right">Bib</th><th>Name</th><th>Team</th><th>License</th><th class="text-nowrap">UCI ID</th><th class="text-right">Time</th><th class="text-right">Gap</th></tr></thead><tbody><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7346')"><td class="text-right">1.</td><td class="text-right">2070</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/7346">CHILD, Matilda</a></td><td>Colchester Rovers CC</td><td>1820216</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">10:35</td><td class="text-right"></td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7478')"><td class="text-right">2.</td><td class="text-right">2157</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/7478">BRINKMAN, Alana</a></td><td>Welwyn Wheelers CC</td><td>1761411</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">11:42</td><td class="text-right">1&#x27;06&quot;</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7112')"><td class="text-right">3.</td><td class="text-right">2059</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/7112">BENOLLI, Zoe</a></td><td>Lee Valley Youth Cycling Club</td><td>1824552</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">9:27</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/7132')"><td class="text-right">4.</td><td class="text-right">2176</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/7132">RAJI, Ariella</a></td><td></td><td>TEMP_431439...</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right">10:15</td><td class="text-right">-1 lap</td></tr><tr onclick="jump('/RaceDB/Hub/LicenseHolderResults/6818')"><td class="text-right">NP</td><td class="text-right">2082</td><td><a href="/2026/1/RaceDB/Hub/LicenseHolderResults/6818">TURNOCK, Morven</a></td><td>Finsbury Park CC</td><td>1770648</td><td><img src="/static/flags/GBR.png" title="GBR - United Kingdom"/>&nbsp;</td><td class="text-right"></td><td class="text-right"></td></tr></tbody></table>
 
 	</div>
 
